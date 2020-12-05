@@ -53,11 +53,13 @@ class System_Group_Users extends Admin
                    "href" => "#"
                );
 
+
                $options['deleted'] = array(
                    "title" => lang('deleted_button'),
                    "data-attribute" => '',
                    "href" => "#"
                );
+
 
                $group_main_system =  Create_Options_Button($options);
 
@@ -131,7 +133,7 @@ class System_Group_Users extends Admin
 
         $this->data['Page_Title']  = lang('add_new_group_button');
 
-        $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL));
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
         $this->mybreadcrumb->add($this->data['Page_Title'],'#');
 
@@ -168,13 +170,13 @@ class System_Group_Users extends Admin
 
             if($Create_Group){
                 $msg_result['key']   = 'Success';
-                $msg_result['value'] = 'تم أضافة المجموعة بنجاح';
+                $msg_result['value'] = lang('message_success_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
                 redirect(ADMIN_NAMESPACE_URL.'/Group_Users' );
             }else{
                 $msg_result['key']   = 'Danger';
-                $msg_result['value'] = 'عفوا حدث خطا اثناء الاضافة تحقق من المدخلات او تواصل مع الدعم الفني';
+                $msg_result['value'] = lang('message_error_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
                 redirect(ADMIN_NAMESPACE_URL.'/Group_Users');

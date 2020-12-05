@@ -61,13 +61,21 @@ $route['translate_uri_dashes'] = FALSE;
 /*
  * Admin
  */
+
+# Dashboard
+$route[ADMIN_NAMESPACE_URL.'/Dashboard']        = 'System_Dashboard/System_Dashboard';
+
+# Language
+$route[ADMIN_NAMESPACE_URL.'/Language']        = 'System_Language/System_Language';
+$route[ADMIN_NAMESPACE_URL.'/Language/(:any)'] = 'System_Language/System_Language/$1';
+
+# Group_Users
 $route[ADMIN_NAMESPACE_URL.'/Group_Users']        = 'System_GroupUsers/System_Group_Users';
 $route[ADMIN_NAMESPACE_URL.'/Group_Users/(:any)'] = 'System_GroupUsers/System_Group_Users/$1';
 
-
-
-
+# Users
 $route[ADMIN_NAMESPACE_URL.'/Users']       = 'System_Users/System_Users';
+
 /*
  * Admin
  */

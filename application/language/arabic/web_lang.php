@@ -21,10 +21,20 @@ $lang['Status_Active']                = 'مفعل';
 $lang['Status_Disabled']              = 'معطل';
 $lang['Status_Waiting_Activation']    = 'بانتظار التفعيل';
 
+# message alert
+$lang['message_success_insert']  = 'تم الأضافة  بنجاح';
+$lang['message_success_update']  = 'تم التحديث  بنجاح';
+$lang['message_error_insert']    = 'عفوا حدث خطا اثناء الاضافة تحقق من المدخلات او تواصل مع الدعم الفني';
+$lang['message_error_update']    = 'حدث خطا اثناء التحديث يرجى المحاولة او التواصل مع الدعم الفني لمساعدتك ';
 
 # Global System
 $lang['Basic_System']     = 'اساسي بالنظام';
 
+
+/*
+ * Language
+ */
+$lang['Manage_Language']     = ' ادارة اللغات ';
 
 
 /*
