@@ -56,7 +56,7 @@
                     <tr>
                         <th class="text-center">#</th>
                         <th class="text-center">اسم اللغة</th>
-                        <th class="text-center">بالانجليزية</th>
+                        <th class="text-center">اللغة الاصلية</th>
                         <th class="text-center">الحالة</th>
                         <th class="text-center">الخيارات</th>
                     </tr>
@@ -70,7 +70,7 @@
                         <tr>
                             <td class="text-center"><?= $row['language_id'] ?></td>
                             <td class="text-center"><?= $row['languages_comments'] ?></td>
-                            <td class="text-center"><?= $row['language_name'] ?></td>
+                            <td class="text-center"><?= $row['language_native'] ?></td>
                             <td class="text-center"><?= $row['languages_status'] ?></td>
                             <td class="text-center"><?= $row['languages_system'] ?></td>
                         </tr>

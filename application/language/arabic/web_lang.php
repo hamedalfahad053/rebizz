@@ -28,8 +28,9 @@ $lang['message_error_insert']    = 'عفوا حدث خطا اثناء الاضا
 $lang['message_error_update']    = 'حدث خطا اثناء التحديث يرجى المحاولة او التواصل مع الدعم الفني لمساعدتك ';
 
 # Global System
-$lang['Basic_System']     = 'اساسي بالنظام';
-
+$lang['Status_add_System']   = 'حالة العنصر بالنظام ';
+$lang['Basic_System']        = 'اساسي بالنظام';
+$lang['Multiple_System']     = 'يمكن التعديل ';
 
 /*
  * Language
@@ -43,6 +44,7 @@ $lang['Manage_Language']     = ' ادارة اللغات ';
 $lang['List_group_user'] = 'أدارة مجموعة المستخدمين';
 $lang['add_new_group_button'] = 'إضافة مجموعة جديدة';
 $lang['type_group'] = ' نوع المجموعة';
-$lang['name_group'] = 'اسم المجموعة';
+$lang['name_group_ar'] = 'اسم المجموعة بالعربية';
+$lang['name_group_en'] = 'اسم المجموعة بالانجليزية';
 $lang['owner_group'] = 'مالك المجموعة';
 $lang['Status_group'] = 'حالة المجموعة';

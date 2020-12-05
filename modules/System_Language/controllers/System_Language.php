@@ -66,7 +66,7 @@ class System_Language extends Admin {
             $this->data['Language'][]  = array(
                 "language_id"           => $ROW->language_id,
                 "languages_comments"    => $ROW->languages_comments,
-                "language_name"         => $ROW->language_name,
+                "language_native"         => $ROW->language_native,
                 "languages_status"      => $languages_status,
                 "languages_system"      => $languages_main_system
             );
@@ -86,6 +86,13 @@ class System_Language extends Admin {
         $this->data['PageContent'] = $this->load->view('../../modules/System_Language/views/List',$this->data,true);
 
         Layout_Admin($this->data);
+
+    }
+    ###############################################################################################
+
+
+    ###############################################################################################
+    public function Change_language(){
 
     }
     ###############################################################################################

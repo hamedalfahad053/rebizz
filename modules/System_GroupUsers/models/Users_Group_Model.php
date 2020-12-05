@@ -13,7 +13,7 @@ class Users_Group_Model extends MY_Model
     function Get_Groups_System()
     {
         $this->db->from('portal_auth_groups Group');
-        $this->db->join('portal_auth_groups_translation  Groups_Translation', 'Group.group_id=Groups_Translation.group_id');
+        $this->db->join('portal_auth_groups_translation  Groups_Translation', 'Group.group_id=Groups_Translation.item_id');
         $this->db->join('portal_auth_users  Users', 'Users.id=Group.group_owner');
 
         $lang   = get_current_lang();
@@ -29,12 +29,11 @@ class Users_Group_Model extends MY_Model
     ########################################################################
 
 
-
     ########################################################################
     function Get_Groups()
     {
         $this->db->from('portal_auth_groups Group');
-        $this->db->join('portal_auth_groups_translation  Groups_Translation', 'Group.group_id=Groups_Translation.group_id');
+        $this->db->join('portal_auth_groups_translation  Groups_Translation', 'Group.group_id=Groups_Translation.item_id');
         $this->db->join('portal_auth_users  Users', 'Users.id=Group.group_owner');
 
         $lang   = get_current_lang();
@@ -47,7 +46,6 @@ class Users_Group_Model extends MY_Model
     }
     ########################################################################
 
-
     ########################################################################
     function Get_Num_User_of_Groups($group_id)
     {
@@ -59,14 +57,12 @@ class Users_Group_Model extends MY_Model
     ########################################################################
 
 
-
     ########################################################################
     function Create_Group($data)
     {
         $query = $this->db->insert('portal_auth_groups',$data);
-
         if($query){
-            return true;
+            return $this->db->insert_id();
         }else{
             return false;
         }
@@ -74,18 +70,7 @@ class Users_Group_Model extends MY_Model
     ########################################################################
 
 
-    ########################################################################
-    function Create_Translation_Group($data)
-    {
-        $query = $this->db->insert('portal_auth_groups',$data);
 
-        if($query){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    ########################################################################
 
 
 }

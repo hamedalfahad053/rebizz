@@ -65,14 +65,20 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
-                                <label><?= lang('name_group') ?></label>
-                                <input type="text" name="name_group" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                <label><?= lang('name_group_ar') ?></label>
+                                <input type="text" name="name_group_ar" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-6 mt-5">
+                                <label><?= lang('name_group_en') ?></label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('owner_group') ?> </label>
                                 <select name="owner_group"  class="form-control selectpicker" data-live-search="true">
+                                    <option></option>
                                     <?php
                                     foreach ($Users AS $RG)
                                     {
@@ -84,6 +90,7 @@
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('Status_group') ?> </label>
                                 <select name="Status_group" class="form-control selectpicker" data-live-search="true">
+                                    <option></option>
                                     <?php
                                     foreach ($options_status_group AS $key => $value)
                                     {
@@ -93,6 +100,24 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-6 mt-5">
+                                <label><?= lang('Status_add_System') ?> </label>
+                                <select name="group_main_system"  class="form-control selectpicker" data-live-search="true">
+                                    <option></option>
+                                    <?php
+                                    foreach ($options_status_system AS $key => $value)
+                                    {
+                                        echo '<option value="'.$key.'">'.$value.'</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 mt-5"></div>
+                        </div>
+
+
                     </div>
 
                     <div class="card-footer">

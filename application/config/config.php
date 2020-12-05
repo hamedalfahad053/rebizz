@@ -453,9 +453,22 @@ $config['csrf_token_name'] = '__w8ssswkkoog4c08koscsowko04ogs4wswgc8w8cs';
 $config['csrf_cookie_name'] = '__w088wggw4k0wgckwsk0cgwogko0s0c8gkg0c08kw';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array(
+    'Apps/[a-z]+'
+);
 
-
+if(isset($_SERVER["PHP_SELF"])){
+    $parts = explode("/",$_SERVER["PHP_SELF"]);
+    $exclude_url_arr = array('login');
+    if (!empty($exclude_url_arr[0])) {
+        foreach($parts as $part) {
+            if (in_array($part,$exclude_url_arr)) {
+                $config['csrf_protection'] = FALSE;
+                break;
+            }
+        }
+    }
+}
 /*
 |--------------------------------------------------------------------------
 | Output Compression

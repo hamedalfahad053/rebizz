@@ -47,12 +47,19 @@ class System_Group_Users extends Admin
                    "href" => "#"
                );
 
-               $options['active'] = array(
-                   "title" => lang('active_button'),
-                   "data-attribute" => '',
-                   "href" => "#"
-               );
-
+               if($ROW->group_status == 0) {
+                   $options['active'] = array(
+                       "title" => lang('active_button'),
+                       "data-attribute" => '',
+                       "href" => "#"
+                   );
+               }else {
+                   $options['disable'] = array(
+                       "title" => lang('disable_button'),
+                       "data-attribute" => '',
+                       "href" => "#"
+                   );
+               }
 
                $options['deleted'] = array(
                    "title" => lang('deleted_button'),
@@ -70,7 +77,7 @@ class System_Group_Users extends Admin
            $this->data['Group_Users'][]  = array(
                "Group_id"          => $ROW->group_id,
                "Group_Name"        => $ROW->name,
-               "group_translation" => $ROW->group_translation,
+               "group_translation" => $ROW->item_translation,
                "Group_owner"       => $ROW->full_name,
                "Group_Num_Users"   => $Group_Num_Users,
                "Group_status"      => $group_status,
@@ -104,16 +111,6 @@ class System_Group_Users extends Admin
     ###################################################################
     public function Form_add_Group()
     {
-        $get_all_group_user  = $this->Users_Group_Model->Get_Groups_System();
-
-        foreach ($get_all_group_user->result() AS $ROW )
-        {
-            $this->data['Group_Users'][]  = array(
-                "Group_id"          => $ROW->group_id,
-                "Group_Name"        => $ROW->name,
-                "group_translation" => $ROW->group_translation,
-            );
-        }
 
         $Get_All_Users_Active = $this->Users_Model->Get_All_Users_Active();
 
@@ -129,6 +126,11 @@ class System_Group_Users extends Admin
         $this->data['options_status_group'] = array(
             "0" => lang('Status_Active'),
             "1" => lang('Status_Disabled')
+        );
+
+        $this->data['options_status_system'] = array(
+            "0" => lang('Basic_System'),
+            "1" => lang('Multiple_System')
         );
 
         $this->data['Page_Title']  = lang('add_new_group_button');
@@ -150,36 +152,50 @@ class System_Group_Users extends Admin
     public function Create_Group()
     {
 
-        $this->form_validation->set_rules('name_group',lang('name_group'),'required');
+        $this->form_validation->set_rules('name_group_ar',lang('name_group_ar'),'required');
+        $this->form_validation->set_rules('name_group_en',lang('name_group_en'),'required');
         $this->form_validation->set_rules('owner_group',lang('owner_group'),'required');
         $this->form_validation->set_rules('Status_group',lang('Status_group'),'required');
+        $this->form_validation->set_rules('group_main_system',lang('group_main_system'),'required');
+
 
         if($this->form_validation->run()==FALSE){
-            $msg_result['key']   = 'error';
+            $msg_result['key']   = 'Danger';
             $msg_result['value'] = validation_errors();
             $msg_result_view = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
             redirect(ADMIN_NAMESPACE_URL.'/Group_Users', 'refresh');
         }else{
 
-            $data_group['name']          = $this->input->post('name_group');
+            $data_group['name']          = $this->input->post('name_group_en');
+            $data_group['definition']    = $this->input->post('name_group_ar');
             $data_group['group_owner']   = $this->input->post('owner_group');
             $data_group['group_status']  = $this->input->post('Status_group');
+            $data_group['group_main_system'] = $this->input->post('group_main_system');
+
 
             $Create_Group  = $this->Users_Group_Model->Create_Group($data_group);
 
             if($Create_Group){
+
+                $item_ar = $this->input->post('name_group_ar');
+                $item_en = $this->input->post('name_group_en');
+                insert_translation_Language_item('portal_auth_groups_translation',$Create_Group,$item_ar,$item_en);
+
                 $msg_result['key']   = 'Success';
                 $msg_result['value'] = lang('message_success_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(ADMIN_NAMESPACE_URL.'/Group_Users' );
+                redirect(ADMIN_NAMESPACE_URL.'/Group_Users' , 'refresh');
+
             }else{
+
                 $msg_result['key']   = 'Danger';
                 $msg_result['value'] = lang('message_error_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(ADMIN_NAMESPACE_URL.'/Group_Users');
+                redirect(ADMIN_NAMESPACE_URL.'/Group_Users', 'refresh');
+
             }
 
         } // if($this->form_validation->run()==FALSE)

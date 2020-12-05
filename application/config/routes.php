@@ -59,6 +59,18 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 /*
+ * Start ::Apps
+ */
+$route['Apps']= 'Apps/Apps';
+$route['Apps/(:any)'] = 'Apps/Apps/$1';
+
+/*
+ * End ::Apps
+ */
+
+
+
+/*
  * Admin
  */
 

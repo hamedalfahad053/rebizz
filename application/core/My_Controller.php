@@ -22,14 +22,27 @@ class MY_Controller extends MX_Controller  {
 
         $this->load->library('parser');
         $this->load->library('Mybreadcrumb');
+        $this->load->library('form_validation');
         $this->load->helper(['cookie']);
 
+        if(!$this->input->cookie('language')){
+            $lang = $this->config->set_item('language', 'arabic');
+            $cookie = array(
+                'name'   => 'language',
+                'value'  => 'arabic',
+                'expire' => 360*30*24*60,
+                'secure' => TRUE
+            );
+            $this->input->set_cookie($cookie);
 
-        $lang = $this->config->set_item('language', 'arabic');
-
-        set_cookie('language', $lang, (60 * 60 * 24) * 365 );
+        }else{
+            $lang = $this->input->cookie('language');
+            $lang = $this->config->set_item('language',$lang);
+        }
 
         $this->lang->load(['web', 'form_validation', 'upload', 'db',], $lang);
+
+
 
 
         if(get_current_lang()=='arabic'){

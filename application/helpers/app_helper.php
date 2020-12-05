@@ -11,6 +11,16 @@ if(!function_exists('app')) {
 }
 ###############################################################################
 
+###############################################################################
+if (!function_exists('get_setting')) {
+    function get_setting($key = "") {
+
+        return app()->config->item($key);
+    }
+}
+###############################################################################
+
+
 /*   End Tools input and output     */
 
 ###############################################################################
@@ -93,11 +103,22 @@ if(!function_exists('General_filtering_protection')) {
 /*   End Tools input and output     */
 
 
-if (!function_exists('get_current_lang'))
-{
-    function get_current_lang()
-    {
-        $ci =& get_instance();
-        return get_cookie('language') ? get_cookie('language') : $ci->config->item('language');
+
+
+
+##############################################################################
+if (!function_exists('get_real_ip')) {
+
+    function get_real_ip() {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
     }
+
 }
+##############################################################################
