@@ -19,7 +19,33 @@ class MY_Controller extends MX_Controller  {
     public function __construct()
     {
         parent::__construct();
+
         $this->load->library('parser');
+        $this->load->library('Mybreadcrumb');
+        $this->load->helper(['cookie']);
+
+
+        $lang = $this->config->set_item('language', 'arabic');
+
+        set_cookie('language', $lang, (60 * 60 * 24) * 365 );
+
+        $this->lang->load(['web', 'form_validation', 'upload', 'db',], $lang);
+
+
+        if(get_current_lang()=='arabic'){
+            $this->data['direction']   = 'rtl';
+            $this->data['dir']         = 'rtl';
+        }else{
+            $this->data['direction']   = '';
+            $this->data['dir']         = '';
+        }
+
+
+        $this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
+        $this->output->set_header("Cache-Control: private, no-store, max-age=0, no-cache, must-revalidate, post-check=0, pre-check=0");
+        $this->output->set_header("Pragma: no-cache");
+        $this->output->set_header("Access-Control-Allow-Origin: *");
+
 
         $this->data['PageContent']   = '';
         $this->data['Lode_file_Css'] = '';

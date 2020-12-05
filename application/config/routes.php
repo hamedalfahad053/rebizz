@@ -58,6 +58,16 @@ $route['404_override'] = 'not_found';
 $route['translate_uri_dashes'] = FALSE;
 
 
-$route['Group_Users'] = 'System_GroupUsers/System_Group_Users';
+/*
+ * Admin
+ */
+$route[ADMIN_NAMESPACE_URL.'/Group_Users']        = 'System_GroupUsers/System_Group_Users';
+$route[ADMIN_NAMESPACE_URL.'/Group_Users/(:any)'] = 'System_GroupUsers/System_Group_Users/$1';
 
 
+
+
+$route[ADMIN_NAMESPACE_URL.'/Users']       = 'System_Users/System_Users';
+/*
+ * Admin
+ */

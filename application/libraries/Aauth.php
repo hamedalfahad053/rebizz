@@ -718,7 +718,9 @@ class Aauth {
 		if ( $this->aauth_db->insert($this->config_vars['users'], $data )){
 			$user_id = $this->aauth_db->insert_id();
 			// set default group
-			$this->add_member($user_id, $this->config_vars['default_group']);
+            //
+            //  Hamed Hash
+			//$this->add_member($user_id, $this->config_vars['default_group']);
 
 			// if verification activated
 			if($this->config_vars['verification'] && !$this->is_admin()){
@@ -834,7 +836,7 @@ class Aauth {
 			$group_par = $this->get_group_id($group_par);
 			$this->aauth_db->select('*')
 				->from($this->config_vars['users'])
-				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".id = " . $this->config_vars['user_to_group'] . ".user_id")
+				->join($this->config_vars['user_to_group'], $this->config_vars['users'] . ".group_id = " . $this->config_vars['user_to_group'] . ".user_id")
 				->where($this->config_vars['user_to_group'] . ".group_id", $group_par);
 
 			// if group_par is not given, lists all users
@@ -1249,7 +1251,7 @@ class Aauth {
 		}
 
 
-		$this->aauth_db->where('id', $group_id);
+		$this->aauth_db->where('group_id', $group_id);
 		return $this->aauth_db->update($this->config_vars['groups'], $data);
 	}
 
@@ -1264,7 +1266,7 @@ class Aauth {
 
 		$group_id = $this->get_group_id($group_par);
 		
-		$this->aauth_db->where('id',$group_id);
+		$this->aauth_db->where('group_id',$group_id);
 		$query = $this->aauth_db->get($this->config_vars['groups']);
 		if ($query->num_rows() == 0){
 			return FALSE;
@@ -1468,7 +1470,7 @@ class Aauth {
 	 */
 	public function get_group_name($group_id) {
 
-		$query = $this->aauth_db->where('id', $group_id);
+		$query = $this->aauth_db->where('group_id', $group_id);
 		$query = $this->aauth_db->get($this->config_vars['groups']);
 
 		if ($query->num_rows() == 0)
@@ -1496,7 +1498,7 @@ class Aauth {
 			return FALSE;
 
 		$row = $query->row();
-		return $row->id;
+		return $row->group_id;
 	}
 
 	/**

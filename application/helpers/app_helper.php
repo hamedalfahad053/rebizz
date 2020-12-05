@@ -14,8 +14,8 @@ if(!function_exists('app')) {
 /*   End Tools input and output     */
 
 ###############################################################################
-if(!function_exists('_pre_dd')) {
-    function _pre_dd($array) {
+if(!function_exists('_array_p')) {
+    function _array_p($array) {
         echo '<pre>';
         print_r($array);
         echo '</pre>';
@@ -71,3 +71,13 @@ if(!function_exists('General_filtering_protection')) {
 ##############################################################################
 
 /*   End Tools input and output     */
+
+
+if (!function_exists('get_current_lang'))
+{
+    function get_current_lang()
+    {
+        $ci =& get_instance();
+        return get_cookie('language') ? get_cookie('language') : $ci->config->item('language');
+    }
+}

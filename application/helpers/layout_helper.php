@@ -33,14 +33,23 @@ if (!function_exists('Layout_Admin_Parse')) {
 
 ###############################################################################
 if (!function_exists('import_css')) {
-    function import_css($path) {
+    function import_css($path,$direction_Layout) {
+
+
         $builder_code = '';
+
+        if($direction_Layout=='rtl'){
+            $rtl = '.rtl.css';
+        }else{
+            $rtl ='.css';
+        }
+
         if(is_array($path)) {
             foreach ($path as $key => $value) {
-                $builder_code .= '<link href='.$path.'" rel="stylesheet" type="text/css" />';
+                $builder_code .= '<link href='.$value.$rtl.'" rel="stylesheet" type="text/css" />';
             }
         }else{
-            $builder_code = '<link href="' . $path. '" rel="stylesheet" type="text/css" />';
+            $builder_code = '<link href="' . $path.$rtl. '" rel="stylesheet" type="text/css" />';
         }
         return $builder_code;
     }
@@ -49,14 +58,22 @@ if (!function_exists('import_css')) {
 
 ###############################################################################
 if (!function_exists('import_js')) {
-    function import_js($path) {
+    function import_js($path,$direction_Layout) {
+
         $builder_code = '';
+
+        if($direction_Layout=='rtl'){
+            $rtl = '.rtl.js';
+        }else{
+            $rtl ='.js';
+        }
+
         if(is_array($path)) {
-            foreach ($js AS $key => $value){
-                $builder_code .='<script src="'.$path.'"  type="text/javascript"></script>';
+            foreach ($path AS $key => $value){
+                $builder_code .='<script src="'.$value.$rtl.'"  type="text/javascript"></script>';
             }
         }else{
-            $builder_code ='<script src="'.$path.'"  type="text/javascript"></script>';
+            $builder_code ='<script src="'.$path.$rtl.'"  type="text/javascript"></script>';
         }
         return $builder_code;
     }
@@ -77,7 +94,7 @@ if(!function_exists('assets_layout_css')) {
         }
 
         $assets = array();
-        $assets[] = 'plugins/global/plugins.bundle.css';
+        $assets[] = 'plugins/global/plugins.bundle'.$rtl.'.css';
         $assets[] = 'plugins/custom/prismjs/prismjs.bundle.css';
         $assets[] = 'css/style.bundle'.$rtl.'.css';
         $assets[] = 'css/themes/layout/header/base/light'.$rtl.'.css';

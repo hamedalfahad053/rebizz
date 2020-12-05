@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 
-<html lang="en" dir="rtl" direction="rtl">
+<html lang="en" dir="<?= $dir ?>" direction="<?= $direction ?>">
 
 <!--begin::Head-->
 <head>
     <meta charset="utf-8" />
-    <title>Empty Page</title>
+    <title><?= $Page_Title ?></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!--begin::Layout Themes-->
     <?= assets_layout_css('rtl') ?>
     <?= $Lode_file_Css ?>
     <!--end::Layout Themes-->
+
+    <!--begin::Global Theme Bundle(used by all pages)-->
+    <?= assets_layout_js('rtl') ?>
+    <?= $Lode_file_Js ?>
+    <!--end::Page Scripts-->
+
 </head>
 <!--end::Head-->
-
-
-
 
 <!--begin::Body-->
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 <!--begin::Main-->
 
-
-
 <!--begin::Header Mobile-->
 <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
     <!--begin::Logo-->
     <a href="#">
-        <img alt="Logo" src="assets/media/logos/logo-light.png" />
+        <img alt="Logo" src="<?= BASE_ASSET.'media/logos/logo-light.png' ?>" />
     </a>
     <!--end::Logo-->
     <!--begin::Toolbar-->
@@ -62,8 +65,6 @@
 </div>
 <!--end::Header Mobile-->
 
-
-
 <div class="d-flex flex-column flex-root">
     <!--begin::Page-->
     <div class="d-flex flex-row flex-column-fluid page">
@@ -78,7 +79,7 @@
             <div class="brand flex-column-auto" id="kt_brand">
                 <!--begin::Logo-->
                 <a href="index.html" class="brand-logo">
-                    <img alt="Logo" src="assets/media/logos/logo-light.png" />
+                    <img alt="Logo" src="<?= BASE_ASSET.'media/logos/logo-light.png' ?>" />
                 </a>
                 <!--end::Logo-->
                 <!--begin::Toggle-->
@@ -151,56 +152,11 @@
             <?= $this->load->view('../../modules/Layout/Widgets/Header'); ?>
             <!--end::Header-->
 
-
             <!--begin::Content-->
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-
-
-                <!--begin::Subheader-->
-                <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-                    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                        <!--begin::Info-->
-                        <div class="d-flex align-items-center flex-wrap mr-1">
-                            <!--begin::Page Heading-->
-                            <div class="d-flex align-items-baseline flex-wrap mr-5">
-                                <!--begin::Page Title-->
-                                <h5 class="text-dark font-weight-bold my-1 mr-5">عنوان الصفحة</h5>
-                                <!--end::Page Title-->
-                                <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                                    <li class="breadcrumb-item">
-                                        <a href="" class="text-muted">General</a>
-                                    </li>
-                                </ul>
-                                <!--end::Breadcrumb-->
-                            </div>
-                            <!--end::Page Heading-->
-                        </div>
-                        <!--end::Info-->
-                        <!--begin::Toolbar-->
-                        <div class="d-flex align-items-center">
-
-                        </div>
-                        <!--end::Toolbar-->
-                    </div>
-                </div>
-                <!--end::Subheader-->
-
-
-                <!--begin::Entry-->
-                <div class="d-flex flex-column-fluid">
-                    <!--begin::Container-->
-                    <div class="container">
-                        <?= $PageContent ?>
-                    </div>
-                    <!--end::Container-->
-                </div>
-                <!--end::Entry-->
-
-
+                <?= $PageContent ?>
             </div>
             <!--end::Content-->
-
 
             <!--begin::Footer-->
             <?= $this->load->view('../../modules/Layout/Widgets/Footer'); ?>
@@ -225,9 +181,6 @@
 <?= $this->load->view('../../modules/Layout/Widgets/QuickPanel'); ?>
 <!--end::Quick Panel-->
 
-
-
-
 <!--begin::Scrolltop-->
 <div id="kt_scrolltop" class="scrolltop">
 			<span class="svg-icon">
@@ -244,9 +197,6 @@
 </div>
 <!--end::Scrolltop-->
 
-
-
-
 <!--begin::Sticky Toolbar-->
 <ul class="sticky-toolbar nav flex-column pl-2 pr-2 pt-3 pb-3 mt-4">
     <!--begin::Item-->
@@ -259,22 +209,11 @@
 </ul>
 <!--end::Sticky Toolbar-->
 
-
-
-
 <!--begin::Global Config(global config for global JS scripts)-->
 <script  type="text/javascript">var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#3699FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };</script>
 <!--end::Global Config-->
 
 
-<!--begin::Global Theme Bundle(used by all pages)-->
-<?= assets_layout_js('rtl') ?>
-<!--end::Global Theme Bundle-->
-
-
-<!--begin::Page Scripts(used by this page)-->
-<?= $Lode_file_Js ?>
-<!--end::Page Scripts-->
 
 </body>
 <!--end::Body-->
