@@ -164,7 +164,6 @@ class System_Group_Users extends Admin
             $data_group['group_owner']   = $this->input->post('owner_group');
             $data_group['group_status']  = $this->input->post('Status_group');
 
-
             $Create_Group  = $this->Users_Group_Model->Create_Group($data_group);
 
             if($Create_Group){
@@ -172,15 +171,14 @@ class System_Group_Users extends Admin
                 $msg_result['value'] = 'تم أضافة المجموعة بنجاح';
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(ADMIN_NAMESPACE_URL.'/Group_Users', 'refresh');
+                redirect(ADMIN_NAMESPACE_URL.'/Group_Users' );
             }else{
                 $msg_result['key']   = 'Danger';
                 $msg_result['value'] = 'عفوا حدث خطا اثناء الاضافة تحقق من المدخلات او تواصل مع الدعم الفني';
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(ADMIN_NAMESPACE_URL.'/Group_Users', 'refresh');
+                redirect(ADMIN_NAMESPACE_URL.'/Group_Users');
             }
-
 
         } // if($this->form_validation->run()==FALSE)
 

@@ -48,6 +48,9 @@
             </div>
             <div class="card-body">
 
+
+                <?php echo  $this->session->flashdata('message'); ?>
+
                 <style>th.dt-center,.dt-center { text-align: center; }</style>
                 <table class="data_table table table-bordered table-hover display nowrap" width="100%">
                     <thead>

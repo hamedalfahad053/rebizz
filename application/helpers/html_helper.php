@@ -122,8 +122,7 @@ if(!function_exists('Create_Status_Alert')) {
 #####################################################################################
 if(!function_exists('set_message')) {
     function set_message($message) {
-        $ci =& get_instance();
-        $ci->session->set_flashdata('message', $message);
+      return  app()->session->set_flashdata('message', $message);
     }
 }
 #####################################################################################

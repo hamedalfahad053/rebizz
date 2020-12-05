@@ -58,6 +58,26 @@ if(!function_exists('isset_string_value')) {
 ##############################################################################
 
 ##############################################################################
+if(!function_exists('CSFT_Form')) {
+
+    function CSFT_Form(){
+
+        $data = '';
+
+        $csrf = array(
+            'name' => app()->security->get_csrf_token_name(),
+            'hash' => app()->security->get_csrf_hash()
+        );
+
+        $data = '<input type="hidden" name="'.$csrf['name'].'" value="'.$csrf['hash'].'" />';
+
+        return $data;
+    }
+}
+##############################################################################
+
+
+##############################################################################
 if(!function_exists('General_filtering_protection')) {
 
     function General_filtering_protection($data){

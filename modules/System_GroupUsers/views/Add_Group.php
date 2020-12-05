@@ -60,12 +60,13 @@
             </div>
             <div class="card-body">
 
-                <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Create_Group') ?>" method="post">
+                <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Group_Users/Create_Group') ?>" method="post">
+                    <?= CSFT_Form() ?>
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('name_group') ?></label>
-                                <input type="name_group" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                <input type="text" name="name_group" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                         </div>
                         <div class="form-group row">

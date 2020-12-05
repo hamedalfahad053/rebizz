@@ -19,6 +19,7 @@ class Users_Group_Model extends MY_Model
         $lang   = get_current_lang();
 
         $this->db->where_in('Group.group_id',array(1,2));
+
         $this->db->where('Groups_Translation.translation_lang',$lang);
 
         $query = $this->db->get();
@@ -72,6 +73,19 @@ class Users_Group_Model extends MY_Model
     }
     ########################################################################
 
+
+    ########################################################################
+    function Create_Translation_Group($data)
+    {
+        $query = $this->db->insert('portal_auth_groups',$data);
+
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    ########################################################################
 
 
 }
