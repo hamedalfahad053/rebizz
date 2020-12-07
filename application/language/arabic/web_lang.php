@@ -16,7 +16,49 @@ $lang['disable_button']    = 'تعطيل';
 $lang['deleted_button']    = 'حذف';
 
 
-$lang['email'] = 'البريد الالكتروني ';
+$lang['Global_email']                 = 'البريد الالكتروني ';
+$lang['Global_Country']               = 'الدولة';
+$lang['Global_Region_province']       = 'المنطقة / المحافظة';
+$lang['Global_City']                  = ' المدينة ';
+$lang['Global_District']              = 'الحي';
+$lang['Global_street']                = 'الشارع';
+$lang['Global_building_number']       = 'رقم المبنى';
+$lang['Global_Location_on_Google']    = 'الموقع على قوقل';
+
+$lang['Global_Nationality']           =  'الجنسية';
+$lang['Global_Identification_Number'] = 'رقم الهوية';
+$lang['Global_Issued_Date']           = 'تاريخ الاصدار';
+$lang['Global_Expiry_Date']           = 'تاريخ الانتهاء';
+$lang['Global_Registration_Date']     = 'تاريخ التسجيل';
+$lang['Global_Issued_by']             = 'صادر من ';
+
+
+$lang['Global_Mobile']                = ' الجوال';
+$lang['Global_telephone']             = 'هاتف';
+$lang['Global_address']               = 'عنوان';
+
+$lang['Global_website']               = 'الموقع الالكتروني';
+$lang['Global_postbox']               = 'صندوق البريد';
+$lang['Global_Postal_code']           = 'الرمز البريدي';
+
+
+
+
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+$lang['Global_']                 = '';
+
 
 #  Global Table
 $lang['Table_Status']    = 'الحالة';
@@ -78,3 +120,21 @@ $lang['companies_Owner_information']   = 'المالك';
 $lang['companies_Contact_information'] = 'بيانات الاتصال';
 $lang['companies_address_information'] = 'العنوان';
 $lang['companies_documents_information'] = 'المسندات و المرفقات';
+
+/*
+ *   Company Info Registration
+ */
+$lang['companies_Category']   = 'الفئة';
+$lang['companies_Trade_Name'] = 'الاسم التجاري';
+$lang['companies_Commercial_Registration_No'] = 'رقم السجل التجاري';
+$lang['companies_Unified_record_number'] = 'الرقم الموحد للسجل';
+$lang['companies_commercial_activities'] = 'النشاط التجاري';
+$lang['companies_'] = '';
+$lang['companies_'] = '';
+$lang['companies_'] = '';
+$lang['companies_'] = '';
+$lang['companies_'] = '';
+$lang['companies_'] = '';
+$lang['companies_'] = '';
+$lang['companies_'] = '';
+$lang['companies_'] = '';

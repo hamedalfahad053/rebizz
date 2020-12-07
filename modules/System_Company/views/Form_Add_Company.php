@@ -49,39 +49,45 @@
 
                             <div class="form-group row">
                                 <div class="col-lg-4 mt-5">
-                                    <label>الفئة</label>
-
+                                    <label><?= lang('companies_Category') ?></label>
+                                    <select name="owner_group"  class="form-control selectpicker" data-live-search="true">
+                                        <option></option>
+                                    </select>
                                 </div>
                                 <div class="col-lg-4 mt-5">
-                                    <label>الاسم التجاري</label>
+                                    <label><?= lang('companies_Trade_Name') ?></label>
                                     <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                                 </div>
                                 <div class="col-lg-4 mt-5">
-                                    <label>رقم السجل التجاري</label>
+                                    <label><?= lang('companies_Commercial_Registration_No') ?></label>
                                     <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                                 </div>
                                 <div class="col-lg-4 mt-5">
-                                    <label>الرقم الموحد للسجل</label>
+                                    <label><?= lang('companies_Unified_record_number') ?></label>
                                     <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                                 </div>
                                 <div class="col-lg-4 mt-5">
-                                    <label>تاريخ التسجيل</label>
+                                    <label><?= lang('Global_Registration_Date') ?></label>
                                     <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                                 </div>
                                 <div class="col-lg-4 mt-5">
-                                    <label> الدولة </label>
+                                    <label><?= lang('Global_Expiry_Date') ?></label>
                                     <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                                 </div>
                                 <div class="col-lg-4 mt-5">
-                                    <label>المنطقة / المحافظة</label>
+                                    <label><?= lang('Global_Country') ?></label>
                                     <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                                 </div>
                                 <div class="col-lg-4 mt-5">
-                                    <label>المدينة </label>
+                                    <label><?= lang('Global_Region_province') ?></label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label><?= lang('Global_City') ?></label>
                                     <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                                 </div>
                                 <div class="col-lg-12 mt-5">
-                                    <label>النشاط التجاري </label>
+                                    <label><?= lang('companies_commercial_activities') ?></label>
                                     <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                                 </div>
                             </div>
@@ -121,10 +127,6 @@
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
 
-                            <div class="col-lg-4 mt-5">
-                                <label>رقم الهوية  </label>
-                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
-                            </div>
                             <div class="col-lg-4 mt-5">
                                 <label>تاريخ الاصدار </label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
@@ -273,8 +275,6 @@
                 </div>
                 <div class="card-body">
                     <div class="card-body">
-
-
 
 
                     </div>
