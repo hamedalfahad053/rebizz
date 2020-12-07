@@ -25,16 +25,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] =  BASE_URL;
 
-/*
-|--------------------------------------------------------------------------
-| Index File
-|--------------------------------------------------------------------------
-|
-| Typically this will be your index.php file, unless you've renamed it to
-| something else. If you are using mod_rewrite to remove the page set this
-| variable so that it is blank.
-|
-*/
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Index File
+    |--------------------------------------------------------------------------
+    |
+    | Typically this will be your index.php file, unless you've renamed it to
+    | something else. If you are using mod_rewrite to remove the page set this
+    | variable so that it is blank.
+    |
+    */
 $config['index_page'] = '';
 
 /*
@@ -454,21 +457,22 @@ $config['csrf_cookie_name'] = '__w088wggw4k0wgckwsk0cgwogko0s0c8gkg0c08kw';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
 $config['csrf_exclude_uris'] = array(
-    'Apps/[a-z]+'
+    'Site/[a-z]+',
+    'Migrate_DB/[a-z]+'
 );
 
-if(isset($_SERVER["PHP_SELF"])){
-    $parts = explode("/",$_SERVER["PHP_SELF"]);
-    $exclude_url_arr = array('login');
-    if (!empty($exclude_url_arr[0])) {
-        foreach($parts as $part) {
-            if (in_array($part,$exclude_url_arr)) {
-                $config['csrf_protection'] = FALSE;
-                break;
-            }
-        }
-    }
-}
+//if(isset($_SERVER["PHP_SELF"])){
+//    $parts = explode("/",$_SERVER["PHP_SELF"]);
+//    $exclude_url_arr = array('login');
+//    if (!empty($exclude_url_arr[0])) {
+//        foreach($parts as $part) {
+//            if (in_array($part,$exclude_url_arr)) {
+//                $config['csrf_protection'] = FALSE;
+//                break;
+//            }
+//        }
+//    }
+//}
 /*
 |--------------------------------------------------------------------------
 | Output Compression

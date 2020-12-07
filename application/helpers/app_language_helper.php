@@ -44,12 +44,13 @@ if (!function_exists('dropdown_menu_Language'))
 if (!function_exists('flag_Language')) {
     function flag_Language()
     {
-        $lang = get_current_lang();
+        $lang = app()->input->cookie('language');
+        app()->load->database();
+
         $query_list_language = app()->db->where('language_name',$lang);
         $query_list_language = app()->db->get('protal_list_language')->row();
 
         $html = '<img class="h-20px w-20px rounded-sm" src="'.BASE_ASSET.'media/svg/flags/'.$query_list_language->language_icon.''.'" alt="" />';
-
 
         return $html;
     }
@@ -65,6 +66,7 @@ if(!function_exists('insert_translation_Language_item')) {
         app()->load->database();
 
         // insert all lang without arabic
+
         $query_list_language = app()->db->where_not_in('language_name','arabic');
         $query_list_language = app()->db->get('protal_list_language');
 
@@ -75,8 +77,10 @@ if(!function_exists('insert_translation_Language_item')) {
                 "item_translation" => $item_en,
                 "translation_lang" => $RL->language_name,
             );
-            app()->db->insert($table,$data);
+
         } // foreach ($query_list_language AS $RL)
+
+        app()->db->insert_batch($table,$data);
 
         // insert arabic
         $data_ar  = array(
@@ -85,6 +89,7 @@ if(!function_exists('insert_translation_Language_item')) {
             "translation_lang" => 'arabic',
         );
         app()->db->insert($table,$data_ar);
+
 
     } // function insert_translation_Language_item($table,$item_id,$item_ar,$item_en)
 

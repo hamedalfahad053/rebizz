@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class System_Dashboard extends Admin
+class System_Fields extends Admin
 {
     ###################################################################
     public function __construct()

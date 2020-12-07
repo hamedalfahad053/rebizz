@@ -16,6 +16,13 @@ $lang['disable_button']    = 'تعطيل';
 $lang['deleted_button']    = 'حذف';
 
 
+$lang['email'] = 'البريد الالكتروني ';
+
+#  Global Table
+$lang['Table_Status']    = 'الحالة';
+$lang['Table_Options']    = 'الخيارات';
+
+
 # Global Status
 $lang['Status_Active']                = 'مفعل';
 $lang['Status_Disabled']              = 'معطل';
@@ -39,6 +46,17 @@ $lang['Manage_Language']     = ' ادارة اللغات ';
 
 
 /*
+ *   Users
+ */
+$lang['List_user']              = 'أدارة  المستخدمين';
+$lang['add_new_user_button']    = 'إضافة مستخدم ';
+$lang['user_full_name_ar']      = ' اسم المستخدم باللغة العربية ';
+$lang['user_full_name_en']      = ' اسم المستخدم باللغة الانجليزية';
+$lang['user_group']             = 'المجموعة ';
+
+
+
+/*
  * Group Users
  */
 $lang['List_group_user'] = 'أدارة مجموعة المستخدمين';
@@ -48,3 +66,13 @@ $lang['name_group_ar'] = 'اسم المجموعة بالعربية';
 $lang['name_group_en'] = 'اسم المجموعة بالانجليزية';
 $lang['owner_group'] = 'مالك المجموعة';
 $lang['Status_group'] = 'حالة المجموعة';
+
+/*
+ *   Company
+ */
+$lang['Management_companies_offices'] = 'أدارة الشركات و المكاتب ';
+$lang['Management_Add_companies_offices'] = 'اضافة الشركات و المكاتب';
+
+$lang['basic_information'] = 'البيانات الاساسية';
+
+

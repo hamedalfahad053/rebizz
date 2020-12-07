@@ -1,15 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class System_Dashboard extends Admin
+class Site extends Front
 {
     ###################################################################
     public function __construct()
     {
         parent::__construct();
-
-
-        $this->data['controller_name'] = lang('Dashboard');
     }
     ###################################################################
 
@@ -17,10 +14,18 @@ class System_Dashboard extends Admin
     public function index()
     {
 
-        $this->data['Page_Title']  = lang('Dashboard');
-        Layout_Admin($this->data);
     }
     ###################################################################
+
+    ###############################################################################################
+    public function Change_language()
+    {
+        $lang_new = $this->uri->segment(3);
+
+        echo $lang_new;
+
+    }
+    ###############################################################################################
 
 
 

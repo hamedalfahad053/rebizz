@@ -14,7 +14,6 @@ if(!function_exists('app')) {
 ###############################################################################
 if (!function_exists('get_setting')) {
     function get_setting($key = "") {
-
         return app()->config->item($key);
     }
 }
@@ -78,9 +77,7 @@ if(!function_exists('CSFT_Form')) {
             'name' => app()->security->get_csrf_token_name(),
             'hash' => app()->security->get_csrf_hash()
         );
-
         $data = '<input type="hidden" name="'.$csrf['name'].'" value="'.$csrf['hash'].'" />';
-
         return $data;
     }
 }
@@ -99,10 +96,7 @@ if(!function_exists('General_filtering_protection')) {
     }
 }
 ##############################################################################
-
 /*   End Tools input and output     */
-
-
 
 
 

@@ -58,24 +58,32 @@ $route['404_override'] = 'not_found';
 $route['translate_uri_dashes'] = FALSE;
 
 
-/*
- * Start ::Apps
- */
-$route['Apps']= 'Apps/Apps';
-$route['Apps/(:any)'] = 'Apps/Apps/$1';
 
-/*
- * End ::Apps
- */
+/* ################################################################################
+ * Site
+*/ ################################################################################
+$route['Site']= 'Site/Site';
+$route['Site/(:any)'] = 'Site/Site/$1';
+
+/* ################################################################################
+ * Site
+*/ ################################################################################
 
 
 
-/*
+
+
+
+/* ################################################################################
  * Admin
- */
+*/ ################################################################################
 
 # Dashboard
 $route[ADMIN_NAMESPACE_URL.'/Dashboard']        = 'System_Dashboard/System_Dashboard';
+
+# System Fields
+$route[ADMIN_NAMESPACE_URL.'/System_Fields']        = 'System_Fields/System_Fields';
+$route[ADMIN_NAMESPACE_URL.'/System_Fields/(:any)'] = 'System_Fields/System_Fields/$1';
 
 # Language
 $route[ADMIN_NAMESPACE_URL.'/Language']        = 'System_Language/System_Language';
@@ -86,8 +94,23 @@ $route[ADMIN_NAMESPACE_URL.'/Group_Users']        = 'System_GroupUsers/System_Gr
 $route[ADMIN_NAMESPACE_URL.'/Group_Users/(:any)'] = 'System_GroupUsers/System_Group_Users/$1';
 
 # Users
-$route[ADMIN_NAMESPACE_URL.'/Users']       = 'System_Users/System_Users';
+$route[ADMIN_NAMESPACE_URL.'/Users']              = 'System_Users/System_Users';
+$route[ADMIN_NAMESPACE_URL.'/Users/(:any)']       = 'System_Users/System_Users/$1';
 
-/*
+# Company
+$route[ADMIN_NAMESPACE_URL.'/Company']              = 'System_Company/System_Company';
+$route[ADMIN_NAMESPACE_URL.'/Company/(:any)']       = 'System_Company/System_Company/$1';
+
+/* ################################################################################
  * Admin
- */
+*/ ################################################################################
+
+
+/* ################################################################################
+ * Apps
+*/ ################################################################################
+
+
+/* ################################################################################
+ * Site
+*/ ################################################################################
