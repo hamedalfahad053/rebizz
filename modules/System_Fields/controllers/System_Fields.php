@@ -22,6 +22,19 @@ class System_Fields extends Admin
     }
     ###################################################################
 
+    ###################################################################
+    public function Form_add_Fields()
+    {
 
+        $this->data['Page_Title'] = lang('add_new_user_button');
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['PageContent'] = $this->load->view('../../modules/System_Fields/views/Form_add_Fields',$this->data,true);
+
+        Layout_Admin($this->data);
+
+    }
+    ###################################################################
 
 }

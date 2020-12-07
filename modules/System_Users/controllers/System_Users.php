@@ -8,7 +8,7 @@ class System_Users extends Admin
     {
         parent::__construct();
 
-        $this->load->model('Users_Model');
+        $this->load->model('SystemForms_Model');
 
         $this->data['controller_name'] = lang('List_user');
     }

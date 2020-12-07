@@ -73,6 +73,8 @@ $lang['Status_group'] = 'حالة المجموعة';
 $lang['Management_companies_offices'] = 'أدارة الشركات و المكاتب ';
 $lang['Management_Add_companies_offices'] = 'اضافة الشركات و المكاتب';
 
-$lang['basic_information'] = 'البيانات الاساسية';
-
-
+$lang['companies_Commercial_registry']   = 'البيانات الاساسية';
+$lang['companies_Owner_information']   = 'المالك';
+$lang['companies_Contact_information'] = 'بيانات الاتصال';
+$lang['companies_address_information'] = 'العنوان';
+$lang['companies_documents_information'] = 'المسندات و المرفقات';

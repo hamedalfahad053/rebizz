@@ -82,12 +82,12 @@ $route['Site/(:any)'] = 'Site/Site/$1';
 $route[ADMIN_NAMESPACE_URL.'/Dashboard']        = 'System_Dashboard/System_Dashboard';
 
 # System Fields
-$route[ADMIN_NAMESPACE_URL.'/System_Fields']        = 'System_Fields/System_Fields';
-$route[ADMIN_NAMESPACE_URL.'/System_Fields/(:any)'] = 'System_Fields/System_Fields/$1';
+$route[ADMIN_NAMESPACE_URL.'/Fields']           = 'System_Fields/System_Fields';
+$route[ADMIN_NAMESPACE_URL.'/Fields/(:any)']    = 'System_Fields/System_Fields/$1';
 
 # Language
-$route[ADMIN_NAMESPACE_URL.'/Language']        = 'System_Language/System_Language';
-$route[ADMIN_NAMESPACE_URL.'/Language/(:any)'] = 'System_Language/System_Language/$1';
+$route[ADMIN_NAMESPACE_URL.'/Language']         = 'System_Language/System_Language';
+$route[ADMIN_NAMESPACE_URL.'/Language/(:any)']  = 'System_Language/System_Language/$1';
 
 # Group_Users
 $route[ADMIN_NAMESPACE_URL.'/Group_Users']        = 'System_GroupUsers/System_Group_Users';

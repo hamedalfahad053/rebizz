@@ -40,17 +40,15 @@ class System_Company extends Admin
 
         $this->data['Page_Title']  = lang('Management_Add_companies_offices');
 
-
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
         $this->mybreadcrumb->add($this->data['Page_Title'],'#');
 
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
 
-        $this->data['PageContent'] = $this->load->view('../../modules/System_Company/views/Add_Group',$this->data,true);
+        $this->data['PageContent'] = $this->load->view('../../modules/System_Company/views/Form_Add_Company',$this->data,true);
 
         Layout_Admin($this->data);
-
 
     }
     ###################################################################
@@ -60,5 +58,6 @@ class System_Company extends Admin
     {
 
     }
+    ###################################################################
 
 }

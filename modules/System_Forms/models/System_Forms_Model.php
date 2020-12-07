@@ -1,5 +1,5 @@
 <?php
-class Users_Model extends MY_Model
+class System_Forms_Model extends MY_Model
 {
 
     ########################################################################
@@ -25,27 +25,6 @@ class Users_Model extends MY_Model
         return $query;
     }
     ########################################################################
-
-
-    ########################################################################
-    function Get_All_Users_Active()
-    {
-        $this->db->from('portal_auth_users  Users');
-        $this->db->join('portal_auth_user_to_group Groups_Users', 'Users.id=Groups_Users.user_id');
-        $this->db->join('portal_auth_groups_translation  Groups_Translation', 'Groups_Users.group_id=Groups_Translation.item_id');
-
-        $this->db->where('Users.banned',0);
-
-        $lang   = get_current_lang();
-        $this->db->where('Groups_Translation.translation_lang',$lang);
-
-        $query = $this->db->get();
-
-        return $query;
-    }
-    ########################################################################
-
-
 
 
 

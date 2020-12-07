@@ -39,7 +39,7 @@
                                 <span class="card-icon">
                                     <i class="flaticon-squares text-primary"></i>
                                 </span>
-                        <h3 class="card-label"><?= lang('basic_information') ?></h3>
+                        <h3 class="card-label"><?= lang('companies_Commercial_registry') ?></h3>
                     </div>
                     <div class="card-toolbar">
                     </div>
@@ -47,11 +47,239 @@
                 <div class="card-body">
                         <div class="card-body">
 
+                            <div class="form-group row">
+                                <div class="col-lg-4 mt-5">
+                                    <label>الفئة</label>
+
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label>الاسم التجاري</label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label>رقم السجل التجاري</label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label>الرقم الموحد للسجل</label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label>تاريخ التسجيل</label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label> الدولة </label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label>المنطقة / المحافظة</label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label>المدينة </label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                                <div class="col-lg-12 mt-5">
+                                    <label>النشاط التجاري </label>
+                                    <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                                </div>
+                            </div>
+
 
                         </div>
                 </div>
             </div>
 
+
+
+            <div class="card card-custom mt-10">
+                <div class="card-header">
+                    <div class="card-title">
+                                <span class="card-icon">
+                                    <i class="flaticon-squares text-primary"></i>
+                                </span>
+                        <h3 class="card-label"><?= lang('companies_Owner_information') ?></h3>
+                    </div>
+                    <div class="card-toolbar">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 mt-5">
+                                <label>اسم المالك </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>الجنسية </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>رقم الهوية </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+
+                            <div class="col-lg-4 mt-5">
+                                <label>رقم الهوية  </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>تاريخ الاصدار </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>تاريخ الانتهاء </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>صادرة من  </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+
+                            <div class="col-lg-4 mt-5">
+                                <label>رقم الجوال </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>رقم الهاتف </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-12 mt-5">
+                                <label>العنوان </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-custom mt-10">
+                <div class="card-header">
+                    <div class="card-title">
+                                <span class="card-icon">
+                                    <i class="flaticon-squares text-primary"></i>
+                                </span>
+                        <h3 class="card-label"><?= lang('companies_Contact_information') ?></h3>
+                    </div>
+                    <div class="card-toolbar">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 mt-5">
+                                <label>رقم الهاتف </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>رقم جوال </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>البريد الالكتروني </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>الموقع الالكتروني </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>صندوق البريد </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>الرمز البريدي </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-custom mt-10">
+                <div class="card-header">
+                    <div class="card-title">
+                                <span class="card-icon">
+                                    <i class="flaticon-squares text-primary"></i>
+                                </span>
+                        <h3 class="card-label"><?= lang('companies_address_information') ?></h3>
+                    </div>
+                    <div class="card-toolbar">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <div class="col-lg-4 mt-5">
+                                <label>الدولة </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label> المنطقة </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>المدينة </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>الحي </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>الشارع </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label>رقم المبنى </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+
+                            <div class="col-lg-12 mt-5">
+                                <label>تفاصيل اخرى  </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+
+                            <div class="col-lg-12 mt-5">
+                                <label> الموقع على قوقل   </label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card card-custom mt-10">
+                <div class="card-header">
+                    <div class="card-title">
+                                <span class="card-icon">
+                                    <i class="flaticon-squares text-primary"></i>
+                                </span>
+                        <h3 class="card-label"><?= lang('companies_documents_information') ?></h3>
+                    </div>
+                    <div class="card-toolbar">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-body">
+
+
+
+
+                    </div>
+                </div>
+            </div>
 
 
         </form>
