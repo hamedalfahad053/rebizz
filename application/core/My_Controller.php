@@ -25,7 +25,9 @@ class MY_Controller extends MX_Controller  {
         $this->load->library('form_validation');
         $this->load->helper(['cookie']);
 
-        if(!$this->input->cookie('language')){
+
+
+        //if(!$this->input->cookie('language')){
             $lang = $this->config->set_item('language', 'arabic');
             $cookie = array(
                 'name'   => 'language',
@@ -35,10 +37,11 @@ class MY_Controller extends MX_Controller  {
             );
             $this->input->set_cookie($cookie);
 
-        }else{
-            $lang = $this->input->cookie('language');
-            $lang = $this->config->set_item('language',$lang);
-        }
+//        }else{
+//            $lang = $this->input->cookie('language');
+//            $lang = $this->config->set_item('language',$lang);
+//        }
+
 
         $this->lang->load(['web', 'form_validation', 'upload', 'db',], $lang);
 

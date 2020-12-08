@@ -16,14 +16,18 @@ $lang['disable_button']    = 'تعطيل';
 $lang['deleted_button']    = 'حذف';
 
 
+
+
 $lang['Global_email']                 = 'البريد الالكتروني ';
 $lang['Global_Country']               = 'الدولة';
 $lang['Global_Region_province']       = 'المنطقة / المحافظة';
 $lang['Global_City']                  = ' المدينة ';
 $lang['Global_District']              = 'الحي';
 $lang['Global_street']                = 'الشارع';
+
+
 $lang['Global_building_number']       = 'رقم المبنى';
-$lang['Global_Location_on_Google']    = 'الموقع على قوقل';
+
 
 $lang['Global_Nationality']           =  'الجنسية';
 $lang['Global_Identification_Number'] = 'رقم الهوية';
@@ -42,6 +46,7 @@ $lang['Global_postbox']               = 'صندوق البريد';
 $lang['Global_Postal_code']           = 'الرمز البريدي';
 
 
+$lang['Global_details']                 = 'تفاصيل';
 
 
 $lang['Global_']                 = '';
@@ -57,7 +62,9 @@ $lang['Global_']                 = '';
 $lang['Global_']                 = '';
 $lang['Global_']                 = '';
 $lang['Global_']                 = '';
-$lang['Global_']                 = '';
+
+# Google Map
+$lang['Google_Location_on_Google']    = 'الموقع على قوقل';
 
 
 #  Global Table
@@ -97,6 +104,19 @@ $lang['user_full_name_en']      = ' اسم المستخدم باللغة الا�
 $lang['user_group']             = 'المجموعة ';
 
 
+/*
+ *   System_Fields
+ */
+$lang['Management_Type_Fields']      = 'ادارة انواع الحقول';
+
+
+$lang['Management_Fields']      = 'ادارة الحقول';
+$lang['Add_New_Fields_button']  = 'إضافة حقل  جديد';
+$lang['Type_Fields']  = 'نوع الحقل';
+
+
+
+
 
 /*
  * Group Users
@@ -129,7 +149,7 @@ $lang['companies_Trade_Name'] = 'الاسم التجاري';
 $lang['companies_Commercial_Registration_No'] = 'رقم السجل التجاري';
 $lang['companies_Unified_record_number'] = 'الرقم الموحد للسجل';
 $lang['companies_commercial_activities'] = 'النشاط التجاري';
-$lang['companies_'] = '';
+$lang['companies_owner_name'] = 'اسم المالك ';
 $lang['companies_'] = '';
 $lang['companies_'] = '';
 $lang['companies_'] = '';

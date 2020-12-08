@@ -115,41 +115,41 @@
 
                         <div class="form-group row">
                             <div class="col-lg-4 mt-5">
-                                <label>اسم المالك </label>
+                                <label><?= lang('companies_owner_nam') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>الجنسية </label>
+                                <label><?= lang('Global_Nationality') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>رقم الهوية </label>
-                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
-                            </div>
-
-                            <div class="col-lg-4 mt-5">
-                                <label>تاريخ الاصدار </label>
-                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
-                            </div>
-                            <div class="col-lg-4 mt-5">
-                                <label>تاريخ الانتهاء </label>
-                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
-                            </div>
-                            <div class="col-lg-4 mt-5">
-                                <label>صادرة من  </label>
+                                <label><?= lang('Global_Identification_Number') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
 
                             <div class="col-lg-4 mt-5">
-                                <label>رقم الجوال </label>
+                                <label><?= lang('Global_Issued_Date') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>رقم الهاتف </label>
+                                <label><?= lang('Global_Expiry_Date') ?></label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label><?= lang('Global_Issued_by') ?></label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+
+                            <div class="col-lg-4 mt-5">
+                                <label><?= lang('Global_Mobile') ?></label>
+                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+                            </div>
+                            <div class="col-lg-4 mt-5">
+                                <label><?= lang('Global_telephone') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-12 mt-5">
-                                <label>العنوان </label>
+                                <label><?= lang('Global_address') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
 
@@ -176,27 +176,27 @@
 
                         <div class="form-group row">
                             <div class="col-lg-4 mt-5">
-                                <label>رقم الهاتف </label>
+                                <label><?= lang('Global_telephone') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>رقم جوال </label>
+                                <label><?= lang('Global_Mobile') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>البريد الالكتروني </label>
+                                <label><?= lang('Global_email') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>الموقع الالكتروني </label>
+                                <label><?= lang('Global_website') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>صندوق البريد </label>
+                                <label><?= lang('Global_postbox') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>الرمز البريدي </label>
+                                <label><?= lang('Global_Postal_code') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                         </div>
@@ -221,37 +221,37 @@
 
                         <div class="form-group row">
                             <div class="col-lg-4 mt-5">
-                                <label>الدولة </label>
+                                <label> <?= lang('Global_Country') ?> </label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label> المنطقة </label>
+                                <label> <?= lang('Global_Region_province') ?>  </label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>المدينة </label>
+                                <label><?= lang('Global_City') ?> </label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>الحي </label>
+                                <label><?= lang('Global_District') ?> </label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>الشارع </label>
+                                <label><?= lang('Global_street') ?>  </label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
                             <div class="col-lg-4 mt-5">
-                                <label>رقم المبنى </label>
+                                <label><?= lang('Global_building_number') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
 
                             <div class="col-lg-12 mt-5">
-                                <label>تفاصيل اخرى  </label>
+                                <label><?= lang('Global_details') ?> </label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
 
                             <div class="col-lg-12 mt-5">
-                                <label> الموقع على قوقل   </label>
+                                <label><?= lang('Google_Location_on_Google') ?> </label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
 
@@ -260,27 +260,6 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="card card-custom mt-10">
-                <div class="card-header">
-                    <div class="card-title">
-                                <span class="card-icon">
-                                    <i class="flaticon-squares text-primary"></i>
-                                </span>
-                        <h3 class="card-label"><?= lang('companies_documents_information') ?></h3>
-                    </div>
-                    <div class="card-toolbar">
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-body">
-
-
-                    </div>
-                </div>
-            </div>
-
 
         </form>
 
