@@ -49,12 +49,41 @@
                     <div class="card-body">
 
                         <div class="form-group row">
-                            <div class="col-lg-4 mt-5">
+
+                            <div class="col-lg-6 mt-5">
                                 <label><?= lang('Type_Fields') ?></label>
-                                <select name="Type_Fields"  class="form-control selectpicker" data-live-search="true">
-                                    <option></option>
+                                <select name="Type_Fields" id="Type_Fields"  class="form-control selectpicker" data-live-search="true">
+                                    <?php
+                                    foreach ($options_Type_Tag_Fields AS $key => $value)
+                                    {
+                                        echo '<option value="'.$key.'">'.$value.'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
+
+                        </div>
+
+                        <div class="form-group row">
+
+                            <div class="col-lg-6 mt-5">
+                                <label>نوع الحقل</label>
+                                <select name="Type_Fields" id="Type_Fields"  class="form-control selectpicker" data-live-search="true">
+
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+
+                            <div class="col-lg-6 mt-5">
+                                <label>جدول قاعدة البيانات</label>
+                                <select name="Type_Fields" id="Type_Fields"  class="form-control selectpicker" data-live-search="true">
+
+                                </select>
+                            </div>
+
                         </div>
 
 
@@ -81,7 +110,7 @@
 
                         <div class="form-group row">
                             <div class="col-lg-12 mt-5">
-                                <label><?= lang('Type_Fields') ?></label>
+                                <label></label>
 
                             </div>
                         </div>
@@ -102,6 +131,20 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+
+<script>
+$(document).ready(function() {
+
+    $('#Type_Fields').change(function() {
+
+        var id = $(this).find(":selected").val();
+
+
+    }); // $('#Type_Fields').change(function()
+
+}); // $(document).ready(function()
+</script>
 
 
 

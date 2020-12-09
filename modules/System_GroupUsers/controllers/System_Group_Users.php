@@ -129,8 +129,8 @@ class System_Group_Users extends Admin
         );
 
         $this->data['options_status_system'] = array(
-            "0" => lang('Basic_System'),
-            "1" => lang('Multiple_System')
+            "1" => lang('Basic_System'),
+            "0" => lang('Multiple_System')
         );
 
         $this->data['Page_Title']  = lang('add_new_group_button');

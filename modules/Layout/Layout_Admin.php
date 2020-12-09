@@ -19,6 +19,19 @@
     <?= $Lode_file_Js ?>
     <!--end::Page Scripts-->
 
+
+    <?php
+    if($direction=='rtl'){
+    ?>
+    <style type="text/css">
+        .dropdown-toggle {padding-right: 5px !important;}
+        .bootstrap-select.btn-group,.dropdown-toggle,.filter-option,.filter-option-inner-inner{text-align: right !important;}
+        .bootstrap-select.btn-group .dropdown-toggle .caret {left: 12px !important;right: unset !important;;}
+    </style>
+    <?php
+    }
+    ?>
+
 </head>
 <!--end::Head-->
 

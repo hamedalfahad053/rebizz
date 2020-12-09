@@ -46,13 +46,16 @@ $lang['Global_postbox']               = 'صندوق البريد';
 $lang['Global_Postal_code']           = 'الرمز البريدي';
 
 
-$lang['Global_details']                 = 'تفاصيل';
+$lang['Global_details']                = 'تفاصيل';
 
 
-$lang['Global_']                 = '';
-$lang['Global_']                 = '';
-$lang['Global_']                 = '';
-$lang['Global_']                 = '';
+$lang['Global_form_title_ar']          = 'العنوان باللغة العربية';
+$lang['Global_form_title_en']          = 'العنوان باللغة الانجليزية';
+$lang['Global_Code_Html']              = 'رمز HTML';
+$lang['Global_Code_Type_Html']         = 'نوع الحقل HTML';
+
+
+
 $lang['Global_']                 = '';
 $lang['Global_']                 = '';
 $lang['Global_']                 = '';
@@ -66,11 +69,60 @@ $lang['Global_']                 = '';
 # Google Map
 $lang['Google_Location_on_Google']    = 'الموقع على قوقل';
 
+# Rule validating Fields
+$lang['Rule_validating_Fields_required']        = 'مطلوب';
+
+$lang['Rule_validating_Fields_matches']         = 'مقارنة مع حقل';
+$lang['Rule_validating_Fields_matches_Fields']  = 'الحقل المطلوب';
+
+$lang['Rule_validating_Fields_regex_match']        = 'مقارنة معايير ';
+$lang['Rule_validating_Fields_regex_match_regex']  = ' معايير ';
+
+$lang['Rule_validating_Fields_differs']      = 'عنصر النموذج لا يختلف عن العنصر ';
+
+
+$lang['Rule_validating_Fields_is_unique']    = 'مدخل فريد مع قاعدة البيانات';
+
+$lang['Rule_validating_Fields_min_length']         = 'الحد الادني للادخال';
+$lang['Rule_validating_Fields_min_length_value']   = 'قيمة الحد الادني للادخال';
+
+$lang['Rule_validating_Fields_max_length']   = 'الحد الاقصى للادخال';
+$lang['Rule_validating_Fields_max_length_value']   = 'قيمة الحد الاقصى للادخال';
+
+$lang['Rule_validating_Fields_exact_length']         = ' المدخل يجب ان مساوي للقيمة ';
+$lang['Rule_validating_Fields_exact_length_value']   = 'قيمة الحقل  للادخال';
+
+$lang['Rule_validating_Fields_greater_than']         = ' المدخل يجب ان يكون اكبر من ';
+$lang['Rule_validating_Fields_greater_than_value']   = 'قيمة الحقل  للادخال';
+
+$lang['Rule_validating_Fields_greater_than']         = ' المدخل يجب ان يكون اكبر من او يساوي ';
+$lang['Rule_validating_Fields_greater_than_value']   = 'قيمة الحقل  للادخال';
+
+$lang['Rule_validating_Fields_less_than']         = ' المدخل يجب ان يكون اقل ';
+$lang['Rule_validating_Fields_less_than_value']   = 'قيمة الحقل  للادخال';
+
+$lang['Rule_validating_Fields_less_than_equal_to']         = ' المدخل يجب ان يكون اكبر من او يساوي ';
+$lang['Rule_validating_Fields_less_than_equal_to_value']   = 'قيمة الحقل  للادخال';
+
+
+$lang['Rule_validating_Fields_in_list']      = 'يجب ان يكون الاختيار ضمن القائمة ';
+$lang['Rule_validating_Fields_alpha']        = 'نص فقط من حروف ابجدية ';
+
+
+$lang['Rule_validating_Fields_numeric']      = ' المدخلات ارقام فقط ';
+$lang['Rule_validating_Fields_integer']      = 'عدد صحيح';
+$lang['Rule_validating_Fields_decimal']      = 'عدد عشري';
+$lang['Rule_validating_Fields_is_natural']   = ' الرقم الطبيعي: 0 ، 1 ، 2 ، 3 ';
+$lang['Rule_validating_Fields_is_natural_no_zero']  = ' الرقم الطبيعي ، ولكن ليس الصفر: 1 ، 2 ، 3 ';
+$lang['Rule_validating_Fields_valid_url']    = 'عنوان  URL صالح	';
+$lang['Rule_validating_Fields_valid_email']  = 'عنوان بريد إلكتروني صالح';
+
+
 
 #  Global Table
-$lang['Table_Status']    = 'الحالة';
+$lang['Table_Status']     = 'الحالة';
 $lang['Table_Options']    = 'الخيارات';
-
+$lang['table_title']      = 'العنوان';
 
 # Global Status
 $lang['Status_Active']                = 'مفعل';
@@ -108,38 +160,39 @@ $lang['user_group']             = 'المجموعة ';
  *   System_Fields
  */
 $lang['Management_Type_Fields']      = 'ادارة انواع الحقول';
-
-
-$lang['Management_Fields']      = 'ادارة الحقول';
-$lang['Add_New_Fields_button']  = 'إضافة حقل  جديد';
-$lang['Type_Fields']  = 'نوع الحقل';
-
-
+$lang['button_Add_Type_Fields']      = ' اضافة نوع حقل ';
+$lang['table_Type_Fields_type']      = 'نوع الحقل';
+$lang['Management_Fields']           = 'ادارة الحقول';
+$lang['Add_New_Fields_button']       = 'إضافة حقل  جديد';
+$lang['Type_Fields']                 = 'نوع الحقل';
 
 
 
 /*
  * Group Users
  */
-$lang['List_group_user'] = 'أدارة مجموعة المستخدمين';
+$lang['List_group_user']      = 'أدارة مجموعة المستخدمين';
 $lang['add_new_group_button'] = 'إضافة مجموعة جديدة';
-$lang['type_group'] = ' نوع المجموعة';
-$lang['name_group_ar'] = 'اسم المجموعة بالعربية';
-$lang['name_group_en'] = 'اسم المجموعة بالانجليزية';
-$lang['owner_group'] = 'مالك المجموعة';
-$lang['Status_group'] = 'حالة المجموعة';
+$lang['type_group']           = ' نوع المجموعة';
+$lang['name_group_ar']        = 'اسم المجموعة بالعربية';
+$lang['name_group_en']        = 'اسم المجموعة بالانجليزية';
+$lang['owner_group']          = 'مالك المجموعة';
+$lang['Status_group']         = 'حالة المجموعة';
+
+
 
 /*
  *   Company
  */
-$lang['Management_companies_offices'] = 'أدارة الشركات و المكاتب ';
+$lang['Management_companies_offices']     = 'أدارة الشركات و المكاتب ';
 $lang['Management_Add_companies_offices'] = 'اضافة الشركات و المكاتب';
+$lang['companies_Commercial_registry']    = 'البيانات الاساسية';
+$lang['companies_Owner_information']      = 'المالك';
+$lang['companies_Contact_information']    = 'بيانات الاتصال';
+$lang['companies_address_information']    = 'العنوان';
+$lang['companies_documents_information']  = 'المسندات و المرفقات';
 
-$lang['companies_Commercial_registry']   = 'البيانات الاساسية';
-$lang['companies_Owner_information']   = 'المالك';
-$lang['companies_Contact_information'] = 'بيانات الاتصال';
-$lang['companies_address_information'] = 'العنوان';
-$lang['companies_documents_information'] = 'المسندات و المرفقات';
+
 
 /*
  *   Company Info Registration

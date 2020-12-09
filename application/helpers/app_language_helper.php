@@ -77,10 +77,10 @@ if(!function_exists('insert_translation_Language_item')) {
                 "item_translation" => $item_en,
                 "translation_lang" => $RL->language_name,
             );
-
+            app()->db->insert($table,$data);
         } // foreach ($query_list_language AS $RL)
 
-        app()->db->insert_batch($table,$data);
+
 
         // insert arabic
         $data_ar  = array(
