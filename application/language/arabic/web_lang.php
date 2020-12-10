@@ -70,13 +70,19 @@ $lang['Global_']                 = '';
 $lang['Google_Location_on_Google']    = 'الموقع على قوقل';
 
 # Rule validating Fields
+
+$lang['title_validating_Fields']        = 'اعدادت الحقل ';
+
 $lang['Rule_validating_Fields_required']        = 'مطلوب';
+$lang['Rule_validating_Fields_description']     = 'تُرجع خطا إذا كان عنصر النموذج فارغًا.';
 
-$lang['Rule_validating_Fields_matches']         = 'مقارنة مع حقل';
-$lang['Rule_validating_Fields_matches_Fields']  = 'الحقل المطلوب';
+$lang['Rule_validating_Fields_matches']                 = 'مقارنة مع حقل';
+$lang['Rule_validating_Fields_matches_Fields']          = 'الحقل المطلوب';
+$lang['Rule_validating_Fields_matches_description']     = 'تُرجع خطا إذا كان عنصر النموذج لا يتطابق مع العنصر الموجود في الحقل المحدد.';
 
-$lang['Rule_validating_Fields_regex_match']        = 'مقارنة معايير ';
-$lang['Rule_validating_Fields_regex_match_regex']  = ' معايير ';
+$lang['Rule_validating_Fields_regex_match']             = 'مقارنة معايير ';
+$lang['Rule_validating_Fields_regex_match_regex']       = ' معايير ';
+$lang['Rule_validating_Fields_regex_match_description']     = 'إرجاع خطا إذا كان عنصر النموذج لا يتطابق مع التعبير المحدد.';
 
 $lang['Rule_validating_Fields_differs']      = 'عنصر النموذج لا يختلف عن العنصر ';
 

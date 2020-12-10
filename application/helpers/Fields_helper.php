@@ -7,13 +7,20 @@ if(!function_exists('validating_Fields_required')) {
 
     function validating_Fields_required()
     {
-        $html   ='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
-                                <input type="checkbox" value="required" name="validating[]"/>
+
+
+        $html   ='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
+                                <input type="checkbox" id="required" value="required" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_required').'
                             </label>
+                            <br>
+                            <span class="form-text text-muted">'.lang('Rule_validating_Fields_description').'</span>
                      </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
         return $html;
 
     }
@@ -26,21 +33,22 @@ if(!function_exists('validating_Fields_matches_Fields')) {
     function validating_Fields_matches_Fields()
     {
         $html ='';
-
-        $html        .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
-                                <input type="checkbox" value="matches" name="validating[]"/>
-                                <span></span>
-                                '.lang('Rule_validating_Fields_matches').'
-                            </label>
-                          </div>';
-
-        $html        .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
-                                    <label>'.lang('Rule_validating_Fields_matches_Fields').'</label>
-                                    <input type="text" name="matches_Fields" class="form-control" placeholder=""/>
-                                </div>
+                   $html .='<div class="checkbox-list  mt-5">
+                                        <label class="checkbox checkbox-primary">
+                                            <input type="checkbox" id="matches" value="matches" name="validating[]"/>
+                                            <span></span>
+                                            '.lang('Rule_validating_Fields_matches').'
+                                        </label>
+                                        <br>
+                                        <span class="form-text text-muted">'.lang('Rule_validating_Fields_matches_description').'</span>
                             </div>';
+
+                   $html .='<div class="col-lg-12  matches_Fields mt-5" style="display: none">
+                               <label>'.lang('Rule_validating_Fields_matches_Fields').'</label>
+                               <input type="text" dir="ltr" direction="ltr" id="matches_Fields" name="matches_Fields" class="form-control" placeholder=""/>
+                            </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
         return $html;
     }
@@ -53,21 +61,24 @@ if(!function_exists('validating_regex_match')) {
     function validating_regex_match()
     {
         $html = '';
-        $html      .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
-                                <input type="checkbox" value="regex_match" name="validating[]"/>
+        $html      .='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
+                                <input type="checkbox" id="regex_match" value="regex_match" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_regex_match').'
                             </label>
+                            <br>
+                            <span class="form-text text-muted">'.lang('Rule_validating_Fields_regex_match_description').'</span>
                           </div>';
 
-        $html      .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
+        $html      .='<div class="form-group match_regex mt-5 row" style="display: none">
+                                <div class="col-lg-12">
                                     <label>'.lang('Rule_validating_Fields_regex_match_regex').'</label>
-                                    <input type="text" name="match_regex" class="form-control" placeholder=""/>
+                                    <input type="text" dir="ltr" direction="ltr" id="regex_match_value" name="regex_match_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
 
+        $html .='<div class="separator mt-5 separator-dashed separator-border-2 separator-primary"></div>';
         return $html;
     }
 }
@@ -79,6 +90,19 @@ if(!function_exists('validating_Fields_is_unique'))
 {
     function validating_Fields_is_unique()
     {
+        $html ='';
+        $html      .='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
+                                <input type="checkbox" id="regex_match" value="regex_match" name="validating[]"/>
+                                <span></span>
+                                '.lang('Rule_validating_Fields_is_unique').'
+                            </label>
+                            <br>
+                            <span class="form-text text-muted">'.lang('Rule_validating_Fields_is_unique').'</span>
+                          </div>';
+
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
     }
 }
@@ -90,20 +114,22 @@ if(!function_exists('validating_Fields_min_length'))
     function validating_Fields_min_length()
     {
         $html = '';
-        $html      .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
-                                <input type="checkbox" value="min_length" name="validating[]"/>
+        $html      .='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
+                                <input type="checkbox" id="min_length" value="min_length" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_min_length').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
+        $html      .='<div class="form-group row min_length_value mt-5"  style="display: none">
+                                <div class="col-lg-12 mt-5">
                                     <label>'.lang('Rule_validating_Fields_min_length_value').'</label>
-                                    <input type="text" name="min_length_value" class="form-control" placeholder=""/>
+                                    <input type="text" id="min_length_value" name="min_length_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
         return $html;
     }
@@ -117,20 +143,22 @@ if(!function_exists('validating_Fields_max_length'))
     function validating_Fields_max_length()
     {
         $html = '';
-        $html      .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
-                                <input type="checkbox" value="max_length" name="validating[]"/>
+        $html      .='<div class="checkbox-inline   mt-5">
+                            <label class="checkbox checkbox-primary">
+                                <input type="checkbox" id="max_length" value="max_length" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_max_length').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
+        $html      .='<div class="form-group max_length_value  mt-5 row" style="display: none">
+                                <div class="col-lg-12 mt-5">
                                     <label>'.lang('Rule_validating_Fields_max_length_value').'</label>
-                                    <input type="text" name="max_length_value" class="form-control" placeholder=""/>
+                                    <input type="text" id="max_length_value" name="max_length_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
         return $html;
     }
@@ -144,20 +172,22 @@ if(!function_exists('validating_Fields_exact_length'))
     function validating_Fields_exact_length()
     {
         $html = '';
-        $html      .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
-                                <input type="checkbox" value="exact_length" name="validating[]"/>
+        $html      .='<div class="checkbox-inline   mt-5 ">
+                            <label class="checkbox checkbox-primary">
+                                <input type="checkbox" id="exact_length" value="exact_length" name="validating[]"/>
                                 <span></span>
-                                '.lang('Rule_validating_Fields_max_length').'
+                                '.lang('Rule_validating_Fields_exact_length').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
-                                    <label>'.lang('Rule_validating_Fields_max_length_value').'</label>
-                                    <input type="text" name="exact_length_value" class="form-control" placeholder=""/>
+        $html      .='<div class="form-group exact_length_value row mt-5"  style="display: none">
+                                <div class="col-lg-12">
+                                    <label>'.lang('Rule_validating_Fields_exact_length_value').'</label>
+                                    <input type="text" id="exact_length_value" name="exact_length_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
         return $html;
     }
@@ -170,20 +200,22 @@ if(!function_exists('validating_Fields_greater_than'))
     function validating_Fields_greater_than()
     {
         $html = '';
-        $html      .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html      .='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="greater_than" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_greater_than').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
+        $html      .='<div class="form-group row mt-5">
+                                <div class="col-lg-6">
                                     <label>'.lang('Rule_validating_Fields_greater_than_value').'</label>
                                     <input type="text" name="greater_than_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
         return $html;
     }
@@ -196,20 +228,22 @@ if(!function_exists('validating_Fields_greater_than_equal_to'))
     function validating_Fields_greater_than_equal_to()
     {
         $html = '';
-        $html      .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html      .='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="greater_than_equal_to" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_greater_than_equal_to').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
+        $html      .='<div class="form-group row mt-5">
+                                <div class="col-lg-6">
                                     <label>'.lang('Rule_validating_Fields_greater_than_equal_to_value').'</label>
                                     <input type="text" name="greater_than_equal_to_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
         return $html;
     }
@@ -222,20 +256,22 @@ if(!function_exists('validating_Fields_less_than'))
     function validating_Fields_less_than()
     {
         $html = '';
-        $html      .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html      .='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="less_than" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_less_than').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
+        $html      .='<div class="form-group row mt-5">
+                                <div class="col-lg-6 ">
                                     <label>'.lang('Rule_validating_Fields_less_than_value').'</label>
                                     <input type="text" name="less_than_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
         return $html;
     }
@@ -248,20 +284,22 @@ if(!function_exists('validating_Fields_less_than_equal_to'))
     function validating_Fields_less_than_equal_to()
     {
         $html = '';
-        $html      .='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html      .='<div class="checkbox-inline  mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="less_than_equal_to" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_less_than_equal_to').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row">
-                                <div class="col-lg-6 mt-5">
+        $html      .='<div class="form-group row mt-5 ">
+                                <div class="col-lg-12">
                                     <label>'.lang('Rule_validating_Fields_less_than_equal_to_value').'</label>
                                     <input type="text" name="less_than_equal_to_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
 
         return $html;
     }
@@ -276,13 +314,16 @@ if(!function_exists('validating_Fields_numeric')) {
     {
         $html = '';
 
-        $html   ='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html   ='<div class="checkbox-inline  mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="numeric" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_numeric').'
                             </label>
                      </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
         return $html;
 
     }
@@ -294,13 +335,16 @@ if(!function_exists('validating_Fields_integer')) {
 
     function validating_Fields_integer()
     {
-        $html   ='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html   ='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="integer" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_integer').'
                             </label>
                      </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
         return $html;
 
     }
@@ -312,13 +356,16 @@ if(!function_exists('validating_Fields_decimal')) {
 
     function validating_Fields_decimal()
     {
-        $html   ='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html   ='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="decimal" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_decimal').'
                             </label>
                      </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
         return $html;
 
     }
@@ -330,13 +377,16 @@ if(!function_exists('validating_Fields_is_natural')) {
 
     function validating_Fields_is_natural()
     {
-        $html   ='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html   ='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="is_natural" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_is_natural').'
                             </label>
                      </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
         return $html;
 
     }
@@ -348,13 +398,16 @@ if(!function_exists('validating_Fields_is_natural_no_zero')) {
 
     function validating_Fields_is_natural_no_zero()
     {
-        $html   ='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html   ='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="is_natural_no_zero" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_is_natural_no_zero').'
                             </label>
                      </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
         return $html;
 
     }
@@ -366,13 +419,16 @@ if(!function_exists('validating_Fields_valid_url')) {
 
     function validating_Fields_valid_url()
     {
-        $html   ='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html   ='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="valid_url" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_valid_url').'
                             </label>
                      </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
         return $html;
 
     }
@@ -384,13 +440,15 @@ if(!function_exists('validating_Fields_valid_email')) {
 
     function validating_Fields_valid_email()
     {
-        $html   ='<div class="checkbox-inline">
-                            <label class="checkbox checkbox-success">
+        $html   ='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
                                 <input type="checkbox" value="valid_email" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_valid_email').'
                             </label>
                      </div>';
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
         return $html;
 
     }

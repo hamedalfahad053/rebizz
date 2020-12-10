@@ -39,6 +39,8 @@
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 <!--begin::Main-->
 
+
+
 <!--begin::Header Mobile-->
 <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
     <!--begin::Logo-->
@@ -247,6 +249,29 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="javascript:;" class="menu-link menu-toggle">
+                                <span class="svg-icon menu-icon"><i class="flaticon2-world text-primary"></i></span>
+                                <span class="menu-text"> ادارة قوائم البيانات </span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Fields/List_Fields_Type') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                            <span class="menu-text"> اضافة قائمة جديدة </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Fields') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                            <span class="menu-text"> ادارة القوائم </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
 
                     </ul>
                     <!--end::Menu Nav-->

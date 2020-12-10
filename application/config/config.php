@@ -458,7 +458,6 @@ $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
 $config['csrf_exclude_uris'] = array(
     'Site/[a-z]+',
-    'Migrate_DB/[a-z]+'
 );
 
 //if(isset($_SERVER["PHP_SELF"])){
