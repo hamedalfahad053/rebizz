@@ -33,6 +33,23 @@ if(!function_exists('validating_Fields_matches_Fields')) {
     function validating_Fields_matches_Fields()
     {
         $html ='';
+
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                            $("#matches").on("click", function(){
+                                if($(this).is(":checked")){
+                                    $("#matches_Fields").attr("disabled",false);
+                                    $(".matches_Fields").fadeIn(300);
+                                } else {
+                                    $("#matches_Fields").attr("disabled",true);
+                                    $(".matches_Fields").hide(300);
+                                }
+                            });
+                         });
+                    </script> ';
+            
                    $html .='<div class="checkbox-list  mt-5">
                                         <label class="checkbox checkbox-primary">
                                             <input type="checkbox" id="matches" value="matches" name="validating[]"/>
@@ -61,6 +78,22 @@ if(!function_exists('validating_regex_match')) {
     function validating_regex_match()
     {
         $html = '';
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                                $("#regex_match").on("click", function(){
+                                    if($(this).is(":checked")){
+                                        $("#regex_match_value").attr("disabled",false);
+                                        $(".match_regex").fadeIn(300);
+                                    } else {
+                                        $("#regex_match_value").attr("disabled",true);
+                                        $(".match_regex").hide(300);
+                                    }
+                                });
+                         });
+                    </script> ';
+
         $html      .='<div class="checkbox-inline mt-5">
                             <label class="checkbox checkbox-primary">
                                 <input type="checkbox" id="regex_match" value="regex_match" name="validating[]"/>
@@ -91,6 +124,8 @@ if(!function_exists('validating_Fields_is_unique'))
     function validating_Fields_is_unique()
     {
         $html ='';
+
+
         $html      .='<div class="checkbox-inline mt-5">
                             <label class="checkbox checkbox-primary">
                                 <input type="checkbox" id="regex_match" value="regex_match" name="validating[]"/>
@@ -114,6 +149,24 @@ if(!function_exists('validating_Fields_min_length'))
     function validating_Fields_min_length()
     {
         $html = '';
+
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                            $("#min_length").on("click", function(){
+                                if($(this).is(":checked")){
+                                    $("#min_length_value").attr("disabled",false);
+                                    $(".min_length_value").fadeIn(300);
+                                } else {
+                                    $("#min_length_value").attr("disabled",true);
+                                    $(".min_length_value").hide(300);
+                                }
+                            });
+                         });
+                    </script> ';
+
+
         $html      .='<div class="checkbox-inline mt-5">
                             <label class="checkbox checkbox-primary">
                                 <input type="checkbox" id="min_length" value="min_length" name="validating[]"/>
@@ -143,6 +196,23 @@ if(!function_exists('validating_Fields_max_length'))
     function validating_Fields_max_length()
     {
         $html = '';
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                                $("#max_length").on("click", function(){
+                                    if($(this).is(":checked")){
+                                        $("#max_length_value").attr("disabled",false);
+                                        $(".max_length_value").fadeIn(300);
+                                    } else {
+                                        $("#max_length_value").attr("disabled",true);
+                                        $(".max_length_value").hide(300);
+                                    }
+                                });
+                         });
+                    </script> ';
+
+
         $html      .='<div class="checkbox-inline   mt-5">
                             <label class="checkbox checkbox-primary">
                                 <input type="checkbox" id="max_length" value="max_length" name="validating[]"/>
@@ -172,6 +242,23 @@ if(!function_exists('validating_Fields_exact_length'))
     function validating_Fields_exact_length()
     {
         $html = '';
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                                $("#exact_length").on("click", function(){
+                                    if($(this).is(":checked")){
+                                        $("#exact_length_value").attr("disabled",false);
+                                        $(".exact_length_value").fadeIn(300);
+                                    } else {
+                                        $("#exact_length_value").attr("disabled",true);
+                                        $(".exact_length_value").hide(300);
+                                    }
+                                });
+                         });
+                    </script> ';
+
+
         $html      .='<div class="checkbox-inline   mt-5 ">
                             <label class="checkbox checkbox-primary">
                                 <input type="checkbox" id="exact_length" value="exact_length" name="validating[]"/>
@@ -200,18 +287,35 @@ if(!function_exists('validating_Fields_greater_than'))
     function validating_Fields_greater_than()
     {
         $html = '';
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                                $("#greater_than").on("click", function(){
+                                    if($(this).is(":checked")){
+                                        $("#greater_than_value").attr("disabled",false);
+                                        $(".greater_than_value").fadeIn(300);
+                                    } else {
+                                        $("#greater_than_value").attr("disabled",true);
+                                        $(".greater_than_value").hide(300);
+                                    }
+                                });
+                         });
+                    </script> ';
+
+
         $html      .='<div class="checkbox-inline mt-5">
                             <label class="checkbox checkbox-primary">
-                                <input type="checkbox" value="greater_than" name="validating[]"/>
+                                <input type="checkbox" id="greater_than" value="greater_than" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_greater_than').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row mt-5">
+        $html      .='<div class="form-group greater_than_value row  mt-5"  style="display: none">
                                 <div class="col-lg-6">
                                     <label>'.lang('Rule_validating_Fields_greater_than_value').'</label>
-                                    <input type="text" name="greater_than_value" class="form-control" placeholder=""/>
+                                    <input type="text" id="greater_than_value" name="greater_than_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
 
@@ -228,18 +332,34 @@ if(!function_exists('validating_Fields_greater_than_equal_to'))
     function validating_Fields_greater_than_equal_to()
     {
         $html = '';
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                                $("#greater_than_equal_to").on("click", function(){
+                                    if($(this).is(":checked")){
+                                        $("#greater_than_equal_to_value").attr("disabled",false);
+                                        $(".greater_than_equal_to_value").fadeIn(300);
+                                    } else {
+                                        $("#greater_than_equal_to_value").attr("disabled",true);
+                                        $(".greater_than_equal_to_value").hide(300);
+                                    }
+                                });
+                         });
+                    </script> ';
+
         $html      .='<div class="checkbox-inline mt-5">
                             <label class="checkbox checkbox-primary">
-                                <input type="checkbox" value="greater_than_equal_to" name="validating[]"/>
+                                <input type="checkbox" id="greater_than_equal_to" value="greater_than_equal_to" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_greater_than_equal_to').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row mt-5">
+        $html      .='<div class="form-group row greater_than_equal_to_value  mt-5"  style="display: none">
                                 <div class="col-lg-6">
                                     <label>'.lang('Rule_validating_Fields_greater_than_equal_to_value').'</label>
-                                    <input type="text" name="greater_than_equal_to_value" class="form-control" placeholder=""/>
+                                    <input type="text" id="greater_than_equal_to_value" name="greater_than_equal_to_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
 
@@ -256,18 +376,34 @@ if(!function_exists('validating_Fields_less_than'))
     function validating_Fields_less_than()
     {
         $html = '';
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                                $("#less_than").on("click", function(){
+                                    if($(this).is(":checked")){
+                                        $("#less_than_value").attr("disabled",false);
+                                        $(".less_than").fadeIn(300);
+                                    } else {
+                                        $("#less_than_value").attr("disabled",true);
+                                        $(".less_than").hide(300);
+                                    }
+                                });
+                         });
+                    </script> ';
+
         $html      .='<div class="checkbox-inline mt-5">
                             <label class="checkbox checkbox-primary">
-                                <input type="checkbox" value="less_than" name="validating[]"/>
+                                <input type="checkbox" id="less_than" value="less_than" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_less_than').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row mt-5">
+        $html      .='<div class="form-group row less_than  mt-5"  style="display: none">
                                 <div class="col-lg-6 ">
                                     <label>'.lang('Rule_validating_Fields_less_than_value').'</label>
-                                    <input type="text" name="less_than_value" class="form-control" placeholder=""/>
+                                    <input type="text" id="less_than_value" name="less_than_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
 
@@ -284,18 +420,35 @@ if(!function_exists('validating_Fields_less_than_equal_to'))
     function validating_Fields_less_than_equal_to()
     {
         $html = '';
+
+        $html .='
+                   <script type="text/javascript">
+                        $(document).ready(function() {
+                                $("#less_than_equal_to").on("click", function(){
+                                    if($(this).is(":checked")){
+                                        $("#less_than_equal_to_value").attr("disabled",false);
+                                        $(".less_than_equal_to_value").fadeIn(300);
+                                    } else {
+                                        $("#less_than_equal_to_value").attr("disabled",true);
+                                        $(".less_than_equal_to_value").hide(300);
+                                    }
+                                });
+                         });
+                    </script> ';
+
+
         $html      .='<div class="checkbox-inline  mt-5">
                             <label class="checkbox checkbox-primary">
-                                <input type="checkbox" value="less_than_equal_to" name="validating[]"/>
+                                <input type="checkbox" id="less_than_equal_to" value="less_than_equal_to" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_less_than_equal_to').'
                             </label>
                           </div>';
 
-        $html      .='<div class="form-group row mt-5 ">
+        $html      .='<div class="form-group less_than_equal_to_value row mt-5 " style="display: none">
                                 <div class="col-lg-12">
                                     <label>'.lang('Rule_validating_Fields_less_than_equal_to_value').'</label>
-                                    <input type="text" name="less_than_equal_to_value" class="form-control" placeholder=""/>
+                                    <input type="text" id="less_than_equal_to_value" name="less_than_equal_to_value" class="form-control" placeholder=""/>
                                 </div>
                       </div>';
 

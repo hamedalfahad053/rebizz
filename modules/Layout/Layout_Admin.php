@@ -259,12 +259,12 @@
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Fields/List_Fields_Type') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/List_Data/Form_Add_New_List') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
                                             <span class="menu-text"> اضافة قائمة جديدة </span>
                                         </a>
                                     </li>
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Fields') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/List_Data') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
                                             <span class="menu-text"> ادارة القوائم </span>
                                         </a>
                                     </li>

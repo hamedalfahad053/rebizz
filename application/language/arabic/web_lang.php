@@ -142,9 +142,11 @@ $lang['message_error_insert']    = 'عفوا حدث خطا اثناء الاضا
 $lang['message_error_update']    = 'حدث خطا اثناء التحديث يرجى المحاولة او التواصل مع الدعم الفني لمساعدتك ';
 
 # Global System
-$lang['Status_add_System']   = 'حالة العنصر بالنظام ';
-$lang['Basic_System']        = 'اساسي بالنظام';
-$lang['Multiple_System']     = 'يمكن التعديل ';
+$lang['Status_add_System']        = 'حالة العنصر بالنظام ';
+$lang['Basic_System']             = 'اساسي بالنظام';
+$lang['Multiple_System']          = 'يمكن التعديل ';
+$lang['Multiple_Entry_Users']     = ' يمكن تخصيص خيار من خلال المستخدم ';
+
 
 /*
  * Language
@@ -172,8 +174,17 @@ $lang['Management_Fields']           = 'ادارة الحقول';
 $lang['Add_New_Fields_button']       = 'إضافة حقل  جديد';
 $lang['Type_Fields']                 = 'نوع الحقل';
 
-
-
+/*
+ *   System_List
+ */
+$lang['Management_List_Data']      = 'ادارة  قوائم البيانات';
+$lang['List_Data_add_button']      = ' اضافة قائمة جديدة ';
+$lang['options_title_ar']          = 'الخيار باللغة العربية';
+$lang['options_title_en']          = 'الخيار باللغة الانجليزية';
+$lang['options_title_en']          = 'الخيار باللغة الانجليزية';
+$lang['options_status']            = 'حالة الخيار بالنظام';
+$lang['options_value']             = 'قيمة محددة';
+$lang['options_value_note']        = 'اختياري : اذا هناك قيمة محددة لهذا الاخيار يرجى وضعها بالحقل او اتركه افتراضيا';
 /*
  * Group Users
  */

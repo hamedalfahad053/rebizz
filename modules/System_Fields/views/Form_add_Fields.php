@@ -30,9 +30,7 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
-
         <div class="row">
-
 
             <div class="col-lg-6 mt-5">
 
@@ -79,7 +77,6 @@
 
             </div><!--<div class="col-lg-12 mt-5">-->
 
-
             <div class="col-lg-6 mt-5">
                 <div class="card card-custom gutter-b">
                     <div class="card-header">
@@ -100,17 +97,7 @@
                 </div>
             </div>
 
-
-
-
-
-
-
-
-
         </div>
-
-
 
     </div>
     <!--end::Container-->
@@ -118,8 +105,7 @@
 <!--end::Entry-->
 
 
-<script>
-
+<script type="text/javascript">
 
     $(document).on('change', '#Type_Fields', function(e){
         e.preventDefault();
@@ -128,7 +114,7 @@
             type: 'ajax',
             method: 'get',
             url: '<?= base_url(ADMIN_NAMESPACE_URL .'/Fields/options_Type_Fields') ?>',
-            data: { Type_Fields:Type_Fields},//
+            data: { Type_Fields:Type_Fields},
             async: false,
             dataType: 'json',
             success: function(data){
@@ -168,63 +154,7 @@
 
 
 
-    $(document).ready(function() {
 
-        /* Scripts validating Fields */
-
-        $("#matches").on("click", function(){
-            if($(this).is(":checked")){
-                $("#matches_Fields").attr("disabled",false);
-                $(".matches_Fields").fadeIn(300);
-            } else {
-                $("#matches_Fields").attr("disabled",true);
-                $(".matches_Fields").hide(300);
-            }
-        });
-
-        $("#regex_match").on("click", function(){
-            if($(this).is(":checked")){
-                $("#regex_match_value").attr("disabled",false);
-                $(".match_regex").fadeIn(300);
-            } else {
-                $("#regex_match_value").attr("disabled",true);
-                $(".match_regex").hide(300);
-            }
-        });
-
-        $("#min_length").on("click", function(){
-            if($(this).is(":checked")){
-                $("#min_length_value").attr("disabled",false);
-                $(".min_length_value").fadeIn(300);
-            } else {
-                $("#min_length_value").attr("disabled",true);
-                $(".min_length_value").hide(300);
-            }
-        });
-
-        $("#max_length").on("click", function(){
-            if($(this).is(":checked")){
-                $("#max_length_value").attr("disabled",false);
-                $(".max_length_value").fadeIn(300);
-            } else {
-                $("#max_length_value").attr("disabled",true);
-                $(".max_length_value").hide(300);
-            }
-        });
-
-        $("#exact_length").on("click", function(){
-            if($(this).is(":checked")){
-                $("#exact_length_value").attr("disabled",false);
-                $(".exact_length_value").fadeIn(300);
-            } else {
-                $("#exact_length_value").attr("disabled",true);
-                $(".exact_length_value").hide(300);
-            }
-        });
-
-
-
-    }); // $(document).ready(function()
 
 
 </script>
