@@ -69,7 +69,7 @@
                         <tr>
                             <td class="text-center"><?= ++$i ?></td>
                             <td class="text-center"><?= $ROW['List_translation'] ?></td>
-                            <td class="text-center"></td>
+                            <td class="text-center"><?= $ROW['List_options_num'] ?></td>
                             <td class="text-center"></td>
                             <td class="text-center"><?= $ROW['List_status'] ?></td>
                             <td class="text-center"><?= $ROW['List_main_system'] ?></td>

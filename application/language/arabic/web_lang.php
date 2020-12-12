@@ -130,6 +130,9 @@ $lang['Table_Status']     = 'الحالة';
 $lang['Table_Options']    = 'الخيارات';
 $lang['table_title']      = 'العنوان';
 
+#  Global Bootstap Select 2
+$lang['Select_noneSelectedText']     = 'فضلا اختر من ...';
+
 # Global Status
 $lang['Status_Active']                = 'مفعل';
 $lang['Status_Disabled']              = 'معطل';

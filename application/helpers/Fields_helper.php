@@ -33,8 +33,6 @@ if(!function_exists('validating_Fields_matches_Fields')) {
     function validating_Fields_matches_Fields()
     {
         $html ='';
-
-
         $html .='
                    <script type="text/javascript">
                         $(document).ready(function() {

@@ -6,7 +6,7 @@
             <!--begin::Page Heading-->
             <div class="d-flex align-items-baseline flex-wrap mr-5">
                 <!--begin::Page Title-->
-                <h5 class="text-dark font-weight-bold my-1 mr-5"><?= $Page_Title ?></h5>
+                <h5 class="text-dark font-weight-bold my-1 mr-5"><?= $Page_Title  ?></h5>
                 <!--end::Page Title-->
                 <!--begin::Breadcrumb-->
                 <?= $breadcrumbs ?>
@@ -31,78 +31,69 @@
     <div class="container-fluid">
 
         <div class="row">
+            <div class="col-lg-12">
 
-            <form class="form"  action="<?= base_url(ADMIN_NAMESPACE_URL.'/List_Data/Create_List_Data') ?>" method="post">
-                <?= CSFT_Form() ?>
-                <div class="col-lg-6">
-
+                <form class="form"  action="<?= base_url(ADMIN_NAMESPACE_URL.'/List_Data/Create_List_Data') ?>" method="post">
+                    <?php echo  $this->session->flashdata('message'); ?>
                     <div class="card card-custom">
-                        <div class="card-header">
-                            <div class="card-title">
-                                        <span class="card-icon">
-                                            <i class="flaticon-squares text-primary"></i>
-                                        </span>
-                                <h3 class="card-label"><?= $Page_Title ?></h3>
+                       <div class="card-header">
+                                <div class="card-title">
+                                    <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
+                                    <h3 class="card-label"><?= $Page_Title ?></h3>
+                                </div>
+                                <div class="card-toolbar"></div>
                             </div>
-                            <div class="card-toolbar"></div>
-                        </div>
-                        <div class="card-body">
+                          <div class="card-body">
 
-                            <?php echo  $this->session->flashdata('message'); ?>
-
-                            <div class="form-group row">
-                                <div class="col-lg-6 mt-5">
-                                    <label><?= lang('Global_form_title_ar') ?></label>
-                                    <input type="text" name="title_ar" class="form-control" value="<?= set_value('title_ar'); ?>" placeholder="<?= lang('Global_form_title_ar') ?>"/>
-                                </div>
-                                <div class="col-lg-6 mt-5">
-                                    <label><?= lang('Global_form_title_en') ?></label>
-                                    <input type="text" name="title_en" class="form-control" value="<?= set_value('title_en'); ?>" placeholder="<?= lang('Global_form_title_en') ?>"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-lg-6 mt-5">
-                                    <label><?= lang('Table_Status') ?> </label>
-                                    <select name="Status" class="form-control selectpicker" data-live-search="true">
-                                        <?php
-                                        foreach ($List_status AS $key => $value)
-                                        {
-                                            echo '<option value="'.$key.'">'.$value.'</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6 mt-5">
-                                    <label><?= lang('Basic_System') ?> </label>
-                                    <select name="main_system"  class="form-control selectpicker" data-live-search="true">
-                                        <?php
-                                        foreach ($List_status_system AS $key => $value)
-                                        {
-                                            echo '<option value="'.$key.'">'.$value.'</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div><!--<div class="card-body">-->
+                              <div class="form-group row">
+                                 <div class="col-lg-6">
+                                   <label><?= lang('Global_form_title_ar') ?></label>
+                                   <input type="text" name="title_ar" class="form-control" value="<?= set_value('title_ar'); ?>" placeholder="<?= lang('Global_form_title_ar') ?>"/>
+                                 </div>
+                                 <div class="col-lg-6">
+                                   <label><?= lang('Global_form_title_en') ?></label>
+                                   <input type="text" name="title_en" class="form-control" value="<?= set_value('title_en'); ?>" placeholder="<?= lang('Global_form_title_en') ?>"/>
+                                   </div>
+                              </div>
+                              <div class="form-group row">
+                                  <div class="col-lg-6">
+                                      <label><?= lang('Table_Status') ?> </label>
+                                      <select name="Status" class="form-control selectpicker" data-live-search="true">
+                                          <option></option>
+                                          <?php
+                                          foreach ($List_status AS $key => $value)
+                                          {
+                                              echo '<option value="'.$key.'">'.$value.'</option>';
+                                          }
+                                          ?>
+                                      </select>
+                                  </div>
+                                  <div class="col-lg-6">
+                                      <label><?= lang('Basic_System') ?> </label>
+                                      <select name="main_system"  class="form-control selectpicker" data-live-search="true">
+                                          <?php
+                                          foreach ($List_status_system AS $key => $value)
+                                          {
+                                              echo '<option value="'.$key.'">'.$value.'</option>';
+                                          }
+                                          ?>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
                     </div><!--<div class="card card-custom">-->
 
-                </div>
-                <div class="col-lg-6">
-                    <div class="card card-custom">
+
+                    <div class="card card-custom  mt-10">
                         <div class="card-header">
                             <div class="card-title">
-                                        <span class="card-icon">
-                                            <i class="flaticon-squares text-primary"></i>
-                                        </span>
-                                <h3 class="card-label"><?= $Page_Title ?></h3>
+                                <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
+                                <h3 class="card-label">خيارات القائمة</h3>
                             </div>
                             <div class="card-toolbar"></div>
                         </div>
                         <div class="card-body">
-                            <div id="kt_repeater" >
+                            <div id="kt_repeater">
                                 <div class="form-group row">
                                     <div data-repeater-list="option_list" class="col-lg-12">
                                         <div data-repeater-item class="form-group row align-items-center">
@@ -159,23 +150,28 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!--<div class="card-body">-->
+                        </div>
                     </div><!--<div class="card card-custom">-->
-                </div>
-            </form>
+
+                </form>
 
 
+            </div>
         </div>
 
     </div>
     <!--end::Container-->
+
+
+
+
 </div>
 <!--end::Entry-->
 
 <script type="text/javascript">
 
     $('.selectpicker').selectpicker({
-        noneSelectedText : 'فضلا اختر'
+        noneSelectedText : '<?= lang('Select_noneSelectedText'); ?>'
     });
 
     $('#kt_repeater').repeater({

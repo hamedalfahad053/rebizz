@@ -18,7 +18,6 @@ class ListData_model extends CI_Model
         $this->db->where('list_translation.translation_lang',$lang);
         $query = $this->db->get();
         return $query;
-
     }
     ########################################################################
 
@@ -44,6 +43,23 @@ class ListData_model extends CI_Model
         }else{
             return false;
         }
+    }
+    ########################################################################
+
+    ########################################################################
+    function Cet_options_By_List($list_id)
+    {
+        $this->db->from('portal_list_options_data list_options');
+        $this->db->join('portal_list_options_translation  options_translation', 'list_options.list_id=options_translation.item_id');
+
+        $lang   = get_current_lang();
+
+        $this->db->where('list_options.list_id',$list_id);
+        $this->db->where('options_translation.translation_lang',$lang);
+        $query = $this->db->get();
+
+        return $query;
+
     }
     ########################################################################
 

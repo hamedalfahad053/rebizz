@@ -229,12 +229,6 @@
                                 <ul class="menu-subnav">
 
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Fields/List_Fields_Type') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
-                                            <span class="menu-text"> ادارة انواع الحقول </span>
-                                        </a>
-                                    </li>
-
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                         <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Fields') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
                                             <span class="menu-text"> ادارة الحقول </span>
                                         </a>

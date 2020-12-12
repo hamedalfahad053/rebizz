@@ -75,9 +75,13 @@ class System_ListData extends Admin
 
             } // if($ROW->list_data_status == 1)
 
+            $get_options_By_List  = $this->ListData_model->Cet_options_By_List($ROW->list_id)->num_rows();
+
+
             $this->data['List'][]  = array(
                 "List_id"           => $ROW->list_id,
                 "List_translation"  => $ROW->item_translation,
+                "List_options_num"  => $get_options_By_List,
                 "List_status"       => $List_status,
                 "List_main_system"  => $List_main_system,
             );
