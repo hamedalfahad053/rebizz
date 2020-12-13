@@ -8,7 +8,8 @@ class System_Users extends Admin
     {
         parent::__construct();
 
-        $this->load->model('SystemForms_Model');
+        $this->load->model('Users_Model');
+        $this->load->model('../../modules/System_GroupUsers/models/Users_Group_Model');
 
         $this->data['controller_name'] = lang('List_user');
     }
@@ -109,6 +110,28 @@ class System_Users extends Admin
     {
 
         $this->data['Page_Title'] = lang('add_new_user_button');
+
+        $Groups_System = $this->Users_Group_Model->Get_Groups_System();
+
+        foreach ($Groups_System->result() AS $ROW ) {
+            $this->data['Groups_System'][] = array(
+                "Group_id" => $ROW->group_id,
+                "Group_Name" => $ROW->name,
+                "group_translation" => $ROW->item_translation
+            );
+        }
+
+
+        $this->data['user_status'] = array(
+            "0" => lang('Status_Active'),
+            "1" => lang('Status_Disabled')
+        );
+
+        $this->data['status_system'] = array(
+            "1" => lang('Basic_System'),
+            "0" => lang('Multiple_System')
+        );
+
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();

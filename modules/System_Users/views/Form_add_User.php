@@ -54,16 +54,81 @@
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('user_full_name_ar') ?></label>
-                                <input type="text" name="user_full_name" class="form-control" placeholder="<?= lang('user_full_name_ar') ?>"/>
+                                <input type="text" name="full_name_ar" class="form-control" placeholder="<?= lang('user_full_name_ar') ?>"/>
                             </div>
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('user_full_name_en') ?></label>
-                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('user_full_name_en') ?>"/>
+                                <input type="text" name="full_name" class="form-control" placeholder="<?= lang('user_full_name_en') ?>"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-6 mt-5">
+                                <label><?= lang('Global_email') ?></label>
+                                <input type="text" name="email" class="form-control" placeholder="<?= lang('Global_email') ?>"/>
+                            </div>
+                            <div class="col-lg-6 mt-5">
+                                <label><?= lang('Global_Mobile') ?></label>
+                                <input type="text" name="mobile" class="form-control" placeholder="<?= lang('Global_Mobile') ?>"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-lg-6 mt-5">
+                                <label><?= lang('Auth_password') ?></label>
+                                <input type="text" name="password" class="form-control" placeholder="<?= lang('Auth_password') ?>"/>
+                            </div>
+                            <div class="col-lg-6 mt-5">
+                                <label><?= lang('Auth_confirm_password') ?></label>
+                                <input type="text" name="confirm_password" class="form-control" placeholder="<?= lang('Auth_confirm_password') ?>"/>
                             </div>
                         </div>
 
 
 
+                        <div class="form-group row">
+                            <div class="col-lg-3 mt-5">
+                                <label><?= lang('user_group') ?></label>
+                                <select name="user_group" id="Type_Fields"  class="form-control selectpicker">
+                                    <?php
+                                    foreach ($Groups_System AS  $value)
+                                    {
+                                        echo '<option value="'.$value['Group_id'].'">'.$value['group_translation'].'</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 mt-5">
+                                <label><?= lang('user_Permissions') ?></label>
+                                <select name="user_Permissions" id="user_Permissions"  class="form-control selectpicker">
+
+                                </select>
+                            </div>
+                            <div class="col-lg-3 mt-5">
+                                <label><?= lang('Status_add_System') ?></label>
+                                <select name="user_group" id="Type_Fields"  class="form-control selectpicker">
+                                    <?php
+                                    foreach ($status_system AS $key => $value)
+                                    {
+                                        echo '<option value="'.$key.'">'.$value.'</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 mt-5">
+                                <label><?= lang('Table_Status') ?></label>
+                                <select name="user_group" id="Type_Fields"  class="form-control selectpicker">
+                                    <?php
+                                    foreach ($user_status AS $key => $value)
+                                    {
+                                        echo '<option value="'.$key.'">'.$value.'</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                        </div>
 
 
                     </div>
@@ -93,3 +158,11 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+<script type="text/javascript">
+
+    $('.selectpicker').selectpicker({
+        noneSelectedText : '<?= lang('Select_noneSelectedText'); ?>'
+    });
+
+</script>

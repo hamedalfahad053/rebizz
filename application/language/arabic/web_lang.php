@@ -70,7 +70,6 @@ $lang['Global_']                 = '';
 $lang['Google_Location_on_Google']    = 'الموقع على قوقل';
 
 # Rule validating Fields
-
 $lang['title_validating_Fields']        = 'اعدادت الحقل ';
 
 $lang['Rule_validating_Fields_required']        = 'مطلوب';
@@ -122,7 +121,7 @@ $lang['Rule_validating_Fields_is_natural']   = ' الرقم الطبيعي: 0 ،
 $lang['Rule_validating_Fields_is_natural_no_zero']  = ' الرقم الطبيعي ، ولكن ليس الصفر: 1 ، 2 ، 3 ';
 $lang['Rule_validating_Fields_valid_url']    = 'عنوان  URL صالح	';
 $lang['Rule_validating_Fields_valid_email']  = 'عنوان بريد إلكتروني صالح';
-
+# Rule validating Fields
 
 
 #  Global Table
@@ -130,7 +129,7 @@ $lang['Table_Status']     = 'الحالة';
 $lang['Table_Options']    = 'الخيارات';
 $lang['table_title']      = 'العنوان';
 
-#  Global Bootstap Select 2
+#  Global Bootstrap Select 2
 $lang['Select_noneSelectedText']     = 'فضلا اختر من ...';
 
 # Global Status
@@ -145,11 +144,15 @@ $lang['message_error_insert']    = 'عفوا حدث خطا اثناء الاضا
 $lang['message_error_update']    = 'حدث خطا اثناء التحديث يرجى المحاولة او التواصل مع الدعم الفني لمساعدتك ';
 
 # Global System
-$lang['Status_add_System']        = 'حالة العنصر بالنظام ';
+$lang['Status_add_System']        = 'حالة  بالنظام ';
 $lang['Basic_System']             = 'اساسي بالنظام';
 $lang['Multiple_System']          = 'يمكن التعديل ';
 $lang['Multiple_Entry_Users']     = ' يمكن تخصيص خيار من خلال المستخدم ';
 
+# System Management
+$lang['System_ManagementModel']   = ' ادارة النظام ';
+$lang['System_Management_Area']   = ' ادارة مناطق العرض ';
+$lang['System_Management_Controllers']   = ' ادارة الانظمة ';
 
 /*
  * Language
@@ -165,6 +168,17 @@ $lang['add_new_user_button']    = 'إضافة مستخدم ';
 $lang['user_full_name_ar']      = ' اسم المستخدم باللغة العربية ';
 $lang['user_full_name_en']      = ' اسم المستخدم باللغة الانجليزية';
 $lang['user_group']             = 'المجموعة ';
+$lang['user_Permissions']       = 'صلاحيات المستخدم ';
+
+
+/*
+ *  Permissions Admin User
+ */
+
+
+/* Auth */
+$lang['Auth_password']             = ' كلمة المرور ';
+$lang['Auth_confirm_password']     = ' تأكيد كلمة المرور';
 
 
 /*
@@ -217,12 +231,12 @@ $lang['companies_documents_information']  = 'المسندات و المرفقا�
 /*
  *   Company Info Registration
  */
-$lang['companies_Category']   = 'الفئة';
-$lang['companies_Trade_Name'] = 'الاسم التجاري';
+$lang['companies_Category']                   = 'الفئة';
+$lang['companies_Trade_Name']                 = 'الاسم التجاري';
 $lang['companies_Commercial_Registration_No'] = 'رقم السجل التجاري';
-$lang['companies_Unified_record_number'] = 'الرقم الموحد للسجل';
-$lang['companies_commercial_activities'] = 'النشاط التجاري';
-$lang['companies_owner_name'] = 'اسم المالك ';
+$lang['companies_Unified_record_number']      = 'الرقم الموحد للسجل';
+$lang['companies_commercial_activities']      = 'النشاط التجاري';
+$lang['companies_owner_name']                 = 'اسم المالك ';
 $lang['companies_'] = '';
 $lang['companies_'] = '';
 $lang['companies_'] = '';

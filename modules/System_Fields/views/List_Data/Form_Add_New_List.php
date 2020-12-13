@@ -153,6 +153,20 @@
                         </div>
                     </div><!--<div class="card card-custom">-->
 
+
+                    <div class="card card-custom  mt-10">
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+                                </div>
+                                <div class="col-lg-6 text-lg-right">
+                                    <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </form>
 
 
@@ -184,9 +198,6 @@
         },
         hide: function (deleteElement) {
             $(this).slideUp(deleteElement);
-        },
-        ready: function (setIndexes) {
-
         },
         isFirstItemUndeletable: true
     });

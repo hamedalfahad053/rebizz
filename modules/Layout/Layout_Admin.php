@@ -158,6 +158,32 @@
                         </li>
 
 
+                        <li class="menu-section">
+                            <h4 class="menu-text">ادارة الصلاحيات </h4>
+                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                        </li>
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="javascript:;" class="menu-link menu-toggle">
+                                <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
+                                <span class="menu-text">ادارة الصلاحيات</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
+                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
+                                    </li>
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Group_Users') ?>" class="menu-link menu-toggle">
+                                            <span class="menu-icon"><i class="flaticon-rotate text-primary"></span></i><span class="menu-text">مجموعة المستخدمين</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+
 
 
                         <li class="menu-section">
@@ -265,6 +291,51 @@
                                 </ul>
                             </div>
                         </li>
+
+
+
+
+                        <li class="menu-section">
+                            <h4 class="menu-text"> ادارة النظام  </h4>
+                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                        </li>
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/System_Management/Area') ?>" class="menu-link">
+                                <i class="menu-icon flaticon-browser"></i>
+                                <span class="menu-text"> مناطق العرض  </span>
+                            </a>
+                        </li>
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
+                                <i class="menu-icon flaticon2-gear"></i>
+                                <span class="menu-text"> ادارة الانظمة </span>
+                            </a>
+                        </li>
+
+
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="javascript:;" class="menu-link menu-toggle">
+                                <span class="svg-icon menu-icon">
+                                <i class="flaticon2-world"></i></span>
+                                <span class="menu-text"> قائمة</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Form_Add_Company') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                            <span class="menu-text"> تسجيل حساب جديد </span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+
 
 
                     </ul>

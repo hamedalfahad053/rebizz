@@ -81,6 +81,13 @@ $route['Site/(:any)'] = 'Site/Site/$1';
 # Dashboard
 $route[ADMIN_NAMESPACE_URL.'/Dashboard']        = 'System_Dashboard/System_Dashboard';
 
+# System
+$route[ADMIN_NAMESPACE_URL.'/System_Management']                       = 'System_management/System_management';
+$route[ADMIN_NAMESPACE_URL.'/System_Management/(:any)']                = 'System_management/System_management/$1';
+$route[ADMIN_NAMESPACE_URL.'/System_Management/(:any)/(:any)']         = 'System_management/System_management/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/System_Management/(:any)/(:any)/(:any)']  = 'System_management/System_management/$1/$2/$3';
+
+
 # System Fields
 $route[ADMIN_NAMESPACE_URL.'/Fields']                  = 'System_Fields/System_Fields';
 $route[ADMIN_NAMESPACE_URL.'/Fields/(:any)']           = 'System_Fields/System_Fields/$1';
