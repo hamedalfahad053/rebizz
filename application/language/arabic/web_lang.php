@@ -157,9 +157,15 @@ $lang['System_Management_Controllers']   = ' ادارة الانظمة ';
 
 $lang['Controllers_Code']        = '  اسم الكنترول ';
 $lang['Controllers_Functions']   = ' وظائف الكنترول ';
+$lang['Controllers_Functions']   = ' وظائف الكنترول ';
+
+$lang['add_new_System_button']      = 'إضافة نظام جديد ';
+$lang['add_new_button_Functions']   = '  اضافة وظيفة جديدة ';
+$lang['Functions_Code']             = '  اسم الفنكشن ';
 
 
-$lang['add_new_System_button']    = 'إضافة نظام جديد ';
+
+
 /*
  * Language
  */
@@ -180,6 +186,10 @@ $lang['user_Permissions']       = 'صلاحيات المستخدم ';
 /*
  *  Permissions Admin User
  */
+$lang['Management_Permissions']       = ' نظام ادارة الصلاحيات  ';
+$lang['add_new_Permissions_button']   = 'إضافة صلاحية جديدة ';
+$lang['Permissions_View_Data']        = ' صلاحية عرض البيانات ';
+$lang['Permissions_View_Data_value']  = ' البيانات المصرح الاطلاع عليها ';
 
 
 /* Auth */

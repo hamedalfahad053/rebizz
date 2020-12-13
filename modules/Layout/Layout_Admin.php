@@ -172,12 +172,12 @@
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Permissions/') ?>" class="menu-link menu-toggle">
+                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">اعداد الصلاحيات</span></a>
                                     </li>
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Group_Users') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-rotate text-primary"></span></i><span class="menu-text">مجموعة المستخدمين</span></a>
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Permissions/Roles') ?>" class="menu-link menu-toggle">
+                                            <span class="menu-icon"><i class="flaticon-rotate text-primary"></span></i><span class="menu-text">اعداد الادوار</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -300,13 +300,13 @@
                             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/System_Management/Area') ?>" class="menu-link">
+                            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/System/Area') ?>" class="menu-link">
                                 <i class="menu-icon flaticon-browser"></i>
                                 <span class="menu-text"> مناطق العرض  </span>
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/System_Management/Controllers') ?>" class="menu-link">
+                            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/System/Controllers') ?>" class="menu-link">
                                 <i class="menu-icon flaticon2-gear"></i>
                                 <span class="menu-text"> ادارة الانظمة </span>
                             </a>

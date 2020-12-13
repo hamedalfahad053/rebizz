@@ -150,13 +150,6 @@
             }
         });
     }); // $('#Type_Fields').change(function()
-
-
-
-
-
-
-
 </script>
 
 

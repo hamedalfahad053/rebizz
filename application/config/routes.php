@@ -82,10 +82,10 @@ $route['Site/(:any)'] = 'Site/Site/$1';
 $route[ADMIN_NAMESPACE_URL.'/Dashboard']        = 'System_Dashboard/System_Dashboard';
 
 # System
-$route[ADMIN_NAMESPACE_URL.'/System_Management']                       = 'System_management/System_management';
-$route[ADMIN_NAMESPACE_URL.'/System_Management/(:any)']                = 'System_management/System_management/$1';
-$route[ADMIN_NAMESPACE_URL.'/System_Management/(:any)/(:any)']         = 'System_management/System_management/$1/$2';
-$route[ADMIN_NAMESPACE_URL.'/System_Management/(:any)/(:any)/(:any)']  = 'System_management/System_management/$1/$2/$3';
+$route[ADMIN_NAMESPACE_URL.'/System']                       = 'System_management/System_management';
+$route[ADMIN_NAMESPACE_URL.'/System/(:any)']                = 'System_management/System_management/$1';
+$route[ADMIN_NAMESPACE_URL.'/System/(:any)/(:any)']         = 'System_management/System_management/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/System/(:any)/(:any)/(:any)']  = 'System_management/System_management/$1/$2/$3';
 
 
 # System Fields
@@ -108,6 +108,12 @@ $route[ADMIN_NAMESPACE_URL.'/Group_Users/(:any)'] = 'System_GroupUsers/System_Gr
 # Users
 $route[ADMIN_NAMESPACE_URL.'/Users']              = 'System_Users/System_Users';
 $route[ADMIN_NAMESPACE_URL.'/Users/(:any)']       = 'System_Users/System_Users/$1';
+
+# Permissions
+$route[ADMIN_NAMESPACE_URL.'/Permissions']                       = 'System_Permissions/System_Permissions';
+$route[ADMIN_NAMESPACE_URL.'/Permissions/(:any)']                = 'System_Permissions/System_Permissions/$1';
+$route[ADMIN_NAMESPACE_URL.'/Permissions/(:any)/(:any)']         = 'System_Permissions/System_Permissions/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Permissions/(:any)/(:any)/(:any)']  = 'System_Permissions/System_Permissions/$1/$2/$3';
 
 # Company
 $route[ADMIN_NAMESPACE_URL.'/Company']              = 'System_Company/System_Company';

@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <form class="form"  action="<?= base_url(ADMIN_NAMESPACE_URL.'/System/Create_New_Controllers') ?>" method="post">
+                <form class="form"  action="<?= base_url(ADMIN_NAMESPACE_URL.'/System/Create_New_Functions') ?>" method="post">
                 <?=  $this->session->flashdata('message'); ?>
                 <?= CSFT_Form() ?>
 
@@ -43,7 +43,7 @@
                         <div class="card-header">
                             <div class="card-title">
                                 <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-                                <h3 class="card-label"><?= $Page_Title  ?></h3>
+                                <h3 class="card-label"><?= $Page_Title  ?> : <?= $Controllers->item_translation ?></h3>
                             </div>
                             <div class="card-toolbar"></div>
                         </div>
@@ -62,27 +62,22 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <label><?= lang('Functions_Code') ?></label>
+                                    <input type="text" name="Functions_Code" class="form-control" value="<?= set_value('Controllers_Code'); ?>" placeholder="<?= lang('Controllers_Code') ?>"/>
+                                </div>
+                                <div class="col-lg-6">
                                     <label><?= lang('Controllers_Code') ?></label>
-                                    <input type="text" name="Controllers_Code" class="form-control" value="<?= set_value('Controllers_Code'); ?>" placeholder="<?= lang('Controllers_Code') ?>"/>
+                                    <select name="Controllers_id" class="form-control selectpicker" data-live-search="true">
+                                        <option value="<?= $Controllers->controllers_id ?>"><?= $Controllers->item_translation ?></option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-lg-4">
-                                    <label><?= lang('System_Area') ?> </label>
-                                    <select name="Area" class="form-control selectpicker" data-live-search="true">
-                                        <?php
-                                        foreach ($System_Area AS  $value)
-                                        {
-                                            echo '<option value="'.$value['area_id'].'">'.$value['area_name'].'</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <label><?= lang('Table_Status') ?> </label>
-                                    <select name="status_controller" class="form-control selectpicker" data-live-search="true">
+                                    <select name="status_functions" class="form-control selectpicker" data-live-search="true">
                                         <?php
                                         foreach ($status_controller AS $key => $value)
                                         {
@@ -91,7 +86,7 @@
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <label><?= lang('Basic_System') ?> </label>
                                     <select name="status_system"  class="form-control selectpicker" data-live-search="true">
                                         <?php

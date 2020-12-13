@@ -40,7 +40,7 @@
                         <h3 class="card-label"><?= $Page_Title ?></h3>
                     </div>
                     <div class="card-toolbar">
-                        <?= Create_One_Button_Text(array('title'=> lang('add_new_System_button') ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/System_Management/Form_Add_New_Controllers'))) ?>
+                        <?= Create_One_Button_Text(array('title'=> lang('add_new_System_button') ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/System/Form_Add_New_Controllers'))) ?>
                     </div>
                 </div>
                 <div class="card-body">
