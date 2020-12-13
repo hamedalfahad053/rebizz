@@ -306,7 +306,7 @@
                             </a>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
+                            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/System_Management/Controllers') ?>" class="menu-link">
                                 <i class="menu-icon flaticon2-gear"></i>
                                 <span class="menu-text"> ادارة الانظمة </span>
                             </a>

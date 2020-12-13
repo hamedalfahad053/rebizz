@@ -152,8 +152,14 @@ $lang['Multiple_Entry_Users']     = ' يمكن تخصيص خيار من خلال
 # System Management
 $lang['System_ManagementModel']   = ' ادارة النظام ';
 $lang['System_Management_Area']   = ' ادارة مناطق العرض ';
+$lang['System_Area']                     = '   العرض ';
 $lang['System_Management_Controllers']   = ' ادارة الانظمة ';
 
+$lang['Controllers_Code']        = '  اسم الكنترول ';
+$lang['Controllers_Functions']   = ' وظائف الكنترول ';
+
+
+$lang['add_new_System_button']    = 'إضافة نظام جديد ';
 /*
  * Language
  */

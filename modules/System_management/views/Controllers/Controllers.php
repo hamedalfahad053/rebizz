@@ -40,6 +40,7 @@
                         <h3 class="card-label"><?= $Page_Title ?></h3>
                     </div>
                     <div class="card-toolbar">
+                        <?= Create_One_Button_Text(array('title'=> lang('add_new_System_button') ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/System_Management/Form_Add_New_Controllers'))) ?>
                     </div>
                 </div>
                 <div class="card-body">
@@ -52,8 +53,10 @@
                             <thead>
                             <tr>
                                 <th class="text-center">#</th>
+                                <th class="text-center">النظام</th>
+                                <th class="text-center">Controllers</th>
+                                <th class="text-center">Functions</th>
                                 <th class="text-center">منطقة العرض</th>
-                                <th class="text-center">ملف العرض</th>
                                 <th class="text-center">الحالة</th>
                                 <th class="text-center">الخيارات</th>
                             </tr>
@@ -61,15 +64,17 @@
                             <tbody>
                             <?php
                             $i = 0;
-                            foreach ($System_Area AS  $ROW)
+                            foreach ($System_controllers AS  $ROW)
                             {
                                 ?>
                                 <tr>
                                     <td class="text-center"><?= ++$i ?></td>
-                                    <td class="text-center"><?= $ROW['area_name'] ?></td>
-                                    <td class="text-center"><?= $ROW['area_layout'] ?></td>
-                                    <td class="text-center"><?= $ROW['area_status'] ?></td>
-                                    <td class="text-center"><?= $ROW['area_modification'] ?></td>
+                                    <td class="text-center"><?= $ROW['controllers_name'] ?></td>
+                                    <td class="text-center"><?= $ROW['Controllers_Code'] ?></td>
+                                    <td class="text-center"><?= $ROW['Controllers_Functions'] ?></td>
+                                    <td class="text-center"><?= $ROW['controllers_area'] ?></td>
+                                    <td class="text-center"><?= $ROW['controllers_status'] ?></td>
+                                    <td class="text-center"><?= $ROW['controllers_modification'] ?></td>
                                 </tr>
                                 <?php
                             }
@@ -86,3 +91,15 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.data_table').DataTable({
+            responsive: true
+        });
+
+    });
+</script>

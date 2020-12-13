@@ -34,6 +34,7 @@
             <div class="col-lg-12">
 
                 <form class="form"  action="<?= base_url(ADMIN_NAMESPACE_URL.'/List_Data/Create_List_Data') ?>" method="post">
+                    <?= CSFT_Form() ?>
                     <?php echo  $this->session->flashdata('message'); ?>
                     <div class="card card-custom">
                        <div class="card-header">
