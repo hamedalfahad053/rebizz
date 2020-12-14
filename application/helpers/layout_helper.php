@@ -21,6 +21,17 @@ if (!function_exists('Layout_Admin')) {
 }
 ###############################################################################
 
+
+###############################################################################
+if (!function_exists('Layout_Apps')) {
+    function Layout_Company($data) {
+        $Layout_Company = app()->load->view('../../modules/Layout/Layout_Company', $data);
+        return $Layout_Company;
+    }
+}
+###############################################################################
+
+
 ###############################################################################
 if (!function_exists('Layout_Admin_Parse')) {
     function Layout_Admin_Parse($data) {

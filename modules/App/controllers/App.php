@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Apps extends Front
+class App extends Front
 {
     ###################################################################
     public function __construct()
@@ -13,7 +13,7 @@ class Apps extends Front
     ###################################################################
     public function index()
     {
-
+        Layout_Company($this->data);
     }
     ###################################################################
 
