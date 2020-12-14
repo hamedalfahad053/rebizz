@@ -340,7 +340,7 @@ class System_management extends Admin
     {
         $msg['success'] = false;
 
-        $Controllers_id = $this->input->get('Area_id');
+        $Controllers_id = $this->input->get('Controllers_id');
 
         $get_function = $this->System_Management_model->Get_System_Functions($Controllers_id);
 

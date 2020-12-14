@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <label><?= lang('Functions_Code') ?></label>
-                                <select name="Functions_id" class="form-control selectpicker" data-live-search="true">
+                                <select id="Functions_id" name="Functions_id"  class="form-control selectpicker" data-live-search="true">
 
                                 </select>
                             </div>
@@ -111,23 +111,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-6">
-                                <label><?= lang('Permissions_View_Data') ?> </label>
-                                <select name="Permissions_View_Data" class="form-control selectpicker" data-live-search="true">
-
-
-                                </select>
-                            </div>
-                            <div class="col-lg-6">
-                                <label><?= lang('Permissions_View_Data_value') ?> </label>
-                                <select name="Permissions_View_Data_value"  class="form-control selectpicker" data-live-search="true">
-
-                                </select>
-                            </div>
-                        </div>
-
 
                     </div>
                     <div class="card-footer">
@@ -199,7 +182,7 @@
                 $("#Functions_id").empty();
                 $("#Functions_id").append('<option>اختر </option>');
                 $.each(data.data, function (key, value) {
-                    $("#Functions_id").append('<option value=' + key + '>' + value + '</option>');
+                    $("#Functions_id").append('<option value=' + value.function_id + '>' + value.function_name + '</option>');
                 });
                 $("#Functions_id").selectpicker('refresh');
             },

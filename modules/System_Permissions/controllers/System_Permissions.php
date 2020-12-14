@@ -19,6 +19,8 @@ class System_Permissions extends Admin
         $this->data['Page_Title']  = lang('Management_Permissions');
 
 
+
+
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Permissions'));
         $this->mybreadcrumb->add($this->data['Page_Title'],'#');

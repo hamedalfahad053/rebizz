@@ -46,6 +46,41 @@
                 <div class="card-body">
                     <div class="card-body">
 
+                        <?php echo  $this->session->flashdata('message'); ?>
+
+                        <style>th.dt-center,.dt-center { text-align: center; }</style>
+                        <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"><?= lang('Table_Status') ?></th>
+                                <th class="text-center"><?= lang('Table_Options') ?></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($input_type AS $row)
+                            {
+                                ?>
+                                <tr>
+                                    <td class="text-center"><?= $row['input_type_id'] ?></td>
+                                    <td class="text-center"><?= $row['input_translation'] ?></td>
+                                    <td class="text-center"><?= $row['input_type'] ?></td>
+                                    <td class="text-center"><?= $row['input_code_Html'] ?></td>
+                                    <td class="text-center"><?= $row['input_type_status'] ?></td>
+                                    <td class="text-center"><?= $row['main_system'] ?></td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                        <!--begin: Datatable -->
+
+
                     </div>
                 </div>
             </div>
