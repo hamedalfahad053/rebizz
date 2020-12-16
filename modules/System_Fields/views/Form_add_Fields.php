@@ -49,7 +49,7 @@
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('Type_Fields') ?></label>
-                                <select name="Type_Fields" id="Type_Fields"  class="form-control selectpicker">
+                                <select name="Type_Fields" id="Type_Fields"  class="form-control selectpicker" title="الرجاء إختيار نوع الحقل">
                                     <?php
                                     foreach ($options_Type_Tag_Fields AS $key => $value)
                                     {
@@ -62,8 +62,8 @@
                             <div class="col-lg-6 mt-5">
 
                                 <label>نوع الحقل</label>
-                                <select name="options_Type_Fields" id="options_Type_Fields"  class="form-control selectpicker" data-live-search="true">
-
+                                <select name="options_Type_Fields" id="options_Type_Fields"  class="form-control selectpicker" data-live-search="true" title="الرجاء إختيار نوع الحقل">
+                                
                                 </select>
 
                             </div>
