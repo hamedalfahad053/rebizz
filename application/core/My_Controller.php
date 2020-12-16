@@ -71,6 +71,18 @@ class MY_Controller extends MX_Controller  {
 }
 
 /**
+ * Auth controller
+ */
+class Authorization extends MY_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+
+    }
+}
+
+/**
 * Admin controller
 */
 class Admin extends MY_Controller

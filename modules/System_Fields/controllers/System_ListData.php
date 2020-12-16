@@ -111,8 +111,8 @@ class System_ListData extends Admin
         $this->data['Page_Title']  = lang('List_Data_add_button');
 
         $this->data['List_status'] = array(
-            "0" => lang('Status_Active'),
-            "1" => lang('Status_Disabled')
+            "1" => lang('Status_Active'),
+            "0" => lang('Status_Disabled')
         );
 
         $this->data['List_status_system'] = array(
@@ -165,13 +165,21 @@ class System_ListData extends Admin
             $data_list['list_owner_id']          = 0;
             $data_list['list_data_key']          = $list_key;
 
+
+            $option_list = $this->input->post('option_list');
+
+
+
             //Attributes
 
             $Create_List  = $this->ListData_model->Create_List($data_list);
 
-            $option_list = $this->input->post('option_list');
 
-            if(empty($option_list)>0){
+
+
+
+
+            if($option_list){
                 foreach ($option_list AS $key => $value )
                 {
                     $i = 0;

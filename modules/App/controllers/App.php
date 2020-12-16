@@ -13,7 +13,10 @@ class App extends Front
     ###################################################################
     public function index()
     {
-        Layout_Company($this->data);
+        $this->data['Page_Title']  = lang('Management_Permissions');
+
+
+        Layout_Apps($this->data);
     }
     ###################################################################
 

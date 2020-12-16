@@ -193,6 +193,8 @@ $lang['Permissions_View_Data_value']  = ' البيانات المصرح الاط
 
 
 /* Auth */
+$lang['Auth_Pages']                = ' تسجيل الدخول ';
+$lang['Auth_error_password_or_email']     = ' اسم المستخدم او كلمة المرور غير صحيحة ';
 $lang['Auth_password']             = ' كلمة المرور ';
 $lang['Auth_confirm_password']     = ' تأكيد كلمة المرور';
 

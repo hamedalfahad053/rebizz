@@ -314,7 +314,7 @@
                             <a href="javascript:;" class="menu-link menu-toggle">
                                 <span class="svg-icon menu-icon">
                                 <i class="flaticon2-world"></i></span>
-                                <span class="menu-text"> قائمة</span>
+                                <span class="menu-text"> الدول / المدن / الاحياء </span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="menu-submenu">
@@ -323,7 +323,7 @@
 
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                         <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Form_Add_Company') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
-                                            <span class="menu-text"> تسجيل حساب جديد </span>
+                                            <span class="menu-text">  </span>
                                         </a>
                                     </li>
 

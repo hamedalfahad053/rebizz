@@ -11,7 +11,6 @@ if(!function_exists('direction_Layout')) {
 }
 ###############################################################################
 
-
 ###############################################################################
 if (!function_exists('Layout_Admin')) {
     function Layout_Admin($data) {
@@ -20,17 +19,6 @@ if (!function_exists('Layout_Admin')) {
     }
 }
 ###############################################################################
-
-
-###############################################################################
-if (!function_exists('Layout_Apps')) {
-    function Layout_Company($data) {
-        $Layout_Company = app()->load->view('../../modules/Layout/Layout_Company', $data);
-        return $Layout_Company;
-    }
-}
-###############################################################################
-
 
 ###############################################################################
 if (!function_exists('Layout_Admin_Parse')) {
@@ -41,6 +29,23 @@ if (!function_exists('Layout_Admin_Parse')) {
 }
 ###############################################################################
 
+###############################################################################
+if (!function_exists('Layout_Auth')) {
+    function Layout_Auth($data) {
+        $Layout_Auth= app()->load->view('../../modules/Auth/views/Layout_Auth', $data);
+        return $Layout_Auth;
+    }
+}
+###############################################################################
+
+###############################################################################
+if (!function_exists('Layout_Apps')) {
+    function Layout_Apps($data) {
+        $Layout_Company = app()->load->view('../../modules/Layout/Layout_Company', $data);
+        return $Layout_Company;
+    }
+}
+###############################################################################
 
 ###############################################################################
 if (!function_exists('import_css')) {

@@ -78,7 +78,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |   ['pm_cleanup_max_age']              PM Cleanup max age (in relative format), PM's are older than max age get deleted with 'cleanup_pms()'
 |                                       Relative Format (e.g. '2 week', '1 month')
 |                                       for details see http://php.net/manual/de/datetime.formats.relative.php
-|
 */
 $config_aauth = array();
 
@@ -137,7 +136,7 @@ $config_aauth["default"] = array(
  'reset_password_link'            => '/account/reset_password/',
 
  'hash'                           => 'sha256',
- 'use_password_hash'              => false,
+ 'use_password_hash'              => true,
  'password_hash_algo'             => PASSWORD_DEFAULT,
  'password_hash_options'          => array(),
 

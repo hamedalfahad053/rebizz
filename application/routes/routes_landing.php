@@ -1,2 +1,2 @@
 <?php
-$route['default_controller'] = 'Auth/Web';
+$route['default_controller'] = 'Site/Site';
