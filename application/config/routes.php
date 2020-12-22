@@ -124,6 +124,8 @@ $route[ADMIN_NAMESPACE_URL.'/Permissions/(:any)/(:any)/(:any)']  = 'System_Permi
 $route[ADMIN_NAMESPACE_URL.'/Company']              = 'System_Company/System_Company';
 $route[ADMIN_NAMESPACE_URL.'/Company/(:any)']       = 'System_Company/System_Company/$1';
 
+
+
 /* ################################################################################
  * Admin
 */ ################################################################################
@@ -136,6 +138,10 @@ $route[APP_NAMESPACE_URL.'/(:any)']                = 'App/App/$1';
 $route[APP_NAMESPACE_URL.'/(:any)/(:any)']         = 'App/App/$1/$2';
 $route[APP_NAMESPACE_URL.'/(:any)/(:any)/(:any)']  = 'App/App/$1/$2/$3';
 
+
+# Company Clients
+$route[APP_NAMESPACE_URL.'/Clients']              = 'Company_Clients/Company_Clinets';
+$route[APP_NAMESPACE_URL.'/Clients/(:any)']       = 'Company_Clients/Company_Clinets/$1';
 
 /* ################################################################################
  * Site
