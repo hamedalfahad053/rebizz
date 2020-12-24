@@ -20,8 +20,9 @@ class Auth extends Authorization
 
 	    $this->data['Page_Title']    = lang('Auth_Pages');
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'css/pages/login/login-1',$this->data['direction']);
-        $this->data['PageContent']   = $this->data;
-        Layout_Auth($this->data['PageContent']);
+        $this->data['PageContent']   = $this->load->view('../../modules/Auth/views/Form_Login',$this->data,true);
+        Layout_Auth($this->data);
+
 	}
     ###############################################################################################
 
@@ -81,6 +82,15 @@ class Auth extends Authorization
     }
     ###############################################################################################
 
+    ###############################################################################################
+    public function Reset()
+    {
+        $this->data['Page_Title']    = lang('Auth_Pages');
+        $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'css/pages/login/login-1',$this->data['direction']);
+        $this->data['PageContent']   = $this->load->view('../../modules/Auth/views/Form_Reset',$this->data,true);
+        Layout_Auth($this->data);
+    }
+    ###############################################################################################
 
     ###############################################################################################
     public function forgot_password()
