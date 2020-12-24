@@ -25,7 +25,6 @@ class System_Maps extends Admin
         $this->mybreadcrumb->add($this->data['Page_Title'],'#');
 
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-
         $this->data['PageContent'] = $this->load->view('../../modules/System_Company/views/List_company',$this->data,true);
 
         Layout_Admin($this->data);

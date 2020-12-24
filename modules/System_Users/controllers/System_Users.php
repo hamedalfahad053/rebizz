@@ -53,7 +53,7 @@ class System_Users extends Admin
                     "href" => "#"
                 );
 
-                if($Row->group_status == 0) {
+                if($Row->banned == 0) {
                     $options['active'] = array(
                         "title" => lang('active_button'),
                         "data-attribute" => '',
@@ -81,7 +81,7 @@ class System_Users extends Admin
 
             $this->data['Users'][]  = array(
                 "User_id"       => $Row->id,
-                "User_Name"    => $Row->full_name,
+                "User_Name"     => $Row->full_name,
                 "User_Email"    => $Row->email,
                 "User_Group_id" => $Row->group_id,
                 "User_Group"    => $Row->item_translation,

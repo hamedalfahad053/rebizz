@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class App extends Apps
+class App extends Front
 {
     ###################################################################
     public function __construct()

@@ -165,19 +165,11 @@ class System_ListData extends Admin
             $data_list['list_owner_id']          = 0;
             $data_list['list_data_key']          = $list_key;
 
-
             $option_list = $this->input->post('option_list');
-
-
 
             //Attributes
 
             $Create_List  = $this->ListData_model->Create_List($data_list);
-
-
-
-
-
 
             if($option_list){
                 foreach ($option_list AS $key => $value )

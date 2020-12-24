@@ -348,7 +348,7 @@
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 
             <!--begin::Header-->
-            <?= $this->load->view('../../modules/Layout/Widgets/Header'); ?>
+            <?= $this->load->view('../../modules/Layout/Widgets_Admin/Header'); ?>
             <!--end::Header-->
 
             <!--begin::Content-->
@@ -358,7 +358,7 @@
             <!--end::Content-->
 
             <!--begin::Footer-->
-            <?= $this->load->view('../../modules/Layout/Widgets/Footer'); ?>
+            <?= $this->load->view('../../modules/Layout/Widgets_Admin/Footer'); ?>
             <!--end::Footer-->
 
         </div>
@@ -369,15 +369,15 @@
 <!--end::Main-->
 
 <!-- begin::User Panel-->
-<?= $this->load->view('../../modules/Layout/Widgets/UserPanel'); ?>
+<?= $this->load->view('../../modules/Layout/Widgets_Admin/UserPanel'); ?>
 <!-- end::User Panel-->
 
 <!--begin::Quick Cart-->
-<?= $this->load->view('../../modules/Layout/Widgets/QuickCart'); ?>
+<?= $this->load->view('../../modules/Layout/Widgets_Admin/QuickCart'); ?>
 <!--end::Quick Cart-->
 
 <!--begin::Quick Panel-->
-<?= $this->load->view('../../modules/Layout/Widgets/QuickPanel'); ?>
+<?= $this->load->view('../../modules/Layout/Widgets_Admin/QuickPanel'); ?>
 <!--end::Quick Panel-->
 
 <!--begin::Scrolltop-->

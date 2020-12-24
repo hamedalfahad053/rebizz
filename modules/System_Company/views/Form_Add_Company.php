@@ -50,9 +50,8 @@
                             <div class="form-group row">
                                 <div class="col-lg-4 mt-5">
                                     <label><?= lang('companies_Category') ?></label>
-                                    <select name="companies_Category"  class="form-control selectpicker" data-live-search="true">
-                                        <option></option>
-                                    </select>
+                                    <?= Get_Data_List('select','LIST_BUSINESS_CATEGORIES') ?>
+
                                 </div>
                                 <div class="col-lg-4 mt-5">
                                     <label><?= lang('companies_Trade_Name') ?></label>

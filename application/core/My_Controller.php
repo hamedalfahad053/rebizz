@@ -79,8 +79,22 @@ class Authorization extends MY_Controller
     {
         parent::__construct();
 
-    }
+
+        if($this->aauth->is_loggedin()){
+            if($this->aauth->is_member('Admin')){
+                redirect(ADMIN_NAMESPACE_URL.'/Dashboard', 'refresh');
+            }else{
+                redirect(APP_NAMESPACE_URL.'/Dashboard', 'refresh');
+            }
+        }
+
+    } // public function __construct()
 }
+/**
+ * End Auth controller
+ */
+
+
 
 /**
 * Admin controller
@@ -92,21 +106,31 @@ class Admin extends MY_Controller
         parent::__construct();
 
     }
+
+
 }
 
 /**
- * Front controller
+ * Apps controller
  */
 
-class Front extends MY_Controller
+class Apps extends MY_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
 
+        if(!$this->aauth->is_loggedin()){
+            redirect('Auth', 'refresh');
+        }
+
     }
 }
+/**
+ * End Apps controller
+ */
+
 
 
 /**
