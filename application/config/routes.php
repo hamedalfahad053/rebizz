@@ -130,9 +130,10 @@ $route[ADMIN_NAMESPACE_URL.'/Permissions/(:any)/(:any)']         = 'System_Permi
 $route[ADMIN_NAMESPACE_URL.'/Permissions/(:any)/(:any)/(:any)']  = 'System_Permissions/System_Permissions/$1/$2/$3';
 
 # Company
-$route[ADMIN_NAMESPACE_URL.'/Company']              = 'System_Company/System_Company';
-$route[ADMIN_NAMESPACE_URL.'/Company/(:any)']       = 'System_Company/System_Company/$1';
-
+$route[ADMIN_NAMESPACE_URL.'/Company']                       = 'System_Company/System_Company';
+$route[ADMIN_NAMESPACE_URL.'/Company/(:any)']                = 'System_Company/System_Company/$1';
+$route[ADMIN_NAMESPACE_URL.'/Company/(:any)/(:any)']         = 'System_Company/System_Company/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Company/(:any)/(:any)/(:any)']  = 'System_Company/System_Company/$1/$2/$3';
 
 
 /* ################################################################################

@@ -142,6 +142,8 @@ $lang['message_success_insert']  = 'تم الأضافة  بنجاح';
 $lang['message_success_update']  = 'تم التحديث  بنجاح';
 $lang['message_error_insert']    = 'عفوا حدث خطا اثناء الاضافة تحقق من المدخلات او تواصل مع الدعم الفني';
 $lang['message_error_update']    = 'حدث خطا اثناء التحديث يرجى المحاولة او التواصل مع الدعم الفني لمساعدتك ';
+$lang['message_error_Duplicate']    = 'تمت الاضافة مسبقا فضلا التحقق من البيانات ';
+
 
 # Global System
 $lang['Status_add_System']        = 'حالة  بالنظام ';

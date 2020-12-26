@@ -11,20 +11,21 @@ class Companies_model extends CI_Model
 
 
     ########################################################################
-    function Get_Companies()
+    function Get_All_Companies()
     {
-
+        $query =  $this->db->get('portal_company');
+        return $query;
     }
     ########################################################################
 
     ########################################################################
     function Get_Company_Profile($profile_id)
     {
-        $query = $this->db->where('company_profile_id',$profile_id);
+        $query = $this->db->where('company_id',$profile_id);
         $query = $this->db->or_where('companies_Commercial_Registration_No',$profile_id);
-        $query =  $this->db->get('portal_company_profile');
+        $query =  $this->db->get('portal_company');
 
-            if($this->db->num_rows()>0){
+            if($query->num_rows()>0){
                 return $query;
             }else{
                 return false;
@@ -32,12 +33,15 @@ class Companies_model extends CI_Model
     }
     ########################################################################
 
-
     ########################################################################
-    function Create_Company()
+    function Create_Company($data)
     {
-
-
+        $query = $this->db->insert('portal_company',$data);
+        if($query){
+            return $this->db->insert_id();
+        }else{
+            return false;
+        }
     }
     ########################################################################
 

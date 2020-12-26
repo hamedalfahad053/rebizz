@@ -56,5 +56,24 @@ if(!function_exists('Get_Data_List')) {
 
 
 
+##############################################################################
+if(!function_exists('Get_options_Data')) {
+
+    function Get_options_Data($item_id)
+    {
+        app()->load->database();
+        $lang = get_current_lang();
+        $query_options = app()->db->where('item_id',$item_id);
+        $query_options = app()->db->where('translation_lang',$lang);
+        $query_options = app()->db->get('portal_list_options_translation');
+        return $query_options->row();
+    }
+
+}
+##############################################################################
+
+
+
+
 
 

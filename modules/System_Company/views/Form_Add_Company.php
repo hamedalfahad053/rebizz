@@ -31,6 +31,9 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
+
+        <?php echo  $this->session->flashdata('message'); ?>
+
         <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Create_Company') ?>" method="post">
             <?= CSFT_Form() ?>
 

@@ -44,6 +44,38 @@
                 </div>
                 <div class="card-body">
                     <div class="card-body">
+                        <?php echo  $this->session->flashdata('message'); ?>
+
+                        <style>th.dt-center,.dt-center { text-align: center; }</style>
+                        <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">المنشأة</th>
+                                <th class="text-center">اسم المنشأة</th>
+                                <th class="text-center"><?= lang('Table_Status') ?></th>
+                                <th class="text-center"><?= lang('Table_Options') ?></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $i = 0;
+                            foreach ($companies AS $row)
+                            {
+                                ?>
+                                <tr>
+                                    <td class="text-center"><?= $row['company_id'] ?></td>
+                                    <td class="text-center"><?= $row['companies_BUSINESS_CATEGORIES'] ?></td>
+                                    <td class="text-center"><?= $row['companies_Trade_Name'] ?></td>
+                                    <td class="text-center"><?= $row['companies_status'] ?></td>
+                                    <td class="text-center"><?= $row['companies_options'] ?></td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                        <!--begin: Datatable -->
 
                     </div>
                 </div>
@@ -53,3 +85,14 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.data_table').DataTable({
+            responsive: true
+        });
+
+    });
+</script>

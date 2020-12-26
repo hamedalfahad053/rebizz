@@ -8,7 +8,7 @@ class System_Company extends Admin
     {
         parent::__construct();
 
-
+        $this->load->model('Companies_model');
         $this->data['controller_name'] = lang('Management_companies_offices');
     }
     ###################################################################
@@ -17,15 +17,50 @@ class System_Company extends Admin
     public function index()
     {
 
-        $this->data['Page_Title']  = lang('Management_companies_offices');
+        $Get_All_Companies = $this->Companies_model->Get_All_Companies();
 
+        foreach ($Get_All_Companies->result() AS $ROW )
+        {
+
+            if($ROW->companies_Status == 1) {
+                $Companies_status =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+            }else{
+                $Companies_status =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+            }
+
+            $options = array();
+            $options['view']    = array("title" => lang('view_button'), "data-attribute" => '', "href" => base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Profile/'.$ROW->company_id.''));
+            $options['edit']    = array("title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
+            $options['deleted'] = array("title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
+
+            if($ROW->companies_Status == 0) {
+                $options['active'] = array("title" => lang('active_button'), "data-attribute" => '', "href" => "#");
+            }else {
+                $options['disable'] = array("title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
+            }
+
+            $Companies_options =  Create_Options_Button($options);
+
+            $this->data['companies'][]  = array(
+                "company_id"           => $ROW->company_id,
+                "companies_BUSINESS_CATEGORIES"  => Get_options_Data($ROW->LIST_BUSINESS_CATEGORIES)->item_translation,
+                "companies_Trade_Name" => $ROW->companies_Trade_Name,
+                "companies_status"     => $Companies_status,
+                "companies_options"    => $Companies_options,
+            );
+
+
+        } // foreach ($Get_All_Companies->result() AS $ROW )
+
+        $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
+        $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
+
+        $this->data['Page_Title']  = lang('Management_companies_offices');
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
         $this->mybreadcrumb->add($this->data['Page_Title'],'#');
-
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-
         $this->data['PageContent'] = $this->load->view('../../modules/System_Company/views/List_company',$this->data,true);
 
         Layout_Admin($this->data);
@@ -91,54 +126,331 @@ class System_Company extends Admin
         $this->form_validation->set_rules('companies_building_number',lang('Global_building_number'),'required');
         $this->form_validation->set_rules('companies_address_details',lang('Global_details'),'required');
 
+        if($this->form_validation->run()==FALSE){
 
-        $data_companies['LIST_BUSINESS_CATEGORIES']             = $this->input->post('LIST_BUSINESS_CATEGORIES');
-        $data_companies['companies_Trade_Name']                 = $this->input->post('companies_Trade_Name');
-        $data_companies['companies_Commercial_Registration_No'] = $this->input->post('companies_Commercial_Registration_No');
-        $data_companies['companies_Unified_record_number']      = $this->input->post('companies_Unified_record_number');
-        $data_companies['Registration_Date']                    = strtotime($this->input->post('Registration_Date'));
-        $data_companies['Expiry_Date']                          = strtotime($this->input->post('Expiry_Date'));
-        $data_companies['companies_commercial_activities']      = $this->input->post('companies_commercial_activities');
-        $data_companies['companies_owner_name']                 = $this->input->post('companies_owner_name');
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = validation_errors();
+            $msg_result_view     = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(ADMIN_NAMESPACE_URL.'/Company/Form_Add_Company', 'refresh');
 
-        $data_companies['owner_Nationality_id']                 = $this->input->post('owner_Nationality_id');
-        $data_companies['owner_Identification_Number']          = $this->input->post('owner_Identification_Number');
-        $data_companies['owner_Identification_Issued_Date']     = strtotime($this->input->post('owner_Identification_Issued_Date'));
-        $data_companies['owner_Identification_Expiry_Date']     = strtotime($this->input->post('owner_Identification_Expiry_Date'));
-        $data_companies['owner_Identification_Issued_by']       = $this->input->post('owner_Identification_Issued_by');
-        $data_companies['owner_Mobile']                         = $this->input->post('owner_Mobile');
-        $data_companies['owner_telephone']                      = $this->input->post('owner_telephone');
-        $data_companies['owner_address']                        = $this->input->post('owner_address');
-
-        $data_companies['companies_telephone']                  = $this->input->post('companies_telephone');
-        $data_companies['companies_Mobile']                     = $this->input->post('companies_Mobile');
-        $data_companies['companies_email']                      = $this->input->post('companies_email');
-        $data_companies['companies_website']                    = $this->input->post('companies_website');
-        $data_companies['companies_postbox']                    = $this->input->post('companies_postbox');
-        $data_companies['companies_Postal_code']                = $this->input->post('companies_Postal_code');
-        $data_companies['companies_Country_id']                 = $this->input->post('companies_Country_id');
-        $data_companies['companies_Region_id']                  = $this->input->post('companies_Region_id');
-        $data_companies['companies_City_id']                    = $this->input->post('companies_City_id');
-        $data_companies['companies_District_id']                = $this->input->post('companies_District_id');
-        $data_companies['companies_street']                     = $this->input->post('companies_street');
-        $data_companies['companies_building_number']            = $this->input->post('companies_building_number');
-        $data_companies['companies_address_details']            = $this->input->post('companies_address_details');
-        $data_companies['companies_Location_on_Google']         = $this->input->post('companies_Location_on_Google');
+        }else{
 
 
-        $data_companies['companies_Status']           =  0;
-        $data_companies['companies_createBy']         =  0;
-        $data_companies['companies_createDate']       =  time();
-        $data_companies['companies_lastModifyDate']   =  time();
-        $data_companies['companies_isDeleted']        =  0;
-        $data_companies['companies_DeletedBy']        =  0;
+            $data_companies['LIST_BUSINESS_CATEGORIES']             = $this->input->post('LIST_BUSINESS_CATEGORIES');
+            $data_companies['companies_Trade_Name']                 = $this->input->post('companies_Trade_Name');
+            $data_companies['companies_Commercial_Registration_No'] = $this->input->post('companies_Commercial_Registration_No');
+            $data_companies['companies_Unified_record_number']      = $this->input->post('companies_Unified_record_number');
+            $data_companies['Registration_Date']                    = strtotime($this->input->post('Registration_Date'));
+            $data_companies['Expiry_Date']                          = strtotime($this->input->post('Expiry_Date'));
+            $data_companies['companies_commercial_activities']      = $this->input->post('companies_commercial_activities');
+            $data_companies['companies_owner_name']                 = $this->input->post('companies_owner_name');
+
+            $data_companies['owner_Nationality_id']                 = $this->input->post('owner_Nationality_id');
+            $data_companies['owner_Identification_Number']          = $this->input->post('owner_Identification_Number');
+            $data_companies['owner_Identification_Issued_Date']     = strtotime($this->input->post('owner_Identification_Issued_Date'));
+            $data_companies['owner_Identification_Expiry_Date']     = strtotime($this->input->post('owner_Identification_Expiry_Date'));
+            $data_companies['owner_Identification_Issued_by']       = $this->input->post('owner_Identification_Issued_by');
+            $data_companies['owner_Mobile']                         = $this->input->post('owner_Mobile');
+            $data_companies['owner_telephone']                      = $this->input->post('owner_telephone');
+            $data_companies['owner_address']                        = $this->input->post('owner_address');
+
+            $data_companies['companies_telephone']                  = $this->input->post('companies_telephone');
+            $data_companies['companies_Mobile']                     = $this->input->post('companies_Mobile');
+            $data_companies['companies_email']                      = $this->input->post('companies_email');
+            $data_companies['companies_website']                    = $this->input->post('companies_website');
+            $data_companies['companies_postbox']                    = $this->input->post('companies_postbox');
+            $data_companies['companies_Postal_code']                = $this->input->post('companies_Postal_code');
+            $data_companies['companies_Country_id']                 = $this->input->post('companies_Country_id');
+            $data_companies['companies_Region_id']                  = $this->input->post('companies_Region_id');
+            $data_companies['companies_City_id']                    = $this->input->post('companies_City_id');
+            $data_companies['companies_District_id']                = $this->input->post('companies_District_id');
+            $data_companies['companies_street']                     = $this->input->post('companies_street');
+            $data_companies['companies_building_number']            = $this->input->post('companies_building_number');
+            $data_companies['companies_address_details']            = $this->input->post('companies_address_details');
+            $data_companies['companies_Location_on_Google']         = $this->input->post('companies_Location_on_Google');
+
+
+            $data_companies['companies_Status']           =  0;
+            $data_companies['companies_createBy']         =  0;//$this->aauth->get_user()->id;
+            $data_companies['companies_createDate']       =  time();
+            $data_companies['companies_lastModifyDate']   =  time();
+            $data_companies['companies_isDeleted']        =  0;
+            $data_companies['companies_DeletedBy']        =  0;
+
+
+            $Get_Company = $this->Companies_model->Get_Company_Profile($data_companies['companies_Commercial_Registration_No']);
+
+            if($Get_Company !== false){
+
+                $msg_result['key']   = 'Danger';
+                $msg_result['value'] = lang('message_error_Duplicate');
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+
+            }else{
+
+                    $Create_companies = $this->Companies_model->Create_Company($data_companies);
 
 
 
+                    if($Create_companies){
+                        $msg_result['key']   = 'Success';
+                        $msg_result['value'] = lang('message_success_insert');
+                        $msg_result_view = Create_Status_Alert($msg_result);
+                        set_message($msg_result_view);
+                        redirect(ADMIN_NAMESPACE_URL.'/Company' , 'refresh');
+                    }else{
+                        $msg_result['key']   = 'Danger';
+                        $msg_result['value'] = lang('message_error_insert');
+                        $msg_result_view = Create_Status_Alert($msg_result);
+                        set_message($msg_result_view);
+                        redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+                    }
+            }
 
 
+        } // if($this->form_validation->run()==FALSE){
+
+    }
+    ###################################################################
 
 
+    ###################################################################
+    public function Company_Profile()
+    {
+        $Company_id =  $this->uri->segment(4);
+
+        if(empty($Company_id) or isset_number_value($Company_id)==false){
+            redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+        }else{
+
+            $this->data['Company'] = $this->Companies_model->Get_Company_Profile($Company_id)->row();
+
+            if($this->data['Company']->companies_Status == 1) {
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+            }else{
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+            }
+
+
+            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+            $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
+            $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+            $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+            $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Info',$this->data,true);
+
+            $this->data['PageContent']  = $this->load->view('../../modules/System_Company/views/Company_Profile',$this->data,true);
+
+            Layout_Admin($this->data);
+
+
+        } // if(empty($Company_id) or isset_number_value($Company_id))
+
+    }
+    ###################################################################
+
+
+    ###################################################################
+    public function Company_Group_Users()
+    {
+        $Company_id =  $this->uri->segment(4);
+
+        if(empty($Company_id) or isset_number_value($Company_id)==false){
+            redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+        }else{
+
+            $this->data['Company'] = $this->Companies_model->Get_Company_Profile($Company_id)->row();
+
+            if($this->data['Company']->companies_Status == 1) {
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+            }else{
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+            }
+
+            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+            $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
+            $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+            $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+            $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Group_Users',$this->data,true);
+            $this->data['PageContent']  = $this->load->view('../../modules/System_Company/views/Company_Profile',$this->data,true);
+
+            Layout_Admin($this->data);
+
+        } // if(empty($Company_id) or isset_number_value($Company_id))
+    }
+    ###################################################################
+
+
+    ###################################################################
+    public function Company_Users()
+    {
+        $Company_id =  $this->uri->segment(4);
+
+        if(empty($Company_id) or isset_number_value($Company_id)==false){
+            redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+        }else{
+
+            $this->data['Company'] = $this->Companies_model->Get_Company_Profile($Company_id)->row();
+
+            if($this->data['Company']->companies_Status == 1) {
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+            }else{
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+            }
+
+            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+            $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
+            $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+            $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+            $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Users',$this->data,true);
+            $this->data['PageContent']  = $this->load->view('../../modules/System_Company/views/Company_Profile',$this->data,true);
+
+            Layout_Admin($this->data);
+
+        } // if(empty($Company_id) or isset_number_value($Company_id))
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Company_Fields()
+    {
+        $Company_id =  $this->uri->segment(4);
+
+        if(empty($Company_id) or isset_number_value($Company_id)==false){
+            redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+        }else{
+
+            $this->data['Company'] = $this->Companies_model->Get_Company_Profile($Company_id)->row();
+
+            if($this->data['Company']->companies_Status == 1) {
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+            }else{
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+            }
+
+            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+            $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
+            $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+            $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+            $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Fields',$this->data,true);
+            $this->data['PageContent']  = $this->load->view('../../modules/System_Company/views/Company_Profile',$this->data,true);
+
+            Layout_Admin($this->data);
+
+        } // if(empty($Company_id) or isset_number_value($Company_id))
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Company_Forms()
+    {
+        $Company_id =  $this->uri->segment(4);
+
+        if(empty($Company_id) or isset_number_value($Company_id)==false){
+            redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+        }else{
+
+            $this->data['Company'] = $this->Companies_model->Get_Company_Profile($Company_id)->row();
+
+            if($this->data['Company']->companies_Status == 1) {
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+            }else{
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+            }
+
+            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+            $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
+            $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+            $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+            $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Forms',$this->data,true);
+            $this->data['PageContent']  = $this->load->view('../../modules/System_Company/views/Company_Profile',$this->data,true);
+
+            Layout_Admin($this->data);
+
+        } // if(empty($Company_id) or isset_number_value($Company_id))
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Company_Contracts()
+    {
+        $Company_id =  $this->uri->segment(4);
+
+        if(empty($Company_id) or isset_number_value($Company_id)==false){
+            redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+        }else{
+
+            $this->data['Company'] = $this->Companies_model->Get_Company_Profile($Company_id)->row();
+
+            if($this->data['Company']->companies_Status == 1) {
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+            }else{
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+            }
+
+            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+            $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
+            $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+            $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+            $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Contracts',$this->data,true);
+            $this->data['PageContent']  = $this->load->view('../../modules/System_Company/views/Company_Profile',$this->data,true);
+
+            Layout_Admin($this->data);
+
+        } // if(empty($Company_id) or isset_number_value($Company_id))
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Company_Customers()
+    {
+        $Company_id =  $this->uri->segment(4);
+
+        if(empty($Company_id) or isset_number_value($Company_id)==false){
+            redirect(ADMIN_NAMESPACE_URL.'/Company', 'refresh');
+        }else{
+
+            $this->data['Company'] = $this->Companies_model->Get_Company_Profile($Company_id)->row();
+
+            if($this->data['Company']->companies_Status == 1) {
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+            }else{
+                $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+            }
+
+            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+            $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
+            $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+            $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+            $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Customers',$this->data,true);
+            $this->data['PageContent']  = $this->load->view('../../modules/System_Company/views/Company_Profile',$this->data,true);
+
+            Layout_Admin($this->data);
+
+        } // if(empty($Company_id) or isset_number_value($Company_id))
     }
     ###################################################################
 
