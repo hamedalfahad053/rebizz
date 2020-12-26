@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Company_Clinets extends App
+class Company_Clinets extends Apps
 {
     public function __construct()
     {

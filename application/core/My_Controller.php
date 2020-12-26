@@ -25,8 +25,6 @@ class MY_Controller extends MX_Controller  {
         $this->load->library('form_validation');
         $this->load->helper(['cookie']);
 
-
-
         //if(!$this->input->cookie('language')){
             $lang = $this->config->set_item('language', 'arabic');
             $cookie = array(
@@ -42,11 +40,7 @@ class MY_Controller extends MX_Controller  {
 //            $lang = $this->config->set_item('language',$lang);
 //        }
 
-
         $this->lang->load(['web', 'form_validation', 'upload', 'db',], $lang);
-
-
-
 
         if(get_current_lang()=='arabic'){
             $this->data['direction']   = 'rtl';
@@ -56,12 +50,10 @@ class MY_Controller extends MX_Controller  {
             $this->data['dir']         = '';
         }
 
-
         $this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
         $this->output->set_header("Cache-Control: private, no-store, max-age=0, no-cache, must-revalidate, post-check=0, pre-check=0");
         $this->output->set_header("Pragma: no-cache");
         $this->output->set_header("Access-Control-Allow-Origin: *");
-
 
         $this->data['PageContent']   = '';
         $this->data['Lode_file_Css'] = '';
@@ -105,6 +97,14 @@ class Admin extends MY_Controller
     {
         parent::__construct();
 
+        if($this->aauth->is_loggedin()){
+            if($this->aauth->is_member('Admin')){
+
+            }else{
+                redirect('Auth', 'refresh');
+            }
+        }
+
     }
 
 
@@ -113,7 +113,6 @@ class Admin extends MY_Controller
 /**
  * Apps controller
  */
-
 class Apps extends MY_Controller
 {
 
@@ -130,6 +129,23 @@ class Apps extends MY_Controller
 /**
  * End Apps controller
  */
+
+
+
+/**
+ * Ajax controller
+ */
+class Base_Ajax extends MY_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+}
+/**
+ * End Ajax controller
+ */
+
 
 
 
