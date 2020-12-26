@@ -24,6 +24,7 @@ $lang['Global_Region_province']       = 'المنطقة / المحافظة';
 $lang['Global_City']                  = ' المدينة ';
 $lang['Global_District']              = 'الحي';
 $lang['Global_street']                = 'الشارع';
+$lang['Global_Phone']                = 'الهاتف';
 
 
 $lang['Global_building_number']       = 'رقم المبنى';
@@ -265,3 +266,37 @@ $lang['companies_'] = '';
 $lang['companies_'] = '';
 $lang['companies_'] = '';
 $lang['companies_'] = '';
+
+
+/**
+ * Create New Clients Info 
+ */
+$lang['Management_Clients'] ='إدارة العملاء';
+$lang['client_information'] = 'بيانات العميل الأساسية';
+$lang['client_name'] = 'إسم العميل';
+$lang['client_type'] = 'نوع العميل';
+$lang['client_type_select'] = 'اختر نوع العميل';
+$lang['add_new_Client_button'] = 'إضافة عميل جديد';
+$lang['add_new_Client_title'] = 'إضافة عميل جديد';
+$lang['client_contract_setting'] = 'إعدادات التعاقد';
+$lang['client_contract_evaluation'] = 'إعدادات التقييم';
+$lang['client_property'] = 'ممتلكات العميل';
+$lang['client_contract_file'] = 'ملف التعاقد';
+$lang['client_contract_start_date'] = 'تاريخ بداية التعاقد';
+$lang['client_contract_end_date'] = 'تاريخ نهاية التعاقد';
+$lang['client_contract_auto_renew'] = 'التجديد التلقائي';
+$lang['client_contract_counter_policy'] = 'آلية ترقيم المعاملات';
+$lang['client_contract_counter_format'] = 'شكل الترقيم التلقائي';
+$lang['client_contract_counter_format_example'] = 'NCB_SA_0000001';
+$lang['client_contract_counter_start_from'] = 'يبدأ الترقيم التلقائي من';
+$lang['client_contract_form'] = 'نماذج التقييم';
+$lang['client_contract_evaluation_type'] = 'انواع التقييم';
+$lang['client_contract_evaluation_methods'] = 'اساليب التقييم';
+$lang['client_contract_evaluation_level'] = 'مراحل تقييم البناء الذاتي';
+$lang['client_Contract_pricing'] = 'تسعيرات المعاملات ضمن هذا التعاقد';
+$lang['client_'] = '';
+$lang['client_'] = '';
+$lang['client_'] = '';
+$lang['client_'] = '';
+$lang['client_'] = '';
+$lang['client_'] = '';

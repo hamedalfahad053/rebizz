@@ -97,13 +97,13 @@ class Admin extends MY_Controller
     {
         parent::__construct();
 
-        if($this->aauth->is_loggedin()){
-            if($this->aauth->is_member('Admin')){
+        // if($this->aauth->is_loggedin()){
+        //     if($this->aauth->is_member('Admin')){
 
-            }else{
-                redirect('Auth', 'refresh');
-            }
-        }
+        //     }else{
+        //         redirect('Auth', 'refresh');
+        //     }
+        // }
 
     }
 
@@ -120,9 +120,9 @@ class Apps extends MY_Controller
     {
         parent::__construct();
 
-        if(!$this->aauth->is_loggedin()){
-            redirect('Auth', 'refresh');
-        }
+        // if(!$this->aauth->is_loggedin()){
+        //     redirect('Auth', 'refresh');
+        // }
 
     }
 }
