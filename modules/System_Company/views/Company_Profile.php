@@ -82,7 +82,6 @@
         offcanvas = new KTOffcanvas('kt_profile_aside', {
             overlay: true,
             baseClass: 'offcanvas-mobile',
-            //closeBy: 'kt_user_profile_aside_close',
             toggleBy: 'kt_subheader_mobile_toggle'
         });
     }
@@ -93,5 +92,12 @@
 
     _initAside();
     _initForm();
+
+
+    $(document).ready(function() {
+        $('.data_table').DataTable({
+            responsive: true
+        });
+    });
 
 </script>

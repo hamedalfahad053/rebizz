@@ -10,6 +10,7 @@ class System_Group_Users extends Admin
 
         $this->load->model('Users_Group_Model');
         $this->load->model('../../modules/System_Users/models/Users_Model');
+        $this->load->model('../../modules/System_Company/models/Companies_model');
 
         $this->data['controller_name'] = lang('List_group_user');
     }
@@ -72,14 +73,18 @@ class System_Group_Users extends Admin
 
            } //  if($ROW->group_main_system == 1){
 
-           $Group_Num_Users = $this->Users_Group_Model->Get_Num_User_of_Groups($ROW->group_id);
+           if($ROW->group_owner == 0){
+              $Group_owner = 'النظام';
+           } else{
+               $Group_owner = Get_Company($ROW->group_owner)->companies_Trade_Name;
+           }
 
            $this->data['Group_Users'][]  = array(
                "Group_id"          => $ROW->group_id,
                "Group_Name"        => $ROW->name,
                "group_translation" => $ROW->item_translation,
-               "Group_owner"       => $ROW->full_name,
-               "Group_Num_Users"   => $Group_Num_Users,
+               "Group_owner"       => $Group_owner,
+               "Group_Num_Users"   => '',
                "Group_status"      => $group_status,
                "Group_main_system" => $group_main_system,
            );
@@ -112,20 +117,21 @@ class System_Group_Users extends Admin
     public function Form_add_Group()
     {
 
-        $Get_All_Users_Active = $this->Users_Model->Get_All_Users_Active();
+        $Get_All_Company_Active = $this->Companies_model->Get_All_Companies();
 
-        foreach ($Get_All_Users_Active->result() AS $RU )
+        foreach ($Get_All_Company_Active->result() AS $RU)
         {
-            $this->data['Users'][]  = array(
-                "User_id"     => $RU->id,
-                "User_name"   => $RU->full_name,
-                "User_Email"  => $RU->email,
+            $this->data['company'][]  = array(
+                "company_id"     => $RU->company_id,
+                "companies_Name" => $RU->companies_Trade_Name,
             );
         }
 
+
+
         $this->data['options_status_group'] = array(
-            "0" => lang('Status_Active'),
-            "1" => lang('Status_Disabled')
+            "1" => lang('Status_Active'),
+            "0" => lang('Status_Disabled')
         );
 
         $this->data['options_status_system'] = array(

@@ -14,12 +14,8 @@ class Users_Group_Model extends MY_Model
     {
         $this->db->from('portal_auth_groups Group');
         $this->db->join('portal_auth_groups_translation  Groups_Translation', 'Group.group_id=Groups_Translation.item_id');
-        $this->db->join('portal_auth_users  Users', 'Users.id=Group.group_owner');
-
         $lang   = get_current_lang();
-
         $this->db->where_in('Group.group_id',array(1,2));
-
         $this->db->where('Groups_Translation.translation_lang',$lang);
 
         $query = $this->db->get();
@@ -34,8 +30,6 @@ class Users_Group_Model extends MY_Model
     {
         $this->db->from('portal_auth_groups Group');
         $this->db->join('portal_auth_groups_translation  Groups_Translation', 'Group.group_id=Groups_Translation.item_id');
-        $this->db->join('portal_auth_users  Users', 'Users.id=Group.group_owner');
-
         $lang   = get_current_lang();
 
         $this->db->where('Groups_Translation.translation_lang',$lang);
@@ -69,8 +63,6 @@ class Users_Group_Model extends MY_Model
         }
     }
     ########################################################################
-
-
 
 
 

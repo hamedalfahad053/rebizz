@@ -11,8 +11,12 @@ class Companies_model extends CI_Model
 
 
     ########################################################################
-    function Get_All_Companies()
+    function Get_All_Companies($company_status='')
     {
+        if(!empty($company_status)){
+            $query = $this->db->where('companies_Status',$company_status);
+        }
+
         $query =  $this->db->get('portal_company');
         return $query;
     }

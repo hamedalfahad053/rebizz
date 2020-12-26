@@ -9,6 +9,9 @@ class System_Company extends Admin
         parent::__construct();
 
         $this->load->model('Companies_model');
+        $this->load->model('../../modules/System_GroupUsers/models/Users_Group_Model');
+
+
         $this->data['controller_name'] = lang('Management_companies_offices');
     }
     ###################################################################
@@ -193,6 +196,50 @@ class System_Company extends Admin
 
                     $Create_companies = $this->Companies_model->Create_Company($data_companies);
 
+                    $group_A = array(
+                        "group_owner"=>$Create_companies,
+                        "name"=>'System administrator',
+                        "group_status"=>1,
+                        "group_main_system"=>1
+                    );
+                    $Create_Group_A = $this->Users_Group_Model->Create_Group($group_A);
+                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_A,'مدير النظام','System administrator');
+
+                    $group_B = array(
+                        "group_owner"=>$Create_companies,
+                        "name"=>'data entry',
+                        "group_status"=>1,
+                        "group_main_system"=>1
+                    );
+                    $Create_Group_B = $this->Users_Group_Model->Create_Group($group_B);
+                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_B,'مدخل البيانات','data entry');
+
+                    $group_C = array(
+                        "group_owner"=>$Create_companies,
+                        "name"=>'Evaluation Manager',
+                        "group_status"=>1,
+                        "group_main_system"=>1
+                    );
+                    $Create_Group_C = $this->Users_Group_Model->Create_Group($group_C);
+                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_C,'مدير التقييم','Evaluation Manager');
+
+                    $group_D = array(
+                        "group_owner"=>$Create_companies,
+                        "name"=>'Coordinator',
+                        "group_status"=>1,
+                        "group_main_system"=>1
+                    );
+                    $Create_Group_D = $this->Users_Group_Model->Create_Group($group_D);
+                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_D,'المنسق','Coordinator');
+
+                    $group_F = array(
+                        "group_owner"=>$Create_companies,
+                        "name"=>'Inspector',
+                        "group_status"=>1,
+                        "group_main_system"=>1
+                    );
+                    $Create_Group_F = $this->Users_Group_Model->Create_Group($group_F);
+                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_F,'المعاين','Inspector');
 
 
                     if($Create_companies){
@@ -272,7 +319,28 @@ class System_Company extends Admin
                 $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
             }
 
-            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $this->data['Page_Title']  = 'ادارة مجموعة المستخدمين';
+
+            $Group_Users = Get_Company_Group_Users($Company_id)->result();
+            foreach ($Group_Users AS $row)
+            {
+                if($row->group_status == 1) {
+                    $group_status =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+                }else{
+                    $group_status =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+                }
+
+                $this->data['Group_Users'][]  = array(
+                    "Group_id"          => $row->group_id,
+                    "group_translation" => $row->item_translation,
+                    "Group_status"      => $group_status,
+                    "Group_options"     => '',
+                );
+            }
+
+            $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
+            $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
+
             $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
             $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
             $this->mybreadcrumb->add($this->data['Page_Title'],'#');
@@ -306,7 +374,32 @@ class System_Company extends Admin
                 $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
             }
 
-            $this->data['Page_Title']  = lang('Management_companies_offices');
+            $Company_Users = Get_Company_Users($Company_id)->result();
+            foreach ($Company_Users AS $row)
+            {
+                if($row->banned == 0) {
+                    $User_status =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+                }else{
+                    $User_status =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+                }
+
+                $this->data['Users'][]  = array(
+                    "User_id"          => $row->id,
+                    "User_Name_Ar"     => $row->full_name_ar,
+                    "User_Name_En"     => $row->full_name,
+                    "User_Email"       => $row->email,
+                    "User_Group"       => $row->item_translation,
+                    "User_status"      => $User_status,
+                    "User_options"     => '',
+                );
+            }
+
+
+            $this->data['Page_Title']  = 'ادارة المستخدمين';
+
+            $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
+            $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
+
             $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
             $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
             $this->mybreadcrumb->add($this->data['Page_Title'],'#');
@@ -344,6 +437,9 @@ class System_Company extends Admin
             $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
             $this->mybreadcrumb->add($this->data['Page_Title'],'#');
 
+            $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
+            $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
+
             $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
 
             $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Fields',$this->data,true);
@@ -371,6 +467,9 @@ class System_Company extends Admin
             }else{
                 $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
             }
+
+            $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
+            $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
 
             $this->data['Page_Title']  = lang('Management_companies_offices');
             $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));

@@ -19,6 +19,9 @@
             <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Profile/'.$Company->company_id.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">معلومات المنشأة</a>
             <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Group_Users/'.$Company->company_id.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">مجموعة المستخدمين</a>
             <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Users/'.$Company->company_id.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">المستخدمين</a>
+
+            <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Fields/'.$Company->company_id.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">ادارة الاشتراك</a>
+
             <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Fields/'.$Company->company_id.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">ادارة الحقول</a>
             <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Forms/'.$Company->company_id.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">ادارة النماذج</a>
             <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Contracts/'.$Company->company_id.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">ادارة العقود</a>

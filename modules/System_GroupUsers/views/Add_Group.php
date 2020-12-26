@@ -77,20 +77,19 @@
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('owner_group') ?> </label>
-                                <select name="owner_group"  class="form-control selectpicker" data-live-search="true">
-                                    <option></option>
+                                <select name="owner_group"  class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
+                                    <option value="0">النظام</option>
                                     <?php
-                                    foreach ($Users AS $RG)
+                                    foreach ($company AS $RG)
                                     {
-                                        echo '<option value="'.$RG['User_id'].'">'.$RG['User_name'].' - '.$RG['User_Email'].' </option>';
+                                        echo '<option value="'.$RG['company_id'].'">'.$RG['companies_Name'].' </option>';
                                     }
                                     ?>
                                 </select>
                             </div>
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('Status_group') ?> </label>
-                                <select name="Status_group" class="form-control selectpicker" data-live-search="true">
-                                    <option></option>
+                                <select name="Status_group" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
                                     <?php
                                     foreach ($options_status_group AS $key => $value)
                                     {
@@ -104,8 +103,7 @@
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('Status_add_System') ?> </label>
-                                <select name="group_main_system"  class="form-control selectpicker" data-live-search="true">
-                                    <option></option>
+                                <select name="group_main_system"  class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
                                     <?php
                                     foreach ($options_status_system AS $key => $value)
                                     {

@@ -39,8 +39,7 @@
                                 </span>
                         <h3 class="card-label"><?= $Page_Title ?></h3>
                     </div>
-                    <div class="card-toolbar">
-                    </div>
+                    <div class="card-toolbar"></div>
                 </div>
                 <div class="card-body">
                     <div class="card-body">
