@@ -49,6 +49,28 @@ if(!function_exists('Create_One_Button_Text')) {
 }
 #####################################################################################
 
+#####################################################################################
+if(!function_exists('Create_One_Button_Text_Without_tooltip')) {
+    function Create_One_Button_Text_Without_tooltip($Button)
+    {
+        $HTML           = '';
+        $data_attribute = '';
+        $color          = 'primary';
+
+        if(isset($Button['color'])) {
+            $color = $Button['color'];
+        }
+
+        if(isset($Button['data_attribute'])) {
+            $data_attribute = $Button['data_attribute'];
+        }
+
+        $HTML .= '<a class="btn btn-' . $color . ' mx-2" title="' . $Button['title'] . '" ' . $data_attribute . ' href="' . $Button['href'] . '">' . $Button['title']  . '</a>';
+        return $HTML;
+    }
+}
+#####################################################################################
+
 
 #####################################################################################
 if(!function_exists('Create_One_Button_Icon')) {
@@ -71,7 +93,6 @@ if(!function_exists('Create_One_Button_TextIcon')) {
     }
 }
 #####################################################################################
-
 
 #####################################################################################
 if(!function_exists('Create_Status_badge')) {
