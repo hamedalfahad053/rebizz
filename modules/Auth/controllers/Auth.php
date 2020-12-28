@@ -56,7 +56,7 @@ class Auth extends Authorization
 
                     $userdata['Info_User']           = $this->aauth->get_user();
                     $userdata['User_Group_login']    = Get_Group_User($userdata['Info_User']->id);
-                    $userdata['Company_User']        = Get_Company_User($userdata['Info_User']->id);
+                    $userdata['Company_User']        = Get_Company_User($userdata['Info_User']->id)->companies_id;
                     $userdata['type_User_login']     = 'Company';
                     $userdata['time_User_login']     = time();
                     $userdata['ip_User_login']       = get_real_ip();

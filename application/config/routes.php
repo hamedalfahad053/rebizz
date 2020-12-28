@@ -138,8 +138,8 @@ $route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/(:any)']         = 'App_Company
 $route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/(:any)/(:any)']  = 'App_Company_Fields/App_Company_Fields/$1/$2/$3';
 
 # Company Clients
-$route[APP_NAMESPACE_URL.'/Client']              = 'App_Company_Clients/Company_Clients';
-$route[APP_NAMESPACE_URL.'/Client/(:any)']       = 'App_Company_Clients/Company_Clients/$1';
+$route[APP_NAMESPACE_URL.'/Clients']              = 'App_Company_Clients/Company_Clients';
+$route[APP_NAMESPACE_URL.'/Clients/(:any)']       = 'App_Company_Clients/Company_Clients/$1';
 
 /* ################################################################################
  * Site

@@ -18,4 +18,17 @@ class Compnay_Clients_model extends CI_Model
     }
     ########################################################################
 
+     ########################################################################
+     function Create_Client($data)
+     {
+         $query = $this->db->insert('portal_app_client',$data);
+         if($query){
+             return $this->db->insert_id();
+         }else{
+             return false;
+         }
+     }
+     ########################################################################
+ 
+
 }
