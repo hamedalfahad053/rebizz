@@ -49,7 +49,7 @@
                         <h3 class="card-label"><?= $Page_Title ?></h3>
                     </div>
                     <div class="card-toolbar">
-                        <?= Create_One_Button_Text(array('title'=> lang('add_new_group_button') ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/Company_UserGroup/Form_add_Group'))) ?>
+                        <?= Create_One_Button_Text(array('title'=> lang('add_new_group_button') ,'href'=>base_url(APP_NAMESPACE_URL.'/Company_UserGroup/Form_add_Group'))) ?>
                     </div>
                 </div>
                 <div class="card-body">

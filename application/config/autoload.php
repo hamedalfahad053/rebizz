@@ -105,7 +105,8 @@ $autoload['helper'] = array(
     'download',
     'language',
     'logs',
-    'Notifications'
+    'Notifications',
+    'Permissions'
 );
 
 /*

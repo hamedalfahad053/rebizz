@@ -97,43 +97,43 @@ $route[ADMIN_NAMESPACE_URL.'/Company/(:any)/(:any)/(:any)']  = 'System_Company/S
 */ ################################################################################
 $route[APP_NAMESPACE_URL]                                           = 'App_Dashboard/App_Dashboard';
 $route[APP_NAMESPACE_URL.'/Dashboard']                              = 'App_Dashboard/App_Dashboard';
-$route[APP_NAMESPACE_URL.'/Dashboard/(:any)/']                      = 'App_Dashboard/App_Dashboard/$1';
+$route[APP_NAMESPACE_URL.'/Dashboard/(:any)']                      = 'App_Dashboard/App_Dashboard/$1';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)']                = 'App_Dashboard/App_Dashboard/$1/$2';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)/(:any)']         = 'App_Dashboard/App_Dashboard/$1/$2/$3';
 
 # Company Settings
 $route[APP_NAMESPACE_URL.'/Company_Settings']                       = 'App_CompanySettings/App_CompanySettings';
-$route[APP_NAMESPACE_URL.'/Company_Settings/(:any)/']               = 'App_CompanySettings/App_CompanySettings/$1';
+$route[APP_NAMESPACE_URL.'/Company_Settings/(:any)']               = 'App_CompanySettings/App_CompanySettings/$1';
 $route[APP_NAMESPACE_URL.'/Company_Settings/(:any)/(:any)']         = 'App_CompanySettings/App_CompanySettings/$1/$2';
 $route[APP_NAMESPACE_URL.'/Company_Settings/(:any)/(:any)/(:any)']  = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
 
 #  Company Locations
 $route[APP_NAMESPACE_URL.'/Company_Locations']                       = 'App_Company_Locations/App_Company_Locations';
-$route[APP_NAMESPACE_URL.'/Company_Locations/(:any)/']               = 'App_Company_Locations/App_Company_Locations/$1';
+$route[APP_NAMESPACE_URL.'/Company_Locations/(:any)']               = 'App_Company_Locations/App_Company_Locations/$1';
 $route[APP_NAMESPACE_URL.'/Company_Locations/(:any)/(:any)']         = 'App_Company_Locations/App_Company_Locations/$1/$2';
 $route[APP_NAMESPACE_URL.'/Company_Locations/(:any)/(:any)/(:any)']  = 'App_Company_Locations/App_Company_Locations/$1/$2/$3';
 
 #  Company Users
 $route[APP_NAMESPACE_URL.'/Company_Users']                           = 'App_Company_Users/App_Company_Users';
-$route[APP_NAMESPACE_URL.'/Company_Users/(:any)/']                   = 'App_Company_Users/App_Company_Users/$1';
+$route[APP_NAMESPACE_URL.'/Company_Users/(:any)']                   = 'App_Company_Users/App_Company_Users/$1';
 $route[APP_NAMESPACE_URL.'/Company_Users/(:any)/(:any)']             = 'App_Company_Users/App_Company_Users/$1/$2';
 $route[APP_NAMESPACE_URL.'/Company_Users/(:any)/(:any)/(:any)']      = 'App_Company_Users/App_Company_Users/$1/$2/$3';
 
 #  Company Group Users
 $route[APP_NAMESPACE_URL.'/Company_UserGroup']                       = 'App_Company_UserGroup/App_Company_UserGroup';
-$route[APP_NAMESPACE_URL.'/Company_UserGroup/(:any)/']               = 'App_Company_UserGroup/App_Company_UserGroup/$1';
+$route[APP_NAMESPACE_URL.'/Company_UserGroup/(:any)']               = 'App_Company_UserGroup/App_Company_UserGroup/$1';
 $route[APP_NAMESPACE_URL.'/Company_UserGroup/(:any)/(:any)']         = 'App_Company_UserGroup/App_Company_UserGroup/$1/$2';
 $route[APP_NAMESPACE_URL.'/Company_UserGroup/(:any)/(:any)/(:any)']  = 'App_Company_UserGroup/App_Company_UserGroup/$1/$2/$3';
 
 #  Company Forms
 $route[APP_NAMESPACE_URL.'/Company_Forms']                       = 'App_Company_Forms/App_Company_Forms';
-$route[APP_NAMESPACE_URL.'/Company_Forms/(:any)/']               = 'App_Company_Forms/App_Company_Forms/$1';
+$route[APP_NAMESPACE_URL.'/Company_Forms/(:any)']               = 'App_Company_Forms/App_Company_Forms/$1';
 $route[APP_NAMESPACE_URL.'/Company_Forms/(:any)/(:any)']         = 'App_Company_Forms/App_Company_Forms/$1/$2';
 $route[APP_NAMESPACE_URL.'/Company_Forms/(:any)/(:any)/(:any)']  = 'App_Company_Forms/App_Company_Forms/$1/$2/$3';
 
 #  Company Fields
 $route[APP_NAMESPACE_URL.'/Company_Fields']                       = 'App_Company_Fields/App_Company_Fields';
-$route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/']               = 'App_Company_Fields/App_Company_Fields/$1';
+$route[APP_NAMESPACE_URL.'/Company_Fields/(:any)']               = 'App_Company_Fields/App_Company_Fields/$1';
 $route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/(:any)']         = 'App_Company_Fields/App_Company_Fields/$1/$2';
 $route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/(:any)/(:any)']  = 'App_Company_Fields/App_Company_Fields/$1/$2/$3';
 

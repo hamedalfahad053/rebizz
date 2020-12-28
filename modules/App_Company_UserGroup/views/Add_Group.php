@@ -34,41 +34,30 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
+        <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Group_Users/Create_Group') ?>" method="post">
+            <?= CSFT_Form() ?>
 
-        <div class="card card-custom">
-            <div class="card-header">
-                <div class="card-title">
-                    <span class="card-icon">
-                        <i class="flaticon-users-1 text-primary"></i>
-                    </span>
-                    <h3 class="card-label"><?= lang('add_new_group_button') ?></h3>
+
+            <div class="card card-custom">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">
+                            <i class="flaticon-users-1 text-primary"></i>
+                        </span>
+                        <h3 class="card-label"><?= lang('add_new_group_button') ?></h3>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-
-                <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Group_Users/Create_Group') ?>" method="post">
-                    <?= CSFT_Form() ?>
-                    <div class="card-body">
+                <div class="card-body">
                         <div class="form-group row">
-                            <div class="col-lg-6 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('name_group_ar') ?></label>
                                 <input type="text" name="name_group_ar" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
-                            <div class="col-lg-6 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('name_group_en') ?></label>
                                 <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-6 mt-5">
-                                <label><?= lang('owner_group') ?> </label>
-                                <select name="owner_group"  class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
-                                    <option value="0">النظام</option>
-
-                                </select>
-                            </div>
-                            <div class="col-lg-6 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('Status_group') ?> </label>
                                 <select name="Status_group" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
                                     <?php
@@ -80,37 +69,70 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-6 mt-5">
-                                <label><?= lang('Status_add_System') ?> </label>
-                                <select name="group_main_system"  class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
-
-                                </select>
-                            </div>
-                            <div class="col-lg-6 mt-5"></div>
-                        </div>
-
-
-                    </div>
-
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <button type="submit" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
-                            </div>
-                            <div class="col-lg-6 text-lg-right">
-                                <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
-
-
-
             </div>
         </div>
+
+
+            <div class="card card-custom mt-10">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">
+                            <i class="flaticon-users-1 text-primary"></i>
+                        </span>
+                        <h3 class="card-label">صلاحيات المجموعة</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            <?php
+            foreach ($Permissions AS $Row)
+            {
+            ?>
+            <div class="col-lg-4  mt-10">
+                <!--begin::List Widget 5-->
+                <div class="card card-custom card-stretch gutter-b">
+                    <!--begin::header-->
+                    <div class="card-header border-0">
+                        <h3 class="card-title font-weight-bolder"><?= $Row['Controllers_title'] ?></h3>
+                    </div>
+                    <!--end::header-->
+                    <!--begin::Body-->
+                    <div class="card-body pt-0">
+                        <?php
+                        foreach ($Row['controllers_functions'] AS $Row_F)
+                        {
+                        ?>
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center mb-3">
+                            <!--begin::Checkbox-->
+                            <label class="checkbox checkbox-lg checkbox-primary flex-shrink-0 m-0 mr-4">
+                                <input type="checkbox" value="1">
+                                <span></span>
+                            </label>
+                            <!--end::Checkbox-->
+                            <!--begin::Text-->
+                            <div class="d-flex flex-column flex-grow-1 py-2">
+                                <a href="#" class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1"><?= $Row_F['functions_title'] ?></a>
+                            </div>
+                            <!--end::Text-->
+                        </div>
+                        <!--end::Item-->
+                        <?php
+                        }
+                        ?>
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::List Widget 5-->
+            </div>
+            <?php
+            }
+            ?>
+
+
+
+        </form>
 
 
     </div>

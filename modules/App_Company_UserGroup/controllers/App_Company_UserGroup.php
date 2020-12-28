@@ -94,10 +94,44 @@ class App_Company_UserGroup extends Apps
     ###################################################################
     public function Form_add_Group()
     {
+
+        $Controllers = array();
+        $functions   = array();
+
         $this->data['options_status_group'] = array(
             "1" => lang('Status_Active'),
             "0" => lang('Status_Disabled')
         );
+
+        $Get_Controllers = Get_Controllers(3);
+
+        foreach ($Get_Controllers->result() AS $Row_Controllers)
+        {
+            $functions   = Get_functions_Controller($Row_Controllers->controllers_id);
+
+            foreach ($functions->result() AS $Row_functions)
+            {
+                $functions_data[] = array(
+                    "functions_id"        => $Row_functions->function_id,
+                    "functions_title"     => $Row_functions->item_translation,
+                    "functions_Code"      => $Row_functions->function_Code,
+                    "functions_status"    => $Row_functions->function_status,
+                );
+            }
+
+            $Controllers[] = array(
+                "Controllers_id"        => $Row_Controllers->controllers_id,
+                "Controllers_title"     => $Row_Controllers->item_translation,
+                "Controllers_Code"      => $Row_Controllers->Controllers_Code,
+                "controllers_status"    => $Row_Controllers->controllers_status,
+                "controllers_functions" => $functions_data
+            );
+
+            $functions_data = '';
+
+        }
+
+        $this->data['Permissions'] = $Controllers;
 
         $this->data['Page_Title']  = lang('add_new_group_button');
 
@@ -106,10 +140,9 @@ class App_Company_UserGroup extends Apps
         $this->mybreadcrumb->add($this->data['Page_Title'],'#');
 
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-
         $this->data['PageContent'] = $this->load->view('../../modules/App_Company_UserGroup/views/Add_Group',$this->data,true);
 
-        Layout_Admin($this->data);
+        Layout_Apps($this->data);
 
     }
     ###################################################################

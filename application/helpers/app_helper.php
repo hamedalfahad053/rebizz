@@ -11,6 +11,8 @@ if(!function_exists('app')) {
 }
 ###############################################################################
 
+
+
 ###############################################################################
 if (!function_exists('get_setting')) {
     function get_setting($key = "") {
@@ -18,6 +20,52 @@ if (!function_exists('get_setting')) {
     }
 }
 ###############################################################################
+
+
+##############################################################################
+if(!function_exists('Get_Controllers'))
+{
+    function Get_Controllers($area_id)
+    {
+        app()->load->database();
+
+        $lang = get_current_lang();
+
+        $query = app()->db->from('portal_system_controllers              controllers');
+        $query = app()->db->join('portal_system_controllers_translation  controllers_translation','controllers.controllers_id = controllers_translation.item_id');
+
+        $query = app()->db->where('controllers_area',$area_id);
+        $query = app()->db->where('controllers_translation.translation_lang',$lang);
+
+        $query = app()->db->get();
+        return $query;
+    }
+
+}
+##############################################################################
+
+###########################################################################
+if(!function_exists('Get_functions_Controller'))
+{
+    function Get_functions_Controller($Controller_id) {
+
+        app()->load->database();
+
+        $lang = get_current_lang();
+
+        $query = app()->db->from('portal_system_functions   functions');
+        $query = app()->db->join('portal_system_functions_translation  functions_translation','functions.function_id = functions_translation.item_id');
+
+        $query = app()->db->where("function_Controllers_id",$Controller_id);
+        $query = app()->db->where('functions_translation.translation_lang',$lang);
+
+        $query = app()->db->get();
+
+        return $query;
+    }
+}
+###########################################################################
+
 
 
 /*   End Tools input and output     */
