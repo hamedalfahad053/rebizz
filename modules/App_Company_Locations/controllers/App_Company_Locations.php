@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class App extends Front
+class App_Company_Locations extends Apps
 {
     ###################################################################
     public function __construct()
@@ -13,22 +13,15 @@ class App extends Front
     ###################################################################
     public function index()
     {
-        $this->data['Page_Title']  = lang('Management_Permissions');
 
+        $this->data['Page_Title']  = lang('Management_Permissions');
+        $this->data['PageContent'] = $this->load->view('../../modules/App_CompanySettings/views/Dashboard', $this->data, true);
 
         Layout_Apps($this->data);
+
     }
     ###################################################################
 
-    ###############################################################################################
-    public function Change_language()
-    {
-        $lang_new = $this->uri->segment(3);
-
-        echo $lang_new;
-
-    }
-    ###############################################################################################
 
 
 

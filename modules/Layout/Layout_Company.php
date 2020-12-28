@@ -90,6 +90,9 @@
         <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
 
 
+
+
+
             <!--begin::Brand-->
             <div class="brand flex-column-auto" id="kt_brand">
                 <!--begin::Logo-->
@@ -118,6 +121,12 @@
 
             <!--begin::Aside Menu-->
             <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
+
+                <li class="menu-section">
+                    <h3 class="menu-text text-center font-size-h3 font-weight-bold">  <?= Get_Company($UserLogin['Company_User'])->companies_Trade_Name ?>  </h3>
+                </li>
+
+
                 <!--begin::Menu Container-->
                 <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
                     <!--begin::Menu Nav-->
@@ -207,7 +216,6 @@
                                         <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
                                     </li>
-
                                 </ul>
                             </div>
                         </li>
@@ -230,7 +238,6 @@
                                         <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
                                     </li>
-
                                 </ul>
                             </div>
                         </li>
@@ -265,14 +272,14 @@
                         </li>
 
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
+                            <a href="<?= base_url(APP_NAMESPACE_URL.'/Company_Settings') ?>" class="menu-link">
                                 <i class="menu-icon flaticon-home"></i>
                                 <span class="menu-text">الاعدادت العامة</span>
                             </a>
                         </li>
 
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
+                            <a href="<?= base_url(APP_NAMESPACE_URL.'/Company_Locations') ?>" class="menu-link">
                                 <i class="menu-icon flaticon-home"></i>
                                 <span class="menu-text"> ادارة  الفروع </span>
                             </a>
@@ -288,14 +295,13 @@
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Company_Users') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
                                     </li>
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Group_Users') ?>" class="menu-link menu-toggle">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Company_UserGroup') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-rotate text-primary"></span></i><span class="menu-text">مجموعة المستخدمين</span></a>
                                     </li>
-
                                 </ul>
                             </div>
                         </li>
@@ -310,11 +316,11 @@
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Company_Forms') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">ادارة النماذج</span></a>
                                     </li>
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Company_Fields') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">ادارة الحقول</span></a>
                                     </li>
                                 </ul>
@@ -334,7 +340,7 @@
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 
             <!--begin::Header-->
-            <?= $this->load->view('../../modules/Layout/Widgets_Company/Header'); ?>
+            <?= $Widgets_Company_Header ?>
             <!--end::Header-->
 
             <!--begin::Content-->
@@ -344,7 +350,7 @@
             <!--end::Content-->
 
             <!--begin::Footer-->
-            <?= $this->load->view('../../modules/Layout/Widgets_Company/Footer'); ?>
+            <?= $Widgets_Company_Footer ?>
             <!--end::Footer-->
 
         </div>
@@ -355,12 +361,10 @@
 <!--end::Main-->
 
 <!-- begin::User Panel-->
-<?= $this->load->view('../../modules/Layout/Widgets_Company/UserPanel'); ?>
+<?= $Widgets_Company_UserPanel ?>
 <!-- end::User Panel-->
 
-<!--begin::Quick Cart-->
-<?= $this->load->view('../../modules/Layout/Widgets_Company/QuickCart'); ?>
-<!--end::Quick Cart-->
+
 
 <!--begin::Quick Panel-->
 <?= $this->load->view('../../modules/Layout/Widgets_Company/QuickPanel'); ?>

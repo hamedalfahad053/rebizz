@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class App_Dashboard extends Apps
+class App_CompanySettings extends Apps
 {
     ###################################################################
     public function __construct()
     {
         parent::__construct();
-        $this->data['controller_name'] = 'لوحة المعلومات';
+        $this->data['controller_name'] = ' اعدادت النظام ';
     }
     ###################################################################
 
@@ -15,15 +15,14 @@ class App_Dashboard extends Apps
     public function index()
     {
 
-        $this->data['Page_Title']  = 'لوحة المعلومات';
-
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Company_Settings'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
 
-        $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
-        $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
 
-        $this->data['PageContent'] = $this->load->view('../../modules/App_Dashboard/views/Dashboard', $this->data, true);
+        $this->data['Page_Title']  = lang('Management_Permissions');
+        $this->data['PageContent'] = $this->load->view('../../modules/App_CompanySettings/views/CompanySettings', $this->data, true);
+
         Layout_Apps($this->data);
 
     }

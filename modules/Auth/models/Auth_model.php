@@ -14,7 +14,6 @@ class Auth_model extends CI_Model
     {
         $query = $this->db->where('user_id',$userid);
         $query = $this->db->get('portal_auth_user_profile');
-
         return $query;
     }
     ########################################################################

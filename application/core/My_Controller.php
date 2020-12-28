@@ -14,8 +14,6 @@ class MY_Controller extends MX_Controller  {
     public $data = [];
     public $response = [];
 
-
-
     public function __construct()
     {
         parent::__construct();
@@ -120,9 +118,15 @@ class Apps extends MY_Controller
     {
         parent::__construct();
 
-        // if(!$this->aauth->is_loggedin()){
-        //     redirect('Auth', 'refresh');
-        // }
+         if(!$this->aauth->is_loggedin()){
+             redirect('Auth', 'refresh');
+         }
+
+        $this->data['UserLogin']                  = $this->session->userdata('UserCompany');
+
+        $this->data['Widgets_Company_Header']     = $this->load->view('../../modules/Layout/Widgets_Company/Header',$this->data,true);
+        $this->data['Widgets_Company_Footer']     = $this->load->view('../../modules/Layout/Widgets_Company/Footer',$this->data,true);
+        $this->data['Widgets_Company_UserPanel']  = $this->load->view('../../modules/Layout/Widgets_Company/UserPanel',$this->data,true);
 
     }
 }

@@ -1,55 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/user_guide/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
-*/
-
 
 $route_path = APPPATH . 'routes/';
 require_once $route_path . 'routes_landing.php';
@@ -144,10 +95,47 @@ $route[ADMIN_NAMESPACE_URL.'/Company/(:any)/(:any)/(:any)']  = 'System_Company/S
 /* ################################################################################
  * Apps
 */ ################################################################################
-$route[APP_NAMESPACE_URL.'/(:any)']                = 'App/App/$1';
-$route[APP_NAMESPACE_URL.'/(:any)/(:any)']         = 'App/App/$1/$2';
-$route[APP_NAMESPACE_URL.'/(:any)/(:any)/(:any)']  = 'App/App/$1/$2/$3';
+$route[APP_NAMESPACE_URL]                                           = 'App_Dashboard/App_Dashboard';
+$route[APP_NAMESPACE_URL.'/Dashboard']                              = 'App_Dashboard/App_Dashboard';
+$route[APP_NAMESPACE_URL.'/Dashboard/(:any)/']                      = 'App_Dashboard/App_Dashboard/$1';
+$route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)']                = 'App_Dashboard/App_Dashboard/$1/$2';
+$route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)/(:any)']         = 'App_Dashboard/App_Dashboard/$1/$2/$3';
 
+# Company Settings
+$route[APP_NAMESPACE_URL.'/Company_Settings']                       = 'App_CompanySettings/App_CompanySettings';
+$route[APP_NAMESPACE_URL.'/Company_Settings/(:any)/']               = 'App_CompanySettings/App_CompanySettings/$1';
+$route[APP_NAMESPACE_URL.'/Company_Settings/(:any)/(:any)']         = 'App_CompanySettings/App_CompanySettings/$1/$2';
+$route[APP_NAMESPACE_URL.'/Company_Settings/(:any)/(:any)/(:any)']  = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
+
+#  Company Locations
+$route[APP_NAMESPACE_URL.'/Company_Locations']                       = 'App_Company_Locations/App_Company_Locations';
+$route[APP_NAMESPACE_URL.'/Company_Locations/(:any)/']               = 'App_Company_Locations/App_Company_Locations/$1';
+$route[APP_NAMESPACE_URL.'/Company_Locations/(:any)/(:any)']         = 'App_Company_Locations/App_Company_Locations/$1/$2';
+$route[APP_NAMESPACE_URL.'/Company_Locations/(:any)/(:any)/(:any)']  = 'App_Company_Locations/App_Company_Locations/$1/$2/$3';
+
+#  Company Users
+$route[APP_NAMESPACE_URL.'/Company_Users']                           = 'App_Company_Users/App_Company_Users';
+$route[APP_NAMESPACE_URL.'/Company_Users/(:any)/']                   = 'App_Company_Users/App_Company_Users/$1';
+$route[APP_NAMESPACE_URL.'/Company_Users/(:any)/(:any)']             = 'App_Company_Users/App_Company_Users/$1/$2';
+$route[APP_NAMESPACE_URL.'/Company_Users/(:any)/(:any)/(:any)']      = 'App_Company_Users/App_Company_Users/$1/$2/$3';
+
+#  Company Group Users
+$route[APP_NAMESPACE_URL.'/Company_UserGroup']                       = 'App_Company_UserGroup/App_Company_UserGroup';
+$route[APP_NAMESPACE_URL.'/Company_UserGroup/(:any)/']               = 'App_Company_UserGroup/App_Company_UserGroup/$1';
+$route[APP_NAMESPACE_URL.'/Company_UserGroup/(:any)/(:any)']         = 'App_Company_UserGroup/App_Company_UserGroup/$1/$2';
+$route[APP_NAMESPACE_URL.'/Company_UserGroup/(:any)/(:any)/(:any)']  = 'App_Company_UserGroup/App_Company_UserGroup/$1/$2/$3';
+
+#  Company Forms
+$route[APP_NAMESPACE_URL.'/Company_Forms']                       = 'App_Company_Forms/App_Company_Forms';
+$route[APP_NAMESPACE_URL.'/Company_Forms/(:any)/']               = 'App_Company_Forms/App_Company_Forms/$1';
+$route[APP_NAMESPACE_URL.'/Company_Forms/(:any)/(:any)']         = 'App_Company_Forms/App_Company_Forms/$1/$2';
+$route[APP_NAMESPACE_URL.'/Company_Forms/(:any)/(:any)/(:any)']  = 'App_Company_Forms/App_Company_Forms/$1/$2/$3';
+
+#  Company Fields
+$route[APP_NAMESPACE_URL.'/Company_Fields']                       = 'App_Company_Fields/App_Company_Fields';
+$route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/']               = 'App_Company_Fields/App_Company_Fields/$1';
+$route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/(:any)']         = 'App_Company_Fields/App_Company_Fields/$1/$2';
+$route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/(:any)/(:any)']  = 'App_Company_Fields/App_Company_Fields/$1/$2/$3';
 
 # Company Clients
 $route[APP_NAMESPACE_URL.'/Client']              = 'App_Company_Clients/Company_Clients';

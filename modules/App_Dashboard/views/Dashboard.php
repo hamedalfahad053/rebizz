@@ -3,18 +3,23 @@
     <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
         <!--begin::Info-->
         <div class="d-flex align-items-center flex-wrap mr-1">
-
+            <!--begin::Mobile Toggle-->
+            <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
+                <span></span>
+            </button>
+            <!--end::Mobile Toggle-->
             <!--begin::Page Heading-->
             <div class="d-flex align-items-baseline flex-wrap mr-5">
                 <!--begin::Page Title-->
                 <h5 class="text-dark font-weight-bold my-1 mr-5"><?= $Page_Title ?></h5>
                 <!--end::Page Title-->
+
                 <!--begin::Breadcrumb-->
                 <?= $breadcrumbs ?>
                 <!--end::Breadcrumb-->
+
             </div>
             <!--end::Page Heading-->
-
         </div>
         <!--end::Info-->
         <!--begin::Toolbar-->
@@ -27,69 +32,68 @@
 <!--end::Subheader-->
 
 
-<!--begin::Entry-->
-<div class="d-flex flex-column-fluid">
-    <!--begin::Container-->
-    <div class="container-fluid">
+
+<!--begin::Content-->
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 
 
-        <div class="card card-custom">
-            <div class="card-header">
-                <div class="card-title">
-                    <span class="card-icon">
-                        <i class="flaticon-squares text-primary"></i>
-                    </span>
-                    <h3 class="card-label"><?= $Page_Title ?></h3>
-                </div>
-                <div class="card-toolbar">
-                </div>
-            </div>
-            <div class="card-body">
-
-                <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Group_Users/Create_Group') ?>" method="post">
-                    <?= CSFT_Form() ?>
-                    <div class="card-body">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container-fluid">
 
 
-                        <div class="form-group row">
-                            <div class="col-lg-6 mt-5">
-                                <label><?= lang('user_full_name_ar') ?></label>
-                                <input type="text" name="user_full_name" class="form-control" placeholder="<?= lang('user_full_name_ar') ?>"/>
+
+                <div class="row">
+                    <div class="col-xl-4">
+                        <!--begin::Stats Widget 1-->
+                        <div class="card card-custom bgi-no-repeat card-stretch gutter-b" style="background-position: right top; background-size: 30% auto; background-image: url(assets/media/svg/shapes/abstract-4.svg)">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">Meeting Schedule</a>
+                                <div class="font-weight-bold text-success mt-9 mb-5">3:30PM - 4:20PM</div>
+                                <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">Craft a headline that is informative
+                                    <br>and will capture readers</p>
                             </div>
-                            <div class="col-lg-6 mt-5">
-                                <label><?= lang('user_full_name_en') ?></label>
-                                <input type="text" name="name_group_en" class="form-control" placeholder="<?= lang('user_full_name_en') ?>"/>
-                            </div>
+                            <!--end::Body-->
                         </div>
-
-
-
-
-
+                        <!--end::Stats Widget 1-->
                     </div>
-
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <button type="submit" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+                    <div class="col-xl-4">
+                        <!--begin::Stats Widget 2-->
+                        <div class="card card-custom bgi-no-repeat card-stretch gutter-b" style="background-position: right top; background-size: 30% auto; background-image: url(assets/media/svg/shapes/abstract-2.svg)">
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">Announcement</a>
+                                <div class="font-weight-bold text-success mt-9 mb-5">03 May 2020</div>
+                                <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">Great blog posts don’t just happen
+                                    <br>Even the best bloggers need it</p>
                             </div>
-                            <div class="col-lg-6 text-lg-right">
-                                <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
-                            </div>
+                            <!--end::Body-->
                         </div>
+                        <!--end::Stats Widget 2-->
                     </div>
+                    <div class="col-xl-4">
+                        <!--begin::Stats Widget 3-->
+                        <div class="card card-custom bgi-no-repeat card-stretch gutter-b" style="background-position: right top; background-size: 30% auto; background-image: url(assets/media/svg/shapes/abstract-1.svg)">
+                            <!--begin::body-->
+                            <div class="card-body">
+                                <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">New Release</a>
+                                <div class="font-weight-bold text-success mt-9 mb-5">ReactJS</div>
+                                <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">AirWays - A Front-end solution for
+                                    <br>airlines build with ReactJS</p>
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Stats Widget 3-->
+                    </div>
+                </div>
 
-                </form>
 
-
-
-
-            </div>
         </div>
-
-
-
+        <!--end::Container-->
     </div>
-    <!--end::Container-->
+    <!--end::Entry-->
+
 </div>
-<!--end::Entry-->
+<!--end::Content-->

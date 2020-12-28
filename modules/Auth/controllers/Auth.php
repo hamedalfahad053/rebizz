@@ -16,8 +16,6 @@ class Auth extends Authorization
     ###############################################################################################
 	public function index()
 	{
-        $this->aauth->create_user("admin@admin.com", "12345", "Admin");
-
 	    $this->data['Page_Title']    = lang('Auth_Pages');
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'css/pages/login/login-1',$this->data['direction']);
         $this->data['PageContent']   = $this->load->view('../../modules/Auth/views/Form_Login',$this->data,true);
@@ -32,7 +30,6 @@ class Auth extends Authorization
     {
         $this->form_validation->set_rules('username', 'Username', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
-
 
         if ($this->form_validation->run() == FALSE) {
 
@@ -57,13 +54,14 @@ class Auth extends Authorization
                     $userdata        = array();
                     $userid          = $this->aauth->get_user();
 
-                    $userdata['Info_User']       = $this->aauth->get_user();
-                    $userdata['Company_User']    = $this->Auth_model->Auth_Company_User($userid->id);
-                    $userdata['type_User_login'] = 'Company';
-                    $userdata['time_User_login'] = time();
-                    $userdata['ip_User_login']   = get_real_ip();
+                    $userdata['Info_User']           = $this->aauth->get_user();
+                    $userdata['User_Group_login']    = Get_Group_User($userdata['Info_User']->id);
+                    $userdata['Company_User']        = Get_Company_User($userdata['Info_User']->id);
+                    $userdata['type_User_login']     = 'Company';
+                    $userdata['time_User_login']     = time();
+                    $userdata['ip_User_login']       = get_real_ip();
 
-                    $this->session->set_userdata('Company_User',$userdata);
+                    $this->session->set_userdata('UserCompany',$userdata);
                     redirect(APP_NAMESPACE_URL.'/Dashboard', 'refresh');
 
                 } // if($this->aauth->is_member())

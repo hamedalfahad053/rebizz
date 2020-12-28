@@ -2,7 +2,8 @@
 <!--begin::Signin-->
 <div class="login-form login-signin">
     <!--begin::Form-->
-    <form class="form" novalidate="novalidate" >
+    <form class="form" method="post" action="<?= base_url('Auth/Login') ?>" novalidate="novalidate" >
+        <?= CSFT_Form() ?>
 
         <!--begin::Title-->
         <div class="pb-13 pt-lg-0 pt-5">
@@ -31,7 +32,7 @@
 
         <!--begin::Action-->
         <div class="pb-lg-0 pb-5">
-            <button type="button" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">تسجيل دخول</button>
+            <button type="submit" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">تسجيل دخول</button>
         </div>
         <!--end::Action-->
 

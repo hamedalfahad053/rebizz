@@ -8,7 +8,7 @@ class System_Forms extends Admin
     {
         parent::__construct();
 
-        $this->load->model('System_Forms_Model');
+        $this->load->model('AppDashboardmodel');
 
         $this->data['controller_name'] = lang('List_user');
     }

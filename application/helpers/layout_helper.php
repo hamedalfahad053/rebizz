@@ -21,15 +21,6 @@ if (!function_exists('Layout_Admin')) {
 ###############################################################################
 
 ###############################################################################
-if (!function_exists('Layout_Admin_Parse')) {
-    function Layout_Admin_Parse($data) {
-        $Layout_Admin = app()->parser->parse($data);
-        return $Layout_Admin;
-    }
-}
-###############################################################################
-
-###############################################################################
 if (!function_exists('Layout_Auth')) {
     function Layout_Auth($data) {
         $Layout_Auth= app()->load->view('../../modules/Auth/views/Layout_Auth', $data);
