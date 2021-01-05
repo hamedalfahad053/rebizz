@@ -9,6 +9,17 @@ class Fields_model extends CI_Model
         parent::__construct();
     }
 
+    ########################################################################
+    function Create_Fields($data)
+    {
+        $query = $this->db->insert('portal_fields',$data);
+        if($query){
+            return $this->db->insert_id();
+        }else{
+            return false;
+        }
+    }
+    ########################################################################
 
 
     ########################################################################

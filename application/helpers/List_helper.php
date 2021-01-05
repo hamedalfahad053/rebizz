@@ -28,7 +28,7 @@ if(!function_exists('Get_Data_List')) {
 
         if($type_list=='select'){
 
-            $html .= '<select name="'.$query_list->list_data_key.'" class="form-control selectpicker" data-live-search="true">';
+            $html .= '<select name="'.$query_list->list_data_key.'" id="'.$query_list->list_data_key.'" class="form-control selectpicker" data-live-search="true">';
 
             foreach ($query_list_options->result() AS $row  )
             {

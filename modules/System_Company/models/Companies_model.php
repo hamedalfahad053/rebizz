@@ -16,7 +16,6 @@ class Companies_model extends CI_Model
         if(!empty($company_status)){
             $query = $this->db->where('companies_Status',$company_status);
         }
-
         $query =  $this->db->get('portal_company');
         return $query;
     }

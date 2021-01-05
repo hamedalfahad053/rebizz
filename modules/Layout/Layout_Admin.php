@@ -159,37 +159,6 @@
 
 
                         <li class="menu-section">
-                            <h4 class="menu-text">ادارة الصلاحيات </h4>
-                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                        </li>
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
-                                <span class="menu-text">ادارة الصلاحيات</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="menu-submenu">
-                                <i class="menu-arrow"></i>
-                                <ul class="menu-subnav">
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Permissions/') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">اعداد الصلاحيات</span></a>
-                                    </li>
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Permissions/Roles') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-rotate text-primary"></span></i><span class="menu-text">اعداد الادوار</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-
-
-
-
-
-
-                        <li class="menu-section">
                             <h4 class="menu-text"> ادارة الشركات و المكاتب  </h4>
                             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                         </li>
@@ -241,11 +210,10 @@
                                     </li>
 
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Company') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Forms') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
                                             <span class="menu-text"> ادارة النماذج  </span>
                                         </a>
                                     </li>
-
                                 </ul>
                             </div>
                         </li>
@@ -268,6 +236,50 @@
                                             <span class="menu-text"> ادارة القوائم </span>
                                         </a>
                                     </li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="javascript:;" class="menu-link menu-toggle">
+                                <span class="svg-icon menu-icon"><i class="flaticon2-world text-primary"></i></span>
+                                <span class="menu-text"> ادارة انواع العقارات </span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Form_Add_Property_Types') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                            <span class="menu-text"> اضافة فئة جديدة  </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Property_Types') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                            <span class="menu-text"> ادارة فئات العقارات </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="javascript:;" class="menu-link menu-toggle">
+                                <span class="svg-icon menu-icon"><i class="flaticon2-world text-primary"></i></span>
+                                <span class="menu-text"> اعداد المعاملات </span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Transaction/Stages_Transaction ') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+                                            <span class="menu-text"> مراحل المعاملات  </span>
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </div>
                         </li>
@@ -411,6 +423,11 @@
 <!--begin::Global Config(global config for global JS scripts)-->
 <script  type="text/javascript">var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#3699FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };</script>
 <!--end::Global Config-->
+
+
+<script type="text/javascript">
+    $('.selectpicker').selectpicker();
+</script>
 
 
 

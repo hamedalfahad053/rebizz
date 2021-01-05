@@ -19,6 +19,35 @@ if (!function_exists('get_setting')) {
 }
 ###############################################################################
 
+###############################################################################
+if (!function_exists('array_options_status_system')) {
+    function array_options_status_system() {
+
+        $options_status = '';
+        $options_status = array(
+            "1" => lang('Basic_System'),
+            "0" => lang('Multiple_System')
+        );
+
+        return $options_status;
+    }
+}
+###############################################################################
+
+###############################################################################
+if (!function_exists('array_options_status')) {
+    function array_options_status() {
+
+        $options_status = '';
+        $options_status = array(
+            "1" => lang('Status_Active'),
+            "0" => lang('Status_Disabled')
+        );
+
+        return $options_status;
+    }
+}
+###############################################################################
 
 ##############################################################################
 if(!function_exists('Get_Controllers'))

@@ -58,9 +58,23 @@ $route[ADMIN_NAMESPACE_URL.'/Fields']                  = 'System_Fields/System_F
 $route[ADMIN_NAMESPACE_URL.'/Fields/(:any)']           = 'System_Fields/System_Fields/$1';
 $route[ADMIN_NAMESPACE_URL.'/Fields/(:any)/(:any)']    = 'System_Fields/System_Fields/$1/$2';
 
+
+# System Forms
+$route[ADMIN_NAMESPACE_URL.'/Forms']                  = 'System_Forms/System_Forms';
+$route[ADMIN_NAMESPACE_URL.'/Forms/(:any)']           = 'System_Forms/System_Forms/$1';
+$route[ADMIN_NAMESPACE_URL.'/Forms/(:any)/(:any)']    = 'System_Forms/System_Forms/$1/$2';
+
+
+# System List Data
 $route[ADMIN_NAMESPACE_URL.'/List_Data']                  = 'System_Fields/System_ListData';
 $route[ADMIN_NAMESPACE_URL.'/List_Data/(:any)']           = 'System_Fields/System_ListData/$1';
 $route[ADMIN_NAMESPACE_URL.'/List_Data/(:any)/(:any)']    = 'System_Fields/System_ListData/$1/$2';
+
+#  Property Types
+$route[ADMIN_NAMESPACE_URL.'/Property_Types']                       = 'System_Property_Types/System_Property_Types';
+$route[ADMIN_NAMESPACE_URL.'/Property_Types/(:any)']                = 'System_Property_Types/System_Property_Types/$1';
+$route[ADMIN_NAMESPACE_URL.'/Property_Types/(:any)/(:any)']         = 'System_Property_Types/System_Property_Types/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Property_Types/(:any)/(:any)/(:any)']  = 'System_Property_Types/System_Property_Types/$1/$2/$3';
 
 # Language
 $route[ADMIN_NAMESPACE_URL.'/Language']         = 'System_Language/System_Language';
@@ -85,6 +99,11 @@ $route[ADMIN_NAMESPACE_URL.'/Company']                       = 'System_Company/S
 $route[ADMIN_NAMESPACE_URL.'/Company/(:any)']                = 'System_Company/System_Company/$1';
 $route[ADMIN_NAMESPACE_URL.'/Company/(:any)/(:any)']         = 'System_Company/System_Company/$1/$2';
 $route[ADMIN_NAMESPACE_URL.'/Company/(:any)/(:any)/(:any)']  = 'System_Company/System_Company/$1/$2/$3';
+
+# System Transaction
+$route[ADMIN_NAMESPACE_URL.'/Transaction']                  = 'System_Transaction/System_Transaction';
+$route[ADMIN_NAMESPACE_URL.'/Transaction/(:any)']           = 'System_Transaction/System_Transaction/$1';
+$route[ADMIN_NAMESPACE_URL.'/Transaction/(:any)/(:any)']    = 'System_Transaction/System_Transaction/$1/$2';
 
 
 /* ################################################################################
@@ -136,6 +155,15 @@ $route[APP_NAMESPACE_URL.'/Company_Fields']                       = 'App_Company
 $route[APP_NAMESPACE_URL.'/Company_Fields/(:any)']               = 'App_Company_Fields/App_Company_Fields/$1';
 $route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/(:any)']         = 'App_Company_Fields/App_Company_Fields/$1/$2';
 $route[APP_NAMESPACE_URL.'/Company_Fields/(:any)/(:any)/(:any)']  = 'App_Company_Fields/App_Company_Fields/$1/$2/$3';
+
+
+#  Company  Transactions
+$route[APP_NAMESPACE_URL.'/Transactions']                          = 'App_Transactions/App_Transactions';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)']                   = 'App_Transactions/App_Transactions/$1';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)']            = 'App_Transactions/App_Transactions/$1/$2';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2/$3';
+
+
 
 # Company Clients
 $route[APP_NAMESPACE_URL.'/Client']              = 'App_Company_Clients/Company_Clients';

@@ -43,12 +43,9 @@
             <div class="d-flex flex-row">
 
 
-
                 <!--begin::Aside-->
                 <?= $this->load->view('../../modules/System_Company/views/company_aside',$this->data,true); ?>
                 <!--end::Aside-->
-
-
 
                 <!--begin::Content-->
                 <div class="flex-row-fluid ml-lg-8">
@@ -60,7 +57,6 @@
                         </div>
                     </div>
                     <!--end::Row-->
-
                 </div>
                 <!--end::Content-->
 

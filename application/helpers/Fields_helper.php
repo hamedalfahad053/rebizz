@@ -1,7 +1,121 @@
 <?php
 
-# Rule validating Fields
 
+##############################################################################
+if(!function_exists('Get_Fields'))
+{
+
+    function Get_Fields($Fields_id='')
+    {
+        app()->load->database();
+
+        $lang   = get_current_lang();
+
+        $query_Fields = app()->db->from('portal_fields  fields');
+        $query_Fields = app()->db->join('portal_fields_translation  fields_translation', 'fields.Fields_id=fields_translation.item_id');
+
+        if(!empty($Fields_id)){
+            $query_Fields = app()->db->where('fields.Fields_id',$Fields_id);
+            $query_Fields = app()->db->or_where('fields.Fields_key',$Fields_id);
+        }
+
+        $query_Fields = app()->db->where('fields_translation.translation_lang',$lang);
+        $query_Fields = app()->db->get();
+        return $query_Fields;
+    }
+
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Get_Fields_By_Status'))
+{
+
+    function Get_Fields_By_Status($Fields_id='')
+    {
+        app()->load->database();
+
+        $lang   = get_current_lang();
+
+        $query_Fields = app()->db->from('portal_fields  fields');
+        $query_Fields = app()->db->join('portal_fields_translation  fields_translation', 'fields.Fields_id=fields_translation.item_id');
+
+        if(!empty($Fields_id)){
+            $query_Fields = app()->db->where('fields.Fields_id',$Fields_id);
+            $query_Fields = app()->db->or_where('fields.Fields_key',$Fields_id);
+        }
+
+        $query_Fields = app()->db->where('fields.Fields_status_Fields',1);
+        $query_Fields = app()->db->where('fields_translation.translation_lang',$lang);
+        $query_Fields = app()->db->get();
+        return $query_Fields;
+    }
+
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Creation_Field')) {
+
+    function  Creation_Field_HTML_input($Fields_key = '')
+    {
+        app()->load->database();
+
+        $class_plugin = '';
+        $lang   = get_current_lang();
+
+        $query_Fields = app()->db->from('portal_fields  fields');
+        $query_Fields = app()->db->join('portal_fields_translation  fields_translation', 'fields.Fields_id=fields_translation.item_id');
+        $query_Fields = app()->db->where('fields.Fields_id',$Fields_key);
+        $query_Fields = app()->db->or_where('fields.Fields_key',$Fields_key);
+
+        $query_Fields = app()->db->where('fields_translation.translation_lang',$lang);
+        $query_Fields = app()->db->get()->row();
+
+        $html = '';
+
+        if($query_Fields->Fields_Type_Fields == 'date'){
+            $class_plugin .= ' datepicker  "';
+        }
+
+
+
+        $html .= '<label>  '.$query_Fields->item_translation.' </label>';
+        $html .= '<div class="col-lg-12 col-md-12 col-sm-12">';
+        $html .= '<input type="text" name="'.$query_Fields->Fields_key.'" class="form-control" placeholder="'.$query_Fields->item_translation.'"/>';
+        $html .= '</div>';
+
+        return $html;
+    }
+}
+##############################################################################
+
+####################################################################
+if(!function_exists('array_Type_Fields')) {
+
+    function array_Type_Fields()
+    {
+        $Type_Fields = array(
+            "text"     => "حقل نصي",
+            "textarea" => "حقل نصي كبير",
+            "date"     => "تاريخ",
+            "email"    => "بريد الكتروني",
+            "file"     => "تحميل ملف",
+            "number"   => "ارقام",
+            "number_list" => "ترقيم 10 ",
+            "time"     => "وقت",
+            "url"      => "رابط",
+            "tel"     => "رقم هاتف",
+        );
+        return $Type_Fields;
+    }
+
+}
+####################################################################
+
+
+
+# Rule validating Fields
 ####################################################################
 if(!function_exists('validating_Fields_required')) {
 

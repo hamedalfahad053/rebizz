@@ -20,7 +20,6 @@ if(!function_exists('Create_Options_Button')) {
             }elseif ($kay == 'custom') {
                 $HTML .= '<a class="btn btn-icon btn-light-' . $value['color'] . ' mx-2" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="' . $value['icon'] . '"></i></a>';
             }
-
         }
         return $HTML;
     }
@@ -111,7 +110,6 @@ if(!function_exists('Create_Status_badge')) {
         }elseif ($options['key'] == 'Primary') {
             $HTML = '<span class="label label-xl label-primary label-pill label-inline mr-2">'.$options['value'].'</span>';
         }
-
         return $HTML;
     }
 

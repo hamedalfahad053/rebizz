@@ -106,7 +106,9 @@ $autoload['helper'] = array(
     'language',
     'logs',
     'Notifications',
-    'Permissions'
+    'Permissions',
+    'Property_Types',
+    'Forms'
 );
 
 /*

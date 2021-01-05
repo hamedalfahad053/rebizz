@@ -81,9 +81,6 @@ class Company_Clients extends Apps
         $this->data['Page_Title']  = lang('Management_Add_companies_offices');
 
 
-
-       
-
         $this->data['options_status'] = array(
             "0" => lang('Multiple_System'),
             "1" => lang('Basic_System')

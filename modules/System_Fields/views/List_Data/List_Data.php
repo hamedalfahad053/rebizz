@@ -54,6 +54,7 @@
                     <tr>
                         <th class="text-center">#</th>
                         <th class="text-center">اسم القائمة</th>
+                        <th class="text-center">key</th>
                         <th class="text-center">عناصر القائمة</th>
                         <th class="text-center">مالك القائمة</th>
                         <th class="text-center">الحالة</th>
@@ -69,6 +70,7 @@
                         <tr>
                             <td class="text-center"><?= ++$i ?></td>
                             <td class="text-center"><?= $ROW['List_translation'] ?></td>
+                            <td class="text-center"><?= $ROW['List_key'] ?></td>
                             <td class="text-center"><?= $ROW['List_options_num'] ?></td>
                             <td class="text-center"></td>
                             <td class="text-center"><?= $ROW['List_status'] ?></td>

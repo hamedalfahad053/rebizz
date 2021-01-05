@@ -100,6 +100,39 @@ if(!function_exists('Get_Company_One_Users')) {
 
 
 
+##############################################################################
+if(!function_exists('Get_Company_Locations'))
+{
+
+    function Get_Company_Locations($Company_id)
+    {
+        app()->load->database();
+        $query = app()->db->where('company_id',$Company_id);
+        $query = app()->db->get('portal_company_locations');
+        return $query;
+    }
+
+}
+##############################################################################
+
+
+##############################################################################
+if(!function_exists('Get_Locations'))
+{
+
+    function Get_Locations($Locations_id)
+    {
+        app()->load->database();
+        $query = app()->db->where('company_locations_id',$Locations_id);
+        $query = app()->db->get('portal_company_locations');
+        return $query;
+    }
+
+}
+##############################################################################
+
+
+
 
 
 

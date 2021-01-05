@@ -53,14 +53,32 @@
                     <thead>
                     <tr>
                         <th class="text-center">#</th>
+                        <th class="text-center">key</th>
                         <th class="text-center">اسم الحقل</th>
                         <th class="text-center">نوع الحقل</th>
+                        <th class="text-center">بواسطة</th>
                         <th class="text-center">الحالة</th>
                         <th class="text-center">الخيارات</th>
                     </tr>
                     </thead>
                     <tbody>
-
+                    <?php
+                    $i = 0;
+                    foreach ($Fields_List AS  $ROW)
+                    {
+                        ?>
+                        <tr>
+                            <td class="text-center"><?= $ROW['Fields_id'] ?></td>
+                            <td class="text-center"><?= $ROW['Fields_key'] ?></td>
+                            <td class="text-center"><?= $ROW['Fields_translation'] ?></td>
+                            <td class="text-center"><?= $ROW['Fields_type'] ?></td>
+                            <td class="text-center"><?= $ROW['Fields_company_id'] ?></td>
+                            <td class="text-center"><?= $ROW['Fields_status'] ?></td>
+                            <td class="text-center"><?= $ROW['Fields_main_system'] ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
                     </tbody>
                 </table>
                 <!--begin: Datatable -->

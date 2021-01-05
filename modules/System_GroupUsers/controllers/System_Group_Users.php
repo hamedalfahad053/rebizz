@@ -8,7 +8,7 @@ class System_Group_Users extends Admin
     {
         parent::__construct();
 
-        $this->load->model('Users_Group_Model');
+        $this->load->model('Transactionmodel');
         $this->load->model('../../modules/System_Users/models/Users_Model');
         $this->load->model('../../modules/System_Company/models/Companies_model');
 
@@ -127,17 +127,8 @@ class System_Group_Users extends Admin
             );
         }
 
-
-
-        $this->data['options_status_group'] = array(
-            "1" => lang('Status_Active'),
-            "0" => lang('Status_Disabled')
-        );
-
-        $this->data['options_status_system'] = array(
-            "1" => lang('Basic_System'),
-            "0" => lang('Multiple_System')
-        );
+        $this->data['options_status_group']  = array_options_status();
+        $this->data['options_status_system'] = array_options_status_system();
 
         $this->data['Page_Title']  = lang('add_new_group_button');
 

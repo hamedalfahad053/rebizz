@@ -80,6 +80,7 @@ class System_ListData extends Admin
 
             $this->data['List'][]  = array(
                 "List_id"           => $ROW->list_id,
+                "List_key"          => $ROW->list_data_key,
                 "List_translation"  => $ROW->item_translation,
                 "List_options_num"  => $get_options_By_List,
                 "List_status"       => $List_status,

@@ -90,7 +90,7 @@
                         <div class="form-group row">
                             <div class="col-lg-3 mt-5">
                                 <label><?= lang('user_group') ?></label>
-                                <select name="user_group" id="Type_Fields"  class="form-control selectpicker">
+                                <select name="user_group" id="user_group" title="اختر من فضلك "  class="form-control selectpicker">
                                     <?php
                                     foreach ($Groups_System AS  $value)
                                     {
@@ -101,13 +101,13 @@
                             </div>
                             <div class="col-lg-3 mt-5">
                                 <label><?= lang('user_Permissions') ?></label>
-                                <select name="user_Permissions" id="user_Permissions"  class="form-control selectpicker">
+                                <select name="user_Permissions" id="user_Permissions"  title="اختر من فضلك "  class="form-control selectpicker">
 
                                 </select>
                             </div>
                             <div class="col-lg-3 mt-5">
                                 <label><?= lang('Status_add_System') ?></label>
-                                <select name="user_group" id="Type_Fields"  class="form-control selectpicker">
+                                <select name="user_group" id="Type_Fields"  title="اختر من فضلك "  class="form-control selectpicker">
                                     <?php
                                     foreach ($status_system AS $key => $value)
                                     {
@@ -118,7 +118,7 @@
                             </div>
                             <div class="col-lg-3 mt-5">
                                 <label><?= lang('Table_Status') ?></label>
-                                <select name="user_group" id="Type_Fields"  class="form-control selectpicker">
+                                <select name="user_status" id="Type_Fields"  title="اختر من فضلك "  class="form-control selectpicker">
                                     <?php
                                     foreach ($user_status AS $key => $value)
                                     {
@@ -161,8 +161,6 @@
 
 <script type="text/javascript">
 
-    $('.selectpicker').selectpicker({
-        noneSelectedText : '<?= lang('Select_noneSelectedText'); ?>'
-    });
+    $('.selectpicker').selectpicker();
 
 </script>

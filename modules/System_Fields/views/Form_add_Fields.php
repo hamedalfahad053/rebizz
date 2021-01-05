@@ -32,7 +32,7 @@
 
         <div class="row">
 
-            <div class="col-lg-6 mt-5">
+            <div class="col-lg-12 mt-5">
 
                    <div class="card card-custom">
                     <div class="card-header">
@@ -45,57 +45,70 @@
                         <div class="card-toolbar"></div>
                     </div>
                     <div class="card-body">
-
-                        <div class="form-group row">
-                            <div class="col-lg-6 mt-5">
-                                <label><?= lang('Type_Fields') ?></label>
-                                <select name="Type_Fields" id="Type_Fields"  class="form-control selectpicker" title="الرجاء إختيار نوع الحقل">
-                                    <?php
-                                    foreach ($options_Type_Tag_Fields AS $key => $value)
-                                    {
-                                        echo '<option value="'.$key.'">'.$value.'</option>';
-                                    }
-                                    ?>
-                                </select>
+                        <form class="form" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Fields/Create_Fields') ?>" method="post">
+                            <?= CSFT_Form() ?>
+                            <div class="form-group row">
+                                <div class="col-lg-6 mt-5">
+                                    <label><?= lang('Global_form_title_ar') ?></label>
+                                    <input type="text" name="title_ar" class="form-control" placeholder="<?= lang('Global_form_title_ar') ?>"/>
+                                </div>
+                                <div class="col-lg-6 mt-5">
+                                    <label><?= lang('Global_form_title_en') ?></label>
+                                    <input type="text" name="title_en" class="form-control" placeholder="<?= lang('Global_form_title_en') ?>"/>
+                                </div>
                             </div>
-
-                            <div class="col-lg-6 mt-5">
-
-                                <label>نوع الحقل</label>
-                                <select name="options_Type_Fields" id="options_Type_Fields"  class="form-control selectpicker" data-live-search="true" title="الرجاء إختيار نوع الحقل">
-                                
-                                </select>
-
+                            <div class="form-group row">
+                                <div class="col-lg-4 mt-5">
+                                    <label><?= lang('Type_Fields') ?></label>
+                                    <select name="Type_Fields" id="Type_Fields"  class="form-control selectpicker" title="الرجاء إختيار نوع الحقل">
+                                        <?php
+                                        foreach ($Fields_Type AS $key => $value)
+                                        {
+                                            echo '<option value="'.$key.'">'.$value.'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label>حالة الحقل</label>
+                                    <select name="status_Fields" id="Type_Fields"  class="form-control selectpicker" title="الرجاء اختر حالة الحقل">
+                                        <?php
+                                        foreach ($status AS $key => $value)
+                                        {
+                                            echo '<option value="'.$key.'">'.$value.'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 mt-5">
+                                    <label>حالة الحقل بالنظام</label>
+                                    <select name="status_system" id="status_system"  class="form-control selectpicker" data-live-search="true" title="اختر حالة الحقل بالنظام">
+                                        <?php
+                                        foreach ($status_system AS $key => $value)
+                                        {
+                                            echo '<option value="'.$key.'">'.$value.'</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-
-
-
-
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <button type="submit" id="buttonCreateSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+                                    </div>
+                                    <div class="col-lg-6 text-lg-right">
+                                        <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
             </div><!--<div class="col-lg-12 mt-5">-->
 
-            <div class="col-lg-6 mt-5">
-                <div class="card card-custom gutter-b">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <h3 class="card-label">شروط الحقل</h3>
-                        </div>
-                    </div>
-                    <div class="card-body">
 
-                        <div class="form-group row">
-                            <div class="col-lg-12 mt-5" id="validating_Fields">
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
 
         </div>
 
@@ -104,52 +117,5 @@
 </div>
 <!--end::Entry-->
 
-
-<script type="text/javascript">
-
-    $(document).on('change', '#Type_Fields', function(e){
-        e.preventDefault();
-        var Type_Fields       =  $('select[name="Type_Fields"]').val();
-        $.ajax({
-            type: 'ajax',
-            method: 'get',
-            url: '<?= base_url(ADMIN_NAMESPACE_URL .'/Fields/options_Type_Fields') ?>',
-            data: { Type_Fields:Type_Fields},
-            async: false,
-            dataType: 'json',
-            success: function(data){
-                $("#options_Type_Fields").empty();
-                $("#options_Type_Fields").append('<option>اختر </option>');
-                $.each(data.data, function (key, value) {
-                    $("#options_Type_Fields").append('<option value=' + key + '>' + value + '</option>');
-                });
-                $("#options_Type_Fields").selectpicker('refresh');
-            },
-            error: function(){
-                swal.fire("خطا بالارسال",'', "error");
-            }
-        });
-    }); // $('#Type_Fields').change(function()
-
-
-    $(document).on('change', '#options_Type_Fields', function(e){
-        e.preventDefault();
-        var options_Type_Fields  =  $('select[name="options_Type_Fields"]').val();
-        $.ajax({
-            type: 'ajax',
-            method: 'get',
-            url: '<?= base_url(ADMIN_NAMESPACE_URL .'/Fields/validating_Fields_Template') ?>',
-            data: { options_Type_Fields:options_Type_Fields},//
-            async: false,
-            dataType: 'html',
-            success: function(data){
-                $("#validating_Fields").html(data);
-            },
-            error: function(){
-                swal.fire("خطا بالارسال",'', "error");
-            }
-        });
-    }); // $('#Type_Fields').change(function()
-</script>
 
 

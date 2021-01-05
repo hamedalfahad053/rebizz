@@ -55,8 +55,9 @@ class Auth extends Authorization
                     $userid          = $this->aauth->get_user();
 
                     $userdata['Info_User']           = $this->aauth->get_user();
-                    $userdata['User_Group_login']    = Get_Group_User($userdata['Info_User']->id);
-                    $userdata['Company_User']        = Get_Company_User($userdata['Info_User']->id);
+                    $userdata['User_Group_login']    = Get_Group_User($this->aauth->get_user()->id);
+                    $userdata['Company_User']        = Get_Company_User($this->aauth->get_user()->id)->companies_id;
+                    $userdata['Company_Locations']   = Get_Company_User($this->aauth->get_user()->id)->locations_id;
                     $userdata['type_User_login']     = 'Company';
                     $userdata['time_User_login']     = time();
                     $userdata['ip_User_login']       = get_real_ip();
@@ -65,7 +66,6 @@ class Auth extends Authorization
                     redirect(APP_NAMESPACE_URL.'/Dashboard', 'refresh');
 
                 } // if($this->aauth->is_member())
-
 
             }else{
                 $msg_result['key']   = 'Danger';
@@ -114,11 +114,12 @@ class Auth extends Authorization
     ###############################################################################################
 
 
-    ##################################################################################
+    ##################################################################################Transactions
     public function logout()
     {
         $this->aauth->logout();
-        redirect('Auth', 'refresh');
+        $this->session->unset_userdata('UserCompany');
+        $this->session->sess_destroy();
     }
     ##################################################################################
 
