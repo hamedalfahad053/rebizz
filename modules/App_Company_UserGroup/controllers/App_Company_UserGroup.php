@@ -14,7 +14,7 @@ class App_Company_UserGroup extends Apps
     ###################################################################
     public function index()
     {
-
+        //_array_p($this->data['UserLogin']);
         $Group_Users = Get_Company_Group_Users($this->data['UserLogin']['Company_User']);
 
         foreach ($Group_Users->result() AS $ROW )

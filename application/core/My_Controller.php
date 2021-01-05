@@ -124,6 +124,8 @@ class Apps extends MY_Controller
 
         $this->data['UserLogin']                  = $this->session->userdata('UserCompany');
 
+        //_array_p($this->data['UserLogin']);
+
         $this->data['Widgets_Company_Header']     = $this->load->view('../../modules/Layout/Widgets_Company/Header',$this->data,true);
         $this->data['Widgets_Company_Footer']     = $this->load->view('../../modules/Layout/Widgets_Company/Footer',$this->data,true);
         $this->data['Widgets_Company_UserPanel']  = $this->load->view('../../modules/Layout/Widgets_Company/UserPanel',$this->data,true);

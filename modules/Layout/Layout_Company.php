@@ -189,7 +189,7 @@
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
                                     </li>
 

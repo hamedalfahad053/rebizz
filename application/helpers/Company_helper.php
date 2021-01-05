@@ -11,8 +11,8 @@ if(!function_exists('Get_Company'))
     {
         app()->load->database();
         $query = app()->db->where('company_id',$Company_id);
-        $query = app()->db->get('portal_company');
-        return $query->row();
+        $query = app()->db->get('portal_company')->row();
+        return $query;
     }
 
 }

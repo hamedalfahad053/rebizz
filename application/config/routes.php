@@ -166,8 +166,8 @@ $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)']     = 'App_Transa
 
 
 # Company Clients
-$route[APP_NAMESPACE_URL.'/Client']              = 'App_Company_Clients/Company_Clients';
-$route[APP_NAMESPACE_URL.'/Client/(:any)']       = 'App_Company_Clients/Company_Clients/$1';
+$route[APP_NAMESPACE_URL.'/Clients']              = 'App_Company_Clients/Company_Clients';
+$route[APP_NAMESPACE_URL.'/Clients/(:any)']       = 'App_Company_Clients/Company_Clients/$1';
 
 /* ################################################################################
  * Site

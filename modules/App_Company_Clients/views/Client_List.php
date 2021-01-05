@@ -59,9 +59,9 @@
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center"><?= lang('User_full_name_ar') ?></th>
-                            <th class="text-center"><?= lang('email') ?></th>
-                            <th class="text-center"><?= lang('User_group') ?></th>
+                            <th class="text-center"><?= lang('client_name') ?></th>
+                            <th class="text-center"><?= lang('client_type') ?></th>
+                            <!-- <th class="text-center"><?= lang('User_group') ?></th> -->
                             <th class="text-center"><?= lang('Table_Status') ?></th>
                             <th class="text-center"><?= lang('Table_Options') ?></th>
                         </tr>
@@ -69,29 +69,27 @@
                     <tbody>
                         <?php
                         $i = 0;
-                        foreach ($clients as $row) {
+                        //_array_p($UserLogin);
+                        if ($ClientList !== false) {
+                            foreach ($ClientList as $row) {
                         ?>
-                            <tr>
-                                <td class="text-center"><?= $row['Client_id'] ?></td>
-                                <td class="text-center"><?= $row['Client_name'] ?></td>
-                                <td class="text-center"><?= $row['type_id'] ?></td>
-                                <td class="text-center"><?= $row['company_id'] ?></td>
-                                <td class="text-center"><?= $row['is_active'] ?></td>
-                                <td class="text-center"><?= $row['options'] ?></td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center"><?= $row['Client_id'] ?></td>
+                                    <td class="text-center"><?= $row['Client_name'] ?></td>
+                                    <td class="text-center"><?= $row['type_id'] ?></td>
+                                    <!-- <td class="text-center"><?= $row['company_id'] ?></td> -->
+                                    <td class="text-center"><?= $row['is_active'] ?></td>
+                                    <td class="text-center"><?= $row['options'] ?></td>
+                                </tr>
                         <?php
+                            }
                         }
                         ?>
                     </tbody>
                 </table>
                 <!--begin: Datatable -->
-
-
             </div>
         </div>
-
-
-
     </div>
     <!--end::Container-->
 </div>
