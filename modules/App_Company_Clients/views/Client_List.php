@@ -68,10 +68,8 @@
                     </thead>
                     <tbody>
                         <?php
-                        $i = 0;
-                        //_array_p($UserLogin);
-                        if ($ClientList !== false) {
-                            foreach ($ClientList as $row) {
+                        if ($clients !== false) {
+                            foreach ($clients as $row) {
                         ?>
                                 <tr>
                                     <td class="text-center"><?= $row['Client_id'] ?></td>

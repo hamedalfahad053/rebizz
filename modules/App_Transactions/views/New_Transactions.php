@@ -43,7 +43,6 @@
                 <div class="card-toolbar"></div>
             </div>
             <div class="card-body">
-
                     <div class="form-group row">
                         <div class="col-lg-3 mt-5">
                             <?= Creation_Field_HTML_input('COMMISSIONING_NUMBER') ?>
@@ -52,7 +51,6 @@
                             <?= Creation_Field_HTML_input('TRANSACTION_NUMBER') ?>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <div class="col-lg-3 mt-5">
                             <label><?= lang('Global_Country') ?></label>
@@ -83,7 +81,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <div class="col-lg-3 mt-5">
                             <label>تصنيف العقار</label>
@@ -113,8 +110,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="form-group row">
                         <div class="col-lg-3 mt-5">
                             <?= Creation_Field_HTML_input('OWNER_REAL_ESTATE') ?>
@@ -132,7 +127,6 @@
                             <?= Creation_Field_HTML_input('OWNER_MOBILE_EVALUATION') ?>
                         </div>
                     </div>
-
             </div>
             <div class="card-footer">
                 <div class="row">

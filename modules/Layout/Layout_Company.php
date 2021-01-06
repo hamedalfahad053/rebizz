@@ -158,31 +158,25 @@
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">معاملة جديدة</span></a>
                                     </li>
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions') ?>" class="menu-link menu-toggle">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text"> المعاملات الجارية </span></a>
                                     </li>
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions') ?>" class="menu-link menu-toggle">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text"> المعاملات المغلقة </span></a>
                                     </li>
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions') ?>" class="menu-link menu-toggle">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text"> المعاملات الملغاة </span></a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
 
-
-
-                        <li class="menu-section">
-                            <h4 class="menu-text">  ادارة العملاء </h4>
-                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                        </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
                                 <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
-                                <span class="menu-text">ادارة </span>
+                                <span class="menu-text">ادارة العملاء </span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="menu-submenu">
@@ -190,14 +184,12 @@
                                 <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                         <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
+                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">العملاء</span></a>
                                     </li>
 
                                 </ul>
                             </div>
                         </li>
-
-
 
                         <li class="menu-section">
                             <h4 class="menu-text"> عروض الاسعار </h4>
@@ -214,7 +206,7 @@
                                 <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                         <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
+                                        <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
                                     </li>
                                 </ul>
                             </div>

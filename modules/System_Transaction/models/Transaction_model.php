@@ -14,13 +14,10 @@ class Transaction_model extends MY_Model
         $this->db->join('protal_stages_transaction_translation  stages_Transaction_Translation', 'stages_Transaction.stages_id=stages_Transaction_Translation.item_id');
         $lang   = get_current_lang();
         $this->db->where('stages_Transaction_Translation.translation_lang',$lang);
-
         $query = $this->db->get();
-
         return $query;
     }
     ########################################################################
-
 
     ########################################################################
     function Create_Stages_Transaction($data)
