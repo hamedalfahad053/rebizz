@@ -19,19 +19,18 @@
     <?= $Lode_file_Js ?>
     <!--end::Page Scripts-->
 
-
     <?php
     if($direction=='rtl'){
         ?>
         <style type="text/css">
             .dropdown-toggle {padding-right: 5px !important;}
             .bootstrap-select.btn-group,.dropdown-toggle,.filter-option,.filter-option-inner-inner{text-align: right !important;}
-            .bootstrap-select.btn-group .dropdown-toggle .caret {left: 12px !important;right: unset !important;;}
+            .bootstrap-select.btn-group .dropdown-toggle .caret {left: 12px !important;right: unset !important;}
+            th.dt-center,.dt-center { text-align: center; }
         </style>
         <?php
     }
     ?>
-
 </head>
 <!--end::Head-->
 
@@ -212,6 +211,26 @@
                             </div>
                         </li>
 
+                        <li class="menu-section">
+                            <h4 class="menu-text">نظام التقييم</h4>
+                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                        </li>
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="javascript:;" class="menu-link menu-toggle">
+                                <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
+                                <span class="menu-text">ادارة </span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
+                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
 
                         <li class="menu-section">
                             <h4 class="menu-text">نظام التقارير</h4>

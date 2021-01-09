@@ -110,6 +110,7 @@ class System_Forms extends Admin
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
         $this->data['PageContent'] = $this->load->view('../../modules/System_Forms/views/Form_add_Forms',$this->data,true);
+
         Layout_Admin($this->data);
     }
     ###################################################################
@@ -212,7 +213,13 @@ class System_Forms extends Admin
 
         foreach ($Sections_Components_data AS $ROW )
         {
-            $html .= '<div class="card card-custom mt-10" data-section-key="'.$ROW->components_key.'" data-section-id="'.$ROW->components_id.'">';
+
+
+            $html .= '<div class="card card-custom mt-10" id="'.$ROW->components_key.'" data-section-key="'.$ROW->components_key.'" data-section-id="'.$ROW->components_id.'">';
+
+            $Button_Model_List   = Create_One_Button_Text_Without_tooltip(array('title' => 'اضافة حقل', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormAddFields"', 'href' => "javascript:void(0);"));
+            $Button_Model_Fields = Create_One_Button_Text_Without_tooltip(array('title' => 'اضافة قائمة', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormCreateList"', 'href' => "javascript:void(0);"));
+
 
                 $html .= '<div class="card-header">';
 
@@ -222,10 +229,9 @@ class System_Forms extends Admin
                         $html .= '</div>'; // card-title
 
                         $html .= '<div class="card-toolbar">';
-                        $html .= '<a href="#" class="btn btn-sm btn-primary mr-5 font-weight-bold"> اضافة حقل  </a>';
-                        $html .= '<a href="#" class="btn btn-sm btn-primary mr-5 font-weight-bold"> اضافة قائمة  </a>';
+                        $html .= $Button_Model_List;
+                        $html .= $Button_Model_Fields;
                         $html .= '</div>'; // card-toolbar
-
 
                 $html .= '</div>'; // card-header
 
@@ -236,10 +242,10 @@ class System_Forms extends Admin
                 $html .= '<thead>';
                     $html .= '<tr>';
                     $html .= '<th class="text-center">#</th>';
-                    $html .= '<th class="text-center">Forms key</th>';
-                    $html .= '<th class="text-center">Forms key</th>';
-                    $html .= '<th class="text-center">Forms key</th>';
-                    $html .= '<th class="text-center">Forms key</th>';
+                    $html .= '<th class="text-center">اسم الحقل</th>';
+                    $html .= '<th class="text-center"> key</th>';
+                    $html .= '<th class="text-center"></th>';
+                    $html .= '<th class="text-center">خيارات</th>';
                     $html .= '<tr>';
                 $html .= '</thead>';
 
@@ -251,12 +257,21 @@ class System_Forms extends Admin
 
                 foreach ($Get_Fields_components AS $ROW_C )
                 {
+
+                    $options = array();
+
+                    $options['view'] = array("title" => lang('view_button'), "data-attribute" => '', "href" => "#");
+                    $options['deleted'] = array("title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
+
+                    $Fields_components_options =  Create_Options_Button($options);
+
+
                     $html .= '<tr>';
                     $html .= '<td class="text-center">'.++$i_c.'</td>';
                     $html .= '<td class="text-center">'.$ROW_C->item_translation.'</td>';
                     $html .= '<td class="text-center">'.$ROW_C->Fields_key.'</td>';
                     $html .= '<td class="text-center"></td>';
-                    $html .= '<td class="text-center"></td>';
+                    $html .= '<td class="text-center">'.$Fields_components_options.'</td>';
                     $html .= '</tr>';
                 }
                 $html .= '<tbody>';
@@ -300,9 +315,11 @@ class System_Forms extends Admin
                 $create_Sections_Form_Components = $this->System_Forms_Model->Create_Sections_Forms_Components($data_Sections_Components);
 
                 if ($create_Sections_Form_Components) {
+
                     $item_ar = $this->input->get('Sections_title_ar');
                     $item_en = $this->input->get('Sections_title_en');
                     insert_translation_Language_item('portal_forms_sections_components_translation', $create_Sections_Form_Components, $item_ar, $item_en);
+
                     $msg['success'] = true;
                     $msg['Type_result'] = 'success';
                     $msg['Message_result'] = 'تم اضافة المكون بنجاح';
@@ -333,21 +350,23 @@ class System_Forms extends Admin
                 $msg['Message_result'] = 'جميع الحقول اجبارية';
             } else {
 
-                $data_Sections_Components['Forms_id']      = $this->input->get('Forms_id');
-                $data_Sections_Components['Components_id'] = $this->input->get('Components_id');
-                $data_Sections_Components['Fields_id']     = $this->input->get('Fields_id');
 
-                $Create_Fields_To_Sections_Form_Components = $this->System_Forms_Model->Create_Fields_To_Sections_Form_Components($data_Sections_Components);
+                    $data_Sections_Components['Forms_id']      = $this->input->get('Forms_id');
+                    $data_Sections_Components['Components_id'] = $this->input->get('Components_id');
+                    $data_Sections_Components['Fields_id']     = $this->input->get('Fields_id');
 
-                if ($Create_Fields_To_Sections_Form_Components) {
-                    $msg['success'] = true;
-                    $msg['Type_result'] = 'success';
-                    $msg['Message_result'] = 'تم اضافة المكون بنجاح';
-                } else {
-                    $msg['success'] = true;
-                    $msg['Type_result'] = 'error';
-                    $msg['Message_result'] = 'عفوا حدث خطا اثناء الاضافة حاول مجدد او تواصل مع الدعم الفني';
-                }
+                    $Create_Fields_To_Sections_Form_Components = $this->System_Forms_Model->Create_Fields_To_Sections_Form_Components($data_Sections_Components);
+
+                    if ($Create_Fields_To_Sections_Form_Components) {
+                        $msg['success'] = true;
+                        $msg['Type_result'] = 'success';
+                        $msg['Message_result'] = 'تم اضافة المكون بنجاح';
+                    } else {
+                        $msg['success'] = true;
+                        $msg['Type_result'] = 'error';
+                        $msg['Message_result'] = 'عفوا حدث خطا اثناء الاضافة حاول مجدد او تواصل مع الدعم الفني';
+                    }
+
 
             } // if ($this->form_validation->run() == FALSE)
 

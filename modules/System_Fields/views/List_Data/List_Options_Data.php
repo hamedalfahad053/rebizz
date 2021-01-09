@@ -40,7 +40,7 @@
                     <h3 class="card-label"><?= $Page_Title ?></h3>
                 </div>
                 <div class="card-toolbar">
-                    <?= Create_One_Button_Text(array('title'=> lang('List_Data_add_button') ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/List_Data/Form_Add_New_List'))) ?>
+                    <?= Create_One_Button_Text(array('title'=> 'عنصر جديد' ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/List_Data/Form_Add_New_Options/'.$List_id.''))) ?>
                 </div>
             </div>
             <div class="card-body">
@@ -53,10 +53,10 @@
                     <thead>
                     <tr>
                         <th class="text-center">#</th>
-                        <th class="text-center">اسم القائمة</th>
-                        <th class="text-center">key</th>
-                        <th class="text-center">عناصر القائمة</th>
-                        <th class="text-center">مالك القائمة</th>
+	                    <th class="text-center">ID</th>
+	                    <th class="text-center">key</th>
+	                    <th class="text-center">العنوان</th>
+	                    <th class="text-center">مخصص لـ</th>
                         <th class="text-center">الحالة</th>
                         <th class="text-center">الخيارات</th>
                     </tr>
@@ -64,19 +64,17 @@
                     <tbody>
                     <?php
                     $i = 0;
-                    foreach ($List AS  $ROW)
+                    foreach ($options_List AS  $ROW)
                     {
                     ?>
                         <tr>
                             <td class="text-center"><?= ++$i ?></td>
-                            <td class="text-center"><?= $ROW['List_translation'] ?></td>
-                            <td class="text-center"><?= $ROW['List_key'] ?></td>
-                            <td class="text-center">
-                                <?= Create_One_Button_Text(array('title'=> $ROW['List_options_num'] ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/List_Data/List_Options_Mange/'.$ROW['List_id'].''))) ?>
-                            </td>
-                            <td class="text-center"></td>
-                            <td class="text-center"><?= $ROW['List_status'] ?></td>
-                            <td class="text-center"><?= $ROW['List_main_system'] ?></td>
+	                        <td class="text-center"><?= $ROW['options_id'] ?></td>
+                            <td class="text-center"><?= $ROW['options_key'] ?></td>
+                            <td class="text-center"><?= $ROW['options_translation'] ?></td>
+	                        <td class="text-center"><?= $ROW['options_company_id'] ?></td>
+	                        <td class="text-center"><?= $ROW['options_status'] ?></td>
+                            <td class="text-center"><?= $ROW['options_status_system'] ?></td>
                         </tr>
                     <?php
                     }

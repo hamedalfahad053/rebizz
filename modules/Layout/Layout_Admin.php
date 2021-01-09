@@ -26,7 +26,8 @@
     <style type="text/css">
         .dropdown-toggle {padding-right: 5px !important;}
         .bootstrap-select.btn-group,.dropdown-toggle,.filter-option,.filter-option-inner-inner{text-align: right !important;}
-        .bootstrap-select.btn-group .dropdown-toggle .caret {left: 12px !important;right: unset !important;;}
+        .bootstrap-select.btn-group .dropdown-toggle .caret {left: 12px !important;right: unset !important;}
+        th.dt-center,.dt-center { text-align: center; }
     </style>
     <?php
     }
@@ -240,29 +241,80 @@
                             </div>
                         </li>
 
+	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                    <a href="javascript:;" class="menu-link menu-toggle">
+			                    <span class="svg-icon menu-icon"><i class="flaticon2-world text-primary"></i></span>
+			                    <span class="menu-text"> ادارة انواع العقارات </span>
+			                    <i class="menu-arrow"></i>
+		                    </a>
+		                    <div class="menu-submenu">
+			                    <i class="menu-arrow"></i>
+			                    <ul class="menu-subnav">
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Form_Add_Property_Types') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+						                    <span class="menu-text"> اضافة فئة جديدة  </span>
+					                    </a>
+				                    </li>
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Property_Types') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+						                    <span class="menu-text"> ادارة فئات العقارات </span>
+					                    </a>
+				                    </li>
+			                    </ul>
+		                    </div>
+	                    </li>
 
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon2-world text-primary"></i></span>
-                                <span class="menu-text"> ادارة انواع العقارات </span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="menu-submenu">
-                                <i class="menu-arrow"></i>
-                                <ul class="menu-subnav">
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Form_Add_Property_Types') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
-                                            <span class="menu-text"> اضافة فئة جديدة  </span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Property_Types') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
-                                            <span class="menu-text"> ادارة فئات العقارات </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                    <a href="javascript:;" class="menu-link menu-toggle">
+			                    <span class="svg-icon menu-icon"><i class="flaticon2-world text-primary"></i></span>
+			                    <span class="menu-text"> ادارة انواع التقييم </span>
+			                    <i class="menu-arrow"></i>
+		                    </a>
+		                    <div class="menu-submenu">
+			                    <i class="menu-arrow"></i>
+			                    <ul class="menu-subnav">
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Evaluation_Types/Form_Add_Evaluation_Types') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+						                    <span class="menu-text"> اضافة نوع تقييم </span>
+					                    </a>
+				                    </li>
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Evaluation_Types') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+						                    <span class="menu-text"> ادارة انواع التقييم </span>
+					                    </a>
+				                    </li>
+			                    </ul>
+		                    </div>
+	                    </li>
+
+
+	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                    <a href="javascript:;" class="menu-link menu-toggle">
+			                    <span class="svg-icon menu-icon"><i class="flaticon2-world text-primary"></i></span>
+			                    <span class="menu-text"> ادارة اساليب التقييم </span>
+			                    <i class="menu-arrow"></i>
+		                    </a>
+		                    <div class="menu-submenu">
+			                    <i class="menu-arrow"></i>
+			                    <ul class="menu-subnav">
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Evaluation_Methods/Form_Add_Evaluation_Methods') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+						                    <span class="menu-text"> اضافة اسلوب تقييم </span>
+					                    </a>
+				                    </li>
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Evaluation_Methods') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+						                    <span class="menu-text"> ادارة اساليب التقييم </span>
+					                    </a>
+				                    </li>
+			                    </ul>
+		                    </div>
+	                    </li>
+
+
+
+
+
 
 
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
@@ -427,6 +479,8 @@
 
 <script type="text/javascript">
     $('.selectpicker').selectpicker();
+
+
 </script>
 
 

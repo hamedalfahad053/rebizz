@@ -12,6 +12,7 @@ if(!function_exists('Get_Data_List')) {
 
         $query_list = app()->db->from('portal_list_data list');
         $query_list = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
+
         $query_list = app()->db->where('list.list_data_key',$key_list);
         $query_list = app()->db->where('list_translation.translation_lang',$lang);
         $query_list = app()->db->get()->row();
@@ -19,6 +20,7 @@ if(!function_exists('Get_Data_List')) {
 
         $query_list_options = app()->db->from('portal_list_options_data list_options');
         $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+
         $query_list_options = app()->db->where('list_options.list_id',$query_list->list_id);
         $query_list_options = app()->db->where('list_options.options_status',1);
         $query_list_options = app()->db->where('options_translation.translation_lang',$lang);
@@ -55,18 +57,39 @@ if(!function_exists('Get_Data_List')) {
 ##############################################################################
 
 
-
 ##############################################################################
-if(!function_exists('Get_options_Data')) {
+if(!function_exists('Get_All_options_List_by_id')) {
 
-    function Get_options_Data($item_id)
+    function Get_All_options_List_by_id($list_id)
     {
         app()->load->database();
         $lang = get_current_lang();
-        $query_options = app()->db->where('item_id',$item_id);
-        $query_options = app()->db->where('translation_lang',$lang);
-        $query_options = app()->db->get('portal_list_options_translation');
-        return $query_options->row();
+        $query_list_options = app()->db->from('portal_list_options_data list_options');
+        $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+        $query_list_options = app()->db->where('list_options.list_id',$list_id);
+        $query_list_options = app()->db->where('options_translation.translation_lang',$lang);
+        $query_list_options = app()->db->get();
+        return $query_list_options;
+    }
+
+}
+##############################################################################
+
+
+##############################################################################
+if(!function_exists('Get_options_List_Translation')) {
+
+    function Get_options_List_Translation($item_id)
+    {
+        app()->load->database();
+
+        $lang = get_current_lang();
+
+        $query_list_options = app()->db->where('item_id',$item_id);
+        $query_list_options = app()->db->where('translation_lang',$lang);
+        $query_list_options = app()->db->get('portal_list_options_translation');
+
+        return $query_list_options->row();
     }
 
 }

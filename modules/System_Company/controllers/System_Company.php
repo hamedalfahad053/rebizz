@@ -46,7 +46,7 @@ class System_Company extends Admin
 
             $this->data['companies'][]  = array(
                 "company_id"           => $ROW->company_id,
-                "companies_BUSINESS_CATEGORIES"  => Get_options_Data($ROW->LIST_BUSINESS_CATEGORIES)->item_translation,
+                "companies_BUSINESS_CATEGORIES"  => Get_options_List_Translation($ROW->LIST_BUSINESS_CATEGORIES)->item_translation,
                 "companies_Trade_Name" => $ROW->companies_Trade_Name,
                 "companies_status"     => $Companies_status,
                 "companies_options"    => $Companies_options,

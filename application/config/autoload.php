@@ -108,7 +108,9 @@ $autoload['helper'] = array(
     'Notifications',
     'Permissions',
     'Property_Types',
-    'Forms'
+    'Forms',
+    'Client_Company',
+    'Evaluation'
 );
 
 /*

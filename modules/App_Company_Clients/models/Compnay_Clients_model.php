@@ -13,6 +13,7 @@ class Compnay_Clients_model extends CI_Model
     ########################################################################
     function Get_All_Clients()
     {
+
         $query =  $this->db->get('portal_app_client');
         return $query;
     }
@@ -29,6 +30,16 @@ class Compnay_Clients_model extends CI_Model
          }
      }
      ########################################################################
- 
 
+    ########################################################################
+    function Create_Contracts($data)
+    {
+        $query = $this->db->insert('portal_app_client_contract',$data);
+        if($query){
+            return $this->db->insert_id();
+        }else{
+            return false;
+        }
+    }
+    ########################################################################
 }

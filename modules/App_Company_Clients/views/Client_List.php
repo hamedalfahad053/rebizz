@@ -68,8 +68,8 @@
                     </thead>
                     <tbody>
                         <?php
-                        if ($clients !== false) {
-                            foreach ($clients as $row) {
+                        if ($ClientList !== false) {
+                            foreach ($ClientList as $row) {
                         ?>
                                 <tr>
                                     <td class="text-center"><?= $row['Client_id'] ?></td>
@@ -108,7 +108,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="company_id" value="0" />
                     <div class="form-group row">
                         <div class="col-sm-12 col-md-6 mt-5">
                             <label><?= lang('client_name') ?> </label>

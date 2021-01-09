@@ -40,18 +40,11 @@
                         <h3 class="card-label"><?= $Page_Title ?></h3>
                     </div>
                     <div class="card-toolbar">
-                        <?= Create_One_Button_Text(
-                            array(
-                                'title'=> 'اضافة فئة جديدة' ,
-                                'href'=>base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Form_Add_Property_Types')
-                            )
-                        );
-                        ?>
+                        <?= Create_One_Button_Text(array('title'=> 'اضافة نوع جديد' ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/Evaluation_Types/Form_Add_Evaluation_Types'))) ?>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="card-body">
-
                         <?php echo  $this->session->flashdata('message'); ?>
 
                         <style>th.dt-center,.dt-center { text-align: center; }</style>
@@ -59,34 +52,26 @@
                             <thead>
                             <tr>
                                 <th class="text-center">#</th>
-	                            <th class="text-center">نوع العقار</th>
-                                <th class="text-center">فئة العقار</th>
-                                <th class="text-center"> مكونات العقار </th>
-                                <th class="text-center">الحالة</th>
-                                <th class="text-center">الخيارات</th>
+	                            <th class="text-center"> evaluation types Key </th>
+                                <th class="text-center">نوع التقييم</th>
+                                <th class="text-center">مكونات التقييم </th>
+                                <th class="text-center"><?= lang('Table_Status') ?></th>
+                                <th class="text-center"><?= lang('Table_Options') ?></th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
                             $i = 0;
-                            foreach ($Property_Types_List AS  $ROW)
+                            foreach ($Evaluation_Types AS $row)
                             {
                                 ?>
                                 <tr>
-                                    <td class="text-center"><?= ++$i ?></td>
-                                    <td class="text-center"><?= $ROW['Property_Types_translation'] ?></td>
-	                                <td class="text-center"><?= $ROW['CATEGORY_PROPERTY'] ?></td>
-                                    <td class="text-center">
-                                        <?= Create_One_Button_Text(
-                                            array(
-                                                'title'=> ' مكونات العقار ' ,
-                                                'href'=>base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Property_Types_Components/'.$ROW['Property_Types_id'].'')
-                                            )
-                                        );
-                                        ?>
-                                    </td>
-                                    <td class="text-center"><?= $ROW['Property_Types_status'] ?></td>
-                                    <td class="text-center"><?= $ROW['Property_Types_main_system'] ?></td>
+                                    <td class="text-center"><?= $row['Evaluation_Types_id'] ?></td>
+                                    <td class="text-center"><?= $row['Evaluation_Key'] ?></td>
+                                    <td class="text-center"><?= $row['Evaluation_Name'] ?></td>
+	                                <td class="text-center"> </td>
+                                    <td class="text-center"><?= $row['Evaluation_Types_status'] ?></td>
+                                    <td class="text-center"><?= $row['Evaluation_Types_options'] ?></td>
                                 </tr>
                                 <?php
                             }
@@ -103,7 +88,6 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
-
 
 
 <script type="text/javascript">

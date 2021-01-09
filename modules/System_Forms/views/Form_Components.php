@@ -33,98 +33,29 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
-        <form class="form" id="FormCreateSections" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Forms/Create_Forms') ?>" method="post">
-            <div class="card card-custom mb-10 mt-10">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-                        <h3 class="card-label">اضافة قسم جديد</h3>
-                    </div>
-                    <div class="card-toolbar"></div>
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-lg-4 mt-5">
-                            <label>العنوان بالعربية</label>
-                            <input type="text" id="Sections_title_ar" name="Sections_title_ar" class="form-control" placeholder=""/>
-                        </div>
-                        <div class="col-lg-4 mt-5">
-                            <label>العنوان بالانجليزية</label>
-                            <input type="text" id="Sections_title_en" name="Sections_title_en" class="form-control" placeholder=""/>
-                        </div>
-                        <div class="col-lg-4 mt-5">
-                            <label>الحالة</label>
-                            <select name="Sections_Status" id="Sections_Status" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
-                                <?php
-                                foreach ($status AS $key => $value)
-                                {
-                                    echo '<option value="'.$key.'">'.$value.'</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <button type="button" id="buttonCreateSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
-                        </div>
-                        <div class="col-lg-6 text-lg-right">
-                            <button   class="btn btn-danger"><?= lang('cancel_button') ?></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
 
-
-
-        <form class="form" id="FormAddFields" action="#" method="post">
-            <input type="hidden" name="Components_id" value="1">
-            <div class="card card-custom mb-10 mt-10">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-                        <h3 class="card-label"> اضافة حقل للمكون  </h3>
-                    </div>
-                    <div class="card-toolbar"></div>
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-lg-4 mt-5">
-                            <label> الحقل </label>
-                            <select name="Fields_Add" class="form-control selectpicker" data-size="7" data-live-search="true">
-                                <?php
-                                foreach ($Fields_All_Data AS $Row_Field)
-                                {
-                                    echo '<option value="'.$Row_Field->Fields_id.'" data-key="'.$Row_Field->Fields_key.'">'.$Row_Field->item_translation.'</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <button type="button" id="buttonAddFieldsSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
-                        </div>
-                        <div class="col-lg-6 text-lg-right">
-                            <button   class="btn btn-danger"><?= lang('cancel_button') ?></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
+	    <div class="card card-custom">
+		    <!--begin::Header-->
+		    <div class="card-header">
+			    <div class="card-title">
+				    <h3 class="card-label">خيارات النموذج</h3>
+			    </div>
+			    <div class="card-toolbar">
+	                <?=  Create_One_Button_Text_Without_tooltip(array('title' => 'اضافة قسم', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormCreateList"', 'href' => "javascript:void(0);")); ?>
+			    </div>
+		    </div>
+		    <!--end::Header-->
+		    <!--begin::Body-->
+		    <div class="card-body">
+		    </div>
+		    <!--end: Card Body-->
+	    </div>
+	    <!--end: Card-->
 
 
         <div id="Data_Sections_Components">
             <div class="lod_spinner spinner hidden spinner-primary mr-15"></div>
         </div>
-
-
 
     </div>
     <!--end::Container-->
@@ -132,6 +63,194 @@
 <!--end::Entry-->
 
 
+
+
+<!--Start Model Form Create Sections-->
+<div class="modal fade" id="Model_FormCreateSections" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<form class="form" id="FormCreateSections" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Forms/Create_Forms') ?>" method="post">
+				<div class="card card-custom mb-10 mt-10">
+					<div class="card-header">
+						<div class="card-title">
+							<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
+							<h3 class="card-label">اضافة قسم جديد</h3>
+						</div>
+						<div class="card-toolbar"></div>
+					</div>
+					<div class="card-body">
+						<div class="form-group row">
+							<div class="col-lg-4 mt-5">
+								<label>العنوان بالعربية</label>
+								<input type="text" id="Sections_title_ar" name="Sections_title_ar" class="form-control" placeholder=""/>
+							</div>
+							<div class="col-lg-4 mt-5">
+								<label>العنوان بالانجليزية</label>
+								<input type="text" id="Sections_title_en" name="Sections_title_en" class="form-control" placeholder=""/>
+							</div>
+							<div class="col-lg-4 mt-5">
+								<label>الحالة</label>
+								<select name="Sections_Status" id="Sections_Status" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
+                                    <?php
+                                    foreach ($status AS $key => $value)
+                                    {
+                                        echo '<option value="'.$key.'">'.$value.'</option>';
+                                    }
+                                    ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<div class="row">
+							<div class="col-lg-6">
+								<button type="button" id="buttonCreateSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+							</div>
+							<div class="col-lg-6 text-lg-right">
+								<button   class="btn btn-danger"><?= lang('cancel_button') ?></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--End Model Form Create Sections-->
+
+
+<!--Start Model Form Create List-->
+<div class="modal fade" id="Model_FormCreateList" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<form class="form" id="FormCreateSections" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Forms/Create_Forms') ?>" method="post">
+				<div class="card card-custom mb-10 mt-10">
+					<div class="card-header">
+						<div class="card-title">
+							<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
+							<h3 class="card-label">اضافة قسم جديد</h3>
+						</div>
+						<div class="card-toolbar"></div>
+					</div>
+					<div class="card-body">
+						<div class="form-group row">
+							<div class="col-lg-4 mt-5">
+								<label>العنوان بالعربية</label>
+								<input type="text" id="Sections_title_ar" name="Sections_title_ar" class="form-control" placeholder=""/>
+							</div>
+							<div class="col-lg-4 mt-5">
+								<label>العنوان بالانجليزية</label>
+								<input type="text" id="Sections_title_en" name="Sections_title_en" class="form-control" placeholder=""/>
+							</div>
+							<div class="col-lg-4 mt-5">
+								<label>الحالة</label>
+								<select name="Sections_Status" id="Sections_Status" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
+                                    <?php
+                                    foreach ($status AS $key => $value)
+                                    {
+                                        echo '<option value="'.$key.'">'.$value.'</option>';
+                                    }
+                                    ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<div class="row">
+							<div class="col-lg-6">
+								<button type="button" id="buttonCreateSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+							</div>
+							<div class="col-lg-6 text-lg-right">
+								<button   class="btn btn-danger"><?= lang('cancel_button') ?></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--End Model Form Create List-->
+
+<!--Start Model Form Add Fields-->
+<div class="modal fade" id="Model_FormAddFields" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<form class="form" id="FormAddFields" action="#" method="post">
+				<input type="hidden" name="Components_id" value="1">
+				<div class="card card-custom mb-10 mt-10">
+					<div class="card-header">
+						<div class="card-title">
+							<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
+							<h3 class="card-label"> اضافة حقل للمكون  </h3>
+						</div>
+						<div class="card-toolbar"></div>
+					</div>
+					<div class="card-body">
+						<div class="form-group row">
+							<div class="col-lg-4 mt-5">
+								<label> الحقل </label>
+								<select name="Fields_Add" class="form-control selectpicker" data-size="7" data-live-search="true">
+                                    <?php
+                                    foreach ($Fields_All_Data AS $Row_Field)
+                                    {
+                                        echo '<option value="'.$Row_Field->Fields_id.'" data-key="'.$Row_Field->Fields_key.'">'.$Row_Field->item_translation.'</option>';
+                                    }
+                                    ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<div class="row">
+							<div class="col-lg-6">
+								<button type="button" id="buttonAddFieldsSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+							</div>
+							<div class="col-lg-6 text-lg-right">
+								<button   class="btn btn-danger"><?= lang('cancel_button') ?></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--End Model Form Add Fields-->
+
+<!--Start Model Form Field properties-->
+<div class="modal fade" id="Model_Form_Add_properties_Fields" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<form class="form" id="Form_Add_properties_Fields" action="#" method="post">
+				<input type="hidden" name="Components_id" value="1">
+				<div class="card card-custom mb-10 mt-10">
+					<div class="card-header">
+						<div class="card-title">
+							<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
+							<h3 class="card-label"> خصائص الحقل  </h3>
+						</div>
+						<div class="card-toolbar"></div>
+					</div>
+					<div class="card-body">
+
+					</div>
+					<div class="card-footer">
+						<div class="row">
+							<div class="col-lg-6">
+								<button type="button" id="buttonAddFieldsSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+							</div>
+							<div class="col-lg-6 text-lg-right">
+								<button   class="btn btn-danger"><?= lang('cancel_button') ?></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--End Model Form Field properties-->
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -161,8 +280,6 @@
         }
         Sections_Components();
         // ------------------------------------------------------------------------------- //
-
-
 
 
         // ------------------------------------------------------------------------------- //
@@ -225,7 +342,6 @@
                     swal.fire("خطا بالارسال",'', "error");
                 }
             });
-
         });
         // ------------------------------------------------------------------------------- //
 

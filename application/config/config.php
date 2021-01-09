@@ -451,11 +451,11 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = '__w8ssswkkoog4c08koscsowko04ogs4wswgc8w8cs';
-$config['csrf_cookie_name'] = '__w088wggw4k0wgckwsk0cgwogko0s0c8gkg0c08kw';
-$config['csrf_expire'] = 7200;
-$config['csrf_regenerate'] = FALSE;
+$config['csrf_protection']   = TRUE;
+$config['csrf_token_name']   = '__w8ssswkkoog4c08koscsowko04ogs4wswgc8w8cs';
+$config['csrf_cookie_name']  = '__w088wggw4k0wgckwsk0cgwogko0s0c8gkg0c08kw';
+$config['csrf_expire']       = 7200;
+$config['csrf_regenerate']   = TRUE;
 $config['csrf_exclude_uris'] = array(
     'Site/[a-z]+',
 );

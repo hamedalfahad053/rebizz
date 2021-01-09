@@ -73,6 +73,7 @@ class System_Property_Types extends Admin
 
             $this->data['Property_Types_List'][]  = array(
                 "Property_Types_id"           => $ROW->Property_Types_id,
+                "CATEGORY_PROPERTY"           => Get_options_List_Translation($ROW->Categories_Property_id)->item_translation,
                 "Property_Types_translation"  => $ROW->item_translation,
                 "Property_Types_status"       => $Property_Types_status,
                 "Property_Types_main_system"  => $List_main_system,

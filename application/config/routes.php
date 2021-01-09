@@ -38,11 +38,9 @@ $route['Auth/(:any)/(:any)']         = 'Auth/Auth/$1/$2';
 $route['Auth/(:any)/(:any)/(:any)']  = 'Auth/Auth/$1/$2/$3';
 
 
-
 /* ################################################################################
  * Admin
 */ ################################################################################
-
 # Dashboard
 $route[ADMIN_NAMESPACE_URL.'/Dashboard']        = 'System_Dashboard/System_Dashboard';
 
@@ -52,18 +50,15 @@ $route[ADMIN_NAMESPACE_URL.'/System/(:any)']                = 'System_management
 $route[ADMIN_NAMESPACE_URL.'/System/(:any)/(:any)']         = 'System_management/System_management/$1/$2';
 $route[ADMIN_NAMESPACE_URL.'/System/(:any)/(:any)/(:any)']  = 'System_management/System_management/$1/$2/$3';
 
-
 # System Fields
 $route[ADMIN_NAMESPACE_URL.'/Fields']                  = 'System_Fields/System_Fields';
 $route[ADMIN_NAMESPACE_URL.'/Fields/(:any)']           = 'System_Fields/System_Fields/$1';
 $route[ADMIN_NAMESPACE_URL.'/Fields/(:any)/(:any)']    = 'System_Fields/System_Fields/$1/$2';
 
-
 # System Forms
 $route[ADMIN_NAMESPACE_URL.'/Forms']                  = 'System_Forms/System_Forms';
 $route[ADMIN_NAMESPACE_URL.'/Forms/(:any)']           = 'System_Forms/System_Forms/$1';
 $route[ADMIN_NAMESPACE_URL.'/Forms/(:any)/(:any)']    = 'System_Forms/System_Forms/$1/$2';
-
 
 # System List Data
 $route[ADMIN_NAMESPACE_URL.'/List_Data']                  = 'System_Fields/System_ListData';
@@ -105,10 +100,22 @@ $route[ADMIN_NAMESPACE_URL.'/Transaction']                  = 'System_Transactio
 $route[ADMIN_NAMESPACE_URL.'/Transaction/(:any)']           = 'System_Transaction/System_Transaction/$1';
 $route[ADMIN_NAMESPACE_URL.'/Transaction/(:any)/(:any)']    = 'System_Transaction/System_Transaction/$1/$2';
 
+# System Evaluation Types
+$route[ADMIN_NAMESPACE_URL.'/Evaluation_Types']                  = 'System_Evaluation_Types/System_Evaluation_Types';
+$route[ADMIN_NAMESPACE_URL.'/Evaluation_Types/(:any)']           = 'System_Evaluation_Types/System_Evaluation_Types/$1';
+$route[ADMIN_NAMESPACE_URL.'/Evaluation_Types/(:any)/(:any)']    = 'System_Evaluation_Types/System_Evaluation_Types/$1/$2';
 
+# System Evaluation Methods
+$route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods']                       = 'System_Evaluation_Methods/System_Evaluation_Methods';
+$route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)']                = 'System_Evaluation_Methods/System_Evaluation_Methods/$1';
+$route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)/(:any)']         = 'System_Evaluation_Methods/System_Evaluation_Methods/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)/(:any)/(:any)']  = 'System_Evaluation_Methods/System_Evaluation_Methods/$1/$2/$3';
 /* ################################################################################
  * Admin
 */ ################################################################################
+
+
+
 
 
 /* ################################################################################
@@ -163,8 +170,10 @@ $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)']            = 'App_Transa
 $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2/$3';
 
 # Company Clients
-$route[APP_NAMESPACE_URL.'/Clients']              = 'App_Company_Clients/Company_Clients';
-$route[APP_NAMESPACE_URL.'/Clients/(:any)']       = 'App_Company_Clients/Company_Clients/$1';
+$route[APP_NAMESPACE_URL.'/Clients']                          = 'App_Company_Clients/Company_Clients';
+$route[APP_NAMESPACE_URL.'/Clients/(:any)']                   = 'App_Company_Clients/Company_Clients/$1';
+$route[APP_NAMESPACE_URL.'/Clients/(:any)/(:any)']            = 'App_Company_Clients/Company_Clients/$1/$2';
+$route[APP_NAMESPACE_URL.'/Clients/(:any)/(:any)/(:any)']     = 'App_Company_Clients/Company_Clients/$1/$2/$3';
 
 /* ################################################################################
  * Site
