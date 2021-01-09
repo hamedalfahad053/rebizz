@@ -49,36 +49,6 @@
         </div>
 
 
-        <div class="card card-custom mb-10 mt-10">
-            <div class="card-header">
-                <div class="card-title">
-                    <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-                    <h3 class="card-label">اضافة حقل  </h3>
-                </div>
-                <div class="card-toolbar"></div>
-            </div>
-            <div class="card-body">
-                <div class="form-group row">
-                    <div class="col-lg-4 mt-5">
-                        <label>العنوان بالعربية</label>
-                        <input type="text" id="Sections_title_ar" name="Sections_title_ar" class="form-control" placeholder=""/>
-                    </div>
-                    <div class="col-lg-4 mt-5">
-                        <label>شروط الحقل</label>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <button type="button" id="buttonCreateSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
-                    </div>
-                    <div class="col-lg-6 text-lg-right">
-                        <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 
@@ -86,6 +56,9 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+<?= $this->load->view('../../modules/System_Property_Types/views/Model_Form_Add_Fields',$Fields_All_Data); ?>
+<?= $this->load->view('../../modules/System_Property_Types/views/Model_Form_Create_List',$Get_All_List); ?>
 
 
 <script type="text/javascript">
@@ -154,7 +127,35 @@ $(document).ready(function() {
     });
     // ------------------------------------------------------------------------------- //
 
+    // ------------------------------------------------------------------------------- //
+    $('#FormAddFields').on('click', '#buttonAddFieldsSections', function (event) {
 
+        event.preventDefault();
+        var property_types_id  = <?= $this->uri->segment(4) ?>;
+        var Components_id      = $('input[name=Components_id]').val();
+        var Fields_id          = $('select[name=Fields_Add]').val();
+
+        $.ajax({
+            type: 'ajax',
+            method: 'get',
+            url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Property_Types/Create_Sections_Types_Property_Components/') ?>',
+            data: { property_types_id:property_types_id , Components_id:Components_id , Fields_id:Fields_id},
+            async: false,
+            dataType: 'json',
+            success: function(data){
+                if(data.Type_result=='success'){
+                    swal.fire("تمت الاضافة بنجاح",data.Message_result,"success");
+                    Sections_Components();
+                }else{
+                    swal.fire("حدث خطا ",data.Message_result, "error");
+                }
+            },
+            error: function(){
+                swal.fire("خطا بالارسال",'', "error");
+            }
+        });
+    });
+    // ------------------------------------------------------------------------------- //
 
 });
 </script>

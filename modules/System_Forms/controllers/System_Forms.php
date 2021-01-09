@@ -75,8 +75,9 @@ class System_Forms extends Admin
 
 
             $this->data['Forms_List'][]  = array(
-                "Forms_id"           => $ROW->Forms_id,
-                "Forms_key"          => $ROW->Forms_Key,
+                "Forms_id"            => $ROW->Forms_id,
+                "Forms_key"           => $ROW->Forms_Key,
+                "evaluation_types"    => Get_Evaluation_Types($ROW->evaluation_types_id)->row()->item_translation,
                 "Forms_translation"   => $ROW->item_translation,
                 "Forms_Status"        => $Forms_Status,
                 "Forms_main_system"   => $Forms_status_system,
@@ -121,6 +122,7 @@ class System_Forms extends Admin
 
         $this->form_validation->set_rules('title_ar','title_ar','required');
         $this->form_validation->set_rules('title_en','title_en','required');
+        $this->form_validation->set_rules('evaluation_types','evaluation_types','required');
         $this->form_validation->set_rules('Status','status_Fields','required');
         $this->form_validation->set_rules('status_system','status_system','required');
 
@@ -150,6 +152,7 @@ class System_Forms extends Admin
                 $data_Forms['Forms_company_id']     = $this->input->post('Forms_company_id');
                 $data_Forms['Forms_Status']         = $this->input->post('Status');
                 $data_Forms['Forms_status_system']  = $this->input->post('status_system');
+                $data_Forms['evaluation_types_id']  = $this->input->post('evaluation_types');
                 $data_Forms['Forms_company_id']     = 0;
                 $data_Forms['Forms_createDate']     = time();
                 $data_Forms['Forms_lastModifyDate'] = 0;
@@ -195,6 +198,7 @@ class System_Forms extends Admin
         $this->data['status_system']   = array_options_status_system();
 
         $this->data['Fields_All_Data'] = Get_Fields_By_Status()->result();
+        $this->data['Get_All_List']    = Get_All_List()->result();
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
@@ -242,10 +246,10 @@ class System_Forms extends Admin
                 $html .= '<thead>';
                     $html .= '<tr>';
                     $html .= '<th class="text-center">#</th>';
-                    $html .= '<th class="text-center">اسم الحقل</th>';
-                    $html .= '<th class="text-center"> key</th>';
                     $html .= '<th class="text-center"></th>';
-                    $html .= '<th class="text-center">خيارات</th>';
+                    $html .= '<th class="text-center"></th>';
+                    $html .= '<th class="text-center"></th>';
+                    $html .= '<th class="text-center"></th>';
                     $html .= '<tr>';
                 $html .= '</thead>';
 

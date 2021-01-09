@@ -130,7 +130,7 @@ class System_Property_Types extends Admin
 
             $msg_result['key']   = 'Danger';
             $msg_result['value'] = validation_errors();
-            $msg_result_view = Create_Status_Alert($msg_result);
+            $msg_result_view     = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
             redirect(ADMIN_NAMESPACE_URLrter.'/Property_Types', 'refresh');
 
@@ -179,10 +179,10 @@ class System_Property_Types extends Admin
         $this->data['Page_Title']  = ' مكونات العقار';
 
 
-        $this->data['options_status'] = array(
-            "1" => lang('Status_Active'),
-            "0" => lang('Status_Disabled')
-        );
+        $this->data['options_status'] = array_options_status();
+
+        $this->data['Fields_All_Data'] = Get_Fields_By_Status()->result();
+        $this->data['Get_All_List']    = Get_All_List_By_Status()->result();
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Property_Types'));
@@ -203,28 +203,29 @@ class System_Property_Types extends Admin
         $Property_Types = $this->input->get('Property_Types_id');
         $Sections_Types_Property_Components =  Get_Sections_Types_Property_Components($Property_Types)->result();
 
+        $Button_Model_List   = Create_One_Button_Text_Without_tooltip(array('title' => 'اضافة حقل', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormAddFields"', 'href' => "javascript:void(0);"));
+        $Button_Model_Fields = Create_One_Button_Text_Without_tooltip(array('title' => 'اضافة قائمة', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormCreateList"', 'href' => "javascript:void(0);"));
+
+
         foreach ($Sections_Types_Property_Components AS $ROW )
         {
             $html .= '<div class="card card-custom mt-10" data-section-key="'.$ROW->components_key.'" data-section-id="'.$ROW->components_id.'">';
 
             $html .= '<div class="card-header">';
 
-            $html .= '<div class="card-title">';
-            $html .= '<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>';
-            $html .= '<h3 class="card-label">'.$ROW->item_translation.'</h3>';
-            $html .= '</div>'; // card-title
+                $html .= '<div class="card-title">';
+                $html .= '<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>';
+                $html .= '<h3 class="card-label">'.$ROW->item_translation.'</h3>';
+                $html .= '</div>'; // card-title
 
-            $html .= '<div class="card-toolbar">';
-            $html .= '<a href="#" class="btn btn-sm btn-primary mr-5 font-weight-bold"> اضافة حقل  </a>';
-            $html .= '<a href="#" class="btn btn-sm btn-primary mr-5 font-weight-bold"> اضافة قائمة  </a>';
-            $html .= '</div>'; // card-toolbar
-
+                $html .= '<div class="card-toolbar">';
+                $html .= $Button_Model_List;
+                $html .= $Button_Model_Fields;
+                $html .= '</div>'; // card-toolbar
 
             $html .= '</div>'; // card-header
 
             $html .= '<div class="card-body">';
-
-
 
 
             $html .= '</div>'; // card-body
@@ -295,7 +296,45 @@ class System_Property_Types extends Admin
     }
     ###################################################################
 
+    ###################################################################
+    public function Create_Fields_To_Sections_Form_Components()
+    {
+        $msg['success'] = false;
 
+        if ($this->input->is_ajax_request()) {
+
+            if ($this->input->get('property_types_id')=='' or $this->input->get('Components_id')=='' or $this->input->get('Fields_id')=='') {
+                $msg['success']        = true;
+                $msg['Type_result']    = 'error';
+                $msg['Message_result'] = 'جميع الحقول اجبارية';
+            } else {
+
+
+                $data_Sections_Components['property_types_id']      = $this->input->get('property_types_id');
+                $data_Sections_Components['Components_id'] = $this->input->get('Components_id');
+                $data_Sections_Components['Fields_id']     = $this->input->get('Fields_id');
+
+                $Create_Fields_To_Sections_Form_Components = $this->System_Forms_Model->Create_Fields_To_Sections_Form_Components($data_Sections_Components);
+
+                if ($Create_Fields_To_Sections_Form_Components) {
+                    $msg['success'] = true;
+                    $msg['Type_result'] = 'success';
+                    $msg['Message_result'] = 'تم اضافة المكون بنجاح';
+                } else {
+                    $msg['success'] = true;
+                    $msg['Type_result'] = 'error';
+                    $msg['Message_result'] = 'عفوا حدث خطا اثناء الاضافة حاول مجدد او تواصل مع الدعم الفني';
+                }
+
+
+            } // if ($this->form_validation->run() == FALSE)
+
+        } // if ($this->input->is_ajax_request())
+
+        echo json_encode($msg);
+
+    }
+    ###################################################################
 
 
 

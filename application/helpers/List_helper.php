@@ -56,6 +56,62 @@ if(!function_exists('Get_Data_List')) {
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Get_All_List')) {
+
+    function Get_All_List($list_id='')
+    {
+        app()->load->database();
+
+        $lang   = get_current_lang();
+
+        $query_list = app()->db->from('portal_list_data list');
+        $query_list = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
+
+        if(!empty($list_id)){
+            $query_list = app()->db->where('list.list_data_key',$list_id);
+            $query_list = app()->db->or_where('list.list_id',$list_id);
+        }
+
+        $query_list = app()->db->where('list_translation.translation_lang',$lang);
+        $query_list = app()->db->get();
+
+        return $query_list;
+
+    } // function Get_Data_List($type_list,$key_list)
+
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Get_All_List_By_Status')) {
+
+    function Get_All_List_By_Status($list_id='')
+    {
+        app()->load->database();
+
+        $lang   = get_current_lang();
+
+        $query_list = app()->db->from('portal_list_data list');
+        $query_list = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
+
+        if(!empty($list_id)){
+            $query_list = app()->db->where('list.list_data_key',$list_id);
+            $query_list = app()->db->or_where('list.list_id',$list_id);
+        }
+
+        $query_list = app()->db->where('list.list_data_status',1);
+
+        $query_list = app()->db->where('list_translation.translation_lang',$lang);
+        $query_list = app()->db->get();
+
+        return $query_list;
+
+    } // function Get_Data_List($type_list,$key_list)
+
+}
+##############################################################################
+
 
 ##############################################################################
 if(!function_exists('Get_All_options_List_by_id')) {

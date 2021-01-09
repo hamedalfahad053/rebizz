@@ -61,10 +61,21 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+	                    <div class="form-group row">
+		                    <div class="col-lg-4">
+			                    <label>نوع التقييم</label>
+			                    <select name="evaluation_types" class="form-control selectpicker" data-live-search="true">
+                                    <?php
+                                    $evaluation_types = Get_Evaluation_Types()->result();
+                                    foreach ($evaluation_types AS $row_et)
+                                    {
+                                        echo '<option value="'.$row_et->evaluation_types_id.'">'.$row_et->item_translation.'</option>';
+                                    }
+                                    ?>
+			                    </select>
+		                    </div>
 
-
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label><?= lang('Table_Status') ?> </label>
                                 <select name="Status" class="form-control selectpicker" data-live-search="true">
                                     <?php
@@ -75,7 +86,7 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label><?= lang('Basic_System') ?> </label>
                                 <select name="status_system"  class="form-control selectpicker" data-live-search="true">
                                     <?php
