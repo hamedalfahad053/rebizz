@@ -49,8 +49,6 @@ class Ajax extends Base_Ajax
     }
     ###################################################################
 
-
-
     ###################################################################
     public function Get_Countries()
     {
@@ -124,7 +122,6 @@ class Ajax extends Base_Ajax
     }
     ###################################################################
 
-
     ###################################################################
     public function Get_Cites()
     {
@@ -157,7 +154,6 @@ class Ajax extends Base_Ajax
 
     }
     ###################################################################
-
 
     ###################################################################
     public function Get_Districts()
@@ -194,7 +190,109 @@ class Ajax extends Base_Ajax
     }
     ###################################################################
 
+    ###################################################################
+    public function Get_Property_Types_Of_CATEGORY()
+    {
+        header('Content-Type: application/json');
 
+        $Property_Types_data = array();
+
+        $CATEGORY_ID = $this->input->get('CATEGORY_ID');
+
+        $Property_Types = Get_Property_Types_Of_Categories($CATEGORY_ID);
+
+        $lang = get_current_lang();
+
+        foreach ($Property_Types->result() as $row)
+        {
+            $Property_Types_data[] = array(
+                "Property_Types_id"        => $row->Property_Types_id,
+                "Property_Types_Name"      => $row->item_translation,
+                "Property_Types_key"       => $row->Property_Types_key
+            );
+        }
+
+        echo json_encode($Property_Types_data);
+
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Get_FORM_Client_Company()
+    {
+
+    }
+    ###################################################################
+
+
+    ###################################################################
+    public function Ajax_Filter_CUSTOMER_CATEGORY()
+    {
+        header('Content-Type: application/json');
+
+        $CUSTOMER_CATEGORY_ID = $this->input->get('CUSTOMER_CATEGORY');
+        $Company_id           = $this->data['UserLogin']['Company_User'];
+
+        $data = array();
+
+        $Client_Company       = App_Get_Client_Company_By_CATEGORY($Company_id,$CUSTOMER_CATEGORY_ID);
+
+        if($Client_Company->num_rows()>0){
+
+            foreach ($Client_Company->result() AS $ROW_CLI)
+            {
+                $data[] = array(
+                    "Client_id"   =>  $ROW_CLI->client_id,
+                    "Client_name" =>  $ROW_CLI->name
+                );
+            }
+
+            $msg['type'] = true;
+            $msg['data'] = $data;
+
+        }else{
+            $msg['type'] = false;
+        }
+
+        $msg['success'] = true;
+
+        echo json_encode($msg);
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Ajax_Select_Contract_Client()
+    {
+        $Company_id      = $this->data['UserLogin']['Company_User'];
+        $Client_ID       = $this->input->get('Client_id');
+        $data            = array();
+
+        $Client_Contract = App_Client_Contract_Company($Company_id,$Client_ID);
+
+        if($Client_Contract->num_rows()>0){
+
+            foreach ($Client_Contract->result() AS $ROW_CLI)
+            {
+                $data[] = array(
+                    "Contracts_id"         =>  $ROW_CLI->contract_id,
+                    "Contracts_name"       =>  $ROW_CLI->Contracts_name,
+                    "Contracts_start_date" => $ROW_CLI->Contracts_start_date,
+                    "Contracts_end_date"   => $ROW_CLI->Contracts_end_date,
+                    "Code_Transaction"     => $ROW_CLI->Code_Transaction
+                );
+            }
+
+            $msg['type'] = true;
+            $msg['data'] = $data;
+
+        }else{
+            $msg['type'] = false;
+        }
+
+        echo json_encode($msg);
+
+    }
+    ###################################################################
 
 
 }

@@ -37,12 +37,14 @@ class System_Group_Users extends Admin
                $options = array();
 
                $options['view'] = array(
+                   "class"=>"","id"=>"",
                    "title" => lang('view_button'),
                    "data-attribute" => '',
                    "href" => "#"
                );
 
                $options['edit'] = array(
+                   "class"=>"","id"=>"",
                    "title" => lang('edit_button'),
                    "data-attribute" => '',
                    "href" => "#"
@@ -50,12 +52,14 @@ class System_Group_Users extends Admin
 
                if($ROW->group_status == 0) {
                    $options['active'] = array(
+                       "class"=>"","id"=>"",
                        "title" => lang('active_button'),
                        "data-attribute" => '',
                        "href" => "#"
                    );
                }else {
                    $options['disable'] = array(
+                       "class"=>"","id"=>"",
                        "title" => lang('disable_button'),
                        "data-attribute" => '',
                        "href" => "#"
@@ -63,6 +67,7 @@ class System_Group_Users extends Admin
                }
 
                $options['deleted'] = array(
+                   "class"=>"","id"=>"",
                    "title" => lang('deleted_button'),
                    "data-attribute" => '',
                    "href" => "#"

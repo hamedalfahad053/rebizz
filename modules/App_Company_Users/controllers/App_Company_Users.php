@@ -37,14 +37,14 @@ class App_Company_Users extends Apps
 
             $options = array();
 
-            $options['view']    = array("title" => lang('view_button'), "data-attribute" => '', "href" => "#");
-            $options['edit']    = array("title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
-            $options['deleted'] = array("title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
+            $options['view']    = array("class"=>"","id"=>"","title" => lang('view_button'), "data-attribute" => '', "href" => "#");
+            $options['edit']    = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
+            $options['deleted'] = array("class"=>"","id"=>"","title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
 
             if($Row->banned == 1) {
-                $options['active'] = array("title" => lang('active_button'), "data-attribute" => '', "href" => "#");
+                $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '', "href" => "#");
             }else {
-                $options['disable'] = array("title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
+                $options['disable'] = array("class"=>"","id"=>"","title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
             }
 
             $user_options =  Create_Options_Button($options);
@@ -65,7 +65,6 @@ class App_Company_Users extends Apps
 
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
         $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
-
 
         $this->data['Page_Title']  = 'ادارة المستخدمين';
 
@@ -111,11 +110,7 @@ class App_Company_Users extends Apps
 
         }
 
-        $this->data['user_status'] = array(
-            "0" => lang('Status_Active'),
-            "1" => lang('Status_Disabled')
-        );
-
+        $this->data['user_status'] = array_options_status();
         $this->data['Page_Title']  = ' اضافة مستخدم  ';
 
         $this->mybreadcrumb->add(lang('Dashboard'), '');

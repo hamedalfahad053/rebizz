@@ -4,10 +4,12 @@
         <!--begin::Body-->
         <div class="card-body pt-15">
             <!--begin::Nav-->
-            <a href="<?= base_url(APP_NAMESPACE_URL.'/Company_Settings/company_information/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">معلومات المنشأة</a>
-            <a href="<?= base_url(APP_NAMESPACE_URL.'/Company/Company_Customers/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد المعاملات</a>
+            <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/information/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">معلومات المنشأة</a>
 
-            <!--end::Nav-->
+	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Logo/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">الشعار</a>
+
+
+	        <!--end::Nav-->
         </div>
         <!--end::Body-->
     </div>

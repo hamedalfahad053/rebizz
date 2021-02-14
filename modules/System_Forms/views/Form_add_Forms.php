@@ -53,29 +53,16 @@
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label>العنوان بالعربية</label>
-                                <input type="text" name="title_ar" class="form-control" placeholder="<?= lang('user_full_name_ar') ?>"/>
+                                <input type="text" name="title_ar" class="form-control" placeholder=""/>
                             </div>
                             <div class="col-lg-6 mt-5">
                                 <label>العنوان بالانجليزية</label>
-                                <input type="text" name="title_en" class="form-control" placeholder="<?= lang('user_full_name_en') ?>"/>
+                                <input type="text" name="title_en" class="form-control" placeholder=""/>
                             </div>
                         </div>
 
 	                    <div class="form-group row">
-		                    <div class="col-lg-4">
-			                    <label>نوع التقييم</label>
-			                    <select name="evaluation_types" class="form-control selectpicker" data-live-search="true">
-                                    <?php
-                                    $evaluation_types = Get_Evaluation_Types()->result();
-                                    foreach ($evaluation_types AS $row_et)
-                                    {
-                                        echo '<option value="'.$row_et->evaluation_types_id.'">'.$row_et->item_translation.'</option>';
-                                    }
-                                    ?>
-			                    </select>
-		                    </div>
-
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <label><?= lang('Table_Status') ?> </label>
                                 <select name="Status" class="form-control selectpicker" data-live-search="true">
                                     <?php
@@ -86,7 +73,7 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <label><?= lang('Basic_System') ?> </label>
                                 <select name="status_system"  class="form-control selectpicker" data-live-search="true">
                                     <?php

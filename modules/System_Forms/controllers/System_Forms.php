@@ -18,74 +18,79 @@ class System_Forms extends Admin
         $this->data['Page_Title'] = ' ادارة النماذج ';
 
 
-        $Get_All_Forms = Get_All_Forms()->result();
+        $Get_All_Forms = Get_All_Forms();
 
+        if($Get_All_Forms->num_rows()>0){
+            foreach ($Get_All_Forms->result() AS $ROW )
+            {
 
-        foreach ($Get_All_Forms AS $ROW )
-        {
-
-            if ($ROW->Forms_Status == 1) {
-                $Forms_Status = Create_Status_badge(array("key" => "Success", "value" => lang('Status_Active')));
-            } else {
-                $Forms_Status = Create_Status_badge(array("key" => "Danger", "value" => lang('Status_Disabled')));
-            }
-
-            if($ROW->Forms_status_system == 1){
-                $Forms_status_system  =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Basic_System')));
-            }else{
-
-                $options = array();
-
-                $options['view'] = array(
-                    "title" => lang('view_button'),
-                    "data-attribute" => '',
-                    "href" => "#"
-                );
-
-                $options['edit'] = array(
-                    "title" => lang('edit_button'),
-                    "data-attribute" => '',
-                    "href" => "#"
-                );
-
-                if($ROW->Forms_Status == 0) {
-                    $options['active'] = array(
-                        "title" => lang('active_button'),
-                        "data-attribute" => '',
-                        "href" => "#"
-                    );
-                }else {
-                    $options['disable'] = array(
-                        "title" => lang('disable_button'),
-                        "data-attribute" => '',
-                        "href" => "#"
-                    );
+                if ($ROW->Forms_Status == 1) {
+                    $Forms_Status = Create_Status_badge(array("key" => "Success", "value" => lang('Status_Active')));
+                } else {
+                    $Forms_Status = Create_Status_badge(array("key" => "Danger", "value" => lang('Status_Disabled')));
                 }
 
-                $options['deleted'] = array(
-                    "title" => lang('deleted_button'),
-                    "data-attribute" => '',
-                    "href" => "#"
+                if($ROW->Forms_status_system == 1){
+                    $Forms_status_system  =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Basic_System')));
+                }else{
+
+                    $options = array();
+
+                    $options['view'] = array(
+                        "class"=>"","id"=>"",
+                        "title" => lang('view_button'),
+                        "data-attribute" => '',
+                        "href" => "#"
+                    );
+
+                    $options['edit'] = array(
+                        "class"=>"","id"=>"",
+                        "title" => lang('edit_button'),
+                        "data-attribute" => '',
+                        "href" => "#"
+                    );
+
+                    if($ROW->Forms_Status == 0) {
+                        $options['active'] = array(
+                            "class"=>"","id"=>"",
+                            "title" => lang('active_button'),
+                            "data-attribute" => '',
+                            "href" => "#"
+                        );
+                    }else {
+                        $options['disable'] = array(
+                            "class"=>"","id"=>"",
+                            "title" => lang('disable_button'),
+                            "data-attribute" => '',
+                            "href" => "#"
+                        );
+                    }
+
+                    $options['deleted'] = array(
+                        "class"=>"","id"=>"",
+                        "title" => lang('deleted_button'),
+                        "data-attribute" => '',
+                        "href" => "#"
+                    );
+
+                    $Forms_status_system =  Create_Options_Button($options);
+
+                } // if($ROW->list_data_status == 1)
+
+
+
+                $this->data['Forms_List'][]  = array(
+                    "Forms_id"            => $ROW->Forms_id,
+                    "Forms_key"           => $ROW->Forms_Key,
+                    "Forms_translation"   => $ROW->item_translation,
+                    "Forms_Status"        => $Forms_Status,
+                    "Forms_main_system"   => $Forms_status_system,
                 );
 
-                $Forms_status_system =  Create_Options_Button($options);
-
-            } // if($ROW->list_data_status == 1)
-
-
-
-            $this->data['Forms_List'][]  = array(
-                "Forms_id"            => $ROW->Forms_id,
-                "Forms_key"           => $ROW->Forms_Key,
-                "evaluation_types"    => Get_Evaluation_Types($ROW->evaluation_types_id)->row()->item_translation,
-                "Forms_translation"   => $ROW->item_translation,
-                "Forms_Status"        => $Forms_Status,
-                "Forms_main_system"   => $Forms_status_system,
-            );
-
-        } // foreach ($Get_Fields AS $ROW )
-
-
+            } // foreach ($Get_Fields AS $ROW )
+        }else{
+            $this->data['Forms_List'] = false;
+        }
 
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
         $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
@@ -122,7 +127,6 @@ class System_Forms extends Admin
 
         $this->form_validation->set_rules('title_ar','title_ar','required');
         $this->form_validation->set_rules('title_en','title_en','required');
-        $this->form_validation->set_rules('evaluation_types','evaluation_types','required');
         $this->form_validation->set_rules('Status','status_Fields','required');
         $this->form_validation->set_rules('status_system','status_system','required');
 
@@ -138,7 +142,7 @@ class System_Forms extends Admin
 
             $Forms_Key           = strtoupper(str_replace(" ", "_", $this->input->post('title_en')));
 
-            if(Get_Forms($Forms_Key)->num_rows()>0){
+            if(Get_All_Forms($Forms_Key)->num_rows()>0){
 
                 $msg_result['key']   = 'Danger';
                 $msg_result['value'] = 'الحقل مضاف مسبقا';
@@ -149,11 +153,8 @@ class System_Forms extends Admin
             }else {
 
                 $data_Forms['Forms_Key']            = $Forms_Key;
-                $data_Forms['Forms_company_id']     = $this->input->post('Forms_company_id');
                 $data_Forms['Forms_Status']         = $this->input->post('Status');
                 $data_Forms['Forms_status_system']  = $this->input->post('status_system');
-                $data_Forms['evaluation_types_id']  = $this->input->post('evaluation_types');
-                $data_Forms['Forms_company_id']     = 0;
                 $data_Forms['Forms_createDate']     = time();
                 $data_Forms['Forms_lastModifyDate'] = 0;
                 $data_Forms['Forms_isDeleted']      = 0;
@@ -213,6 +214,8 @@ class System_Forms extends Admin
         $html = '';
         $Forms_id = $this->input->get('Forms_id');
 
+
+
         $Sections_Components_data =  Get_Sections_Form_Components($Forms_id)->result();
 
         foreach ($Sections_Components_data AS $ROW )
@@ -221,11 +224,22 @@ class System_Forms extends Admin
 
             $html .= '<div class="card card-custom mt-10" id="'.$ROW->components_key.'" data-section-key="'.$ROW->components_key.'" data-section-id="'.$ROW->components_id.'">';
 
-            $Button_Model_List   = Create_One_Button_Text_Without_tooltip(array('title' => 'اضافة حقل', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormAddFields"', 'href' => "javascript:void(0);"));
-            $Button_Model_Fields = Create_One_Button_Text_Without_tooltip(array('title' => 'اضافة قائمة', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormCreateList"', 'href' => "javascript:void(0);"));
+            $Button_Model_List   = Create_One_Button_Text_Without_tooltip(array('id'=>'','class'=>'ModelFormAddFields','title' => 'اضافة حقل', 'data_attribute' => ' data-components-id="'.$ROW->components_id.'"  data-toggle="modal" data-target="#Model_FormAddFields"', 'href' => "javascript:void(0);"));
+            $Button_Model_Fields = Create_One_Button_Text_Without_tooltip(array('id'=>'','class'=>'ModelFormCreateList','title' => 'اضافة قائمة', 'data_attribute' => ' data-components-id="'.$ROW->components_id.'" data-toggle="modal" data-target="#Model_FormCreateList"', 'href' => "javascript:void(0);"));
+
+            $options_Components['deleted'] = array(
+                                                "title"          => lang('deleted_button'),
+                                                "data-attribute" => ' 
+                                                 data-components-id="'.$ROW->components_id.'" ',
+                                                "class"          => "Deleted_Sections_Components",
+                                                "id"             => "",
+                                                "href"           => "#"
+                                                );
+
+            $Button_Components = Create_Options_Button($options_Components);
 
 
-                $html .= '<div class="card-header">';
+            $html .= '<div class="card-header">';
 
                         $html .= '<div class="card-title">';
                         $html .= '<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>';
@@ -235,6 +249,7 @@ class System_Forms extends Admin
                         $html .= '<div class="card-toolbar">';
                         $html .= $Button_Model_List;
                         $html .= $Button_Model_Fields;
+                        $html .= $Button_Components;
                         $html .= '</div>'; // card-toolbar
 
                 $html .= '</div>'; // card-header
@@ -264,8 +279,17 @@ class System_Forms extends Admin
 
                     $options = array();
 
-                    $options['view'] = array("title" => lang('view_button'), "data-attribute" => '', "href" => "#");
-                    $options['deleted'] = array("title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
+                    $options['view']    = array("class"=>"","id"=>"","title" => lang('view_button'), "data-attribute" => '', "href" => "#");
+
+                    $options['deleted'] = array(
+                                                "title"          => lang('deleted_button'),
+                                                "data-attribute" => ' 
+                                                 data-components-id="'.$ROW->components_id.'" 
+                                                 data-Fields-id="'.$ROW_C->Fields_id.'" ',
+                                                 "class"          => "DeletedFieldsSections","id"=>"",
+                                                 "href"           => "#");
+
+
 
                     $Fields_components_options =  Create_Options_Button($options);
 
@@ -301,9 +325,11 @@ class System_Forms extends Admin
         if ($this->input->is_ajax_request()) {
 
             if ($this->input->get('Forms_id')=='' or $this->input->get('Sections_title_ar')=='' or $this->input->get('Sections_title_en')=='') {
+
                 $msg['success']        = true;
                 $msg['Type_result']    = 'error';
                 $msg['Message_result'] = 'جميع الحقول اجبارية';
+
             } else {
 
                 $data_Sections_Components['components_key']            = strtoupper(str_replace(" ", "_", $this->input->get('Sections_title_en')));
@@ -342,6 +368,41 @@ class System_Forms extends Admin
     ###################################################################
 
     ###################################################################
+    public function Deleted_Sections_Form_Components()
+    {
+        $msg['success'] = false;
+
+        if ($this->input->is_ajax_request()) {
+
+            if ($this->input->get('Forms_id')=='' or $this->input->get('Sections_Components_id')=='') {
+                $msg['success']        = true;
+                $msg['Type_result']    = 'error';
+                $msg['Message_result'] = 'جميع الحقول اجبارية';
+            } else {
+
+                $Forms_id      = $this->input->get('Forms_id');
+                $Components_id = $this->input->get('Sections_Components_id');
+
+                $Deleted_Sections_Components = $this->System_Forms_Model->Deleted_Sections_Forms_Components($Forms_id,$Components_id);
+                if ($Deleted_Sections_Components) {
+                    $msg['success'] = true;
+                    $msg['Type_result'] = 'success';
+                    $msg['Message_result'] = 'تم حذف المكون بنجاح';
+                } else {
+                    $msg['success'] = true;
+                    $msg['Type_result'] = 'error';
+                    $msg['Message_result'] = 'عفوا حدث خطا اثناء الاضافة حاول مجدد او تواصل مع الدعم الفني';
+                }
+
+            }
+        }
+
+        echo json_encode($msg);
+
+    }
+    ###################################################################
+
+    ###################################################################
     public function Create_Fields_To_Sections_Form_Components()
     {
         $msg['success'] = false;
@@ -371,6 +432,46 @@ class System_Forms extends Admin
                         $msg['Message_result'] = 'عفوا حدث خطا اثناء الاضافة حاول مجدد او تواصل مع الدعم الفني';
                     }
 
+
+            } // if ($this->form_validation->run() == FALSE)
+
+        } // if ($this->input->is_ajax_request())
+
+        echo json_encode($msg);
+
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Deleted_Fields_To_Sections_Form_Components()
+    {
+        $msg['success'] = false;
+
+        if ($this->input->is_ajax_request()) {
+
+            if ($this->input->get('Forms_id')=='' or $this->input->get('Components_id')=='' or $this->input->get('Fields_id')=='') {
+                $msg['success']        = true;
+                $msg['Type_result']    = 'error';
+                $msg['Message_result'] = 'جميع الحقول اجبارية';
+            } else {
+
+
+                $data_Sections_Components['Forms_id']      = $this->input->get('Forms_id');
+                $data_Sections_Components['Components_id'] = $this->input->get('Components_id');
+                $data_Sections_Components['Fields_id']     = $this->input->get('Fields_id');
+
+                $Create_Fields_To_Sections_Form_Components = $this->System_Forms_Model->Deleted_Fields_To_Sections_Form_Components($data_Sections_Components);
+
+                if($Create_Fields_To_Sections_Form_Components)
+                {
+                    $msg['success'] = true;
+                    $msg['Type_result'] = 'success';
+                    $msg['Message_result'] = 'تم الحذف بنجاح';
+                } else {
+                    $msg['success'] = true;
+                    $msg['Type_result'] = 'error';
+                    $msg['Message_result'] = 'عفوا حدث خطا اثناء الحذف حاول مجدد او تواصل مع الدعم الفني';
+                }
 
             } // if ($this->form_validation->run() == FALSE)
 

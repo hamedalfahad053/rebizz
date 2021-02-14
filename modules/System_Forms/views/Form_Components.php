@@ -41,7 +41,7 @@
 				    <h3 class="card-label">خيارات النموذج</h3>
 			    </div>
 			    <div class="card-toolbar">
-	                <?=  Create_One_Button_Text_Without_tooltip(array('title' => 'اضافة قسم', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormCreateList"', 'href' => "javascript:void(0);")); ?>
+	                <?=  Create_One_Button_Text_Without_tooltip(array('id'=>'','class'=>'','title' => 'اضافة قسم', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormCreate_Sections_Form_Components"', 'href' => "javascript:void(0);")); ?>
 			    </div>
 		    </div>
 		    <!--end::Header-->
@@ -62,6 +62,7 @@
 </div>
 <!--end::Entry-->
 
+<?= $this->load->view('../../modules/System_Forms/views/Model_Form_Add_SctionComponents',$status); ?>
 <?= $this->load->view('../../modules/System_Forms/views/Model_Form_Add_Fields',$Fields_All_Data); ?>
 <?= $this->load->view('../../modules/System_Forms/views/Model_Form_Create_List',$Get_All_List); ?>
 
@@ -94,7 +95,6 @@
         }
         Sections_Components();
         // ------------------------------------------------------------------------------- //
-
 
         // ------------------------------------------------------------------------------- //
         $('#FormCreateSections').on('click', '#buttonCreateSections', function (event) {
@@ -129,12 +129,66 @@
         });
         // ------------------------------------------------------------------------------- //
 
-        // ------------------------------------------------------------------------------- //
+	    // ------------------------------------------------------------------------------- //
+		$('#Data_Sections_Components').on('click', '.Deleted_Sections_Components', function (event) {
+
+			event.preventDefault();
+
+			var Sections_Components_id  = $(this).attr('data-components-id');
+			var Forms_id                = <?= $this->uri->segment(4) ?>;
+
+			Swal.fire({
+				    title: "هل انت متاكد من اجراء الحذف",
+				    text: "",
+			        icon: "warning",
+					showCancelButton: true,
+					confirmButtonText: "تأكيد الحذف",
+					cancelButtonText: "الغاء الامر",
+					reverseButtons: true
+		    }).then(function(result) {
+				    if (result.value) {
+
+					    $.ajax({
+						    type: 'ajax',
+						    method: 'get',
+						    url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Deleted_Sections_Form_Components/') ?>',
+						    data: { Forms_id:Forms_id ,  Sections_Components_id:Sections_Components_id },
+						    async: false,
+						    dataType: 'json',
+						    success: function(data){
+							    if(data.Type_result=='success'){
+								    swal.fire("تمت الاضافة بنجاح",data.Message_result,"success");
+								    Sections_Components();
+							    }else{
+								    swal.fire("حدث خطا ",data.Message_result, "error");
+							    }
+						    },
+						    error: function(){
+							    swal.fire("خطا بالارسال",'', "error");
+						    }
+					    });
+
+				    } else if (result.dismiss === "cancel") {
+					    Swal.fire("تم الغاء العملية", "تم الغاء عملية الحذف", "error");
+				    }
+			});
+		});
+	    // ------------------------------------------------------------------------------- //
+
+
+	    $(document).on('show.bs.modal','#Model_FormAddFields', function (event) {
+		    var button    = $(event.relatedTarget)
+		    var recipient = button.data('components-id')
+		    var modal     = $(this);
+		    modal.find('.card-body input[name="Fields_Components_id"][type="hidden"]').val(recipient);
+	    });
+
+	    // ------------------------------------------------------------------------------- //
         $('#FormAddFields').on('click', '#buttonAddFieldsSections', function (event) {
 
             event.preventDefault();
             var Forms_id         = <?= $this->uri->segment(4) ?>;
-            var Components_id    = $('input[name=Components_id]').val();
+            var Components_id    = $('input[name=Fields_Components_id]').val();
             var Fields_id        = $('select[name=Fields_Add]').val();
 
             $.ajax({
@@ -156,8 +210,42 @@
                     swal.fire("خطا بالارسال",'', "error");
                 }
             });
+
         });
         // ------------------------------------------------------------------------------- //
+
+
+	    // ------------------------------------------------------------------------------- //
+	    $('#Data_Sections_Components').on('click', '.DeletedFieldsSections', function (event) {
+
+		    event.preventDefault();
+
+		    var Forms_id         = <?= $this->uri->segment(4) ?>;
+		    var Components_id    = $(this).attr('data-components-id');
+		    var Fields_id        = $(this).attr('data-Fields-id');
+
+		    $.ajax({
+			    type: 'ajax',
+			    method: 'get',
+			    url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Deleted_Fields_To_Sections_Form_Components') ?>',
+			    data: { Forms_id:Forms_id , Components_id:Components_id , Fields_id:Fields_id},
+			    async: false,
+			    dataType: 'json',
+			    success: function(data){
+				    if(data.Type_result=='success'){
+					    swal.fire("تمت الحذف بنجاح",data.Message_result,"success");
+					    Sections_Components();
+				    }else{
+					    swal.fire("حدث خطا ",data.Message_result, "error");
+				    }
+			    },
+			    error: function(){
+				    swal.fire("خطا بالارسال",'', "error");
+			    }
+		    });
+	    });
+	    // ------------------------------------------------------------------------------- //
+
 
     });
 </script>

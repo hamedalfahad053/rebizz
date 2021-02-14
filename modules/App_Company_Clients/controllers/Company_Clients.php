@@ -10,6 +10,8 @@ class Company_Clients extends Apps
 
         $this->load->model('Compnay_Clients_model');
         $this->data['controller_name'] = lang('Management_Clients');
+
+
     }
     ###################################################################
 
@@ -31,22 +33,25 @@ class Company_Clients extends Apps
 
                 $options = array();
                 
-                $options['view']        = array("title" => 'ملف العميل', "data-attribute" => '', "href" => base_url(APP_NAMESPACE_URL.'/Clients/Profile_Client/'.$ROW->client_id.''));
-                $options['edit']        = array("title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
-                $options['deleted']     = array("title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
+                $options['view']        = array("class"=>"","id"=>"","title" => 'ملف العميل', "data-attribute" => '', "href" => base_url(APP_NAMESPACE_URL.'/Clients/Profile_Client/'.$ROW->client_id.''));
+                $options['edit']        = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
+                $options['deleted']     = array("class"=>"","id"=>"","title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
 
                 if ($ROW->is_active == true) {
-                    $options['active'] = array("title" => lang('active_button'), "data-attribute" => '', "href" => "#");
+                    $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '', "href" => "#");
                 } else {
-                    $options['disable'] = array("title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
+                    $options['disable'] = array("class"=>"","id"=>"","title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
                 }
 
+
                 $Clients_options =  Create_Options_Button($options);
+
+                $type_Client = Get_options_List_Translation($ROW->type_id);
 
                 $this->data['ClientList'][]  = array(
                     "Client_id"           => $ROW->client_id,
                     "Client_name"         => $ROW->name,
-                    "type_id"             => $ROW->type_id,
+                    "type_id"             => $type_Client->item_translation,
                     "company_id"          => $ROW->company_id,
                     "is_active"           => $ROW->is_active,
                     "options"             => $Clients_options,
@@ -119,7 +124,6 @@ class Company_Clients extends Apps
     }
     ###################################################################
 
-
     ###################################################################
     public function Profile_Client()
     {
@@ -153,7 +157,6 @@ class Company_Clients extends Apps
         Layout_Apps($this->data);
     }
     ###################################################################
-
 
 
     ###################################################################
@@ -194,6 +197,52 @@ class Company_Clients extends Apps
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
         }
 
+        $Contracts_Client =  App_Client_Contract_Company($this->data['UserLogin']['Company_User'],$Client_id);
+
+
+        if ($Contracts_Client->num_rows() > 0) {
+
+            foreach ($Contracts_Client->result() as $ROW) {
+
+                if ($ROW->Contracts_isDeleted == false) {
+                    $Contracts_status =  Create_Status_badge(array("key" => "Success", "value" => lang('Status_Active')));
+                } else {
+                    $Contracts_status =  Create_Status_badge(array("key" => "Danger", "value" => lang('Status_Disabled')));
+                }
+
+                $options = array();
+
+                $options['view']        = array("class"=>"","id"=>"","title" => ' تفاصيل العقد ', "data-attribute" => '', "href" => base_url(APP_NAMESPACE_URL.'/Clients/Contracts_View/'.$ROW->Clients_id.'/'.$ROW->contract_id));
+                $options['edit']        = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
+                $options['deleted']     = array("class"=>"","id"=>"","title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
+
+
+                if ($ROW->is_auto_renew == 1) {
+                    $is_auto_renew =  Create_Status_badge(array("key" => "Success", "value" => lang('Status_Active')));
+                } else {
+                    $is_auto_renew =  Create_Status_badge(array("key" => "Danger", "value" => lang('Status_Disabled')));
+                }
+
+                $Contracts_options =  Create_Options_Button($options);
+
+                $this->data['Contracts_Client'][]  = array(
+                    "contract_id"            => $ROW->contract_id,
+                    "Clients_id"             => $ROW->Clients_id,
+                    "Contracts_name"         => $ROW->Contracts_name,
+                    "Contracts_start_date"   => $ROW->Contracts_start_date,
+                    "Contracts_end_date"     => $ROW->Contracts_end_date,
+                    "is_auto_renew"          => $is_auto_renew,
+                    "Contracts_status"       => $Contracts_status,
+                    "Contracts_options"      => $Contracts_options
+                );
+
+            } // foreach ($Get_All_Clients->result() as $ROW)
+        }
+        else{
+            $this->data['Contracts_Client'] = false;
+        }
+
+
         $this->data['Page_Title']  = ' ادارة العقود';
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
@@ -221,7 +270,6 @@ class Company_Clients extends Apps
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
         }
 
-
         $this->data['Contracts_is_auto_renew'] = array_options_status();
 
         $this->data['Page_Title']  = ' اضافة عقد جديد ';
@@ -242,6 +290,7 @@ class Company_Clients extends Apps
     public function Create_Contracts()
     {
 
+
         $this->form_validation->set_rules('Clients_id','Clients_id','required');
         $this->form_validation->set_rules('Contracts_name','Contracts_name','required');
         $this->form_validation->set_rules('Contracts_description','Contracts_description','required');
@@ -250,7 +299,8 @@ class Company_Clients extends Apps
         $this->form_validation->set_rules('Code_Transaction','Code_Transaction','required');
         $this->form_validation->set_rules('start_Num_Transaction','start_Num_Transaction','required');
         $this->form_validation->set_rules('is_auto_renew','is_auto_renew','required');
-        $this->form_validation->set_rules('contract_file','contract_file','required');
+
+        $Clients_id                =  $this->input->post('Clients_id');
 
         if($this->form_validation->run()==FALSE){
 
@@ -258,15 +308,16 @@ class Company_Clients extends Apps
             $msg_result['value'] = validation_errors();
             $msg_result_view     = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
-            redirect(APP_NAMESPACE_URL.'/Clients/Form_add_Contracts', 'refresh');
+            redirect(APP_NAMESPACE_URL.'/Clients/Form_add_Contracts/'.$Clients_id.'', 'refresh');
 
         }else{
 
+            $data_Contracts['Company_id']                =  $this->data['UserLogin']['Company_User'];
             $data_Contracts['Clients_id']                =  $this->input->post('Clients_id');
             $data_Contracts['Contracts_name']            =  $this->input->post('Contracts_name');
             $data_Contracts['Contracts_description']     =  $this->input->post('Contracts_description');
-            $data_Contracts['Contracts_start_date']      =  $this->input->post('Contracts_start_date');
-            $data_Contracts['Contracts_end_date']        =  $this->input->post('Contracts_end_date');
+            $data_Contracts['Contracts_start_date']      =  strtotime($this->input->post('Contracts_start_date'));
+            $data_Contracts['Contracts_end_date']        =  strtotime($this->input->post('Contracts_end_date'));
             $data_Contracts['Code_Transaction']          =  $this->input->post('Code_Transaction');
             $data_Contracts['start_Num_Transaction']     =  $this->input->post('start_Num_Transaction');
             $data_Contracts['is_auto_renew']             =  $this->input->post('is_auto_renew');
@@ -277,24 +328,63 @@ class Company_Clients extends Apps
             $data_Contracts['Contracts_isDeleted']        =  0;
             $data_Contracts['Contracts_DeletedBy']        =  0;
 
+
+
             $Create_Contracts = $this->Compnay_Clients_model->Create_Contracts($data_Contracts);
 
             if($Create_Contracts){
+
+
+                /* Uploaded File */
+                $Company_domain = Get_Company($this->data['UserLogin']['Company_User'])->companies_Domain;
+                $Uploader_path  = './uploads/companies/'.$Company_domain.'/'.FOLDER_FILE_CONTRACT_COMPANY;
+
+                if (!is_dir($Uploader_path)) {
+                    mkdir($Uploader_path, 0755, TRUE);
+                }
+
+                $data_other_uploaded = array();
+                $data_other_uploaded['file_type_item']        =  'Contracts';
+                $data_other_uploaded['file_item_id']          =  $Create_Contracts;
+                $data_other_uploaded['company_id']            =  $Company_domain;
+                $data_other_uploaded['file_createBy']         =  0;
+                $data_other_uploaded['file_createDate']       =  time();
+                $data_other_uploaded['file_lastModifyDate']   =  time();
+                $data_other_uploaded['file_isDeleted']        =  0;
+                $data_other_uploaded['file_DeletedBy']        =  0;
+
+                $config['upload_path']                        = realpath($Uploader_path);
+                $config['allowed_types']                      = 'gif|jpg|png|jpg|pdf';
+                $config['max_size']                           = '1024';
+                $config['max_filename']                       = 30;
+                $config['encrypt_name']                       = true;
+                $config['remove_spaces']                      = true;
+
+                $this->upload->initialize($config);
+
+                $uploader       = $this->upload->do_upload('contract_file');
+                $upload_data    = $this->upload->data();
+
+                if (count($data_other_uploaded) > 0) {
+                    $upload_data = array_merge($data_other_uploaded, $upload_data);
+                }
+
+                Uploader_Insert_Data($upload_data);
+                /* Uploaded File */
+
 
                 $msg_result['key']   = 'Success';
                 $msg_result['value'] = lang('message_success_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(APP_NAMESPACE_URL.'/Clients/Contracts/' , 'refresh');
+                redirect(APP_NAMESPACE_URL.'/Clients/Contracts/'.$Clients_id.'', 'refresh');
 
             }else{
-
                 $msg_result['key']   = 'Danger';
                 $msg_result['value'] = lang('message_error_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(APP_NAMESPACE_URL.'/Clients/Contracts/', 'refresh');
-
+                redirect(APP_NAMESPACE_URL.'/Clients/Contracts/'.$Clients_id.'', 'refresh');
             }
 
 
@@ -302,6 +392,56 @@ class Company_Clients extends Apps
         } // if($this->form_validation->run()==FALSE)
 
 
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Contracts_View()
+    {
+        $Client_id    =  $this->uri->segment(4);
+        $Contracts_id =  $this->uri->segment(5);
+
+        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['UserLogin']['Company_User'],$Client_id)->row();
+
+        if($this->data['Client_Info']->is_active == 1) {
+            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+        }else{
+            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+        }
+
+        $this->data['Client_Contract'] = GET_Client_Contract_Company($this->data['UserLogin']['Company_User'],$Client_id,$Contracts_id)->row();
+
+        /*
+         *          [contract_id] => 1
+                    [uuid] => 0ff09cd1-57fa-11eb-a392-309c2316b02a
+                    [Clients_id] => 1
+                    [Company_id] => 2
+                    [Contracts_name] =>
+                    [Contracts_description] =>
+                    [Contracts_start_date] => 1610751600
+                    [Contracts_end_date] => 1612047600
+                    [Code_Transaction] => RR
+                    [start_Num_Transaction] => 1000
+                    [is_auto_renew] => 1
+                    [Contracts_createBy] => 0
+                    [Contracts_createDate] => 1610801704
+                    [Contracts_lastModifyDate] => 1610801704
+                    [Contracts_isDeleted] => 0
+                    [Contracts_DeletedBy] => 0
+                    [Contracts_modified_by] =>
+         */
+
+        $this->data['Page_Title']  = ' استعراض معلومات العقد ';
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Clients'));
+        $this->mybreadcrumb->add($this->data['Page_Title'], '#');
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        $this->data['Clients_Company_Page'] = $this->load->view('../../modules/App_Company_Clients/views/View_Contracts', $this->data, true);
+        $this->data['PageContent']          = $this->load->view('../../modules/App_Company_Clients/views/Client_Profile', $this->data, true);
+
+        Layout_Apps($this->data);
     }
     ###################################################################
 

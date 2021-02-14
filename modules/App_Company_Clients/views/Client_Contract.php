@@ -33,13 +33,21 @@
             </tr>
             </thead>
             <tbody>
+            <?php
+            if ($Contracts_Client !== false) {
+            foreach ($Contracts_Client as $row) {
+            ?>
             <tr>
                 <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
+                <td class="text-center"><?= $row['Contracts_name'] ?></td>
+                <td class="text-center"><?= date('Y-m-d',$row['Contracts_start_date']) ?> - <?= date('Y-m-d',$row['Contracts_end_date']) ?></td>
+                <td class="text-center"><?= $row['Contracts_status'] ?></td>
+                <td class="text-center"><?= $row['Contracts_options'] ?></td>
             </tr>
+            <?php
+            } // for
+            } // if
+            ?>
             </tbody>
         </table>
         <!--begin: Datatable -->

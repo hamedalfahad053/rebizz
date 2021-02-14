@@ -11,14 +11,16 @@ class Company_Forms_Model extends MY_Model
 
 
     ########################################################################
-    function Create_Group($data)
+    function Create_Forms_built($data)
     {
-        $query = $this->db->insert('portal_auth_groups',$data);
+        $query = $this->db->insert('portal_forms_built',$data);
+
         if($query){
             return $this->db->insert_id();
         }else{
             return false;
         }
+
     }
     ########################################################################
 

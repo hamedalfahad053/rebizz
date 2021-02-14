@@ -8,14 +8,14 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-                            <h3 class="card-label">اضافة  قائمة بيانات\</h3>
+                            <h3 class="card-label">اضافة  قائمة بيانات</h3>
                         </div>
                         <div class="card-toolbar"></div>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-lg-12 mt-5">
-                                <label>الحالة</label>
+                                <label>القائمة</label>
                                 <select name="List" class="form-control selectpicker" data-size="7" data-live-search="true">
                                     <?php
                                     foreach ($Get_All_List AS $Row_List)

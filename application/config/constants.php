@@ -98,3 +98,8 @@ defined('BASE_ASSET') OR define('BASE_ASSET', BASE_URL.'Assets/');
 
 defined('ADMIN_NAMESPACE_URL')  OR define('ADMIN_NAMESPACE_URL', 'Admin');
 defined('APP_NAMESPACE_URL')    OR define('APP_NAMESPACE_URL', 'App');
+
+
+/* Folder Company Dir */
+defined('FOLDER_FILE_Company_Logo')      OR define('FOLDER_FILE_Company_Logo', 'Company_Logo');
+defined('FOLDER_FILE_CONTRACT_COMPANY')  OR define('FOLDER_FILE_CONTRACT_COMPANY', 'Company_contract');

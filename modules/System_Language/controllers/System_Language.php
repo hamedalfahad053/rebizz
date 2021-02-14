@@ -34,18 +34,21 @@ class System_Language extends Admin {
                 $options = array();
 
                 $options['view'] = array(
+                    "class"=>"","id"=>"",
                     "title" => lang('view_button'),
                     "data-attribute" => '',
                     "href" => "#"
                 );
 
                 $options['edit'] = array(
+                    "class"=>"","id"=>"",
                     "title" => lang('edit_button'),
                     "data-attribute" => '',
                     "href" => "#"
                 );
 
                 $options['active'] = array(
+                    "class"=>"","id"=>"",
                     "title" => lang('active_button'),
                     "data-attribute" => '',
                     "href" => "#"

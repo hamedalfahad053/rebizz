@@ -3,7 +3,7 @@
 ##############################################################################
 if(!function_exists('Get_Data_List')) {
 
-    function Get_Data_List($type_list,$key_list)
+    function Get_Data_List($type_list,$key_list,$where_options='')
     {
         app()->load->database();
 
@@ -23,6 +23,13 @@ if(!function_exists('Get_Data_List')) {
 
         $query_list_options = app()->db->where('list_options.list_id',$query_list->list_id);
         $query_list_options = app()->db->where('list_options.options_status',1);
+
+        if(!empty($where_options)){
+            foreach ($where_options as $key => $value){
+                $query_list_options = app()->db->where('list_options.'.$key.'',$value);
+            }
+        }
+
         $query_list_options = app()->db->where('options_translation.translation_lang',$lang);
         $query_list_options = app()->db->order_by('list_options.options_sort','ASC');
         $query_list_options = app()->db->get();
@@ -55,6 +62,8 @@ if(!function_exists('Get_Data_List')) {
 
 }
 ##############################################################################
+
+
 
 ##############################################################################
 if(!function_exists('Get_All_List')) {

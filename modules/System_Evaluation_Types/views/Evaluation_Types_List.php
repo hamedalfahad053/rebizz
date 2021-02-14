@@ -45,6 +45,7 @@
                 </div>
                 <div class="card-body">
                     <div class="card-body">
+
                         <?php echo  $this->session->flashdata('message'); ?>
 
                         <style>th.dt-center,.dt-center { text-align: center; }</style>

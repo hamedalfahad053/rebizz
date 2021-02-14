@@ -49,7 +49,39 @@
 
             <?php echo  $this->session->flashdata('message'); ?>
 
+	            <style>th.dt-center,.dt-center { text-align: center; }</style>
+	            <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+		            <thead>
+		            <tr>
+			            <th class="text-center">#</th>
+			            <th class="text-center">عنوان النموذج</th>
+			            <th class="text-center">مخصص لـ</th>
+			            <th class="text-center"><?= lang('Table_Status') ?></th>
+			            <th class="text-center"><?= lang('Table_Options') ?></th>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            <?php
+		            $i = 0;
+		            if($List_Forms !== false){
 
+			            foreach ($List_Forms AS $row)
+			            {
+				            ?>
+				            <tr>
+					            <td class="text-center"><?= $row['form_id'] ?></td>
+					            <td class="text-center"><?= $row['form_title_ar'] ?></td>
+					            <td class="text-center"><?= $row['form_Client_id'] ?></td>
+					            <td class="text-center"><?= $row['form_status'] ?></td>
+					            <td class="text-center"><?= $row['form_options'] ?></td>
+				            </tr>
+				            <?php
+			            }
+		            }
+		            ?>
+		            </tbody>
+	            </table>
+	            <!--begin: Datatable -->
 
             </div>
         </div>

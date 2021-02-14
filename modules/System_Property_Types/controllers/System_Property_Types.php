@@ -35,12 +35,14 @@ class System_Property_Types extends Admin
                 $options = array();
 
                 $options['view'] = array(
+                    "class"=>"","id"=>"",
                     "title" => lang('view_button'),
                     "data-attribute" => '',
                     "href" => "#"
                 );
 
                 $options['edit'] = array(
+                    "class"=>"","id"=>"",
                     "title" => lang('edit_button'),
                     "data-attribute" => '',
                     "href" => "#"
@@ -48,12 +50,14 @@ class System_Property_Types extends Admin
 
                 if($ROW->Property_Types_system_status == 0) {
                     $options['active'] = array(
+                        "class"=>"","id"=>"",
                         "title" => lang('active_button'),
                         "data-attribute" => '',
                         "href" => "#"
                     );
                 }else {
                     $options['disable'] = array(
+                        "class"=>"","id"=>"",
                         "title" => lang('disable_button'),
                         "data-attribute" => '',
                         "href" => "#"
@@ -61,6 +65,7 @@ class System_Property_Types extends Admin
                 }
 
                 $options['deleted'] = array(
+                    "class"=>"","id"=>"",
                     "title" => lang('deleted_button'),
                     "data-attribute" => '',
                     "href" => "#"
@@ -71,10 +76,25 @@ class System_Property_Types extends Admin
 
             } // if($ROW->list_data_status == 1)
 
+            if($ROW->Evaluation_is_Buildings == true){
+                $Evaluation_is_Buildings = Create_Status_badge(array("key" => "Success", "value" => lang('Status_Active')));
+            } else {
+                $Evaluation_is_Buildings = Create_Status_badge(array("key" => "Danger", "value" => lang('Status_Disabled')));
+            }
+
+            if($ROW->Evaluation_is_Lands == true){
+                $Evaluation_is_Lands = Create_Status_badge(array("key" => "Success", "value" => lang('Status_Active')));
+            } else {
+                $Evaluation_is_Lands = Create_Status_badge(array("key" => "Danger", "value" => lang('Status_Disabled')));
+            }
+
+
             $this->data['Property_Types_List'][]  = array(
                 "Property_Types_id"           => $ROW->Property_Types_id,
                 "CATEGORY_PROPERTY"           => Get_options_List_Translation($ROW->Categories_Property_id)->item_translation,
                 "Property_Types_translation"  => $ROW->item_translation,
+                "Evaluation_is_Lands"         => $Evaluation_is_Lands,
+                "Evaluation_is_Buildings"     => $Evaluation_is_Buildings,
                 "Property_Types_status"       => $Property_Types_status,
                 "Property_Types_main_system"  => $List_main_system,
             );

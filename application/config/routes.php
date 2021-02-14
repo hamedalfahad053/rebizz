@@ -9,6 +9,18 @@ $route['404_override'] = 'not_found';
 $route['translate_uri_dashes'] = FALSE;
 
 
+//switch($_SERVER['HTTP_HOST']) {
+//
+//    case 'apps.localhost/rebizz/':
+//        $route['default_controller'] = "Auth";
+//        $route['(:any)'] = "Auth/$1";
+//    break;
+//
+//    default:
+//        $route['default_controller'] = 'Site/Site';
+//    break;
+//}
+
 
 /* ################################################################################
  * Site
@@ -121,6 +133,10 @@ $route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)/(:any)/(:any)']  = 'Syste
 /* ################################################################################
  * Apps
 */ ################################################################################
+
+
+
+
 $route[APP_NAMESPACE_URL]                                           = 'App_Dashboard/App_Dashboard';
 $route[APP_NAMESPACE_URL.'/Dashboard']                              = 'App_Dashboard/App_Dashboard';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)']                       = 'App_Dashboard/App_Dashboard/$1';
@@ -128,10 +144,10 @@ $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)']                = 'App_Dashb
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)/(:any)']         = 'App_Dashboard/App_Dashboard/$1/$2/$3';
 
 # Company Settings
-$route[APP_NAMESPACE_URL.'/Company_Settings']                       = 'App_CompanySettings/App_CompanySettings';
-$route[APP_NAMESPACE_URL.'/Company_Settings/(:any)']                = 'App_CompanySettings/App_CompanySettings/$1';
-$route[APP_NAMESPACE_URL.'/Company_Settings/(:any)/(:any)']         = 'App_CompanySettings/App_CompanySettings/$1/$2';
-$route[APP_NAMESPACE_URL.'/Company_Settings/(:any)/(:any)/(:any)']  = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Settings']                       = 'App_CompanySettings/App_CompanySettings';
+$route[APP_NAMESPACE_URL.'/Settings/(:any)']                = 'App_CompanySettings/App_CompanySettings/$1';
+$route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)']         = 'App_CompanySettings/App_CompanySettings/$1/$2';
+$route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)/(:any)']  = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
 
 #  Company Locations
 $route[APP_NAMESPACE_URL.'/Company_Locations']                       = 'App_Company_Locations/App_Company_Locations';
@@ -175,6 +191,15 @@ $route[APP_NAMESPACE_URL.'/Clients/(:any)']                   = 'App_Company_Cli
 $route[APP_NAMESPACE_URL.'/Clients/(:any)/(:any)']            = 'App_Company_Clients/Company_Clients/$1/$2';
 $route[APP_NAMESPACE_URL.'/Clients/(:any)/(:any)/(:any)']     = 'App_Company_Clients/Company_Clients/$1/$2/$3';
 
+
+# Company  Preview RealEstate
+$route[APP_NAMESPACE_URL.'/Preview_RealEstate']                          = 'App_RealEstate_Preview/App_Preview_RealEstate';
+$route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)']                   = 'App_RealEstate_Preview/App_Preview_RealEstate/$1';
+$route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)/(:any)']            = 'App_RealEstate_Preview/App_Preview_RealEstate/$1/$2';
+$route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)/(:any)/(:any)']     = 'App_RealEstate_Preview/App_Preview_RealEstate/$1/$2/$3';
+
 /* ################################################################################
  * Site
 */ ################################################################################
+
+

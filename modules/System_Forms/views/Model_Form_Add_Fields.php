@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <form class="form" id="FormAddFields" action="#" method="post">
-                <input type="hidden" name="Components_id" value="1">
+
                 <div class="card card-custom mb-10 mt-10">
                     <div class="card-header">
                         <div class="card-title">
@@ -13,6 +13,7 @@
                         <div class="card-toolbar"></div>
                     </div>
                     <div class="card-body">
+	                    <input type="hidden" id="Fields_Components_id" name="Fields_Components_id" />
                         <div class="form-group row">
                             <div class="col-lg-4 mt-5">
                                 <label> الحقل </label>

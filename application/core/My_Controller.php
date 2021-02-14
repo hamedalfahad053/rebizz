@@ -136,7 +136,16 @@ class Apps extends MY_Controller
  * End Apps controller
  */
 
-
+/**
+ * Site controller
+ */
+class Front extends MY_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+}
 
 /**
  * Ajax controller
@@ -146,6 +155,7 @@ class Base_Ajax extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->data['UserLogin']                  = $this->session->userdata('UserCompany');
     }
 }
 /**

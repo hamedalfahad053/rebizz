@@ -54,11 +54,8 @@
             <span></span>
         </button>
         <!--end::Aside Mobile Toggle-->
-        <!--begin::Header Menu Mobile Toggle-->
-        <button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
-            <span></span>
-        </button>
-        <!--end::Header Menu Mobile Toggle-->
+
+
         <!--begin::Topbar Mobile Toggle-->
         <button class="btn btn-hover-text-primary p-0 ml-2" id="kt_header_mobile_topbar_toggle">
 					<span class="svg-icon svg-icon-xl">
@@ -131,7 +128,6 @@
                     <!--begin::Menu Nav-->
                     <ul class="menu-nav">
 
-
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
                                 <i class="menu-icon flaticon-home"></i>
@@ -139,77 +135,80 @@
                             </a>
                         </li>
 
+
                         <li class="menu-section">
                             <h4 class="menu-text">  المعاملات  </h4>
                             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                         </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
+                                <span class="svg-icon menu-icon"><i class="flaticon-web text-primary"></i></span>
                                 <span class="menu-text">ادارة المعاملات </span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="menu-submenu">
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/New_Transactions') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">معاملة جديدة</span></a>
-                                    </li>
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text"> المعاملات الجارية </span></a>
-                                    </li>
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text"> المعاملات المغلقة </span></a>
-                                    </li>
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text"> المعاملات الملغاة </span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/List_Index_Transactions') ?>" class="menu-link menu-toggle">
+			                                <span class="menu-icon"><i class="flaticon-web text-primary"></span></i><span class="menu-text">ادارة الطلبات</span></a>
+	                                </li>
 
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
-                                <span class="menu-text">ادارة العملاء </span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="menu-submenu">
-                                <i class="menu-arrow"></i>
-                                <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">العملاء</span></a>
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Data_Transactions') ?>" class="menu-link menu-toggle">
+                                            <span class="menu-icon"><i class="flaticon-web text-success"></span></i><span class="menu-text">ادخال البيانات</span></a>
                                     </li>
+
 
                                 </ul>
                             </div>
                         </li>
 
-                        <li class="menu-section">
-                            <h4 class="menu-text"> عروض الاسعار </h4>
-                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                        </li>
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
-                                <span class="menu-text">ادارة </span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="menu-submenu">
-                                <i class="menu-arrow"></i>
-                                <ul class="menu-subnav">
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
-                                        <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+	                    <li class="menu-section">
+		                    <h4 class="menu-text"> ادارة التنسيق و الجودة</h4>
+		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+	                    </li>
+	                    <li class="menu-item" aria-haspopup="true">
+		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
+			                    <i class="menu-icon flaticon2-heart-rate-monitor"></i>
+			                    <span class="menu-text">المعاملات الجارية</span>
+		                    </a>
+	                    </li>
+	                    <li class="menu-item" aria-haspopup="true">
+		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
+			                    <i class="menu-icon flaticon2-map"></i>
+			                    <span class="menu-text"> ادارة زيارات المعاينة </span>
+		                    </a>
+	                    </li>
+
+
+
+	                    <li class="menu-section">
+		                    <h4 class="menu-text">نظام المعاينة</h4>
+		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+	                    </li>
+	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                    <a href="javascript:;" class="menu-link menu-toggle">
+			                    <span class="svg-icon menu-icon"><i class="flaticon-placeholder text-primary"></i></span>
+			                    <span class="menu-text">ادارة نظام المعاينة</span>
+			                    <i class="menu-arrow"></i>
+		                    </a>
+		                    <div class="menu-submenu">
+			                    <i class="menu-arrow"></i>
+			                    <ul class="menu-subnav">
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Preview_RealEstate/index') ?>" class="menu-link menu-toggle">
+						                    <span class="menu-icon"><i class="flaticon-placeholder text-primary"></span></i><span class="menu-text">المعاملات الجديدة</span></a>
+				                    </li>
+
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Preview_RealEstate/Preview_Completed') ?>" class="menu-link menu-toggle">
+						                    <span class="menu-icon"><i class="flaticon-web text-primary"></span></i><span class="menu-text">المعاملات المنجزة</span></a>
+				                    </li>
+
+			                    </ul>
+		                    </div>
+	                    </li>
 
                         <li class="menu-section">
                             <h4 class="menu-text">نظام التقييم</h4>
@@ -217,8 +216,8 @@
                         </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
-                                <span class="menu-text">ادارة </span>
+                                <span class="svg-icon menu-icon"><i class="flaticon-interface-6 text-primary"></i></span>
+                                <span class="menu-text">ادارة نظام التقييم</span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="menu-submenu">
@@ -226,8 +225,12 @@
                                 <ul class="menu-subnav">
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                         <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
+                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المعاملات الجديدة</span></a>
                                     </li>
+	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
+			                                <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المعاملات المنجزة</span></a>
+	                                </li>
                                 </ul>
                             </div>
                         </li>
@@ -238,17 +241,14 @@
                         </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
-                                <span class="menu-text">ادارة </span>
+                                <span class="svg-icon menu-icon"><i class="flaticon2-poll-symbol text-primary"></i></span>
+                                <span class="menu-text">ادارة نظام التقارير </span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="menu-submenu">
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
-                                    </li>
+
                                 </ul>
                             </div>
                         </li>
@@ -275,6 +275,27 @@
                             </div>
                         </li>
 
+	                    <li class="menu-section">
+		                    <h4 class="menu-text">ادارة المواد البشرية</h4>
+		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+	                    </li>
+	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                    <a href="javascript:;" class="menu-link menu-toggle">
+			                    <span class="svg-icon menu-icon"><i class="flaticon-users text-primary"></i></span>
+			                    <span class="menu-text">الموظفين </span>
+			                    <i class="menu-arrow"></i>
+		                    </a>
+		                    <div class="menu-submenu">
+			                    <i class="menu-arrow"></i>
+			                    <ul class="menu-subnav">
+				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+					                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Users') ?>" class="menu-link menu-toggle">
+						                    <span class="menu-icon"><i class="flaticon-users text-primary"></span></i><span class="menu-text">المستخدمين</span></a>
+				                    </li>
+			                    </ul>
+		                    </div>
+	                    </li>
+
 
 
                         <li class="menu-section">
@@ -283,7 +304,7 @@
                         </li>
 
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="<?= base_url(APP_NAMESPACE_URL.'/Company_Settings') ?>" class="menu-link">
+                            <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings') ?>" class="menu-link">
                                 <i class="menu-icon flaticon-home"></i>
                                 <span class="menu-text">الاعدادت العامة</span>
                             </a>

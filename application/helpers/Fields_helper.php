@@ -61,7 +61,9 @@ if(!function_exists('Creation_Field')) {
     {
         app()->load->database();
 
-        $class_plugin = '';
+        $Type_Fields  = '';
+        $class_plugin = ' form-control ';
+
         $lang   = get_current_lang();
 
         $query_Fields = app()->db->from('portal_fields  fields');
@@ -74,15 +76,27 @@ if(!function_exists('Creation_Field')) {
 
         $html = '';
 
+        if($query_Fields->Fields_Type_Fields == 'file'){
+
+           $Type_Fields   = 'file';
+           $class_plugin = 'form-control-file';
+
+        }elseif($query_Fields->Fields_Type_Fields == 'text'){
+            $Type_Fields = 'text';
+        }
+
         if($query_Fields->Fields_Type_Fields == 'date'){
             $class_plugin .= ' datepicker  "';
         }
 
-
-
         $html .= '<label>  '.$query_Fields->item_translation.' </label>';
         $html .= '<div class="col-lg-12 col-md-12 col-sm-12">';
-        $html .= '<input type="text" name="'.$query_Fields->Fields_key.'" class="form-control" placeholder="'.$query_Fields->item_translation.'"/>';
+
+        $html .= '<input type="'.$Type_Fields.'" id="'.$query_Fields->Fields_key.'" name="'.$query_Fields->Fields_key.'" 
+        class="'.$class_plugin.'" 
+        title=""
+        placeholder="'.$query_Fields->item_translation.'"/>';
+
         $html .= '</div>';
 
         return $html;
@@ -105,7 +119,7 @@ if(!function_exists('array_Type_Fields')) {
             "number_list" => "ترقيم 10 ",
             "time"     => "وقت",
             "url"      => "رابط",
-            "tel"     => "رقم هاتف",
+            "tel"      => "رقم هاتف",
         );
         return $Type_Fields;
     }

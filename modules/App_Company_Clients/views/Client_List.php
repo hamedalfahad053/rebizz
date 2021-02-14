@@ -41,7 +41,7 @@
                     <h3 class="card-label"><?= $Page_Title ?></h3>
                 </div>
                 <div class="card-toolbar">
-                    <?= Create_One_Button_Text_Without_tooltip(array('title' => lang('add_new_Client_button'), 'data_attribute' => 'data-toggle="modal" data-target="#CreateNewClient"', 'href' => "javascript:void(0);")) ?>
+                    <?= Create_One_Button_Text_Without_tooltip(array("class"=>"","id"=>"",'title' => lang('add_new_Client_button'), 'data_attribute' => 'data-toggle="modal" data-target="#CreateNewClient"', 'href' => "javascript:void(0);")) ?>
                 </div>
             </div>
             <div class="card-body">
@@ -60,8 +60,7 @@
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center"><?= lang('client_name') ?></th>
-                            <th class="text-center"><?= lang('client_type') ?></th>
-                            <!-- <th class="text-center"><?= lang('User_group') ?></th> -->
+                            <th class="text-center">فئة العميل</th>
                             <th class="text-center"><?= lang('Table_Status') ?></th>
                             <th class="text-center"><?= lang('Table_Options') ?></th>
                         </tr>
@@ -75,8 +74,7 @@
                                     <td class="text-center"><?= $row['Client_id'] ?></td>
                                     <td class="text-center"><?= $row['Client_name'] ?></td>
                                     <td class="text-center"><?= $row['type_id'] ?></td>
-                                    <!-- <td class="text-center"><?= $row['company_id'] ?></td> -->
-                                    <td class="text-center"><?= $row['is_active'] ?></td>
+                                    <td class="text-center"><?= $row['status'] ?></td>
                                     <td class="text-center"><?= $row['options'] ?></td>
                                 </tr>
                         <?php
@@ -116,7 +114,7 @@
 
                         <div class="col-sm-12 col-md-6 mt-5">
                             <label><?= lang('client_type') ?></label>
-                            <?= Get_Data_List('select', 'LIST_BUSINESS_CATEGORIES') ?>
+                            <?= Get_Data_List('select', 'LIST_CUSTOMER_CATEGORY') ?>
                             </select>
                         </div>
                     </div>

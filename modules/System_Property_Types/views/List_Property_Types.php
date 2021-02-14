@@ -61,6 +61,8 @@
                                 <th class="text-center">#</th>
 	                            <th class="text-center">نوع العقار</th>
                                 <th class="text-center">فئة العقار</th>
+	                            <th class="text-center">تقييم - اراضي</th>
+	                            <th class="text-center">تقييم - مباني</th>
                                 <th class="text-center"> مكونات العقار </th>
                                 <th class="text-center">الحالة</th>
                                 <th class="text-center">الخيارات</th>
@@ -76,8 +78,11 @@
                                     <td class="text-center"><?= ++$i ?></td>
                                     <td class="text-center"><?= $ROW['Property_Types_translation'] ?></td>
 	                                <td class="text-center"><?= $ROW['CATEGORY_PROPERTY'] ?></td>
+	                                <td class="text-center"><?= $ROW['Evaluation_is_Lands'] ?></td>
+	                                <td class="text-center"><?= $ROW['Evaluation_is_Buildings'] ?></td>
                                     <td class="text-center">
-                                        <?= Create_One_Button_Text(
+                                        <?=
+                                        Create_One_Button_Text(
                                             array(
                                                 'title'=> ' مكونات العقار ' ,
                                                 'href'=>base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Property_Types_Components/'.$ROW['Property_Types_id'].'')

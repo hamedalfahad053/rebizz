@@ -41,7 +41,7 @@
                     <h3 class="card-label"><?= $Page_Title ?></h3>
                 </div>
                 <div class="card-toolbar">
-                    <?= Create_One_Button_Text(array('title'=> 'اضافة مستخدم' ,'href'=>base_url(APP_NAMESPACE_URL.'/Company_Users/Form_add_Users'))) ?>
+                    <?= Create_One_Button_Text(array("class"=>"","id"=>"",'title'=> 'اضافة مستخدم' ,'href'=>base_url(APP_NAMESPACE_URL.'/Company_Users/Form_add_Users'))) ?>
                 </div>
             </div>
             <div class="card-body">

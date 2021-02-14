@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('aauth','form_validation','session');
+$autoload['libraries'] = array('aauth','form_validation','session','upload');
 
 /*
 | -------------------------------------------------------------------
@@ -110,7 +110,9 @@ $autoload['helper'] = array(
     'Property_Types',
     'Forms',
     'Client_Company',
-    'Evaluation'
+    'Evaluation',
+    'Uplode',
+    'Transactions'
 );
 
 /*

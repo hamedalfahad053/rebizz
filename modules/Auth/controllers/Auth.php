@@ -16,6 +16,9 @@ class Auth extends Authorization
     ###############################################################################################
 	public function index()
 	{
+
+
+
 	    $this->data['Page_Title']    = lang('Auth_Pages');
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'css/pages/login/login-1',$this->data['direction']);
         $this->data['PageContent']   = $this->load->view('../../modules/Auth/views/Form_Login',$this->data,true);
@@ -58,6 +61,7 @@ class Auth extends Authorization
                     $userdata['User_Group_login']    = Get_Group_User($this->aauth->get_user()->id);
                     $userdata['Company_User']        = Get_Company_User($this->aauth->get_user()->id)->companies_id;
                     $userdata['Company_Locations']   = Get_Company_User($this->aauth->get_user()->id)->locations_id;
+                    $userdata['Company_Domain']      = Get_Company($userdata['Company_User'])->companies_Domain;
                     $userdata['type_User_login']     = 'Company';
                     $userdata['time_User_login']     = time();
                     $userdata['ip_User_login']       = get_real_ip();

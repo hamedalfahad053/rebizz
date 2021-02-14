@@ -32,14 +32,14 @@ class System_Company extends Admin
             }
 
             $options = array();
-            $options['view']    = array("title" => lang('view_button'), "data-attribute" => '', "href" => base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Profile/'.$ROW->company_id.''));
-            $options['edit']    = array("title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
-            $options['deleted'] = array("title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
+            $options['view']    = array("class"=>"","id"=>"","title" => lang('view_button'), "data-attribute" => '', "href" => base_url(ADMIN_NAMESPACE_URL.'/Company/Company_Profile/'.$ROW->company_id.''));
+            $options['edit']    = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
+            $options['deleted'] = array("class"=>"","id"=>"","title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
 
             if($ROW->companies_Status == 0) {
-                $options['active'] = array("title" => lang('active_button'), "data-attribute" => '', "href" => "#");
+                $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '', "href" => "#");
             }else {
-                $options['disable'] = array("title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
+                $options['disable'] = array("class"=>"","id"=>"","title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
             }
 
             $Companies_options =  Create_Options_Button($options);

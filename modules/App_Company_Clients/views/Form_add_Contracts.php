@@ -21,6 +21,9 @@
 		</div>
 		<!--end::Header-->
 
+
+        <?php echo  $this->session->flashdata('message'); ?>
+
 		<!--begin::Body-->
 		<div class="card-body">
 			<div class="form-group row">
@@ -48,7 +51,7 @@
 			<div class="form-group row">
 				<div class="col-lg-6 mt-5">
 					<label> تنسيق ترقيم المعاملات </label>
-					<input type="text" name="Code_Transaction " class="form-control"
+					<input type="text" name="Code_Transaction" class="form-control"
 					       placeholder="RAJ"/>
 				</div>
 				<div class="col-lg-6 mt-5">

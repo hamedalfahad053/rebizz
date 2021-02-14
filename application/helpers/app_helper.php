@@ -182,3 +182,17 @@ if (!function_exists('get_real_ip')) {
 
 }
 ##############################################################################
+
+##############################################################################
+if(!function_exists('currency_format')) {
+    function currency_format($number = '') {
+        $thausand_separator = get_option('ecommerce_thausand_separator', '.');
+        $decimal_separator = get_option('ecommerce_decimal_separator', ',');
+        $decimal_length = get_option('ecommerce_decimal_length', 0);
+        $text = 'IDR '.number_format($number, $decimal_length, $decimal_separator,$thausand_separator);
+
+        return $text;
+    }
+}
+##############################################################################
+
