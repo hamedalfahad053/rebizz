@@ -214,13 +214,10 @@ class System_Forms extends Admin
         $html = '';
         $Forms_id = $this->input->get('Forms_id');
 
-
-
         $Sections_Components_data =  Get_Sections_Form_Components($Forms_id)->result();
 
         foreach ($Sections_Components_data AS $ROW )
         {
-
 
             $html .= '<div class="card card-custom mt-10" id="'.$ROW->components_key.'" data-section-key="'.$ROW->components_key.'" data-section-id="'.$ROW->components_id.'">';
 
@@ -261,50 +258,49 @@ class System_Forms extends Admin
                 $html .= '<thead>';
                     $html .= '<tr>';
                     $html .= '<th class="text-center">#</th>';
-                    $html .= '<th class="text-center"></th>';
-                    $html .= '<th class="text-center"></th>';
-                    $html .= '<th class="text-center"></th>';
+                    $html .= '<th class="text-center">اسم الحقل</th>';
+                    $html .= '<th class="text-center">نوع الحقل</th>';
+                    $html .= '<th class="text-center">Key</th>';
                     $html .= '<th class="text-center"></th>';
                     $html .= '<tr>';
                 $html .= '</thead>';
 
-                $Get_Fields_components = Get_Fields_components($Forms_id,$ROW->components_id)->result();
+                $Get_Fields_components = Get_Fields_Components_Default($Forms_id,$ROW->components_id);
 
-                $html .= '<tbody>';
-
-                $i_c = 0;
-
-                foreach ($Get_Fields_components AS $ROW_C )
-                {
-
-                    $options = array();
-
-                    $options['view']    = array("class"=>"","id"=>"","title" => lang('view_button'), "data-attribute" => '', "href" => "#");
-
-                    $options['deleted'] = array(
-                                                "title"          => lang('deleted_button'),
-                                                "data-attribute" => ' 
-                                                 data-components-id="'.$ROW->components_id.'" 
-                                                 data-Fields-id="'.$ROW_C->Fields_id.'" ',
-                                                 "class"          => "DeletedFieldsSections","id"=>"",
-                                                 "href"           => "#");
-
-
-
-                    $Fields_components_options =  Create_Options_Button($options);
-
-
-                    $html .= '<tr>';
-                    $html .= '<td class="text-center">'.++$i_c.'</td>';
-                    $html .= '<td class="text-center">'.$ROW_C->item_translation.'</td>';
-                    $html .= '<td class="text-center">'.$ROW_C->Fields_key.'</td>';
-                    $html .= '<td class="text-center"></td>';
-                    $html .= '<td class="text-center">'.$Fields_components_options.'</td>';
-                    $html .= '</tr>';
-                }
-                $html .= '<tbody>';
-
-            $html .= '</table>';
+                _array_p($Get_Fields_components);
+//                $html .= '<tbody>';
+//
+//                $i_c = 0;
+//
+//                    foreach ($Get_Fields_components AS $ROW_C )
+//                    {
+//                        $options = array();
+//                        $options['view']    = array("class"=>"","id"=>"","title" => lang('view_button'), "data-attribute" => '', "href" => "#");
+//                        $options['deleted'] = array("title"=> lang('deleted_button'),
+//                                                    "data-attribute" => '
+//                                                     data-components-id="'.$ROW['components_id'].'"
+//                                                     data-Fields-id="'.$ROW_C['Fields_id'].'" ',
+//                                                     "class"=>"DeletedFieldsSections","id"=>"",
+//                                                     "href"=> "#");
+//
+//                        $Fields_components_options =  Create_Options_Button($options);
+//
+//
+//                        $html .= '<tr>';
+//                        $html .= '<td class="text-center">'.++$i_c.'</td>';
+//                        $html .= '<td class="text-center">'.$ROW_C['Fields_Title'].'</td>';
+//                        $html .= '<td class="text-center">'.$ROW_C['Fields_Type'].'</td>';
+//                        $html .= '<td class="text-center"></td>';
+//                        $html .= '<td class="text-center">'.$Fields_components_options.'</td>';
+//                        $html .= '</tr>';
+//                    }
+//
+//
+//
+//
+//                $html .= '<tbody>';
+//
+//            $html .= '</table>';
 
             $html .= '</div>'; // card-body
 
@@ -416,9 +412,10 @@ class System_Forms extends Admin
             } else {
 
 
-                    $data_Sections_Components['Forms_id']      = $this->input->get('Forms_id');
-                    $data_Sections_Components['Components_id'] = $this->input->get('Components_id');
-                    $data_Sections_Components['Fields_id']     = $this->input->get('Fields_id');
+                    $data_Sections_Components['Forms_id']        = $this->input->get('Forms_id');
+                    $data_Sections_Components['Components_id']   = $this->input->get('Components_id');
+                    $data_Sections_Components['Fields_id']       = $this->input->get('Fields_id');
+                    $data_Sections_Components['Fields_Type']     = 'Fields';
 
                     $Create_Fields_To_Sections_Form_Components = $this->System_Forms_Model->Create_Fields_To_Sections_Form_Components($data_Sections_Components);
 
@@ -481,5 +478,49 @@ class System_Forms extends Admin
 
     }
     ###################################################################
+
+
+
+
+    ###################################################################
+    public function Create_List_To_Sections_Form_Components()
+    {
+        $msg['success'] = false;
+
+        if ($this->input->is_ajax_request()) {
+
+            if ($this->input->get('Forms_id')=='' or $this->input->get('List_Components_id')=='' or $this->input->get('List_id')=='') {
+
+                $msg['success']        = true;
+                $msg['Type_result']    = 'error';
+                $msg['Message_result'] = 'جميع الحقول اجبارية';
+
+            } else {
+
+                $data_Sections_Components['Forms_id']        = $this->input->get('Forms_id');
+                $data_Sections_Components['Components_id']   = $this->input->get('List_Components_id');
+                $data_Sections_Components['Fields_id']       = $this->input->get('List_id');
+                $data_Sections_Components['Fields_Type']     = 'List';
+
+                $Create_List_To_Sections_Form_Components = $this->System_Forms_Model->Create_Fields_To_Sections_Form_Components($data_Sections_Components);
+
+                if ($Create_List_To_Sections_Form_Components) {
+                    $msg['success'] = true;
+                    $msg['Type_result'] = 'success';
+                    $msg['Message_result'] = 'تم اضافة المكون بنجاح';
+                } else {
+                    $msg['success'] = true;
+                    $msg['Type_result'] = 'error';
+                    $msg['Message_result'] = 'عفوا حدث خطا اثناء الاضافة حاول مجدد او تواصل مع الدعم الفني';
+                }
+
+            } // if ($this->form_validation->run() == FALSE)
+        } // if ($this->input->is_ajax_request())
+
+        echo json_encode($msg);
+    }
+    ###################################################################
+
+
 
 }

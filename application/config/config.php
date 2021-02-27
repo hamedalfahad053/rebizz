@@ -454,7 +454,7 @@ $config['global_xss_filtering'] = FALSE;
 $config['csrf_protection']   = TRUE;
 $config['csrf_token_name']   = '__w8ssswkkoog4c08koscsowko04ogs4wswgc8w8cs';
 $config['csrf_cookie_name']  = '__w088wggw4k0wgckwsk0cgwogko0s0c8gkg0c08kw';
-$config['csrf_expire']       = 7200;
+$config['csrf_expire']       = 3600*10;
 $config['csrf_regenerate']   = TRUE;
 $config['csrf_exclude_uris'] = array(
     'Site/[a-z]+',
@@ -505,7 +505,7 @@ $config['compress_output'] = FALSE;
 | helper' page of the user guide for information regarding date handling.
 |
 */
-$config['time_reference'] = 'local';
+$config['time_reference'] = date_default_timezone_set('Asia/Riyadh');
 
 /*
 |--------------------------------------------------------------------------

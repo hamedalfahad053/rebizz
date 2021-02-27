@@ -57,6 +57,11 @@ class MY_Controller extends MX_Controller  {
         $this->data['Lode_file_Css'] = '';
         $this->data['Lode_file_Js']  = '';
 
+
+        trigger_error("User error via trigger.", E_USER_ERROR);
+        trigger_error("Warning error via trigger.", E_USER_WARNING);
+        trigger_error("Notice error via trigger.", E_USER_NOTICE);
+
     }
 }
 
@@ -69,7 +74,7 @@ class Authorization extends MY_Controller
     {
         parent::__construct();
 
-
+#=
         if($this->aauth->is_loggedin()){
             if($this->aauth->is_member('Admin')){
                 redirect(ADMIN_NAMESPACE_URL.'/Dashboard', 'refresh');
@@ -122,9 +127,11 @@ class Apps extends MY_Controller
              redirect('Auth', 'refresh');
          }
 
-        $this->data['UserLogin']                  = $this->session->userdata('UserCompany');
-
-        //_array_p($this->data['UserLogin']);
+        $this->data['UserLogin']                     = $this->session->userdata('UserCompany');
+        $this->data['LoginUser_Company']             = $this->data['UserLogin']['Company_User'];
+        $this->data['LoginUser_location']            = $this->data['UserLogin']['Company_Locations'];
+        $this->data['LoginUser_Company_domain']      = Get_Company($this->data['UserLogin']['Company_User'])->companies_Domain;
+        $this->data['LoginUser_Company_Path_Folder'] = BASE_URL.'uploads/companies/' . $this->data['LoginUser_Company_domain'].'';
 
         $this->data['Widgets_Company_Header']     = $this->load->view('../../modules/Layout/Widgets_Company/Header',$this->data,true);
         $this->data['Widgets_Company_Footer']     = $this->load->view('../../modules/Layout/Widgets_Company/Footer',$this->data,true);

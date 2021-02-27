@@ -41,7 +41,7 @@
                     <h3 class="card-label"><?= $Page_Title ?></h3>
                 </div>
                 <div class="card-toolbar">
-                    <?= Create_One_Button_Text_Without_tooltip(array("class"=>"","id"=>"",'title' => lang('add_new_Client_button'), 'data_attribute' => 'data-toggle="modal" data-target="#CreateNewClient"', 'href' => "javascript:void(0);")) ?>
+                    <?= Create_One_Button_Text_Without_tooltip(array("class"=>"","id"=>"",'title' => lang('add_new_Client_button'), 'href' => base_url(APP_NAMESPACE_URL.'/Clients/Create_New_Client'))) ?>
                 </div>
             </div>
             <div class="card-body">
@@ -59,6 +59,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
+	                        <th class="text-center">شعار العميل</th>
                             <th class="text-center"><?= lang('client_name') ?></th>
                             <th class="text-center">فئة العميل</th>
                             <th class="text-center"><?= lang('Table_Status') ?></th>
@@ -72,6 +73,8 @@
                         ?>
                                 <tr>
                                     <td class="text-center"><?= $row['Client_id'] ?></td>
+	                                <td class="text-center"><img src="<?= $row['Client_logo']; ?>" height="35" width="35" ></td>
+	                                <td class="text-center"><?= $row['Client_name'] ?></td>
                                     <td class="text-center"><?= $row['Client_name'] ?></td>
                                     <td class="text-center"><?= $row['type_id'] ?></td>
                                     <td class="text-center"><?= $row['status'] ?></td>
@@ -91,73 +94,21 @@
 </div>
 <!--end::Entry-->
 
-
-<!--Start Modal Create new Client-->
-<div class="modal fade" id="CreateNewClient" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL . '/Clients/Create_Client') ?>" method="post">
-                <?= CSFT_Form() ?>
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><?= lang('add_new_Client_title') ?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <div class="col-sm-12 col-md-6 mt-5">
-                            <label><?= lang('client_name') ?> </label>
-                            <input type="text" name="name" class="form-control" placeholder="<?= lang('client_name') ?>" />
-                        </div>
-
-                        <div class="col-sm-12 col-md-6 mt-5">
-                            <label><?= lang('client_type') ?></label>
-                            <?= Get_Data_List('select', 'LIST_CUSTOMER_CATEGORY') ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-sm-12 col-md-6 mt-5">
-                            <label><?= lang('Global_email') ?> </label>
-                            <input type="email" name="email" class="form-control" placeholder="<?= lang('Global_email') ?>" />
-                        </div>
-
-                        <div class="col-sm-12 col-md-6 mt-5">
-                            <label><?= lang('Global_Phone') ?> </label>
-                            <input type="tel" name="Phone" class="form-control" placeholder="<?= lang('Global_Phone') ?>" />
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-sm-12 col-md-6 mt-5">
-                            <label><?= lang('Status_add_System') ?> </label>
-                            <select name="is_active" class="form-control selectpicker" data-live-search="true" data-title="اختر الحالة ">
-                                <?php
-                                foreach ($List_status as $key => $value) {
-                                    echo '<option value="' . $key . '">' . $value . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!--End Modal Create new Client-->
+<?php
+$this->load->view('../../modules/App_Company_Clients/views/Model_CreateNewClient', $this->data, true);
+?>
 
 <script type="text/javascript">
     $(document).ready(function() {
         $('.data_table').DataTable({
-            responsive: true
+            responsive: true,
+	        searchDelay: 500,
+	        lengthMenu: [5, 10, 25, 50],
+	        pageLength: '<?= company_settings_system($LoginUser_Company,'Table_Data_page_Length') ?>',
+	        language: {
+		        'lengthMenu': 'Display _MENU_',
+	        }
+
         });
 
     });

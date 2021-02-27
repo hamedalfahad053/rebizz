@@ -281,7 +281,6 @@ class System_Company extends Admin
                 $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
             }
 
-
             $this->data['Page_Title']  = lang('Management_companies_offices');
             $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
             $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));

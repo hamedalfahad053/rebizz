@@ -57,7 +57,7 @@ if(!function_exists('Get_Fields_By_Status'))
 ##############################################################################
 if(!function_exists('Creation_Field')) {
 
-    function  Creation_Field_HTML_input($Fields_key = '')
+    function  Creation_Field_HTML_input($Fields_key = '', $Fields_Set_Value = '', $Fields_Set_Status='', $Fields_Set_Attribute='')
     {
         app()->load->database();
 
@@ -92,7 +92,25 @@ if(!function_exists('Creation_Field')) {
         $html .= '<label>  '.$query_Fields->item_translation.' </label>';
         $html .= '<div class="col-lg-12 col-md-12 col-sm-12">';
 
-        $html .= '<input type="'.$Type_Fields.'" id="'.$query_Fields->Fields_key.'" name="'.$query_Fields->Fields_key.'" 
+        if(!empty($Fields_Set_Value)){
+            $Fields_Set_Value_ = 'value="'. $Fields_Set_Value.'"';
+        }else{
+            $Fields_Set_Value_ = '';
+        }
+
+        if(!empty($Fields_Set_Status)){
+            $Fields_Set_Status_ = 'disabled';
+        }else{
+            $Fields_Set_Status_ = '';
+        }
+
+        if(!empty($Fields_Set_Attribute)){
+            $Fields_Set_Attribute_ = $Fields_Set_Attribute;
+        }else{
+            $Fields_Set_Attribute_ = '';
+        }
+
+        $html .= '<input type="'.$Type_Fields.'" '.$Fields_Set_Attribute_.' '.$Fields_Set_Status_.' '.$Fields_Set_Value_.'   id="'.$query_Fields->Fields_key.'" name="'.$query_Fields->Fields_key.'" 
         class="'.$class_plugin.'" 
         title=""
         placeholder="'.$query_Fields->item_translation.'"/>';

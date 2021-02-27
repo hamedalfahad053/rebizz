@@ -3,8 +3,9 @@
 
 <!--begin::Row-->
 <div class="d-flex flex-column-fluid">
-    <div class="col-lg-2">
 
+
+    <div class="col-lg-3">
         <div class="card card-custom gutter-b bg-primary" style="height: 130px">
             <!--begin::Body-->
             <div class="card-body d-flex flex-column">
@@ -14,80 +15,45 @@
                     <div class="font-weight-bolder text-light font-size-h3">4</div>
                 </div>
                 <!--end::Stats-->
-                <!--begin::Progress-->
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <!--end::Progress-->
             </div>
             <!--end::Body-->
         </div>
 
     </div>
-    <div class="col-lg-2">
 
+
+    <div class="col-lg-3">
         <div class="card card-custom gutter-b bg-info bg-hover-state-info" style="height: 130px">
             <!--begin::Body-->
             <div class="card-body d-flex flex-column">
                 <!--begin::Stats-->
                 <div class="flex-grow-1">
-                    <div class="text-light font-weight-bold">تحت التقييم</div>
+                    <div class="text-light font-weight-bold">قيد الانجاز</div>
                     <div class="font-weight-bolder text-light  font-size-h3">4</div>
                 </div>
                 <!--end::Stats-->
-                <!--begin::Progress-->
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <!--end::Progress-->
             </div>
             <!--end::Body-->
         </div>
-
     </div>
-    <div class="col-lg-2">
 
-        <div class="card card-custom gutter-b bg-warning bg-hover-state-warning" style="height: 130px">
-            <!--begin::Body-->
-            <div class="card-body d-flex flex-column">
-                <!--begin::Stats-->
-                <div class="flex-grow-1">
-                    <div class="text-danger  font-weight-bold">تحت المراجعة</div>
-                    <div class="font-weight-bolder text-danger font-size-h3">4</div>
-                </div>
-                <!--end::Stats-->
-                <!--begin::Progress-->
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <!--end::Progress-->
-            </div>
-            <!--end::Body-->
-        </div>
-
-    </div>
-    <div class="col-lg-2">
-
+    <div class="col-lg-3">
         <div class="card card-custom gutter-b bg-success" style="height: 130px">
             <!--begin::Body-->
             <div class="card-body d-flex flex-column">
                 <!--begin::Stats-->
                 <div class="flex-grow-1">
-                    <div class="text-light font-weight-bold">للاعتماد</div>
+                    <div class="text-light font-weight-bold">ملغية</div>
                     <div class="font-weight-bolder text-light font-size-h3">4</div>
                 </div>
                 <!--end::Stats-->
-                <!--begin::Progress-->
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <!--end::Progress-->
             </div>
             <!--end::Body-->
         </div>
-
     </div>
-    <div class="col-lg-2">
+
+
+    <div class="col-lg-3">
         <div class="card card-custom gutter-b bg-dark bg-hover-state-dark" style="height: 130px">
             <!--begin::Body-->
             <div class="card-body d-flex flex-column">
@@ -97,15 +63,12 @@
                     <div class="font-weight-bolder text-light font-size-h3">4</div>
                 </div>
                 <!--end::Stats-->
-                <!--begin::Progress-->
-                <div class="progress progress-xs">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <!--end::Progress-->
             </div>
             <!--end::Body-->
         </div>
     </div>
+
+
 </div><!--begin::Row-->
 
 <!--begin::Row-->

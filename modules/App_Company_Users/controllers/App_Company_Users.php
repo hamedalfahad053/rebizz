@@ -160,6 +160,7 @@ class App_Company_Users extends Apps
             $Company_id = $this->data['UserLogin']['Company_User'];
 
             Create_Group_user($create_user,$user_group);
+
             Create_Locations_and_Company_user($create_user,$Locations_Users,$Company_id);
 
             if($create_user){

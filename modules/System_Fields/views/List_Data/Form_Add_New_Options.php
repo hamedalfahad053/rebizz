@@ -66,7 +66,7 @@
 
                                             <div class="col-md-2">
                                                 <label><?= lang('Table_Status') ?></label>
-                                                <select name="options_status" title="اختر من فضلك " class="form-control ">
+                                                <select name="options_status" title="اختر من فضلك " class="form-control">
                                                     <?php
                                                     foreach ($options_status AS $key => $value)
                                                     {
@@ -79,7 +79,7 @@
 
                                             <div class="col-md-2">
                                                 <label><?= lang('options_status') ?></label>
-                                                <select name="options_status_system" title="اختر من فضلك "  class="form-control ">
+                                                <select name="options_status_system" title="اختر من فضلك "  class="form-control">
                                                     <?php
                                                     foreach ($options_status_system AS $key => $value)
                                                     {

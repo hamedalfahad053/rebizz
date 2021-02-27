@@ -3,7 +3,7 @@
 ##############################################################################
 if(!function_exists('Get_Data_List')) {
 
-    function Get_Data_List($type_list,$key_list,$where_options='')
+    function Get_Data_List($type_list, $key_list, $where_options='', $plugins ='')
     {
         app()->load->database();
 
@@ -20,7 +20,6 @@ if(!function_exists('Get_Data_List')) {
 
         $query_list_options = app()->db->from('portal_list_options_data list_options');
         $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
-
         $query_list_options = app()->db->where('list_options.list_id',$query_list->list_id);
         $query_list_options = app()->db->where('list_options.options_status',1);
 
@@ -35,9 +34,15 @@ if(!function_exists('Get_Data_List')) {
         $query_list_options = app()->db->get();
 
 
+        if($plugins == 'none'){
+            $plugins_ = '';
+        }else{
+            $plugins_ = 'selectpicker';
+        }
+
         if($type_list=='select'){
 
-            $html .= '<select name="'.$query_list->list_data_key.'" id="'.$query_list->list_data_key.'" class="form-control selectpicker" data-live-search="true">';
+            $html .= '<select name="'.$query_list->list_data_key.'" title="'.lang('Select_noneSelectedText').'" id="'.$query_list->list_data_key.'" class="form-control '.$plugins_.'" data-live-search="true">';
 
             foreach ($query_list_options->result() AS $row  )
             {
@@ -48,9 +53,15 @@ if(!function_exists('Get_Data_List')) {
 
         }elseif($type_list=='checkbox') {
 
+            $html .= '<input type="checkbox" name="'.$query_list->list_data_key.'[]" value="'.$row->list_options_id.'" id="'.$query_list->list_data_key.'">'.$row->item_translation.'  ';
+
 
         }elseif($type_list=='radio'){
 
+            foreach ($query_list_options->result() AS $row  )
+            {
+                $html .= '<input type="radio" name="'.$query_list->list_data_key.'[]" value="'.$row->list_options_id.'" id="'.$query_list->list_data_key.'">'.$row->item_translation.'  ';
+            }
 
         }else{
             $html = false;

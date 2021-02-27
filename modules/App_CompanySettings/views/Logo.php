@@ -23,7 +23,7 @@
                             <div class="form-group row">
                                 <div class="col-lg-6 mt-5">
                                     <label>شعار الشركة</label>
-                                    <input type="file" name="logo_company" class="form-control-file" placeholder=""/>
+                                    <input type="file" name="logo_company" class="form-control-file"/>
                                 </div>
                                 <div class="col-lg-6 mt-5">
 

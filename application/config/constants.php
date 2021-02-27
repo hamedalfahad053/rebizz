@@ -102,4 +102,13 @@ defined('APP_NAMESPACE_URL')    OR define('APP_NAMESPACE_URL', 'App');
 
 /* Folder Company Dir */
 defined('FOLDER_FILE_Company_Logo')      OR define('FOLDER_FILE_Company_Logo', 'Company_Logo');
+
+defined('FOLDER_FILE_Company_client_logo')  OR define('FOLDER_FILE_Company_client_logo', 'Company_client_logo');
+
 defined('FOLDER_FILE_CONTRACT_COMPANY')  OR define('FOLDER_FILE_CONTRACT_COMPANY', 'Company_contract');
+
+defined('FOLDER_FILE_Transaction_COMPANY')  OR define('FOLDER_FILE_Transaction_COMPANY', 'Company_FILE_Transaction');
+
+
+defined('LOGO_DEFAULT_CLIENT')  OR define('LOGO_DEFAULT_CLIENT', 'Assets/media/users/blank.png');
+

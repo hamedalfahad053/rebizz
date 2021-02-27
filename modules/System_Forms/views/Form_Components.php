@@ -247,5 +247,48 @@
 	    // ------------------------------------------------------------------------------- //
 
 
+
+	    $(document).on('show.bs.modal','#Model_FormCreateList', function (event) {
+		    var button    = $(event.relatedTarget)
+		    var recipient = button.data('components-id')
+		    var modal     = $(this);
+		    modal.find('.card-body input[name="List_Components_id"][type="hidden"]').val(recipient);
+	    });
+
+
+	    // ------------------------------------------------------------------------------- //
+	    $('#FormListSections').on('click', '#buttonListSections', function (event) {
+
+		    event.preventDefault();
+
+		    var Forms_id              = <?= $this->uri->segment(4) ?>;
+		    var List_Components_id    = $('input[name=List_Components_id]').val();
+		    var List_id               = $('select[name=List_id]').val();
+
+		    $.ajax({
+			    type: 'ajax',
+			    method: 'get',
+			    url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Create_List_To_Sections_Form_Components/') ?>',
+			    data: { Forms_id:Forms_id , List_Components_id:List_Components_id , List_id:List_id},
+			    async: false,
+			    dataType: 'json',
+			    success: function(data){
+				    if(data.Type_result=='success'){
+					    swal.fire("تمت الاضافة بنجاح",data.Message_result,"success");
+					    Sections_Components();
+				    }else{
+					    swal.fire("حدث خطا ",data.Message_result, "error");
+				    }
+			    },
+			    error: function(){
+				    swal.fire("خطا بالارسال",'', "error");
+			    }
+		    });
+
+	    });
+	    // ------------------------------------------------------------------------------- //
+
+
+
     });
 </script>

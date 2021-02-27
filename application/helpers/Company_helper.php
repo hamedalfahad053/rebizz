@@ -18,6 +18,22 @@ if(!function_exists('Get_Company'))
 }
 ##############################################################################
 
+
+##############################################################################
+if(!function_exists('company_settings_system'))
+{
+    function company_settings_system($Company_id,$settings_key)
+    {
+        app()->load->database();
+        $query = app()->db->where('company_id',$Company_id);
+        $query = app()->db->where('settings_key',$settings_key);
+        $query = app()->db->get('portal_company_settings_system')->row();
+        return $query->settings_value;
+    }
+}
+##############################################################################
+
+
 ##############################################################################
 if(!function_exists('Get_Company_Group_Users')) {
 

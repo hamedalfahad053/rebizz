@@ -51,34 +51,62 @@ if(!function_exists('Get_Sections_Form_Components')) {
 ##############################################################################
 
 ##############################################################################
-if(!function_exists('Get_Fields_components')) {
+if(!function_exists('Get_Fields_Components_Default')) {
 
-    function Get_Fields_components($Forms_id,$Components_id)
+    function Get_Fields_Components_Default($Forms_id,$Components_id)
     {
         app()->load->database();
 
-        $lang   = get_current_lang();
-        $query = app()->db->from('portal_forms_sections_components_fields  components_fields');
-        $query = app()->db->join('portal_fields fields', 'components_fields.Fields_id = fields.Fields_id');
-        $query = app()->db->join('portal_fields_translation fields_translation', 'fields_translation.item_id = fields.Fields_id');
-        $query = app()->db->where('components_fields.Forms_id',$Forms_id);
-        $query = app()->db->where('components_fields.Components_id',$Components_id);
-        $query = app()->db->where('fields_translation.translation_lang',$lang);
-        $query = app()->db->get();
-        return $query;
-
-    }
-}
-##############################################################################
-
-##############################################################################
-if(!function_exists('Get_Data_Fields_without_old_add_components')) {
-
-    function Get_Data_Fields_without_old_add_components($Forms_id = '')
-    {
-        app()->load->database();
+        $Fields =  array();
+        $List   =  array();
         $lang   = get_current_lang();
 
+        $query = app()->db->where('Forms_id',$Forms_id);
+        $query = app()->db->where('Components_id',$Components_id);
+        $query = app()->db->get('portal_forms_sections_components_fields')->result();
+
+        foreach ($query AS $RC) {
+
+            if ($RC->Fields_Type === 'Fields') {
+
+                $query_Fields = app()->db->from('portal_fields fields');
+                $query_Fields = app()->db->join('portal_fields_translation fields_translation', 'fields_translation.item_id = fields.Fields_id');
+                $query_Fields = app()->db->where('fields.Fields_id', $RC->Fields_id);
+                $query_Fields = app()->db->where('fields_translation.translation_lang', $lang);
+                $query_Fields = app()->db->get()->row();
+                $Fields[] = array(
+                    'components_id'          => $Components_id,
+                    'Fields_id_Components'   => $RC->Components_fields_id,
+                    'Fields_id'              => $query_Fields->Fields_id,
+                    'Fields_Type_Components' => $RC->Fields_Type,
+                    'Fields_Type'            => 'Select',
+                    'Fields_Title'           => $query_Fields->item_translation,
+                    'Fields_key'             => $query_Fields->Fields_key
+                );
+
+            } elseif ($RC->Fields_Type === 'List') {
+
+                $query_Fields = app()->db->from('portal_list_data list');
+                $query_Fields = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
+                $query_Fields = app()->db->where('list.list_id', $RC->Fields_id);
+                $query_Fields = app()->db->where('list_translation.translation_lang', $lang);
+                $query_Fields = app()->db->get()->row();
+                $List[] = array(
+                    'components_id'          => $Components_id,
+                    'Fields_id_Components'   => $RC->Components_fields_id,
+                    'Fields_id'              => $query_Fields->list_id,
+                    'Fields_Type_Components' => $RC->Fields_Type,
+                    'Fields_Type'            => 'Select',
+                    'Fields_Title'           => $query_Fields->item_translation,
+                    'Fields_key'             => $query_Fields->list_data_key
+                );
+            }
+
+        }
+
+        $Fields_all = array_merge($List,$Fields);
+
+        return $Fields_all;
 
     }
 }
@@ -88,17 +116,7 @@ if(!function_exists('Get_Data_Fields_without_old_add_components')) {
 
 
 
-##############################################################################
-if(!function_exists('Get_Forms_By_Company')) {
 
-    function Get_Forms_By_Company($Company_id)
-    {
-        app()->load->database();
-        $query = app()->db->where('forms_built_Company_id',$Company_id);
-        $query = app()->db->get('portal_forms_built');
-        return $query;
 
-    }
-}
-##############################################################################
+
 

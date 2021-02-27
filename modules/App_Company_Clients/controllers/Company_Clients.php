@@ -12,6 +12,8 @@ class Company_Clients extends Apps
         $this->data['controller_name'] = lang('Management_Clients');
 
 
+
+
     }
     ###################################################################
 
@@ -48,8 +50,16 @@ class Company_Clients extends Apps
 
                 $type_Client = Get_options_List_Translation($ROW->type_id);
 
+                if($ROW->logo == ''){
+                    $logo = LOGO_DEFAULT_CLIENT;
+                }else{
+                    $logo = $this->data['LoginUser_Company_Path_Folder'].'/'.FOLDER_FILE_Company_client_logo.'/'.$ROW->logo;
+                }
+
+
                 $this->data['ClientList'][]  = array(
                     "Client_id"           => $ROW->client_id,
+                    "Client_logo"         => $logo,
                     "Client_name"         => $ROW->name,
                     "type_id"             => $type_Client->item_translation,
                     "company_id"          => $ROW->company_id,
@@ -81,48 +91,93 @@ class Company_Clients extends Apps
     ###################################################################
 
     ###################################################################
+    public function Create_New_Client()
+    {
+
+        $this->data['List_status']   = array_options_status();
+        $this->data['Page_Title']    = lang('Management_Clients');
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
+        $this->mybreadcrumb->add($this->data['Page_Title'], '#');
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Company_Clients/views/Create_New_Client', $this->data, true);
+
+        Layout_Apps($this->data);
+
+    }
+    ###################################################################
+
+
+
+    ###################################################################
     public function Create_Client()
     {
         $this->form_validation->set_rules('name',lang('client_name'),'required');
-        $this->form_validation->set_rules('LIST_BUSINESS_CATEGORIES',lang('client_type'),'required');
+        $this->form_validation->set_rules('LIST_CUSTOMER_CATEGORY',lang('client_type'),'required');
         $this->form_validation->set_rules('is_active',lang('Status_add_System'),'required');
 
         if($this->form_validation->run()==FALSE){
+
             $msg_result['key']   = 'Danger';
             $msg_result['value'] = validation_errors();
             $msg_result_view = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
             redirect(APP_NAMESPACE_URL.'/Clients', 'refresh');
+
         }else{
 
             $data_client['name']          = $this->input->post('name',true);
-            $data_client['type_id']       = $this->input->post('LIST_BUSINESS_CATEGORIES',true);
+            $data_client['type_id']       = $this->input->post('LIST_CUSTOMER_CATEGORY',true);
             $data_client['email']         = $this->input->post('email',true);
             $data_client['phone']         = $this->input->post('Phone',true);
-            $data_client['company_id']    = $this->data['UserLogin']['Company_User'];
+            $data_client['company_id']    = $this->data['LoginUser_Company'];
             $data_client['is_active']     = $this->input->post('is_active',true);
-            $data_client['created_By']    = $this->data['UserLogin']['Info_User']->id;
+            $data_client['created_By']    = $this->aauth->get_user()->id;
             $data_client['created_date']  = time();
 
-            $Create_Client  = $this->Compnay_Clients_model->Create_Client($data_client);
 
-            if($Create_Client){
-                $msg_result['key']   = 'Success';
-                $msg_result['value'] = lang('message_success_insert');
-                $msg_result_view = Create_Status_Alert($msg_result);
-                set_message($msg_result_view);
-                redirect(APP_NAMESPACE_URL.'/Clients' , 'refresh');
+                $Uploader_path = './uploads/companies/' . $this->data['LoginUser_Company_domain']. '/' . FOLDER_FILE_Company_client_logo;
+                if (!is_dir($Uploader_path)) {
+                    mkdir($Uploader_path, 0755, TRUE);
+                }
 
-            }else{
-                $msg_result['key']   = 'Danger';
-                $msg_result['value'] = lang('message_error_insert');
-                $msg_result_view = Create_Status_Alert($msg_result);
-                set_message($msg_result_view);
-                redirect(APP_NAMESPACE_URL.'/Clients' , 'refresh');
-            } // if($Create_Client){
+                $config['upload_path']   = realpath($Uploader_path);
+                $config['allowed_types'] = 'png';
+                $config['max_size']      = '500';
+                $config['max_filename']  = 30;
+                $config['encrypt_name']  = true;
+                $config['remove_spaces'] = true;
+                $this->upload->initialize($config);
+                if($this->upload->do_upload('logo_client'))
+                {
+                    $upload_data = $this->upload->data();
+                    $data_client['logo']  = $upload_data['file_name'];
+                }
+
+                $Create_Client  = $this->Compnay_Clients_model->Create_Client($data_client);
+
+                if($Create_Client){
+                    $msg_result['key']   = 'Success';
+                    $msg_result['value'] = lang('message_success_insert');
+                    $msg_result_view = Create_Status_Alert($msg_result);
+                    set_message($msg_result_view);
+                    redirect(APP_NAMESPACE_URL.'/Clients' , 'refresh');
+
+                }else{
+                    $msg_result['key']   = 'Danger';
+                    $msg_result['value'] = lang('message_error_insert');
+                    $msg_result_view = Create_Status_Alert($msg_result);
+                    set_message($msg_result_view);
+                    redirect(APP_NAMESPACE_URL.'/Clients' , 'refresh');
+                } // if($Create_Client)
+
         } //  if($this->form_validation->run()==FALSE){
     }
     ###################################################################
+
+
+
 
     ###################################################################
     public function Profile_Client()
@@ -131,14 +186,14 @@ class Company_Clients extends Apps
 
         $Client_id =  $this->uri->segment(4);
 
-        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['UserLogin']['Company_User'],$Client_id)->row();
+        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['LoginUser_Company'],$Client_id)->row();
+
 
         if($this->data['Client_Info']->is_active == 1) {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
         }else{
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
         }
-
 
         $this->data['options_status']  = array_options_status_system();
         $this->data['List_auto_renew'] = array_options_status();
@@ -297,7 +352,6 @@ class Company_Clients extends Apps
         $this->form_validation->set_rules('Contracts_start_date','Contracts_start_date','required');
         $this->form_validation->set_rules('Contracts_end_date','Contracts_end_date','required');
         $this->form_validation->set_rules('Code_Transaction','Code_Transaction','required');
-        $this->form_validation->set_rules('start_Num_Transaction','start_Num_Transaction','required');
         $this->form_validation->set_rules('is_auto_renew','is_auto_renew','required');
 
         $Clients_id                =  $this->input->post('Clients_id');
@@ -319,7 +373,6 @@ class Company_Clients extends Apps
             $data_Contracts['Contracts_start_date']      =  strtotime($this->input->post('Contracts_start_date'));
             $data_Contracts['Contracts_end_date']        =  strtotime($this->input->post('Contracts_end_date'));
             $data_Contracts['Code_Transaction']          =  $this->input->post('Code_Transaction');
-            $data_Contracts['start_Num_Transaction']     =  $this->input->post('start_Num_Transaction');
             $data_Contracts['is_auto_renew']             =  $this->input->post('is_auto_renew');
 
             $data_Contracts['Contracts_createBy']         =  0;
@@ -401,7 +454,7 @@ class Company_Clients extends Apps
         $Client_id    =  $this->uri->segment(4);
         $Contracts_id =  $this->uri->segment(5);
 
-        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['UserLogin']['Company_User'],$Client_id)->row();
+        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['LoginUser_Company'],$Client_id)->row();
 
         if($this->data['Client_Info']->is_active == 1) {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
@@ -409,29 +462,9 @@ class Company_Clients extends Apps
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
         }
 
-        $this->data['Client_Contract'] = GET_Client_Contract_Company($this->data['UserLogin']['Company_User'],$Client_id,$Contracts_id)->row();
 
-        /*
-         *          [contract_id] => 1
-                    [uuid] => 0ff09cd1-57fa-11eb-a392-309c2316b02a
-                    [Clients_id] => 1
-                    [Company_id] => 2
-                    [Contracts_name] =>
-                    [Contracts_description] =>
-                    [Contracts_start_date] => 1610751600
-                    [Contracts_end_date] => 1612047600
-                    [Code_Transaction] => RR
-                    [start_Num_Transaction] => 1000
-                    [is_auto_renew] => 1
-                    [Contracts_createBy] => 0
-                    [Contracts_createDate] => 1610801704
-                    [Contracts_lastModifyDate] => 1610801704
-                    [Contracts_isDeleted] => 0
-                    [Contracts_DeletedBy] => 0
-                    [Contracts_modified_by] =>
-         */
-
-        $this->data['Page_Title']  = ' استعراض معلومات العقد ';
+        $this->data['Client_Contract'] = GET_Client_Contract_Company($this->data['LoginUser_Company'],$Client_id,$Contracts_id)->row();
+        $this->data['Page_Title']      = ' استعراض معلومات العقد ';
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Clients'));
@@ -472,60 +505,6 @@ class Company_Clients extends Apps
     }
     ###################################################################
 
-    ###################################################################
-    public function Forms()
-    {
-        $Client_id =  $this->uri->segment(4);
-
-        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['UserLogin']['Company_User'],$Client_id)->row();
-
-        if($this->data['Client_Info']->is_active == 1) {
-            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
-        }else{
-            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
-        }
-
-        $this->data['Page_Title']  = ' النماذج';
-
-        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
-        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Clients'));
-        $this->mybreadcrumb->add($this->data['Page_Title'], '#');
-        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-
-        $this->data['Clients_Company_Page'] = $this->load->view('../../modules/App_Company_Clients/views/Client_Forms', $this->data, true);
-        $this->data['PageContent']          = $this->load->view('../../modules/App_Company_Clients/views/Client_Profile', $this->data, true);
-
-        Layout_Apps($this->data);
-    }
-    ###################################################################
-
-
-    ###################################################################
-    public function Fields()
-    {
-        $Client_id =  $this->uri->segment(4);
-
-        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['UserLogin']['Company_User'],$Client_id)->row();
-        if($this->data['Client_Info']->is_active == 1) {
-            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
-        }else{
-            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
-        }
-
-
-        $this->data['Page_Title']  = '  الحقول';
-
-        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
-        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Clients'));
-        $this->mybreadcrumb->add($this->data['Page_Title'], '#');
-        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-
-        $this->data['Clients_Company_Page'] = $this->load->view('../../modules/App_Company_Clients/views/Client_Fields', $this->data, true);
-        $this->data['PageContent']          = $this->load->view('../../modules/App_Company_Clients/views/Client_Profile', $this->data, true);
-
-        Layout_Apps($this->data);
-    }
-    ###################################################################
 
     ###################################################################
     public function Transactions()

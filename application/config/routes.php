@@ -149,6 +149,13 @@ $route[APP_NAMESPACE_URL.'/Settings/(:any)']                = 'App_CompanySettin
 $route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)']         = 'App_CompanySettings/App_CompanySettings/$1/$2';
 $route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)/(:any)']  = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
 
+#  Settings Transaction
+$route[APP_NAMESPACE_URL.'/Settings_Transaction']                          = 'App_CompanySettings/Settings_Transaction';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)']                   = 'App_CompanySettings/Settings_Transaction/$1';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)']            = 'App_CompanySettings/Settings_Transaction/$1/$2';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)/(:any)']     = 'App_CompanySettings/Settings_Transaction/$1/$2/$3';
+
+
 #  Company Locations
 $route[APP_NAMESPACE_URL.'/Company_Locations']                       = 'App_Company_Locations/App_Company_Locations';
 $route[APP_NAMESPACE_URL.'/Company_Locations/(:any)']                = 'App_Company_Locations/App_Company_Locations/$1';

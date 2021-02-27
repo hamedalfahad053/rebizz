@@ -48,38 +48,60 @@
 
                     <?php echo  $this->session->flashdata('message'); ?>
 
+
+	                <?php
+	                if($Transactions==false){
+
+		                $msg_result['key'] = 'Danger';
+		                $msg_result['value'] = 'لا يوجد معاملات تم انشاؤها حاليا';
+		                $msg_result_view = Create_Status_Alert($msg_result);
+                        echo $msg_result_view;
+
+	                }else{
+	                ?>
+
                     <style>th.dt-center,.dt-center { text-align: center; }</style>
                     <table class="data_table table table-bordered table-hover display nowrap" width="100%">
                         <thead>
                         <tr>
                             <th class="text-center">رقم المعاملة</th>
-                            <th class="text-center">رقم الصك</th>
+	                        <th class="text-center">طريقة الاستلام</th>
+                            <th class="text-center">طالب التقييم والمالك</th>
                             <th class="text-center">موقع العقار</th>
 	                        <th class="text-center">بواسطة / التاريخ</th>
                             <th class="text-center">حالة المعاملة</th>
-	                        <th class="text-center">سير المعاملة</th>
                             <th class="text-center">الخيارات</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($Transactions AS $Row)
-                        {
-                        ?>
-                        <tr>
-                            <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?> - <?= $Row['Client_id'] ?></td>
-                            <td class="text-center"><?= $Row['Client_id'] ?></td>
-                            <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?></td>
-                            <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?></td>
-                            <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?></td>
-                            <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?></td>
-	                        <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?></td>
-                        </tr>
-                        <?php
-                        }
+	                        foreach ($Transactions AS $Row)
+	                        {
+	                        ?>
+	                        <tr>
+	                            <td class="text-center">
+		                            <?= $Row['transaction_number'] ?>
+	                            </td>
+	                            <td class="text-center">
+		                            <?= $Row['transaction_number'] ?><br>
+		                            <?= $Row['Client_id'] ?><br>
+		                            <?= $Row['LIST_METHOD_OF_RECEIPT'] ?>
+	                            </td>
+	                            <td class="text-center"><?= $Row['LIST_METHOD_OF_RECEIPT'] ?></td>
+	                            <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?></td>
+		                        <td class="text-center"><?= $Row['location_Property'] ?></td>
+	                            <td class="text-center"><?= $Row['Create_Transaction_By_id'] ?> - <?= $Row['Create_Transaction_Date'] ?></td>
+		                        <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?></td>
+		                        <td class="text-center"><?= $Row['INSTRUMENT_NUMBER'] ?></td>
+	                        </tr>
+	                        <?php
+	                        }
                         ?>
                         </tbody>
                     </table>
+	                <?php
+	                } // if($Transactions==false)
+	                ?>
                     <!--begin: Datatable -->
 
 
@@ -91,3 +113,21 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('.data_table').DataTable({
+			responsive: true,
+			lengthMenu: [5, 10, 25, 50],
+			pageLength: 10,
+			language: {
+				'lengthMenu': 'Display _MENU_',
+			},
+
+		});
+
+	});
+</script>
+

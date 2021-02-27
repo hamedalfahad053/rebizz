@@ -54,10 +54,6 @@
 					<input type="text" name="Code_Transaction" class="form-control"
 					       placeholder="RAJ"/>
 				</div>
-				<div class="col-lg-6 mt-5">
-					<label>يبدا الترقيم من </label>
-					<input type="text" name="start_Num_Transaction" class="form-control" placeholder="1000"/>
-				</div>
 			</div>
 			<div class="form-group row">
 				<div class="col-lg-6 mt-5">

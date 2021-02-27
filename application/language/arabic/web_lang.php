@@ -5,6 +5,8 @@
 $lang['Dashboard']     = 'لوحة المعلومات';
 
 
+$lang['deleted_button']    = 'حذف';
+
 #  Global Button
 $lang['add_new_button']    = 'إضافة جديد';
 $lang['add_button']        = 'إضافة';

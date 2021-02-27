@@ -45,7 +45,7 @@ if(!function_exists('Get_Select_Property_Types')) {
         $query_list = app()->db->where('property_types_translation.translation_lang',$lang);
         $query_list = app()->db->get();
 
-        $html .= '<select name="Property_Types_id" id="Property_Types_id" class="form-control selectpicker" data-live-search="true">';
+        $html .= '<select name="Property_Types_id" id="Property_Types_id" title="'.lang('Select_noneSelectedText').'" class="form-control selectpicker" data-live-search="true">';
 
         foreach ($query_list->result() AS $row  )
         {
@@ -64,24 +64,17 @@ if(!function_exists('Get_Select_Property_Types')) {
 ##############################################################################
 if(!function_exists('Get_Property_Types_Of_Categories'))
 {
-
     function Get_Property_Types_Of_Categories($Categories_Property_id)
     {
         app()->load->database();
-
         $lang   = get_current_lang();
-
         $query_list = app()->db->from('portal_list_property_types property_types');
         $query_list = app()->db->join('portal_list_property_types_translation  property_types_translation', 'property_types.Property_Types_id=property_types_translation.item_id');
-
-
         $query_list = app()->db->where_in('property_types.Categories_Property_id',$Categories_Property_id);
         $query_list = app()->db->where('property_types_translation.translation_lang',$lang);
-
         $query_list = app()->db->get();
         return $query_list;
     }
-
 }
 ##############################################################################
 
