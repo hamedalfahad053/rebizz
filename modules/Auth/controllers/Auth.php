@@ -59,9 +59,9 @@ class Auth extends Authorization
 
                     $userdata['Info_User']           = $this->aauth->get_user();
                     $userdata['User_Group_login']    = Get_Group_User($this->aauth->get_user()->id);
-                    $userdata['Company_User']        = Get_Company_User($this->aauth->get_user()->id)->companies_id;
-                    $userdata['Company_Locations']   = Get_Company_User($this->aauth->get_user()->id)->locations_id;
-                    $userdata['Company_Domain']      = Get_Company($userdata['Company_User'])->companies_Domain;
+                    $userdata['Company_User']        = $this->aauth->get_user()->company_id;
+                    $userdata['Company_Locations']   = $this->aauth->get_user()->locations_id;
+                    $userdata['Company_Domain']      = $this->aauth->get_user()->company_Domain;
                     $userdata['type_User_login']     = 'Company';
                     $userdata['time_User_login']     = time();
                     $userdata['ip_User_login']       = get_real_ip();
@@ -118,14 +118,7 @@ class Auth extends Authorization
     ###############################################################################################
 
 
-    ##################################################################################Transactions
-    public function logout()
-    {
-        $this->aauth->logout();
-        $this->session->unset_userdata('UserCompany');
-        $this->session->sess_destroy();
-    }
-    ##################################################################################
+
 
 
 }

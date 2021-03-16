@@ -1,175 +1,277 @@
 <?php
 
 ##############################################################################
-if(!function_exists('Get_Data_List')) {
+if(!function_exists('Create_List')) {
 
-    function Get_Data_List($type_list, $key_list, $where_options='', $plugins ='')
+    function Create_List($data)
     {
-        app()->load->database();
 
-        $html   = '';
-        $lang   = get_current_lang();
+        $query = app()->db->insert('portal_list_data',$data);
 
-        $query_list = app()->db->from('portal_list_data list');
-        $query_list = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
-
-        $query_list = app()->db->where('list.list_data_key',$key_list);
-        $query_list = app()->db->where('list_translation.translation_lang',$lang);
-        $query_list = app()->db->get()->row();
-
-
-        $query_list_options = app()->db->from('portal_list_options_data list_options');
-        $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
-        $query_list_options = app()->db->where('list_options.list_id',$query_list->list_id);
-        $query_list_options = app()->db->where('list_options.options_status',1);
-
-        if(!empty($where_options)){
-            foreach ($where_options as $key => $value){
-                $query_list_options = app()->db->where('list_options.'.$key.'',$value);
-            }
-        }
-
-        $query_list_options = app()->db->where('options_translation.translation_lang',$lang);
-        $query_list_options = app()->db->order_by('list_options.options_sort','ASC');
-        $query_list_options = app()->db->get();
-
-
-        if($plugins == 'none'){
-            $plugins_ = '';
+        if($query){
+            return app()->db->insert_id();
         }else{
-            $plugins_ = 'selectpicker';
+            return false;
         }
 
-        if($type_list=='select'){
-
-            $html .= '<select name="'.$query_list->list_data_key.'" title="'.lang('Select_noneSelectedText').'" id="'.$query_list->list_data_key.'" class="form-control '.$plugins_.'" data-live-search="true">';
-
-            foreach ($query_list_options->result() AS $row  )
-            {
-                $html .= '<option value="'.$row->list_options_id.'">'.$row->item_translation.'</option>';
-            }
-
-            $html .= '</select>';
-
-        }elseif($type_list=='checkbox') {
-
-            $html .= '<input type="checkbox" name="'.$query_list->list_data_key.'[]" value="'.$row->list_options_id.'" id="'.$query_list->list_data_key.'">'.$row->item_translation.'  ';
-
-
-        }elseif($type_list=='radio'){
-
-            foreach ($query_list_options->result() AS $row  )
-            {
-                $html .= '<input type="radio" name="'.$query_list->list_data_key.'[]" value="'.$row->list_options_id.'" id="'.$query_list->list_data_key.'">'.$row->item_translation.'  ';
-            }
-
-        }else{
-            $html = false;
-        }
-
-        return $html;
-
-    } // function Get_Data_List($type_list,$key_list)
-
+    }
 }
 ##############################################################################
-
-
 
 ##############################################################################
 if(!function_exists('Get_All_List')) {
 
-    function Get_All_List($list_id='')
+    function Get_All_List($where_extra = '')
     {
         app()->load->database();
 
-        $lang   = get_current_lang();
-
+        $lang       = get_current_lang();
         $query_list = app()->db->from('portal_list_data list');
         $query_list = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
 
-        if(!empty($list_id)){
-            $query_list = app()->db->where('list.list_data_key',$list_id);
-            $query_list = app()->db->or_where('list.list_id',$list_id);
+        if(!empty($where_extra)){
+            foreach ($where_extra AS $key => $value)
+            {
+                $query_list = app()->db->where('list.'.$key,$value);
+            }
         }
 
         $query_list = app()->db->where('list_translation.translation_lang',$lang);
         $query_list = app()->db->get();
-
         return $query_list;
-
     } // function Get_Data_List($type_list,$key_list)
-
 }
 ##############################################################################
 
 ##############################################################################
-if(!function_exists('Get_All_List_By_Status')) {
+if(!function_exists('Creation_List_HTML')) {
 
-    function Get_All_List_By_Status($list_id='')
+    function Creation_List_HTML($type='',$key_list,$where_list ='',$where_options ='',$type_list='',$multiple = '',$selected='',$style='',$id='',$class='',$disabled='',$label='',$js='')
     {
         app()->load->database();
 
-        $lang   = get_current_lang();
+        $form_dropdown = '';
+        $extra_options = array();
+        $options_list  = array();
+        $options       = [];
+        $lang          = get_current_lang();
+
 
         $query_list = app()->db->from('portal_list_data list');
         $query_list = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
+        $query_list = app()->db->where('list.list_key', $key_list);
+        $query_list = app()->db->where('list_translation.translation_lang', $lang);
 
-        if(!empty($list_id)){
-            $query_list = app()->db->where('list.list_data_key',$list_id);
-            $query_list = app()->db->or_where('list.list_id',$list_id);
+        if (!empty($where_list)) {
+            foreach ($where_list as $key => $value) {
+                $query_list = app()->db->where('list.' . $key . '', $value);
+            }
         }
 
-        $query_list = app()->db->where('list.list_data_status',1);
+        $query_list = app()->db->get()->row();
 
-        $query_list = app()->db->where('list_translation.translation_lang',$lang);
-        $query_list = app()->db->get();
+        ###########################################################################################################
+        # List Type
+        ###########################################################################################################
+        if($query_list->list_type == 'OPTIONS'){
 
-        return $query_list;
+               $query_list_options = app()->db->from('portal_list_options_data list_options');
+               $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+               $query_list_options = app()->db->where('list_options.list_id', $query_list->list_id);
 
-    } // function Get_Data_List($type_list,$key_list)
+               if (!empty($where_options)) {
+                   foreach ($where_options as $key => $value) {
+                       $query_list_options = app()->db->where('list_options.' . $key . '', $value);
+                   }
+               }
 
+               $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
+               $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
+               $query_list_options = app()->db->get();
+
+               //print_r($query_list_options->result());
+
+               foreach ($query_list_options->result() as $row)
+               {
+                   $options[] = array(
+                       "options_id"    => $row->list_options_id,
+                       "options_key"   => $row->options_key,
+                       "options_type"  => 'options',
+                       "options_title" => $row->item_translation
+                   );
+               }
+
+
+        }elseif($query_list->list_type == 'TABLE'){
+
+
+            if($query_list->Linking_table_Join == NULL){
+
+                $query_list_options = app()->db->get($query_list->Table_primary);
+
+                foreach ($query_list_options->result() as $row)
+                {
+                    $Table_primary_fields                 = $query_list->Table_primary_fields;
+                    $Table_Join_fields                    = $query_list->Table_Join_fields;
+
+                    $options[] = array(
+                        "options_id"    => $Table_primary_fields,
+                        "options_key"   => '',
+                        "options_type"  => 'table',
+                        "options_title" => $query_list->Table_Join_fields,
+                    );
+                }
+
+            }else{
+
+                $query_list_options = app()->db->from($query_list->Table_primary.' Table_Primary');
+                $query_list_options = app()->db->join($query_list->Table_Join.'    Table_Join', 'Table_Primary.'.$query_list->Table_primary_fields.' = Table_Join.'.$query_list->Table_Join_fields.'');
+                $query_list_options = app()->db->get();
+
+                foreach ($query_list_options->result() as $row)
+                {
+                    $Table_primary_fields = $query_list->Table_primary_fields;
+                    $Table_Join_fields    = $query_list->Table_Join_fields;
+
+                    $options[] = array(
+                        "options_id"    => $Table_primary_fields,
+                        "options_key"   => '',
+                        "options_type"  => 'table',
+                        "options_title" => $Table_Join_fields,
+                    );
+
+                }
+
+            } //if($query_list->Linking_table_Join == NULL)
+
+        }
+        ###########################################################################################################
+        # List Type
+        ###########################################################################################################
+
+            $class_output = ' form-control ';
+            if (is_array($class)) {
+                foreach ($class as $c) {
+                    $class_output .= $class_output . ' ' . $c;
+                }
+            }
+
+            if(empty($id)){
+                $id_ = $query_list->list_key;
+            }else{
+                $id_ = $id;
+            }
+
+            if(!empty($style)){
+                $style_ = 'style="'.$style.'"';
+            }else{
+                $style_ = '';
+            }
+
+            if(!empty($disabled)){
+                $disabled_ = "disabled ='disabled' ";
+            }else{
+                $disabled_ = '';
+            }
+
+            if(!empty($label)){
+                $label_ = '';
+            }else{
+                $label_ = '';
+            }
+
+            if(!empty($multiple)){
+                $multiple_ = 'multiple="multiple"';
+            }else{
+                $multiple_ = '';
+            }
+
+            if(!empty($js)){
+                $js_ = 'onClick="'.$js.'"';
+            }else{
+                $js_ = '';
+            }
+
+            $title_ = 'title="'.lang("Select_noneSelectedText").'"';
+
+            $form_dropdown .= '<select data-live-search="true" data-size="5" name="'.$query_list->list_key.'" class="'.$class_output.'" '.$id_.' '.$style_.' '.$disabled_.'  '.$title_.' '.$multiple_.' '.$js_.'>';
+
+            if($type_list == 'options' or $type_list == 'options_ajax'){
+                foreach ($options as $op)
+                {
+                    $form_dropdown .= '<option value="'.$op['options_id'].'" data-key="'.$op['options_key'].'" data-type="'.$op['options_type'].'">'.$op['options_title'].'</option>';
+                }
+            }
+
+            $form_dropdown .= '</select>';
+
+        return $form_dropdown;
+
+    }
+}
+##############################################################################
+
+
+
+
+
+##############################################################################
+if(!function_exists('Create_options')) {
+
+    function Create_options($data)
+    {
+        $query = app()->db->insert('portal_list_options_data',$data);
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
+        }
+    }
 }
 ##############################################################################
 
 
 ##############################################################################
-if(!function_exists('Get_All_options_List_by_id')) {
+if(!function_exists('Get_options_List')) {
 
-    function Get_All_options_List_by_id($list_id)
+    function Get_options_List($list_id,$where_options)
     {
-        app()->load->database();
-        $lang = get_current_lang();
+        $lang          = get_current_lang();
+        $options       = array();
+
         $query_list_options = app()->db->from('portal_list_options_data list_options');
         $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
-        $query_list_options = app()->db->where('list_options.list_id',$list_id);
-        $query_list_options = app()->db->where('options_translation.translation_lang',$lang);
+        $query_list_options = app()->db->where('list_options.list_id', $list_id);
+        $query_list_options = app()->db->where('list_options.options_status', 1);
+
+        if (!empty($where_options)) {
+            foreach ($where_options as $key => $value) {
+                $query_list_options = app()->db->where('list_options.' . $key . '', $value);
+            }
+        }
+
+        $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
+        $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
         $query_list_options = app()->db->get();
-        return $query_list_options;
-    }
 
+        foreach ($query_list_options->result() as $row) {
+
+            $options[$row->list_options_id] = $row->item_translation;
+            $attr[$row->list_options_id] = array(
+                "type-item"  => 'options',
+                "data-Table" => "options",
+                'data-id'    => $row->list_options_id,
+                'data-key'   => $row->options_key
+            );
+        }
+
+        return $options;
+    }
 }
 ##############################################################################
 
 
-##############################################################################
-if(!function_exists('Get_options_List_Translation')) {
 
-    function Get_options_List_Translation($item_id)
-    {
-        app()->load->database();
-
-        $lang = get_current_lang();
-
-        $query_list_options = app()->db->where('item_id',$item_id);
-        $query_list_options = app()->db->where('translation_lang',$lang);
-        $query_list_options = app()->db->get('portal_list_options_translation');
-
-        return $query_list_options->row();
-    }
-
-}
-##############################################################################
 
 
 

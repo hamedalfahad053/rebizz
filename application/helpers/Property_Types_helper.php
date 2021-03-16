@@ -5,7 +5,7 @@
 if(!function_exists('Get_Property_Types'))
 {
 
-    function Get_Property_Types($Property_Types='')
+    function Get_Property_Types($where_extra='')
     {
         app()->load->database();
 
@@ -14,9 +14,9 @@ if(!function_exists('Get_Property_Types'))
         $query_list = app()->db->from('portal_list_property_types property_types');
         $query_list = app()->db->join('portal_list_property_types_translation  property_types_translation', 'property_types.Property_Types_id=property_types_translation.item_id');
 
-        if(!empty($Property_Types)){
-            $query_list = app()->db->where('property_types.Property_Types_id',$Property_Types);
-            $query_list = app()->db->or_where('property_types.Property_Types_key',$Property_Types);
+        foreach ($where_extra AS $key => $value)
+        {
+            $query_list = app()->db->where('property_types.'.$key,$value);
         }
 
         $query_list = app()->db->where('property_types_translation.translation_lang',$lang);
@@ -30,7 +30,7 @@ if(!function_exists('Get_Property_Types'))
 ##############################################################################
 if(!function_exists('Get_Select_Property_Types')) {
 
-    function Get_Select_Property_Types()
+    function Get_Select_Property_Types($type_list, $where_options='',$multiple = '', $plugins ='',$name_field)
     {
         app()->load->database();
 
@@ -43,18 +43,49 @@ if(!function_exists('Get_Select_Property_Types')) {
 
         $query_list = app()->db->where('property_types.Property_Types_isDeleted',0);
         $query_list = app()->db->where('property_types_translation.translation_lang',$lang);
-        $query_list = app()->db->get();
 
-        $html .= '<select name="Property_Types_id" id="Property_Types_id" title="'.lang('Select_noneSelectedText').'" class="form-control selectpicker" data-live-search="true">';
 
-        foreach ($query_list->result() AS $row  )
-        {
-            $html .= '<option value="'.$row->Property_Types_id.'">'.$row->item_translation.'</option>';
+        if(!empty($where_options)){
+            foreach ($where_options as $key => $value){
+                $query_list = app()->db->where('property_types.'.$key.'',$value);
+            }
         }
 
-        $html .= '</select>';
+        $query_list = app()->db->get();
 
-        return $html;
+
+        if($plugins   == 'none'){
+            $plugins_ = '';
+        }else{
+            $plugins_ = 'selectpicker';
+        }
+
+        if($multiple   = 1){
+            $multiple  = ' multiple data-actions-box="true"';
+
+        }else{
+            $multiple  = '';
+        }
+
+        if($name_field == ''){
+            $name_form = 'Property_Types';
+        }else{
+            $name_form = $name_field;
+        }
+
+        if($type_list=='select')
+        {
+            $html .= '<select name="'.$name_form.'" id="Property_Types" title="' . lang('Select_noneSelectedText') . '" class="form-control ' . $plugins_ . '" ' . $multiple . ' data-live-search="true">';
+
+            foreach ($query_list->result() as $row) {
+                $html .= '<option value="' . $row->Property_Types_id . '">' . $row->item_translation . '</option>';
+            }
+
+            $html .= '</select>';
+        }
+
+            return $html;
+
 
     }
 

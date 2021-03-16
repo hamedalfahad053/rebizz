@@ -46,9 +46,12 @@
             </div>
             <div class="card-body">
 
+
                 <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Forms/Create_Forms') ?>" method="post">
                     <?= CSFT_Form() ?>
                     <div class="card-body">
+
+	                    <?php echo  $this->session->flashdata('message'); ?>
 
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">

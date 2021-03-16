@@ -63,14 +63,16 @@ $route[ADMIN_NAMESPACE_URL.'/System/(:any)/(:any)']         = 'System_management
 $route[ADMIN_NAMESPACE_URL.'/System/(:any)/(:any)/(:any)']  = 'System_management/System_management/$1/$2/$3';
 
 # System Fields
-$route[ADMIN_NAMESPACE_URL.'/Fields']                  = 'System_Fields/System_Fields';
-$route[ADMIN_NAMESPACE_URL.'/Fields/(:any)']           = 'System_Fields/System_Fields/$1';
-$route[ADMIN_NAMESPACE_URL.'/Fields/(:any)/(:any)']    = 'System_Fields/System_Fields/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Fields']                         = 'System_Fields/System_Fields';
+$route[ADMIN_NAMESPACE_URL.'/Fields/(:any)']                  = 'System_Fields/System_Fields/$1';
+$route[ADMIN_NAMESPACE_URL.'/Fields/(:any)/(:any)']           = 'System_Fields/System_Fields/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Fields/(:any)/(:any)/(:any)']    = 'System_Fields/System_Fields/$1/$2/$3';
 
 # System Forms
-$route[ADMIN_NAMESPACE_URL.'/Forms']                  = 'System_Forms/System_Forms';
-$route[ADMIN_NAMESPACE_URL.'/Forms/(:any)']           = 'System_Forms/System_Forms/$1';
-$route[ADMIN_NAMESPACE_URL.'/Forms/(:any)/(:any)']    = 'System_Forms/System_Forms/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Forms']                         = 'System_Forms/System_Forms';
+$route[ADMIN_NAMESPACE_URL.'/Forms/(:any)']                  = 'System_Forms/System_Forms/$1';
+$route[ADMIN_NAMESPACE_URL.'/Forms/(:any)/(:any)']           = 'System_Forms/System_Forms/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Forms/(:any)/(:any)/(:any)']    = 'System_Forms/System_Forms/$1/$2/$3';
 
 # System List Data
 $route[ADMIN_NAMESPACE_URL.'/List_Data']                  = 'System_Fields/System_ListData';
@@ -204,6 +206,14 @@ $route[APP_NAMESPACE_URL.'/Preview_RealEstate']                          = 'App_
 $route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)']                   = 'App_RealEstate_Preview/App_Preview_RealEstate/$1';
 $route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)/(:any)']            = 'App_RealEstate_Preview/App_Preview_RealEstate/$1/$2';
 $route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)/(:any)/(:any)']     = 'App_RealEstate_Preview/App_Preview_RealEstate/$1/$2/$3';
+
+
+
+# Company  Ajax Controller
+$route[APP_NAMESPACE_URL.'/App_Ajax']                          = 'App_Ajax/App_Ajax';
+$route[APP_NAMESPACE_URL.'/App_Ajax/(:any)']                   = 'App_Ajax/App_Ajax/$1';
+$route[APP_NAMESPACE_URL.'/App_Ajax/(:any)/(:any)']            = 'App_Ajax/App_Ajax/$1/$2';
+$route[APP_NAMESPACE_URL.'/App_Ajax/(:any)/(:any)/(:any)']     = 'App_Ajax/App_Ajax/$1/$2/$3';
 
 /* ################################################################################
  * Site

@@ -143,7 +143,7 @@
 	                    </li>
 	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                    <a href="javascript:;" class="menu-link menu-toggle">
-			                    <span class="svg-icon menu-icon"><i class="flaticon-web text-primary"></i></span>
+			                    <span class="svg-icon menu-icon"><i class="flaticon2-user text-primary"></i></span>
 			                    <span class="menu-text">ادارة العملاء </span>
 			                    <i class="menu-arrow"></i>
 		                    </a>
@@ -165,7 +165,7 @@
                         </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon-web text-primary"></i></span>
+                                <span class="svg-icon menu-icon"><i class="flaticon2-folder text-primary"></i></span>
                                 <span class="menu-text">ادارة المعاملات </span>
                                 <i class="menu-arrow"></i>
                             </a>
@@ -173,33 +173,15 @@
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
 	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/List_Index_Transactions') ?>" class="menu-link menu-toggle">
-			                                <span class="menu-icon"><i class="flaticon-web text-primary"></span></i><span class="menu-text">استقبال الطلبات</span></a>
+		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/index') ?>" class="menu-link menu-toggle">
+			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text">المعاملات الجارية</span></a>
 	                                </li>
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Data_Transactions') ?>" class="menu-link menu-toggle">
-                                            <span class="menu-icon"><i class="flaticon-web text-success"></span></i><span class="menu-text">ادخال البيانات</span></a>
-                                    </li>
                                 </ul>
                             </div>
                         </li>
 
-	                    <li class="menu-section">
-		                    <h4 class="menu-text"> ادارة التنسيق و الجودة</h4>
-		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-	                    </li>
-	                    <li class="menu-item" aria-haspopup="true">
-		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
-			                    <i class="menu-icon flaticon2-heart-rate-monitor"></i>
-			                    <span class="menu-text">المعاملات الجارية</span>
-		                    </a>
-	                    </li>
-	                    <li class="menu-item" aria-haspopup="true">
-		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
-			                    <i class="menu-icon flaticon2-map"></i>
-			                    <span class="menu-text"> ادارة زيارات المعاينة </span>
-		                    </a>
-	                    </li>
+
+
 
 
 
@@ -217,15 +199,9 @@
 			                    <i class="menu-arrow"></i>
 			                    <ul class="menu-subnav">
 				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-					                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Preview_RealEstate/index') ?>" class="menu-link menu-toggle">
-						                    <span class="menu-icon"><i class="flaticon-placeholder text-primary"></span></i><span class="menu-text">المعاملات الجديدة</span></a>
-				                    </li>
-
-				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 					                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Preview_RealEstate/Preview_Completed') ?>" class="menu-link menu-toggle">
 						                    <span class="menu-icon"><i class="flaticon-web text-primary"></span></i><span class="menu-text">المعاملات المنجزة</span></a>
 				                    </li>
-
 			                    </ul>
 		                    </div>
 	                    </li>
@@ -261,7 +237,7 @@
                         </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="svg-icon menu-icon"><i class="flaticon2-poll-symbol text-primary"></i></span>
+                                <span class="svg-icon menu-icon"><i class="flaticon2-graph-2 text-primary"></i></span>
                                 <span class="menu-text">ادارة نظام التقارير </span>
                                 <i class="menu-arrow"></i>
                             </a>
@@ -462,8 +438,44 @@
 <script  type="text/javascript">var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#3699FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };</script>
 <!--end::Global Config-->
 
+<script type="text/javascript">
 
+	var arrows;
+	if (KTUtil.isRTL()) {
+		arrows = {
+			leftArrow: '<i class="la la-angle-right"></i>',
+			rightArrow: '<i class="la la-angle-left"></i>'
+		}
+	} else {
+		arrows = {
+			leftArrow: '<i class="la la-angle-left"></i>',
+			rightArrow: '<i class="la la-angle-right"></i>'
+		}
+	}
+
+	$('.datepicker').datepicker({
+		rtl: KTUtil.isRTL(),
+		format:'<?= company_settings_system($LoginUser_Company,'datepicker_data_format') ?>',
+		todayHighlight: true,
+		orientation: "bottom left",
+		templates: arrows,
+		language: "ar",
+
+	});
+
+	$('.selectpicker').selectpicker();
+
+
+
+
+	$('.summernote').summernote({
+		height: 150
+	});
+
+</script>
 
 </body>
 <!--end::Body-->
 </html>
+
+

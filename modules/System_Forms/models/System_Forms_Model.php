@@ -24,9 +24,9 @@ class System_Forms_Model extends MY_Model
 
 
     ########################################################################
-    function Create_Sections_Forms_Components($data)
+    function Create_Forms_Components($data)
     {
-        $query = $this->db->insert('portal_forms_sections_components',$data);
+        $query = $this->db->insert('portal_forms_components',$data);
         if($query){
             return $this->db->insert_id();
         }else{
@@ -57,9 +57,9 @@ class System_Forms_Model extends MY_Model
     ########################################################################
 
     ########################################################################
-    function Create_Fields_To_Sections_Form_Components($data)
+    function Create_Fields_Form_Components($data)
     {
-        $query = $this->db->insert('portal_forms_sections_components_fields',$data);
+        $query = $this->db->insert('portal_forms_components_fields',$data);
         if($query){
             return $this->db->insert_id();
         }else{

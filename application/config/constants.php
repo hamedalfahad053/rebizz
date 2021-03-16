@@ -110,5 +110,5 @@ defined('FOLDER_FILE_CONTRACT_COMPANY')  OR define('FOLDER_FILE_CONTRACT_COMPANY
 defined('FOLDER_FILE_Transaction_COMPANY')  OR define('FOLDER_FILE_Transaction_COMPANY', 'Company_FILE_Transaction');
 
 
-defined('LOGO_DEFAULT_CLIENT')  OR define('LOGO_DEFAULT_CLIENT', 'Assets/media/users/blank.png');
+defined('LOGO_DEFAULT_CLIENT')  OR define('LOGO_DEFAULT_CLIENT', $base.'Assets/media/users/blank.png');
 

@@ -32,6 +32,9 @@
     <div class="container-fluid">
 
 
+
+
+
 							    <div class="card card-custom mb-3 mt-2">
 								    <div class="card-body">
 		                                <ul class="nav nav-tabs nav-bold nav-tabs-line">
@@ -41,32 +44,41 @@
 		                                            <span class="nav-text">البيانات الاساسية</span>
 		                                        </a>
 		                                    </li>
+
+			                                <li class="nav-item">
+				                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2_4">
+					                                <span class="nav-icon"><i class="flaticon-arrows icon-md"></i></span>
+					                                <span class="nav-text"> المنسق </span>
+				                                </a>
+			                                </li>
+
 		                                    <li class="nav-item">
-		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2_4">
+		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3_4">
 		                                            <span class="nav-icon"><i class="flaticon-visible icon-md"></i></span>
 		                                            <span class="nav-text"> المعاينة</span>
 		                                        </a>
 		                                    </li>
 		                                    <li class="nav-item">
-		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3_4">
+		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_4">
 		                                            <span class="nav-icon"><i class="flaticon-price-tag icon-md"></i></span>
 		                                            <span class="nav-text"> تقييم العقار </span>
 		                                        </a>
 		                                    </li>
 
 			                                <li class="nav-item">
-				                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_4">
+				                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_5_4">
 					                                <span class="nav-icon"><i class="flaticon-interface-3 icon-md"></i></span>
 					                                <span class="nav-text"> مستندات المعاملة </span>
 				                                </a>
 			                                </li>
 
 		                                    <li class="nav-item">
-		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_4">
+		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_6_4">
 		                                            <span class="nav-icon"><i class="flaticon-layers icon-md"></i></span>
 		                                            <span class="nav-text"> حركة المعاملة </span>
 		                                        </a>
 		                                    </li>
+
 		                                </ul>
 								    </div>
 							    </div>
@@ -81,16 +93,36 @@
                                     </div>
 
                                     <div class="tab-pane fade" id="kt_tab_pane_2_4" role="tabpanel" aria-labelledby="kt_tab_pane_2_4">
-
+	                                    <?php
+	                                    echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Coordinator', $this->data);
+	                                    ?>
                                     </div>
 
                                     <div class="tab-pane fade" id="kt_tab_pane_3_4" role="tabpanel" aria-labelledby="kt_tab_pane_3_4">
-
+	                                    <?php
+	                                    echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Preview_RealEstate', $this->data);
+	                                    ?>
                                     </div>
 
                                     <div class="tab-pane fade" id="kt_tab_pane_4_4" role="tabpanel" aria-labelledby="kt_tab_pane_4_4">
-
+	                                    <?php
+	                                    echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Evaluation', $this->data);
+	                                    ?>
                                     </div>
+
+	                                <div class="tab-pane fade" id="kt_tab_pane_5_4" role="tabpanel" aria-labelledby="kt_tab_pane_5_4">
+		                                <?php
+		                                echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Transaction_Documents', $this->data);
+		                                ?>
+	                                </div>
+
+	                                <div class="tab-pane fade" id="kt_tab_pane_6_4" role="tabpanel" aria-labelledby="kt_tab_pane_6_4">
+		                                <?php
+		                                echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Activety_log', $this->data);
+		                                ?>
+	                                </div>
+
+
                                 </div>
 
 

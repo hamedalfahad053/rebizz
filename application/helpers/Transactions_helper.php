@@ -18,36 +18,29 @@ if(!function_exists('Cleaning_Transaction_Numbering')) {
 ##############################################################################
 if(!function_exists('Create_Transaction_Numbering')) {
 
-    function Create_Transaction_Numbering()
+    function Create_Transaction_Numbering($Transaction_Status_id)
     {
 
         $data_Transaction = array();
 
-        $data_Transaction['transaction_number']        = date('Ymd');
         $data_Transaction['Create_Transaction_Date']   = time();
         $data_Transaction['Create_Transaction_By_id']  = app()->aauth->get_user()->id;
         $data_Transaction['company_id']                = Get_Company_User(app()->aauth->get_user()->id)->companies_id;
         $data_Transaction['location_id']               = Get_Company_User(app()->aauth->get_user()->id)->locations_id;
-        $data_Transaction['Transaction_Status_id']     = 46;
+        $data_Transaction['Transaction_Status_id']     = $Transaction_Status_id;
 
         $query     = app()->db->insert('protal_transaction',$data_Transaction);
         $insert_id = app()->db->insert_id();
 
         if($insert_id){
+            $query_transaction = app()->db->get('protal_transaction',array('transaction_id',$insert_id))->row();
 
-            $query2 = app()->db->get('protal_transaction',array('transaction_id',$insert_id))->row();
-            app()->db->where('transaction_id',$insert_id);
-
-            $transaction_number_ = $query2->transaction_number.'-'.$insert_id;
-
-            $query3 = app()->db->update('protal_transaction',array("transaction_number" => $transaction_number_ ));
+            app()->db->set('transaction_number', date('Ymd').'-'.$insert_id);
+            app()->db->where('transaction_id', $insert_id);
+            app()->db->update('protal_transaction');
         }
 
-        $query4 = app()->db->get('protal_transaction',array('transaction_id',$insert_id))->row();
-
-
-
-        return $query4;
+        return $query_transaction;
     }
 }
 ##############################################################################

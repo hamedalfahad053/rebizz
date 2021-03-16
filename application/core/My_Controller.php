@@ -58,9 +58,9 @@ class MY_Controller extends MX_Controller  {
         $this->data['Lode_file_Js']  = '';
 
 
-        trigger_error("User error via trigger.", E_USER_ERROR);
-        trigger_error("Warning error via trigger.", E_USER_WARNING);
-        trigger_error("Notice error via trigger.", E_USER_NOTICE);
+//        trigger_error("User error via trigger.", E_USER_ERROR);
+//        trigger_error("Warning error via trigger.", E_USER_WARNING);
+//        trigger_error("Notice error via trigger.", E_USER_NOTICE);
 
     }
 }

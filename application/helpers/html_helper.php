@@ -27,12 +27,45 @@ if(!function_exists('Create_Options_Button')) {
 }
 #####################################################################################
 
+
+#####################################################################################
+if(!function_exists('Create_Options_Dropdown')) {
+    function Create_Options_Dropdown($options)
+    {
+        $HTML  = '';
+
+        $HTML  = '
+           <div class="dropdown dropdown-inline mr-4">
+            <button type="button" class="btn btn-light-primary btn-icon btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="ki ki-bold-more-hor"></i>
+            </button>
+           <div class="dropdown-menu">
+        ';
+
+        foreach ($options AS $kay => $value)
+        {
+            $HTML .= '<a class="dropdown-item' . $value['class'] . '" ' . $value['id'] . '  ' . $value['data-attribute'] . ' href="' . $value['href'] . '"> ' . $value['title'] . '</a>';
+        }
+
+        $HTML .= '</div></div>';
+
+        return $HTML;
+    }
+}
+#####################################################################################
+
+
+
+
 #####################################################################################
 if(!function_exists('Create_One_Button_Text')) {
     function Create_One_Button_Text($Button)
     {
         $HTML           = '';
         $data_attribute = '';
+        $data_class     = '';
+        $data_id        = '';
+
         $color          = 'primary';
 
         if(isset($Button['color'])) {
@@ -43,7 +76,14 @@ if(!function_exists('Create_One_Button_Text')) {
             $data_attribute = $Button['data_attribute'];
         }
 
-        $HTML .= '<a class="btn btn-' . $color . ' mx-2" data-toggle="tooltip" title="' . $Button['title'] . '" ' . $data_attribute . ' href="' . $Button['href'] . '">' . $Button['title']  . '</a>';
+        if(isset($Button['id'])) {
+            $data_id = $Button['id'];
+        }
+        if(isset($Button['class'])) {
+            $data_class = $Button['class'];
+        }
+
+        $HTML .= '<a class="btn btn-' . $color . ' mx-2 '.$data_class.'" '.$data_id.' data-toggle="tooltip" title="' . $Button['title'] . '" ' . $data_attribute . ' href="' . $Button['href'] . '">' . $Button['title']  . '</a>';
         return $HTML;
     }
 }

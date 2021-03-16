@@ -10,8 +10,7 @@
             <h3 class="card-label"><?= $Page_Title ?></h3>
         </div>
         <div class="card-toolbar">
-            <?php $Client_id =  $this->uri->segment(4); ?>
-            <?= Create_One_Button_Text(array('title'=> 'اضافة عقد' ,'href'=>base_url(APP_NAMESPACE_URL.'/Clients/Form_add_Contracts/'.$Client_id.''))) ?>
+            <?= Create_One_Button_Text(array('title'=> 'اضافة عقد' ,'href'=>base_url(APP_NAMESPACE_URL.'/Clients/Form_add_Contracts/'.$Client_Info->uuid.''))) ?>
         </div>
     </div>
     <!--end::Header-->

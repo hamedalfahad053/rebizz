@@ -26,12 +26,17 @@
 </div>
 <!--end::Subheader-->
 
-
+<?php
+$Form_id = $this->uri->segment(4);
+?>
 
 <!--begin::Entry-->
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
     <div class="container-fluid">
+
+
+
 
 
 	    <div class="card card-custom">
@@ -41,254 +46,201 @@
 				    <h3 class="card-label">خيارات النموذج</h3>
 			    </div>
 			    <div class="card-toolbar">
-	                <?=  Create_One_Button_Text_Without_tooltip(array('id'=>'','class'=>'','title' => 'اضافة قسم', 'data_attribute' => 'data-toggle="modal" data-target="#Model_FormCreate_Sections_Form_Components"', 'href' => "javascript:void(0);")); ?>
+	                <?=  Create_One_Button_Text_Without_tooltip(
+	                		array('id'=>'',
+					              'class'=>'',
+					              'title' => 'اضافة قسم',
+					              'data_attribute' => '',
+					              'href' => base_url(ADMIN_NAMESPACE_URL.'/Forms/Form_Add_Components/'.$Form_id))
+	                );
+	                ?>
 			    </div>
 		    </div>
 		    <!--end::Header-->
 		    <!--begin::Body-->
 		    <div class="card-body">
+			    <?php echo  $this->session->flashdata('message'); ?>
+
 		    </div>
 		    <!--end: Card Body-->
 	    </div>
 	    <!--end: Card-->
 
 
-        <div id="Data_Sections_Components">
-            <div class="lod_spinner spinner hidden spinner-primary mr-15"></div>
-        </div>
+	    <?php
+	    foreach ($Form_Components->result() AS $RC)
+	    {
+	    ?>
+		    <div class="card card-custom mt-10">
+			    <!--begin::Header-->
+			    <div class="card-header">
+				    <div class="card-title">
+					    <h3 class="card-label">
+						    <?= $RC->item_translation ?>
+					    </h3>
+				    </div>
+				    <div class="card-toolbar">
+					    <?=  Create_One_Button_Text_Without_tooltip(
+							    array('id'=>'',
+									    'class'=>'',
+									    'title' => 'اضافة حقل',
+									    'data_attribute' => '',
+									    'href' => base_url(ADMIN_NAMESPACE_URL.'/Forms/Form_Add_Fields_Components/'.$RC->Forms_id.'/'.$RC->components_id))
+					    );
+					    ?>
+
+
+					    <?=  Create_One_Button_Text_Without_tooltip(
+							    array('id'=>'',
+									    'class'=>'',
+									    'title' => 'اضافة قائمة',
+									    'data_attribute' => '',
+									    'href' => base_url(ADMIN_NAMESPACE_URL.'/Forms/Form_Add_List_Components/'.$RC->Forms_id.'/'.$RC->components_id))
+					    );
+
+					    $options_Components['edit'] = array(
+							    "title"          => lang('edit_button'),
+							    "data-attribute" => "",
+							    "class"          => "",
+							    "id"             => "",
+							    "href"           => base_url('')
+					    );
+
+					    $options_Components['deleted'] = array(
+							    "title"          => lang('deleted_button'),
+							    "data-attribute" => "",
+							    "class"          => "",
+							    "id"             => "",
+							    "href"           => base_url('')
+					    );
+
+					    $options_Components['custom'] = array(
+							    "title"          => 'ترتيب الحقول',
+							    "data-attribute" => "",
+							    "class"          => "",
+							    "id"             => "",
+							    "color"          => "info",
+							    "icon"           => "flaticon2-sort",
+							    "href"           => base_url('')
+					    );
+
+
+					    echo $Button_Components  = Create_Options_Button($options_Components);
+					    ?>
+				    </div>
+			    </div>
+			    <!--end::Header-->
+			    <!--begin::Body-->
+			    <div class="card-body">
+
+				    <style>th.dt-center,.dt-center { text-align: center; }</style>
+				    <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+					    <thead>
+					    <tr>
+						    <th class="text-center">#</th>
+						    <th class="text-center">اسم الحقل</th>
+						    <th class="text-center">خاصية الحقل</th>
+						    <th class="text-center">تخصيص فئة العميل</th>
+						    <th class="text-center">تخصيص فئة العقار</th>
+						    <th class="text-center">تخصيص  فئة الطلب</th>
+						    <th class="text-center">تخصيص   طريقة التقييم</th>
+						    <th class="text-center">الحالة</th>
+						    <th class="text-center">الخيارات</th>
+					    </tr>
+					    </thead>
+					    <tbody>
+					    <?php
+					    $Get_Fields_Components = Get_Fields_Components($RC->Forms_id,$RC->components_id);
+					    foreach ($Get_Fields_Components AS $GFC)
+					    {
+					    ?>
+						    <tr>
+							    <td class="text-center"><?= $GFC['Fields_id_Components'] ?></td>
+							    <td class="text-center"><?= $GFC['Fields_Title'] ?></td>
+							    <td class="text-center"><?= $GFC['Fields_Type'] ?></td>
+							    <td class="text-center">
+								    <?php
+								    if(is_array($GFC['Fields_With_Type_CUSTOMER'])){
+								    	foreach ($GFC['Fields_With_Type_CUSTOMER'] AS $FWTC)
+								    	{
+                                          echo Create_Status_badge(array("key"=>"warning","value"=>$FWTC));
+									    }
+								    }else{
+									    echo Create_Status_badge(array("key"=>"Success","value"=>$GFC['Fields_With_Type_CUSTOMER']));
+								    }
+								    ?>
+							    </td>
+							    <td class="text-center">
+								    <?php
+								    if(is_array($GFC['Fields_With_Type_Property'])){
+									    foreach ($GFC['Fields_With_Type_Property'] AS $WTP)
+									    {
+										    echo Create_Status_badge(array("key"=>"warning","value"=>$WTP));
+									    }
+								    }else{
+									    echo Create_Status_badge(array("key"=>"Success","value"=>$GFC['Fields_With_Type_Property']));
+								    }
+								    ?>
+							    </td>
+							    <td class="text-center">
+								    <?php
+								    if(is_array($GFC['Fields_With_TYPES_APPRAISAL'])){
+									    foreach ($GFC['Fields_With_TYPES_APPRAISAL'] AS $WTA)
+									    {
+										    echo Create_Status_badge(array("key"=>"warning","value"=>$WTA));
+									    }
+								    }else{
+									    echo Create_Status_badge(array("key"=>"Success","value"=>$GFC['Fields_With_TYPES_APPRAISAL']));
+
+								    }
+								    ?>
+							    </td>
+							    <td class="text-center">
+								    <?php
+								    if(is_array($GFC['Fields_With_Type_evaluation_methods'])){
+									    foreach ($GFC['Fields_With_Type_evaluation_methods'] AS $WTAM)
+									    {
+										    echo Create_Status_badge(array("key"=>"warning","value"=>$WTAM));
+									    }
+								    }else{
+									    echo Create_Status_badge(array("key"=>"Success","value"=>$GFC['Fields_With_Type_evaluation_methods']));
+								    }
+								    ?>
+							    </td>
+							    <td class="text-center">
+								    <?= $GFC['Fields_key'] ?>
+							    </td>
+							    <td class="text-center"></td>
+						    </tr>
+					    <?php
+					    }
+					    ?>
+					    </tbody>
+				    </table>
+				    <!--begin: Datatable -->
+
+			    </div>
+			    <!--end: Card Body-->
+		    </div>
+		    <!--end: Card-->
+	    <?php
+        }
+	    ?>
+
+
 
     </div>
     <!--end::Container-->
 </div>
 <!--end::Entry-->
 
-<?= $this->load->view('../../modules/System_Forms/views/Model_Form_Add_SctionComponents',$status); ?>
-<?= $this->load->view('../../modules/System_Forms/views/Model_Form_Add_Fields',$Fields_All_Data); ?>
-<?= $this->load->view('../../modules/System_Forms/views/Model_Form_Create_List',$Get_All_List); ?>
-
-
 <script type="text/javascript">
-    $(document).ready(function() {
-
-
-        // ------------------------------------------------------------------------------- //
-        function Sections_Components() {
-            var Forms_id    = <?= $this->uri->segment(4) ?>;
-            $.ajax({
-                type: 'ajax',
-                method: 'get',
-                beforeSend: function() {
-                    $('.lod_spinner').show();
-                },
-                url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Ajax_Sections_Components/') ?>',
-                data: {Forms_id:Forms_id },
-                async: false,
-                dataType: 'html',
-                success: function(data){
-                    $('.lod_spinner').hide();
-                    $('#Data_Sections_Components').html(data);
-                },
-                error: function(){
-                    swal.fire("خطا بالارسال",'', "error");
-                }
-            });
-        }
-        Sections_Components();
-        // ------------------------------------------------------------------------------- //
-
-        // ------------------------------------------------------------------------------- //
-        $('#FormCreateSections').on('click', '#buttonCreateSections', function (event) {
-
-            event.preventDefault();
-
-            var Sections_title_ar    = $('input[name=Sections_title_ar]').val();
-            var Sections_title_en    = $('input[name=Sections_title_en]').val();
-            var Sections_Status      = $('select[name=Sections_Status]').val();
-            var Forms_id             = <?= $this->uri->segment(4) ?>
-
-            $.ajax({
-                type: 'ajax',
-                method: 'get',
-                url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Create_Sections_Form_Components/') ?>',
-                data: { Forms_id:Forms_id ,  Sections_title_ar:Sections_title_ar,Sections_title_en:Sections_title_en,Sections_Status:Sections_Status },
-                async: false,
-                dataType: 'json',
-                success: function(data){
-                    if(data.Type_result=='success'){
-                        swal.fire("تمت الاضافة بنجاح",data.Message_result,"success");
-                        Sections_Components();
-                    }else{
-                        swal.fire("حدث خطا ",data.Message_result, "error");
-                    }
-                },
-                error: function(){
-                    swal.fire("خطا بالارسال",'', "error");
-                }
-            });
-
-        });
-        // ------------------------------------------------------------------------------- //
-
-	    // ------------------------------------------------------------------------------- //
-		$('#Data_Sections_Components').on('click', '.Deleted_Sections_Components', function (event) {
-
-			event.preventDefault();
-
-			var Sections_Components_id  = $(this).attr('data-components-id');
-			var Forms_id                = <?= $this->uri->segment(4) ?>;
-
-			Swal.fire({
-				    title: "هل انت متاكد من اجراء الحذف",
-				    text: "",
-			        icon: "warning",
-					showCancelButton: true,
-					confirmButtonText: "تأكيد الحذف",
-					cancelButtonText: "الغاء الامر",
-					reverseButtons: true
-		    }).then(function(result) {
-				    if (result.value) {
-
-					    $.ajax({
-						    type: 'ajax',
-						    method: 'get',
-						    url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Deleted_Sections_Form_Components/') ?>',
-						    data: { Forms_id:Forms_id ,  Sections_Components_id:Sections_Components_id },
-						    async: false,
-						    dataType: 'json',
-						    success: function(data){
-							    if(data.Type_result=='success'){
-								    swal.fire("تمت الاضافة بنجاح",data.Message_result,"success");
-								    Sections_Components();
-							    }else{
-								    swal.fire("حدث خطا ",data.Message_result, "error");
-							    }
-						    },
-						    error: function(){
-							    swal.fire("خطا بالارسال",'', "error");
-						    }
-					    });
-
-				    } else if (result.dismiss === "cancel") {
-					    Swal.fire("تم الغاء العملية", "تم الغاء عملية الحذف", "error");
-				    }
-			});
+	$(document).ready(function() {
+		$('.data_table').DataTable({
+			responsive: true,
+			searchDelay: 500,
 		});
-	    // ------------------------------------------------------------------------------- //
 
-
-	    $(document).on('show.bs.modal','#Model_FormAddFields', function (event) {
-		    var button    = $(event.relatedTarget)
-		    var recipient = button.data('components-id')
-		    var modal     = $(this);
-		    modal.find('.card-body input[name="Fields_Components_id"][type="hidden"]').val(recipient);
-	    });
-
-	    // ------------------------------------------------------------------------------- //
-        $('#FormAddFields').on('click', '#buttonAddFieldsSections', function (event) {
-
-            event.preventDefault();
-            var Forms_id         = <?= $this->uri->segment(4) ?>;
-            var Components_id    = $('input[name=Fields_Components_id]').val();
-            var Fields_id        = $('select[name=Fields_Add]').val();
-
-            $.ajax({
-                type: 'ajax',
-                method: 'get',
-                url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Create_Fields_To_Sections_Form_Components/') ?>',
-                data: { Forms_id:Forms_id , Components_id:Components_id , Fields_id:Fields_id},
-                async: false,
-                dataType: 'json',
-                success: function(data){
-                    if(data.Type_result=='success'){
-                        swal.fire("تمت الاضافة بنجاح",data.Message_result,"success");
-                        Sections_Components();
-                    }else{
-                        swal.fire("حدث خطا ",data.Message_result, "error");
-                    }
-                },
-                error: function(){
-                    swal.fire("خطا بالارسال",'', "error");
-                }
-            });
-
-        });
-        // ------------------------------------------------------------------------------- //
-
-
-	    // ------------------------------------------------------------------------------- //
-	    $('#Data_Sections_Components').on('click', '.DeletedFieldsSections', function (event) {
-
-		    event.preventDefault();
-
-		    var Forms_id         = <?= $this->uri->segment(4) ?>;
-		    var Components_id    = $(this).attr('data-components-id');
-		    var Fields_id        = $(this).attr('data-Fields-id');
-
-		    $.ajax({
-			    type: 'ajax',
-			    method: 'get',
-			    url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Deleted_Fields_To_Sections_Form_Components') ?>',
-			    data: { Forms_id:Forms_id , Components_id:Components_id , Fields_id:Fields_id},
-			    async: false,
-			    dataType: 'json',
-			    success: function(data){
-				    if(data.Type_result=='success'){
-					    swal.fire("تمت الحذف بنجاح",data.Message_result,"success");
-					    Sections_Components();
-				    }else{
-					    swal.fire("حدث خطا ",data.Message_result, "error");
-				    }
-			    },
-			    error: function(){
-				    swal.fire("خطا بالارسال",'', "error");
-			    }
-		    });
-	    });
-	    // ------------------------------------------------------------------------------- //
-
-
-
-	    $(document).on('show.bs.modal','#Model_FormCreateList', function (event) {
-		    var button    = $(event.relatedTarget)
-		    var recipient = button.data('components-id')
-		    var modal     = $(this);
-		    modal.find('.card-body input[name="List_Components_id"][type="hidden"]').val(recipient);
-	    });
-
-
-	    // ------------------------------------------------------------------------------- //
-	    $('#FormListSections').on('click', '#buttonListSections', function (event) {
-
-		    event.preventDefault();
-
-		    var Forms_id              = <?= $this->uri->segment(4) ?>;
-		    var List_Components_id    = $('input[name=List_Components_id]').val();
-		    var List_id               = $('select[name=List_id]').val();
-
-		    $.ajax({
-			    type: 'ajax',
-			    method: 'get',
-			    url: '<?= base_url(ADMIN_NAMESPACE_URL . '/Forms/Create_List_To_Sections_Form_Components/') ?>',
-			    data: { Forms_id:Forms_id , List_Components_id:List_Components_id , List_id:List_id},
-			    async: false,
-			    dataType: 'json',
-			    success: function(data){
-				    if(data.Type_result=='success'){
-					    swal.fire("تمت الاضافة بنجاح",data.Message_result,"success");
-					    Sections_Components();
-				    }else{
-					    swal.fire("حدث خطا ",data.Message_result, "error");
-				    }
-			    },
-			    error: function(){
-				    swal.fire("خطا بالارسال",'', "error");
-			    }
-		    });
-
-	    });
-	    // ------------------------------------------------------------------------------- //
-
-
-
-    });
+	});
 </script>
+

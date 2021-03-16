@@ -52,13 +52,13 @@
                 <table class="data_table table table-bordered table-hover display nowrap" width="100%">
                     <thead>
                     <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">اسم القائمة</th>
-                        <th class="text-center">key</th>
-                        <th class="text-center">عناصر القائمة</th>
-                        <th class="text-center">مالك القائمة</th>
-                        <th class="text-center">الحالة</th>
-                        <th class="text-center">الخيارات</th>
+                        <th class="text-center">List Id</th>
+                        <th class="text-center">List Name</th>
+                        <th class="text-center">List Key</th>
+                        <th class="text-center">List Type</th>
+	                    <th class="text-center">List View</th>
+                        <th class="text-center">List Status</th>
+                        <th class="text-center">List options</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -71,10 +71,8 @@
                             <td class="text-center"><?= ++$i ?></td>
                             <td class="text-center"><?= $ROW['List_translation'] ?></td>
                             <td class="text-center"><?= $ROW['List_key'] ?></td>
-                            <td class="text-center">
-                                <?= Create_One_Button_Text(array('title'=> $ROW['List_options_num'] ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/List_Data/List_Options_Mange/'.$ROW['List_id'].''))) ?>
-                            </td>
-                            <td class="text-center"></td>
+	                        <td class="text-center"><?= $ROW['List_type'] ?></td>
+	                        <td class="text-center"><?= $ROW['List_view'] ?></td>
                             <td class="text-center"><?= $ROW['List_status'] ?></td>
                             <td class="text-center"><?= $ROW['List_main_system'] ?></td>
                         </tr>

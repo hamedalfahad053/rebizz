@@ -36,7 +36,6 @@
                 <form class="form"  action="<?= base_url(ADMIN_NAMESPACE_URL.'/List_Data/Create_List_Data') ?>" method="post">
                     <?= CSFT_Form() ?>
                     <?php echo  $this->session->flashdata('message'); ?>
-
                     <div class="card card-custom">
                        <div class="card-header">
                                 <div class="card-title">
@@ -52,15 +51,13 @@
                                    <label><?= lang('Global_form_title_ar') ?></label>
                                    <input type="text" name="title_ar" class="form-control" value="<?= set_value('title_ar'); ?>" placeholder="<?= lang('Global_form_title_ar') ?>"/>
                                  </div>
-
                                  <div class="col-lg-4">
                                    <label><?= lang('Global_form_title_en') ?></label>
                                    <input type="text" name="title_en" class="form-control" value="<?= set_value('title_en'); ?>" placeholder="<?= lang('Global_form_title_en') ?>"/>
                                  </div>
-
                                  <div class="col-lg-4">
                                       <label><?= lang('Table_Status') ?> </label>
-                                      <select name="list_status" class="form-control selectpicker" data-live-search="true">
+                                      <select name="list_data_status" class="form-control selectpicker" data-live-search="true">
                                           <?php
                                           foreach ($List_status AS $key => $value)
                                           {
@@ -71,25 +68,33 @@
                                  </div>
                               </div>
 
+
 	                          <div class="form-group row">
+		                          <div class="col-lg-4">
+			                          <div class="radio-list mt-5">
+				                          <label class="radio">
+					                          <input type="radio" value="1" name="Linking_table"/>
+					                          <span></span>
+					                          هل تريد ربط الخيارات بجدول
+				                          </label>
+			                          </div>
+			                          <div class="radio-list mt-5">
+				                          <label class="radio">
+					                          <input type="radio" value="1" name="Linking_table"/>
+					                          <span></span>
+					                          هل تريد ربط الخيارات بقائمة اخرى
+				                          </label>
+			                          </div>
+			                          <div class="radio-list mt-5">
+				                          <label class="radio">
+					                          <input type="radio" value="1" name="Linking_table"/>
+					                          <span></span>
+					                          هل تريد ربط الخيارات
+				                          </label>
+			                          </div>
+		                          </div>
+	                          </div>
 
-	                              <div class="col-lg-4">
-		                              <label>نوع القائمة</label>
-		                              <select name="list_type" id="list_type" class="form-control selectpicker" data-live-search="true">
-			                              <option value="OPTIONS">خيارات</option>
-			                              <option value="TABLE">جدول بيانات</option>
-		                              </select>
-	                              </div>
-
-	                              <div class="col-lg-4">
-		                              <label>قائمة  تظهر للعميل</label>
-		                              <select name="list_view" title="اختر من فضلك" class="form-control selectpicker" data-live-search="true">
-				                        <option value="0">لا</option>
-			                            <option value="1">نعم</option>
-		                              </select>
-	                              </div>
-
-                              </div>
 
                           </div>
                     </div><!--<div class="card card-custom">-->
@@ -97,77 +102,8 @@
 
 
 
-	                <div class="card card-custom  mt-10" id="div_Create_Table" style="display:none">
-		                <div class="card-header">
-			                <div class="card-title">
-				                <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-				                <h3 class="card-label"> ربط الخيارات بجدول بيانات </h3>
-			                </div>
-			                <div class="card-toolbar"></div>
-		                </div>
-		                <div class="card-body">
-			                <div class="form-group row">
-				                <div class="col-lg-6">
-					                <label>  اختر جدول البيانات المطلوب </label>
-					                <select name="Table_primary"  id="Table_primary" class="form-control selectpicker" data-live-search="true">
-						                <?php
-						                foreach ($tables_db AS $table)
-						                {
-							                echo '<option value="'.$table.'">'.$table.'</option>';
-						                }
-						                ?>
-					                </select>
-				                </div>
-				                <div class="col-lg-6">
-					                <label>  اختر حقل القيمة </label>
-					                <select name="Table_primary_fields" id="Table_primary_fields"  class="form-control selectpicker" data-live-search="true"></select>
-				                </div>
-			                </div>
 
-			                <div class="form-group row">
-				                <div class="checkbox-list">
-					                <label class="checkbox">
-						                <input type="checkbox" value="1" name="Linking_table"/>
-						                <span></span>
-						                ربط جدول اضافي اذا كان نفس الجدول اترك الحقل
-					                </label>
-				                </div>
-			                </div>
-
-			                <div class="form-group row mt-10">
-				                <div class="col-lg-6">
-					                <label>  اختر جدول البيانات المطلوب </label>
-					                <select name="Table_Join"  id="Table_Join" class="form-control selectpicker" data-live-search="true">
-						                <?php
-						                foreach ($tables_db AS $table)
-						                {
-							                echo '<option value="'.$table.'">'.$table.'</option>';
-						                }
-						                ?>
-					                </select>
-				                </div>
-				                <div class="col-lg-6">
-					                <label>  اختر حقل العنوان </label>
-					                <select name="Table_Join_fields" id="Table_Join_fields"  class="form-control selectpicker" data-live-search="true"></select>
-				                </div>
-			                </div>
-			                <?= Create_Status_Alert(array("key"=>'Warning',"value"=>'يجب ان تكون قيمة الحقل الاساسي مطابقة لقيمة الحقل الثانوي')); ?>
-			                <div class="form-group row mt-10">
-				                <div class="col-lg-6">
-					                <label>  حقل الجدول الاساسي </label>
-					                <select name="Table_primary_joining_fields" id="Table_primary_joining_fields"  class="form-control selectpicker" data-live-search="true"></select>
-				                </div>
-				                <div class="col-lg-6">
-					                <label>  حقل الجدول الثانوي </label>
-					                <select name="Table_Join_joining_fields" id="Table_Join_joining_fields"  class="form-control selectpicker" data-live-search="true"></select>
-				                </div>
-			                </div>
-		                </div>
-	                </div><!--<div class="card card-custom">-->
-
-
-
-	                <div class="card card-custom  mt-10" id="div_Create_options" style="display:none">
+	                <div class="card card-custom  mt-10">
 		                <div class="card-header">
 			                <div class="card-title">
 				                <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
@@ -176,21 +112,43 @@
 			                <div class="card-toolbar"></div>
 		                </div>
 		                <div class="card-body">
-
 			                <div id="kt_repeater">
 				                <div class="form-group row">
 					                <div data-repeater-list="option_list" class="col-lg-12">
 						                <div data-repeater-item class="form-group row align-items-center">
+
+							                <div class="col-md-2">
+								                <label>الخيارات المرتبطه</label>
+
+									                <select name="options_list"  class="form-control selectpicker options_list" multiple data-live-search="true">
+										                <?php
+										                foreach ($list_group AS $RL)
+										                {
+										                   echo '<optgroup label="'.$RL['list_name'].'">';
+										                   foreach ($RL['list_option'] AS $RO)
+										                   {
+										                   	  echo '<option value="'.$RO['list_options_id'].'">'.$RO['item_translation'].'</option>';
+										                   }
+										                   echo '</optgroup>';
+										                }
+										                ?>
+									                </select>
+
+								                <div class="d-md-none mb-2"></div>
+							                </div>
+
 							                <div class="col-md-2">
 								                <label><?= lang('Global_form_title_ar') ?></label>
 								                <input type="text" name="option_ar" value="<?php echo set_value('option_ar'); ?>" class="form-control" placeholder="<?= lang('Global_form_title_ar') ?>"/>
 								                <div class="d-md-none mb-2"></div>
 							                </div>
+
 							                <div class="col-md-2">
 								                <label><?= lang('Global_form_title_en') ?></label>
 								                <input type="text" name="option_en" value="<?php echo set_value('option_en'); ?>" class="form-control" placeholder="<?= lang('Global_form_title_en') ?>"/>
 								                <div class="d-md-none mb-2"></div>
 							                </div>
+
 							                <div class="col-md-2">
 								                <label><?= lang('Table_Status') ?></label>
 								                <select name="options_status"  class="form-control">
@@ -203,11 +161,12 @@
 								                </select>
 								                <div class="d-md-none mb-2"></div>
 							                </div>
+
 							                <div class="col-md-2">
 								                <label><?= lang('options_status') ?></label>
 								                <select name="options_status_system"  class="form-control">
 									                <?php
-									                foreach ($List_status_system AS $key => $value)
+									                foreach ($options_status AS $key => $value)
 									                {
 										                echo '<option value="'.$key.'">'.$value.'</option>';
 									                }
@@ -215,8 +174,11 @@
 								                </select>
 								                <div class="d-md-none mb-2"></div>
 							                </div>
+
 							                <div class="col-md-2">
-								                <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger"><i class="la la-trash-o"></i>حذف</a>
+								                <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger">
+									                <i class="la la-trash-o"></i>حذف
+								                </a>
 							                </div>
 						                </div>
 					                </div>
@@ -232,7 +194,6 @@
 	                </div><!--<div class="card card-custom">-->
 
 
-
                     <div class="card card-custom  mt-10">
                         <div class="card-footer">
                             <div class="row">
@@ -245,6 +206,7 @@
                             </div>
                         </div>
                     </div>
+
                 </form>
 
 
@@ -262,24 +224,11 @@
 
 <script type="text/javascript">
 
-    $('.selectpicker').selectpicker({   noneSelectedText : '<?= lang('Select_noneSelectedText'); ?>' });
 
-    $('#list_type').change(function(event){
-	    event.preventDefault();
-	    var list_type   = $('select[name=list_type]').val();
-	    if (list_type === 'OPTIONS') {
-		    $("#div_Create_Table").hide();
-            $("#div_Create_options").show();
-	    }else{
-		    $("#div_Create_options").hide();
-	    }
-	    if (list_type === 'TABLE') {
-		    $("#div_Create_options").hide();
-		    $("#div_Create_Table").show();
-	    }else{
-		    $("#div_Create_Table").hide();
-	    }
-    });
+
+
+
+    $('.selectpicker').selectpicker({   noneSelectedText : '<?= lang('Select_noneSelectedText'); ?>' });
 
     $('#kt_repeater').repeater({
         initEmpty: false,
@@ -288,6 +237,8 @@
         },
         show: function () {
             $(this).slideDown();
+	        // $(this).find('.options_list').next('select').remove();
+	        $('select.options_list').selectpicker('refresh');
         },
         hide: function (deleteElement) {
 	        if(confirm('هل انت متأكد من عملية حذف العنصر ؟')) {
@@ -295,7 +246,21 @@
 	        }
         },
         isFirstItemUndeletable: true
+
     });
+
+
+
+    $('.options_list').click(function(){
+	    $('select .options_list').selectpicker('refresh');
+    });
+
+
+	//
+    // $(document).on('turbolinks:load', function() {
+	//     $(this).trigger('load.bs.select.data-api');
+    // });
+
 
     $('#Table_primary').change(function(event){
 	    event.preventDefault();
@@ -313,10 +278,8 @@
 			    $("#Table_primary_fields").empty();
 			    $.each(data, function (key, value) {
 				    $("#Table_primary_fields").append('<option value=' + value.id + '>' + value.Name + '</option>');
-				    $("#Table_Join_joining_fields").append('<option value=' + value.id + '>' + value.Name + '</option>');
 			    });
 			    $("#Table_primary_fields").selectpicker('refresh');
-			    $("#Table_Join_joining_fields").selectpicker('refresh');
 		    },
 		    error: function () {
 			    swal.fire(" خطا ", "في ارسال الطلب ", "error");
@@ -340,16 +303,18 @@
 			    $("#Table_Join_fields").empty();
 			    $.each(data, function (key, value) {
 				    $("#Table_Join_fields").append('<option value=' + value.id + '>' + value.Name + '</option>');
-				    $("#Table_primary_joining_fields").append('<option value=' + value.id + '>' + value.Name + '</option>');
 			    });
 			    $("#Table_Join_fields").selectpicker('refresh');
-			    $("#Table_primary_joining_fields").selectpicker('refresh');
 		    },
 		    error: function () {
 			    swal.fire(" خطا ", "في ارسال الطلب ", "error");
 		    }
 	    });
     });
+
+
+
+
 </script>
 
 

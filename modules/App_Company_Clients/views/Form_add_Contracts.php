@@ -31,25 +31,23 @@
 					<label>مسمى العقد</label>
 					<input type="text" name="Contracts_name" class="form-control" placeholder="<?= lang('name_group') ?>"/>
 				</div>
-				<div class="col-lg-6 mt-5">
+
+				<div class="col-lg-12 mt-5">
 					<label>وصف</label>
-					<input type="text" name="Contracts_description" class="form-control" placeholder="<?= lang('name_group') ?>"/>
+					<textarea type="text" name="Contracts_description" class="form-control" placeholder="" ></textarea>
 				</div>
 			</div>
 			<div class="form-group row">
-				<div class="col-lg-6 mt-5">
+				<div class="col-lg-4 mt-5">
 					<label>يبدا بتاريخ</label>
-					<input type="text" name="Contracts_start_date" class="form-control datepicker"
-					       placeholder=" "/>
+					<input type="text" name="Contracts_start_date" class="form-control datepicker" placeholder=" "/>
 				</div>
-				<div class="col-lg-6 mt-5">
+				<div class="col-lg-4 mt-5">
 					<label>ينتهي بتاريخ</label>
 					<input type="text" name="Contracts_end_date" class="form-control datepicker"
 					       placeholder="<?= lang('name_group') ?>"/>
 				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-lg-6 mt-5">
+				<div class="col-lg-4 mt-5">
 					<label> تنسيق ترقيم المعاملات </label>
 					<input type="text" name="Code_Transaction" class="form-control"
 					       placeholder="RAJ"/>
@@ -74,12 +72,6 @@
 			</div>
 		</div>
 		<!--end: Card Body-->
-
-	</div>
-	<!--end: Card Contract basic information-->
-
-	<!--begin: Card for submit-->
-	<div class="card card-custom card-stretch gutter-b">
 		<div class="card-footer">
 			<div class="row">
 				<div class="col-lg-6">

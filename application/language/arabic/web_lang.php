@@ -17,8 +17,8 @@ $lang['active_button']     = 'تفعيل';
 $lang['disable_button']    = 'تعطيل';
 $lang['deleted_button']    = 'حذف';
 
-
-
+$lang['unknown']                    = 'غير معروف';
+$lang['All_Components_Filed']       = 'عام للجميع';
 
 $lang['Global_email']                 = 'البريد الالكتروني ';
 $lang['Global_Country']               = 'الدولة';

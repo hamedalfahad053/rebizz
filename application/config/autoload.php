@@ -56,14 +56,14 @@ $autoload['packages'] = array();
 | You can also supply an alternative library name to be assigned
 | in the controller:
 |
-|	$autoload['libraries'] = array('user_agent' => 'ua');
+|	$autoload['libraries'] = array('user_agent' => 'ua');   'lib_log'
 */
 $autoload['libraries'] = array(
     'aauth',
     'form_validation',
     'session',
     'upload',
-    'lib_log'
+
 );
 
 /*
