@@ -9,17 +9,17 @@ if(!function_exists('Create_Options_Button')) {
         foreach ($options AS $kay => $value) {
 
             if ($kay == 'view') {
-                $HTML .= '<a class="btn btn-icon btn-light-primary mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon-arrows"></i></a>';
+                $HTML .= '<a class="btn btn-icon btn-sm btn-light-primary mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon-arrows"></i></a>';
             } elseif ($kay == 'edit') {
-                $HTML .= '<a class="btn btn-icon btn-light-warning mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-edit"></i></a>';
+                $HTML .= '<a class="btn btn-icon btn-sm btn-light-warning mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-edit"></i></a>';
             } elseif ($kay == 'active') {
-                $HTML .= '<a class="btn btn-icon btn-light-success mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-eye"></i></a>';
+                $HTML .= '<a class="btn btn-icon btn-sm btn-light-success mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-eye"></i></a>';
             } elseif ($kay == 'disable') {
-                $HTML .= '<a  class="btn btn-icon btn-light-dark mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-eye-slash"></i></a>';
+                $HTML .= '<a  class="btn btn-icon btn-sm btn-light-dark mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-eye-slash"></i></a>';
             } elseif ($kay == 'deleted') {
-                $HTML .= '<a  class="btn btn-icon btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-times"></i></a>';
+                $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-times"></i></a>';
             }elseif ($kay == 'custom') {
-                $HTML .= '<a class="btn btn-icon btn-light-' . $value['color'] . ' ' . $value['class'] . ' ' . $value['id'] . ' mx-2 " data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="' . $value['icon'] . '"></i></a>';
+                $HTML .= '<a class="btn btn-icon btn-sm btn-light-' . $value['color'] . ' ' . $value['class'] . ' ' . $value['id'] . ' mx-2 " data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="' . $value['icon'] . '"></i></a>';
             }
         }
         return $HTML;

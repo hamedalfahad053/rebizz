@@ -38,8 +38,9 @@ if(!function_exists('Get_Form_Components')) {
 
         $query = app()->db->from('portal_forms_components  components');
         $query = app()->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
-        $query = app()->db->where('components_translation.translation_lang',$lang);
 
+        $query = app()->db->where('components_translation.translation_lang',$lang);
+        $query = app()->db->order_by('components.components_sort','ASC');
         $query = app()->db->where('components.Forms_id',$form_id);
 
         if(!empty($where_extra)){
@@ -58,20 +59,79 @@ if(!function_exists('Get_Form_Components')) {
 
 
 ##############################################################################
-if(!function_exists('Check_Fields_Components')) {
+if(!function_exists('Update_Sort_Form_Components')) {
 
-    function Check_Fields_Components($Forms_id, $Components_id,$Fields_id,$Fields_Type)
+    function Update_Sort_Form_Components($Forms_id,$Components_id,$Sort)
     {
+        app()->load->database();
+        $lang   = get_current_lang();
 
+        $query = app()->db->where('Forms_id',$Forms_id);
+        $query = app()->db->where('Components_id',$Components_id);
+        $query = app()->db->set('components_sort',$Sort);
+        $query = app()->db->update('portal_forms_components');
+
+        if(app()->db->affected_rows()){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 }
 ##############################################################################
 
+
+##############################################################################
+if(!function_exists('Update_Sort_Fields_Components')) {
+
+    function Update_Sort_Fields_Components($Forms_id,$Components_id,$Fields_id,$Sort)
+    {
+        app()->load->database();
+        $lang   = get_current_lang();
+
+        $query = app()->db->where('Forms_id',$Forms_id);
+        $query = app()->db->where('Components_id',$Components_id);
+        $query = app()->db->where('Fields_id',$Fields_id);
+        $query = app()->db->set('Fields_Sort',$Sort);
+        $query = app()->db->update('portal_forms_components_fields');
+
+        if(app()->db->affected_rows()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+}
+##############################################################################
+
+
+##############################################################################
+
+if(!function_exists('Query_Fields_Components')) {
+
+    function Query_Fields_Components($where_extra)
+    {
+        if(!empty($where_extra))
+        {
+            foreach ($where_extra AS $key => $value)
+            {
+                $query = app()->db->where($key,$value);
+            }
+        }
+
+        $query = app()->db->get('portal_forms_components_fields');
+        return $query;
+    }
+}
+##############################################################################
+
+
 ##############################################################################
 if(!function_exists('Get_Fields_Components')) {
 
-    function Get_Fields_Components($Forms_id,$Components_id)
+    function Get_Fields_Components($Forms_id,$Components_id,$where_extra='')
     {
         app()->load->database();
 
@@ -81,6 +141,14 @@ if(!function_exists('Get_Fields_Components')) {
 
         $query = app()->db->where('Forms_id',$Forms_id);
         $query = app()->db->where('Components_id',$Components_id);
+
+        if(!empty($where_extra))
+        {
+            foreach ($where_extra AS $key => $value)
+            {
+                $query = app()->db->where($key,$value);
+            }
+        }
         $query = app()->db->get('portal_forms_components_fields')->result();
 
         foreach ($query AS $RC) {
@@ -275,17 +343,13 @@ if(!function_exists('Building_Fields_Components_Forms')) {
                             'Fields_id_Components'        => $RC->Components_fields_id,
                             'Fields_id'                   => $query_Fields->list_id,
                             'Fields_Type_Components'      => $RC->Fields_Type,
-
                             'Fields_Type'                 => 'Select',
                             'Fields_Title'                => $query_Fields->item_translation,
                             'Fields_key'                  => $query_Fields->list_key,
                             'Fields_data'                 => $RC->Fields_data,
                             'List_Target'                 => $RC->List_Target,
                         );
-
-
                     }
-
 
                     $Build = false;
                 } // if($Build == 1)
@@ -556,6 +620,19 @@ if(!function_exists('Building_List_Forms')) {
 
     } // end Building_List_Forms
 
+}
+##############################################################################
+
+
+##############################################################################
+
+if(!function_exists('Building_form_validation')) {
+
+    function Building_form_validation($key,$text,$validating_rules)
+    {
+        $Building = app()->form_validation->set_rules($key,$text,$validating_rules);
+        return $Building;
+    }
 }
 ##############################################################################
 

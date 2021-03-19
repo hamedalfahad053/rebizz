@@ -22,6 +22,49 @@ if(!function_exists('Get_Client_Company'))
 ##############################################################################
 
 ##############################################################################
+if(!function_exists('Create_Client'))
+{
+    function Create_Client($data)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_app_client',$data);
+
+        return $this->db->insert_id();
+    }
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Get_Type_Client'))
+{
+    function Get_Type_Client($id)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_app_client',$id);
+
+        return $this->db->insert_id();
+    }
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Create_Contracts'))
+{
+    function Create_Contracts($data)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_app_client_contract',$data);
+
+        return $this->db->insert_id();
+    }
+}
+##############################################################################
+
+
+##############################################################################
 if(!function_exists('Get_Client_Contract_Company'))
 {
     function Get_Client_Contract_Company($where_extra)
@@ -31,7 +74,7 @@ if(!function_exists('Get_Client_Contract_Company'))
         if(!empty($where_extra)){
             foreach ($where_extra AS $key => $value)
             {
-                $query = app()->db->where('fields.'.$key,$value);
+                $query = app()->db->where($key,$value);
             }
         }
         $query = app()->db->get('portal_app_client_contract');

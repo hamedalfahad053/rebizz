@@ -1,7 +1,26 @@
 <?php
 
 
+##############################################################################
+if(!function_exists('Get_All_Company'))
+{
 
+    function Get_All_Company($where_extra)
+    {
+        app()->load->database();
+
+        if(!empty($where_extra)){
+            foreach ($where_extra AS $key => $value)
+            {
+                $query = app()->db->where($key,$value);
+            }
+        }
+        $query = app()->db->get('portal_company');
+        return $query;
+    }
+
+}
+##############################################################################
 
 ##############################################################################
 if(!function_exists('Get_Company'))

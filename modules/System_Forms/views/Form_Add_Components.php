@@ -73,6 +73,48 @@
 			                    </select>
 		                    </div>
 	                    </div>
+
+
+					<div class="form-group row">
+						<div class="col-lg-3 mt-5">
+							<label> فئة العميل </label>
+							<?= Creation_List_HTML('select', 'LIST_CUSTOMER_CATEGORY', '','','options', '1','','','',array( 0=> "selectpicker"),'','','') ?>
+							<label class="checkbox mt-7">
+								<input type="checkbox" value="1"  checked="checked" name="All_CUSTOMER_CATEGORY"/>
+								<span></span>
+								عام لجميع العملاء
+							</label>
+						</div>
+						<div class="col-lg-3 mt-5">
+							<label> فئة العقار </label>
+							<?= Get_Select_Property_Types('select','','1', '','') ?>
+							<label class="checkbox mt-5">
+								<input type="checkbox" value="1"  checked="checked" name="All_Property_Types"/>
+								<span></span>
+								عام لجميع العقارات
+							</label>
+						</div>
+						<div class="col-lg-3 mt-5">
+							<label> فئة الطلب </label>
+							<?= Creation_List_HTML('select', 'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL', '','','options', '1','','','',array( 0=> "selectpicker"),'','','') ?>
+
+							<label class="checkbox mt-7">
+								<input type="checkbox" value="1"  checked="checked" name="All_TYPES_APPRAISAL"/>
+								<span></span>
+								عام لجميع الطلبات
+							</label>
+						</div>
+						<div class="col-lg-3 mt-5">
+							<label> طريقة  التقييم </label>
+							<?= Get_Select_evaluation_methods('select', '',1, '','evaluation_methods') ?>
+							<label class="checkbox mt-5">
+								<input type="checkbox" value="1"  checked="checked" name="All_evaluation_methods"/>
+								<span></span>
+								عام طرق التقييم
+							</label>
+						</div>
+					</div>
+
                 </div>
 
 				<div class="card-footer">

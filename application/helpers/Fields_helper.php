@@ -58,50 +58,56 @@ if(!function_exists('Creation_Field')) {
 
         $data_input = array();
 
-        $data_input['type'] = 'text';
+        if($query_Fields->Fields_Type_Fields ==  'text' or $query_Fields->Fields_Type_Fields ==  'date') {
 
-        $class_output = ' form-control ';
-        if(is_array($class)){
-            foreach ($class AS $c)
-            {
-                $class_output .= $class_output.' '.$c;
+            $data_input['type'] = 'text';
+
+            $class_output = ' form-control ';
+            if (is_array($class)) {
+                foreach ($class as $c) {
+                    $class_output .= $class_output . ' ' . $c;
+                }
             }
-        }
 
-        $attribute_output = '';
-        if(is_array($attribute)){
-            foreach ($attribute AS $atr)
-            {
-                $attribute_output .= $attribute_output.' '.$atr;
+            $attribute_output = '';
+            if (is_array($attribute)) {
+                foreach ($attribute as $atr) {
+                    $attribute_output .= $attribute_output . ' ' . $atr;
+                }
             }
-        }
 
-        if($query_Fields->Fields_Type_Fields == 'date') $class_output .= $class_output.' datepicker';
-        if($query_Fields->Fields_Type_Fields == 'file') $class_output .= $class_output.' form-control-file';
+            if ($query_Fields->Fields_Type_Fields == 'date') $class_output .= $class_output . ' datepicker';
+            if ($query_Fields->Fields_Type_Fields == 'file') $class_output .= $class_output . ' form-control-file';
 
-        $data_input['name']       = $query_Fields->Fields_key;
-        $data_input['id']         = $id;
-        $data_input['value']      = set_value($query_Fields->Fields_key, $value);
-        $data_input['maxlength']  = $maxlength;
-        $data_input['style']      = $style;
+            $data_input['name'] = $query_Fields->Fields_key;
+            $data_input['id'] = $id;
+            $data_input['value'] = set_value($query_Fields->Fields_key, $value);
+            $data_input['maxlength'] = $maxlength;
+            $data_input['style'] = $style;
 
-        if(!empty($disabled)){
-            $data_input['disabled']   = $disabled;
-        }
+            if (!empty($disabled)) {
+                $data_input['disabled'] = $disabled;
+            }
 
 
-        $data_input['class']     = $class_output;
-        $data_input['attribute'] = $attribute_output;
+            $data_input['class'] = $class_output;
+            $data_input['attribute'] = $attribute_output;
 
-        if($js){
-            $input =  form_input($data_input,$js);
-        } else{
-            $input =  form_input($data_input);
-        }
+            if ($js) {
+                $input = form_input($data_input, $js);
+            } else {
+                $input = form_input($data_input);
+            }
 
-        if($label){
-            $form_input .= form_label($query_Fields->item_translation,'');
-            $form_input .= $input;
+            if ($label) {
+                $form_input .= form_label($query_Fields->item_translation, '');
+                $form_input .= $input;
+            }
+
+        }elseif ($query_Fields->Fields_Type_Fields ==  'file_multiple'){
+
+            $form_input.= app()->load->view('../../modules/System_Fields/views/tamplet_file_multiple',$data_input, true);
+
         }
 
         return $form_input;
@@ -121,6 +127,7 @@ if(!function_exists('array_Type_Fields')) {
             "date"     => "تاريخ",
             "email"    => "بريد الكتروني",
             "file"     => "تحميل ملف",
+            "file_multiple"     => "تحميل متعدد للملفات",
             "number"   => "ارقام",
             "number_list" => "ترقيم 10 ",
             "time"     => "وقت",
@@ -133,24 +140,114 @@ if(!function_exists('array_Type_Fields')) {
 }
 ####################################################################
 
+##############################################################################
+if(!function_exists('Creation_validating_Fields')) {
+
+    function Creation_validating_Fields($data)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_forms_fields_validation',$data);
+
+        if(app()->db->affected_rows()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Get_validating_Fields')) {
+
+    function Get_validating_Fields($where_extra)
+    {
+        app()->load->database();
+        if(!empty($where_extra)){
+
+            foreach ($where_extra AS $key => $value)
+            {
+                $query = app()->db->where($key,$value);
+            }
+        }
+        $query = app()->db->get('portal_forms_fields_validation');
+        return $query;
+    }
+
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Update_validating_Fields'))
+{
+
+    function Update_validating_Fields($Forms_id,$Components_id,$Fields_id,$company_id,$data)
+    {
+            app()->load->database();
+            $lang   = get_current_lang();
+
+            $query = app()->db->where('Forms_id', $Forms_id);
+            $query = app()->db->where('Components_id', $Components_id);
+            $query = app()->db->where('company_id', $company_id);
+            $query = app()->db->where('Fields_id', $Fields_id);
+            $query = app()->db->set('validating_rules', $data);
+            $query = app()->db->update('portal_forms_fields_validation');
+
+            if (app()->db->affected_rows()) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+}
+##############################################################################
 
 
 # Rule validating Fields
 ####################################################################
 if(!function_exists('validating_Fields_required')) {
 
-    function validating_Fields_required()
+    function validating_Fields_required($checkbox_required='')
     {
 
 
         $html   ='<div class="checkbox-inline mt-5">
                             <label class="checkbox checkbox-primary">
-                                <input type="checkbox" id="required" value="required" name="validating[]"/>
+                                <input type="checkbox" '.$checkbox_required.' id="required" value="required" name="validating[]"/>
                                 <span></span>
                                 '.lang('Rule_validating_Fields_required').'
                             </label>
                             <br>
                             <span class="form-text text-muted">'.lang('Rule_validating_Fields_description').'</span>
+                     </div>';
+
+        $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';
+
+        return $html;
+
+    }
+}
+####################################################################
+
+
+####################################################################
+if(!function_exists('validating_Fields_trim')) {
+
+    function validating_Fields_trim($checkbox_trim='')
+    {
+
+
+        $html   ='<div class="checkbox-inline mt-5">
+                            <label class="checkbox checkbox-primary">
+                                <input type="checkbox" '.$checkbox_trim.'  id="required" value="trim" name="validating[]"/>
+                                <span></span>
+                                '.lang('Rule_validating_Fields_trim').'
+                            </label>
+                            <br>
+                            <span class="form-text text-muted"></span>
                      </div>';
 
         $html .='<div class="separator  mt-5 separator-dashed separator-border-2 separator-primary"></div>';

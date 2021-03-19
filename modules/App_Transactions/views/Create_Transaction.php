@@ -38,11 +38,18 @@
 
 
 		    <?php
-		    $Form_Components = Get_Form_Components(1);
+		    $where_extra_Form_Components = array(
+		    		'With_Type_CUSTOMER'           => "All",
+				    'With_Type_Property'           => "All",
+				    'With_TYPES_APPRAISAL'         => "All",
+				    'With_Type_evaluation_methods' => "All"
+		    );
+		    $Form_Components             = Get_Form_Components(1,$where_extra_Form_Components);
+
 		    foreach ($Form_Components->result() AS $RC)
 		    {
 		    ?>
-
+			<input type="hidden" name="Form_id" value="1">
 		    <div class="card card-custom mt-10">
 
 			    <!--begin::Header-->
@@ -161,50 +168,7 @@
 <!--end::Entry-->
 
 
-
-
-<script type="text/template" id="todos_labels">
-	<div class="field-group row">
-		<div class="col-lg-4 mt-5">
-			<label for="NameFile_{?}">اسم الملف</label>
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<input type="text" name="FILE_Name[]" id="FILE_Name[{?}]"  class="form-control">
-			</div>
-		</div>
-		<div class="col-lg-4 mt-5">
-			<label for="File_{?}">مرفقات المعاملة</label>
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<input type="file" name="FILE_Transaction[]" id="FILE_Transaction[{?}]" class="form-control-file">
-			</div>
-		</div>
-		<div class="col-lg-4 mt-5">
-			<label for=""></label>
-			<input type="button" class="btn btn-danger span-2 delete" value="حذف" />
-		</div>
-	</div>
-</script>
-
-
 <?= import_js(BASE_ASSET.'js/pages/crud/forms/editors/summernote',''); ?>
-<?= import_js(BASE_ASSET.'plugins/jquery.repeatable',''); ?>
-
-
-<script type="text/javascript">
-
-
-	$(function() {
-		$(".todos_labels .repeatable").repeatable({
-			addTrigger: ".todos_labels .add",
-			deleteTrigger: ".todos_labels .delete",
-			template: "#todos_labels",
-			startWith: 1,
-			max:10
-		});
-	});
-
-</script>
-
-
 
 <script type="text/javascript">
 	function ajax_list(el){

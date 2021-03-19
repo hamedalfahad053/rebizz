@@ -17,6 +17,71 @@ class App_Ajax extends Apps
     }
     ###################################################################
 
+    ###############################################################################################
+    public function Ajax_Components()
+    {
+            $lang          = get_current_lang();
+
+            $form_id                      = trim($this->input->get('form_id'));
+            $Type_CUSTOMER                = trim($this->input->get('Type_CUSTOMER'));
+            $With_Type_Property           = trim($this->input->get('With_Type_Property'));
+            $With_TYPES_APPRAISAL         = trim($this->input->get('With_TYPES_APPRAISAL'));
+            $With_Type_evaluation_methods = trim($this->input->get('With_Type_evaluation_methods'));
+
+
+            $query = $this->db->from('portal_forms_components  components');
+            $query = $this->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
+            $query = $this->db->where('components_translation.translation_lang',$lang);
+
+            $query = $this->db->where_in('components.With_Type_CUSTOMER',$Type_CUSTOMER);
+            $query = $this->db->or_where_in('components.With_Type_Property',$With_Type_Property);
+            $query = $this->db->or_where_in('components.With_TYPES_APPRAISAL',$With_TYPES_APPRAISAL);
+            $query = $this->db->or_where_in('components.With_Type_evaluation_methods',$With_Type_evaluation_methods);
+            $query = $this->db->where('components.Forms_id',$form_id);
+            $query = $this->db->get()->row();
+
+            $html = '';
+
+            $html .= '<div class="card card-custom mt-10">';
+
+            $html .= '<!--begin::Header-->';
+            $html .= '<div class="card-header">';
+            $html .= '<div class="card-title"> <h3 class="card-label"></h3></div><div class="card-toolbar"></div>';
+            $html .= '</div>';
+            $html .= '<!--End::Header-->';
+
+            $html .= '<!--begin::Body-->';
+            $html .= '<div class="card-body">';
+
+                        $html .= '<div class="form-group row">';
+
+                        $Get_Fields_Components = Building_Fields_Components_Forms($query->Forms_id,$query->components_id,$query->Type_CUSTOMER,$query->With_Type_Property,$query->With_TYPES_APPRAISAL,$query->With_Type_evaluation_methods);
+
+                        foreach ($Get_Fields_Components as $GFC)
+                        {
+                            if($GFC['Fields_Type_Components'] == 'Fields'){
+                                $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
+                                $Get_Fields       = Get_Fields($Where_Get_Fields)->row();
+                                $html .= '<div class="col-lg-4 mt-5">';
+                                $html .=  Creation_Field_HTML_input($Get_Fields->Fields_key, true, '', '', '', '', '', '', '', '', '');
+                                $html .= '</div>';
+                            }elseif($GFC['Fields_Type_Components'] == 'List'){
+                                $html .= '<div class="col-lg-4 mt-5">';
+                                $class_List      = array( 0 => "selectpicker");
+                                $html .=  Building_List_Forms($RC->Forms_id, $RC->components_id, $GFC['Fields_id'], $multiple = '', $selected='', $style='', $id='', $class = array( 0=> "selectpicker"), $disabled='', $label='', $js='');
+                                $html .= '</div>';
+                            }
+                        } // foreach
+
+                        $html .= '</div><!--<div class="form-group row">-->';
+
+            $html .= '</div>';
+            $html .= '<!--End::Body-->';
+
+            $html .= '</div><!--<div class="card card-custom mt-10">-->';
+
+    }
+    ###############################################################################################
 
     ###############################################################################################
     public function Ajax_LIST()

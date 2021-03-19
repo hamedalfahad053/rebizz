@@ -60,7 +60,16 @@
 
                             <div class="col-sm-12 col-md-6 mt-5">
                                 <label><?= lang('client_type') ?></label>
-                                <?= Get_Data_List('select', 'LIST_CUSTOMER_CATEGORY') ?>
+                                <?= Creation_List_HTML('select', 'LIST_CUSTOMER_CATEGORY',
+		                                '',
+		                                '',
+		                                'options',
+		                                '',
+		                                '',
+		                                '',
+		                                '',
+		                                array( 0=> "selectpicker"),'','',''
+                                ) ?>
                                 </select>
                             </div>
                         </div>

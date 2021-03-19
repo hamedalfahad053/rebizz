@@ -242,7 +242,6 @@
 
 
 <script type="text/template" id="todos_labels">
-
 	<div class="field-group row">
 		<div class="col-lg-4 mt-5">
 			<label for="NameFile_{?}">اسم الملف</label>
@@ -261,7 +260,6 @@
 			<input type="button" class="btn btn-danger span-2 delete" value="حذف" />
 		</div>
 	</div>
-
 </script>
 
 

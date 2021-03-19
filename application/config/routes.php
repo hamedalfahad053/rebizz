@@ -73,6 +73,7 @@ $route[ADMIN_NAMESPACE_URL.'/Forms']                         = 'System_Forms/Sys
 $route[ADMIN_NAMESPACE_URL.'/Forms/(:any)']                  = 'System_Forms/System_Forms/$1';
 $route[ADMIN_NAMESPACE_URL.'/Forms/(:any)/(:any)']           = 'System_Forms/System_Forms/$1/$2';
 $route[ADMIN_NAMESPACE_URL.'/Forms/(:any)/(:any)/(:any)']    = 'System_Forms/System_Forms/$1/$2/$3';
+$route[ADMIN_NAMESPACE_URL.'/Forms/(:any)/(:any)/(:any)/(:any)']    = 'System_Forms/System_Forms/$1/$2/$3/$4';
 
 # System List Data
 $route[ADMIN_NAMESPACE_URL.'/List_Data']                  = 'System_Fields/System_ListData';
@@ -135,21 +136,16 @@ $route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)/(:any)/(:any)']  = 'Syste
 /* ################################################################################
  * Apps
 */ ################################################################################
-
-
-
-
-$route[APP_NAMESPACE_URL]                                           = 'App_Dashboard/App_Dashboard';
 $route[APP_NAMESPACE_URL.'/Dashboard']                              = 'App_Dashboard/App_Dashboard';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)']                       = 'App_Dashboard/App_Dashboard/$1';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)']                = 'App_Dashboard/App_Dashboard/$1/$2';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)/(:any)']         = 'App_Dashboard/App_Dashboard/$1/$2/$3';
 
 # Company Settings
-$route[APP_NAMESPACE_URL.'/Settings']                       = 'App_CompanySettings/App_CompanySettings';
-$route[APP_NAMESPACE_URL.'/Settings/(:any)']                = 'App_CompanySettings/App_CompanySettings/$1';
-$route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)']         = 'App_CompanySettings/App_CompanySettings/$1/$2';
-$route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)/(:any)']  = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Settings']                               = 'App_CompanySettings/App_CompanySettings';
+$route[APP_NAMESPACE_URL.'/Settings/(:any)']                        = 'App_CompanySettings/App_CompanySettings/$1';
+$route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)']                 = 'App_CompanySettings/App_CompanySettings/$1/$2';
+$route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)/(:any)']          = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
 
 #  Settings Transaction
 $route[APP_NAMESPACE_URL.'/Settings_Transaction']                          = 'App_CompanySettings/Settings_Transaction';

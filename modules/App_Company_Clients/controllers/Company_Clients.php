@@ -18,6 +18,7 @@ class Company_Clients extends Apps
         $where_Client_Company = array(
             "company_id" => $this->aauth->get_user()->company_id
         );
+
         $Get_All_Clients = Get_Client_Company($where_Client_Company);
 
         if ($Get_All_Clients->num_rows() > 0) {
@@ -70,10 +71,11 @@ class Company_Clients extends Apps
             $this->data['ClientList'] = false;
         }
 
-        $this->data['List_status'] = array_options_status();
+        $this->data['List_status']   = array_options_status();
 
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET . 'plugins/custom/datatables/datatables.bundle', $this->data['direction']);
         $this->data['Lode_file_Js']  = import_js(BASE_ASSET . 'plugins/custom/datatables/datatables.bundle', '');
+
         $this->data['Page_Title']    = lang('Management_Clients');
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
@@ -125,7 +127,7 @@ class Company_Clients extends Apps
             $data_client['type_id']       = $this->input->post('LIST_CUSTOMER_CATEGORY',true);
             $data_client['email']         = $this->input->post('email',true);
             $data_client['phone']         = $this->input->post('Phone',true);
-            $data_client['company_id']    = $this->data['LoginUser_Company'];
+            $data_client['company_id']    = $this->aauth->get_user()->company_id;
             $data_client['is_active']     = $this->input->post('is_active',true);
             $data_client['created_By']    = $this->aauth->get_user()->id;
             $data_client['created_date']  = time();
@@ -149,7 +151,7 @@ class Company_Clients extends Apps
                     $data_client['logo']  = $upload_data['file_name'];
                 }
 
-                $Create_Client  = $this->Compnay_Clients_model->Create_Client($data_client);
+                $Create_Client  = Create_Client($data_client);
 
                 if($Create_Client){
                     $msg_result['key']   = 'Success';
@@ -178,8 +180,11 @@ class Company_Clients extends Apps
         // uuid
         $Client_id =  $this->uri->segment(4);
 
-        $this->data['Client_Info']     = App_Get_Client_Company_By_uuid($this->data['LoginUser_Company'],$Client_id)->row();
-
+        $where_Client =  array(
+            "uuid"       => $Client_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
 
         if($this->data['Client_Info']->is_active == 1) {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
@@ -209,11 +214,16 @@ class Company_Clients extends Apps
     public function Information()
     {
 
-        $Client_id =  $this->uri->segment(4);
+        $Client_id    =  $this->uri->segment(4);
+        $where_Client =  array(
+            "uuid"       => $Client_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
 
-        $this->data['Client_Info']     = App_Get_Client_Company_By_uuid($this->data['LoginUser_Company'],$Client_id)->row();
 
-        if($this->data['Client_Info']->is_active == 1) {
+        if($this->data['Client_Info']->is_active == 1)
+        {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
         }else{
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
@@ -236,9 +246,13 @@ class Company_Clients extends Apps
     ###################################################################
     public function Contracts()
     {
-        $Client_id =  $this->uri->segment(4);
+        $Client_id    =  $this->uri->segment(4);
 
-        $this->data['Client_Info']     = App_Get_Client_Company_By_uuid($this->data['UserLogin']['Company_User'],$Client_id)->row();
+        $where_Client =  array(
+            "uuid"       => $Client_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
 
         if($this->data['Client_Info']->is_active == 1) {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
@@ -246,11 +260,16 @@ class Company_Clients extends Apps
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
         }
 
-        $Contracts_Client =  App_Client_Contract_Company($this->data['UserLogin']['Company_User'],$Client_id);
+        $where_Client_Contract =  array(
+            "Clients_id" => $this->data['Client_Info']->client_id,
+            "Company_id" => $this->aauth->get_user()->company_id
+        );
+        $Client_Contract = Get_Client_Contract_Company($where_Client_Contract);
 
-        if ($Contracts_Client->num_rows() > 0) {
 
-            foreach ($Contracts_Client->result() as $ROW) {
+        if ($Client_Contract->num_rows() > 0) {
+
+            foreach ($Client_Contract->result() as $ROW) {
 
                 if ($ROW->Contracts_isDeleted == false) {
                     $Contracts_status =  Create_Status_badge(array("key" => "Success", "value" => lang('Status_Active')));
@@ -306,9 +325,12 @@ class Company_Clients extends Apps
     ###################################################################
     public function Form_add_Contracts()
     {
-        $Client_id =  $this->uri->segment(4);
-
-        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['UserLogin']['Company_User'],$Client_id)->row();
+        $Client_id    =  $this->uri->segment(4);
+        $where_Client =  array(
+            "uuid"       => $Client_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
 
         if($this->data['Client_Info']->is_active == 1) {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
@@ -425,8 +447,18 @@ class Company_Clients extends Apps
         $Contracts_id =  $this->uri->segment(4);
         $Client_id    =  $this->uri->segment(5);
 
-        $this->data['Client_Contract'] = Get_Client_Contract_uuid_Company($this->data['LoginUser_Company'],$Contracts_id)->row();
-        $this->data['Client_Info']     = App_Get_Client_Company_By_uuid($this->data['UserLogin']['Company_User'],$Client_id)->row();
+        $where_Client_Contract =  array(
+            "uuid"       => $Contracts_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Contract'] = Get_Client_Contract_Company($where_Client_Contract)->row();
+
+        $where_Client =  array(
+            "uuid"       => $Client_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
+
 
         if($this->data['Client_Info']->is_active == 1) {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
@@ -452,9 +484,13 @@ class Company_Clients extends Apps
     ###################################################################
     public function Properties()
     {
-        $Client_id =  $this->uri->segment(4);
+        $Client_id    =  $this->uri->segment(4);
+        $where_Client =  array(
+            "uuid"       => $Client_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
 
-        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['UserLogin']['Company_User'],$Client_id)->row();
 
         if($this->data['Client_Info']->is_active == 1) {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
@@ -480,8 +516,13 @@ class Company_Clients extends Apps
     ###################################################################
     public function Transactions()
     {
-        $Client_id =  $this->uri->segment(4);
-        $this->data['Client_Info']     = App_Get_Client_Company_By_id($this->data['UserLogin']['Company_User'],$Client_id)->row();
+        $Client_id    =  $this->uri->segment(4);
+        $where_Client =  array(
+            "uuid"       => $Client_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
+
 
         if($this->data['Client_Info']->is_active == 1) {
             $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));

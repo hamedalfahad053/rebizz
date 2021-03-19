@@ -75,6 +75,8 @@ $lang['Google_Location_on_Google']    = 'الموقع على قوقل';
 # Rule validating Fields
 $lang['title_validating_Fields']        = 'اعدادت الحقل ';
 
+$lang['Rule_validating_Fields_trim']        = 'حذف المسافات اول و اخر المدخلات';
+
 $lang['Rule_validating_Fields_required']        = 'مطلوب';
 $lang['Rule_validating_Fields_description']     = 'تُرجع خطا إذا كان عنصر النموذج فارغًا.';
 

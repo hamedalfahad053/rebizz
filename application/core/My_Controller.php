@@ -128,8 +128,6 @@ class Apps extends MY_Controller
          }
 
         $this->data['UserLogin']                     = $this->session->userdata('UserCompany');
-        $this->data['LoginUser_Company']             = $this->data['UserLogin']['Company_User'];
-        $this->data['LoginUser_location']            = $this->data['UserLogin']['Company_Locations'];
         $this->data['LoginUser_Company_domain']      = Get_Company($this->data['UserLogin']['Company_User'])->companies_Domain;
         $this->data['LoginUser_Company_Path_Folder'] = BASE_URL.'uploads/companies/' . $this->data['LoginUser_Company_domain'].'';
 

@@ -61,10 +61,14 @@ class Auth extends Authorization
                     $userdata['User_Group_login']    = Get_Group_User($this->aauth->get_user()->id);
                     $userdata['Company_User']        = $this->aauth->get_user()->company_id;
                     $userdata['Company_Locations']   = $this->aauth->get_user()->locations_id;
-                    $userdata['Company_Domain']      = $this->aauth->get_user()->company_Domain;
-                    $userdata['type_User_login']     = 'Company';
+                    $userdata['Company_Domain']      = Get_Company($this->aauth->get_user()->company_id)->companies_Domain;
                     $userdata['time_User_login']     = time();
                     $userdata['ip_User_login']       = get_real_ip();
+
+                    //print_r($this->aauth->get_user());
+                    //print_r(Get_Company($this->aauth->get_user()->company_id));
+
+                    Create_Logs_User('Login User','','Login','Login');
 
                     $this->session->set_userdata('UserCompany',$userdata);
                     redirect(APP_NAMESPACE_URL.'/Dashboard', 'refresh');

@@ -1,86 +1,71 @@
 <?php
 
 ##############################################################################
-if(!function_exists('Cleaning_Transaction_Numbering')) {
+if(!function_exists('Create_Transaction')) {
 
-    function Cleaning_Transaction_Numbering()
+    function Create_Transaction($data)
     {
-        $time_space = time()+1*60;
+        $query = app()->db->insert('protal_transaction',$data);
 
-//        app()->db->where('Transaction_Status_id',46);
-//        app()->db->where('Create_Transaction_Date',$time_space);
-//        $query2 = app()->db->delete('protal_transaction');
-    }
-
-}
-##############################################################################
-
-##############################################################################
-if(!function_exists('Create_Transaction_Numbering')) {
-
-    function Create_Transaction_Numbering($Transaction_Status_id)
-    {
-
-        $data_Transaction = array();
-
-        $data_Transaction['Create_Transaction_Date']   = time();
-        $data_Transaction['Create_Transaction_By_id']  = app()->aauth->get_user()->id;
-        $data_Transaction['company_id']                = Get_Company_User(app()->aauth->get_user()->id)->companies_id;
-        $data_Transaction['location_id']               = Get_Company_User(app()->aauth->get_user()->id)->locations_id;
-        $data_Transaction['Transaction_Status_id']     = $Transaction_Status_id;
-
-        $query     = app()->db->insert('protal_transaction',$data_Transaction);
-        $insert_id = app()->db->insert_id();
-
-        if($insert_id){
-            $query_transaction = app()->db->get('protal_transaction',array('transaction_id',$insert_id))->row();
-
-            app()->db->set('transaction_number', date('Ymd').'-'.$insert_id);
-            app()->db->where('transaction_id', $insert_id);
-            app()->db->update('protal_transaction');
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
         }
 
-        return $query_transaction;
     }
-}
+
+} // if(!function_exists('Create_Transaction'))
 ##############################################################################
 
-##############################################################################
-if(!function_exists('Get_Transactions_By_Company_id')) {
 
-    function Get_Transactions_By_Company_id($Company_id,$location_id='',$INSTRUMENT_NUMBER)
+##############################################################################
+if(!function_exists('Create_Transaction_data')) {
+
+    function Create_Transaction_data($Transaction_id,$data)
     {
-        $query_Get_Transactions = app()->db->where('company_id',$Company_id);
-
-        if(!empty($location_id)){
-            $query_Get_Transactions = app()->db->where('location_id',$location_id);
+        if(is_array($data)){
+            $data_insert = array();
+            foreach ($data AS $key => $value)
+            {
+                if($value !='') {
+                    $data_insert = array(
+                        "Transaction_id"   => $Transaction_id,
+                        "data_key"         => $key,
+                        "data_value"       => $value,
+                        "data_Create_id"   => app()->aauth->get_user()->id,
+                        "data_Create_time" => time(),
+                    );
+                }
+                $query = app()->db->insert('protal_transaction_data',$data_insert);
+            }
         }
 
-        $query_Get_Transactions = app()->db->where('INSTRUMENT_NUMBER',$INSTRUMENT_NUMBER);
-        $query_Get_Transactions = app()->db->get('protal_transaction');
-        return $query_Get_Transactions;
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
 
     } // function
 
-} // if(!function_exists('Get_Transactions_By_Company_id'))
+} // if(!function_exists('Create_Transaction_data'))
 ##############################################################################
 
 ##############################################################################
-if(!function_exists('Get_All_Transactions')) {
+if(!function_exists('Create_Transaction_files')) {
 
-    function Get_All_Transactions($where)
+    function Create_Transaction_files($data)
     {
+        $query = app()->db->insert('protal_transaction_files',$data);
 
-        foreach ($where AS $key => $value)
-        {
-            $query_Get_Transactions = app()->db->where($key,$value);
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
         }
 
-        $query_Get_Transactions = app()->db->get('protal_transaction');
+    }
 
-        return $query_Get_Transactions;
-
-    } // function
-
-} // if(!function_exists('Get_Transactions_By_Company_id'))
+} // if(!function_exists('Create_Transaction'))
 ##############################################################################

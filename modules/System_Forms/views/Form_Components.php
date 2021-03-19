@@ -46,13 +46,23 @@ $Form_id = $this->uri->segment(4);
 				    <h3 class="card-label">خيارات النموذج</h3>
 			    </div>
 			    <div class="card-toolbar">
-	                <?=  Create_One_Button_Text_Without_tooltip(
+	                <?php
+	                echo Create_One_Button_Text_Without_tooltip(
 	                		array('id'=>'',
 					              'class'=>'',
 					              'title' => 'اضافة قسم',
 					              'data_attribute' => '',
 					              'href' => base_url(ADMIN_NAMESPACE_URL.'/Forms/Form_Add_Components/'.$Form_id))
 	                );
+
+	                echo Create_One_Button_Text_Without_tooltip(
+			                array(  'id'=>'',
+					                'class'=>'',
+					                'title' => 'ترتيب الاقسام',
+					                'data_attribute' => '',
+					                'href' => base_url(ADMIN_NAMESPACE_URL.'/Forms/Sort_Components_Form/'.$Form_id))
+	                );
+
 	                ?>
 			    </div>
 		    </div>
@@ -121,7 +131,7 @@ $Form_id = $this->uri->segment(4);
 							    "id"             => "",
 							    "color"          => "info",
 							    "icon"           => "flaticon2-sort",
-							    "href"           => base_url('')
+							    "href"           => base_url(ADMIN_NAMESPACE_URL.'/Forms/Sort_Fields_Components_Form/'.$RC->Forms_id.'/'.$RC->components_id)
 					    );
 
 
@@ -210,7 +220,24 @@ $Form_id = $this->uri->segment(4);
 							    <td class="text-center">
 								    <?= $GFC['Fields_key'] ?>
 							    </td>
-							    <td class="text-center"></td>
+							    <td class="text-center">
+								    <?php
+
+								    $options['custom'] = array(
+										    "class"          => '',
+										    "id"             => '',
+										    "title"          => 'شروط الحقل',
+										    "icon"           => 'flaticon2-settings',
+										    "color"          => 'danger',
+										    "data-attribute" => '',
+										    "href"           => base_url(ADMIN_NAMESPACE_URL.'/Forms/Validating_Fields/'.$RC->Forms_id.'/'.$RC->components_id.'/'.$GFC['Fields_id_Components'])
+								    );
+
+								    echo Create_Options_Button($options);
+
+
+								    ?>
+							    </td>
 						    </tr>
 					    <?php
 					    }

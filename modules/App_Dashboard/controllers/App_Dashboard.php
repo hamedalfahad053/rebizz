@@ -18,8 +18,8 @@ class App_Dashboard extends Apps
         $this->data['Page_Title']  = 'لوحة المعلومات';
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
-        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
 
+        $this->data['breadcrumbs']   = $this->mybreadcrumb->render();
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
         $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
 

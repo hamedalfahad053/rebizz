@@ -37,40 +37,25 @@ class System_Fields extends Admin
                 $options = array();
 
                 $options['view'] = array(
-                    "class"=>"","id"=>"",
-                    "title" => lang('view_button'),
-                    "data-attribute" => '',
-                    "href" => "#"
+                    "class"=>"","id"=>"", "title" => lang('view_button'), "data-attribute" => '', "href" => "#"
                 );
 
                 $options['edit'] = array(
-                    "class"=>"","id"=>"",
-                    "title" => lang('edit_button'),
-                    "data-attribute" => '',
-                    "href" => "#"
+                    "class"=>"","id"=>"", "title" => lang('edit_button'), "data-attribute" => '', "href" => "#"
                 );
 
                 if($ROW->Fields_status_Fields == 0) {
                     $options['active'] = array(
-                        "class"=>"","id"=>"",
-                        "title" => lang('active_button'),
-                        "data-attribute" => '',
-                        "href" => "#"
+                        "class"=>"","id"=>"", "title" => lang('active_button'), "data-attribute" => '', "href" => "#"
                     );
                 }else {
                     $options['disable'] = array(
-                        "class"=>"","id"=>"",
-                        "title" => lang('disable_button'),
-                        "data-attribute" => '',
-                        "href" => "#"
+                        "class"=>"","id"=>"", "title" => lang('disable_button'), "data-attribute" => '', "href" => "#"
                     );
                 }
 
                 $options['deleted'] = array(
-                    "class"=>"","id"=>"",
-                    "title" => lang('deleted_button'),
-                    "data-attribute" => '',
-                    "href" => "#"
+                    "class"=>"","id"=>"", "title" => lang('deleted_button'), "data-attribute" => '', "href" => "#"
                 );
 
                 $Fields_status_system =  Create_Options_Button($options);
@@ -151,7 +136,7 @@ class System_Fields extends Admin
 
             $Fields_key = strtoupper(str_replace(" ", "_", $this->input->post('title_en')));
 
-            if(Get_Fields($Fields_key)->num_rows()>0){
+            if(Get_Fields(array("Fields_key"=>$Fields_key))->num_rows()>0){
 
                 $msg_result['key']   = 'Danger';
                 $msg_result['value'] = 'الحقل مضاف مسبقا';
@@ -199,6 +184,7 @@ class System_Fields extends Admin
         } // if($this->form_validation->run()==FALSE)
     }
     ###################################################################
+
 
 
 

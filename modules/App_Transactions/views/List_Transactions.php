@@ -50,7 +50,7 @@
 
 
 	                <?php
-	                if($Transactions==false){
+	                if($Transactions == false){
 
 		                $msg_result['key'] = 'Danger';
 		                $msg_result['value'] = 'لا يوجد معاملات تم انشاؤها حاليا';
@@ -78,22 +78,12 @@
 	                        {
 	                        ?>
 	                        <tr>
-	                            <td class="text-center">
-		                           <img src="<?= $Row['Client_logo']; ?>" height="35" width="35" >
-		                            <br>
-		                            <?= $Row['transaction_number']; ?>
-		                            <br>
-		                            <?= Create_Status_badge(array("key"=>"Success","value"=>$Row['LIST_METHOD_OF_RECEIPT'])); ?>
-	                            </td>
-	                            <td class="text-center">
-		                            <?= $Row['OWNER_REAL_ESTATE'] ?> - <?= $Row['OWNER_IDENTITY_NUMBER'] ?> - <?= $Row['OWNERS_MOBILE_NUMBER'] ?>
-		                            <br>
-		                            <?= $Row['OWNER_APPLICANT_EVALUATION'] ?> - <?= $Row['OWNER_APPLICANT_IDENTITY_NUMBER'] ?> - <?= $Row['OWNER_MOBILE_EVALUATION'] ?>
-	                            </td>
-		                        <td class="text-center"><?= $Row['location_Property'] ?></td>
-	                            <td class="text-center"><?= $Row['Create_Transaction_By_id'] ?> - <?= $Row['Create_Transaction_Date'] ?></td>
-		                        <td class="text-center"><?= $Row['Transaction_Status'] ?></td>
-		                        <td class="text-center"><?= $Row['Options_Transaction'] ?></td>
+	                            <td class="text-center"></td>
+	                            <td class="text-center"></td>
+		                        <td class="text-center"></td>
+	                            <td class="text-center"></td>
+		                        <td class="text-center"></td>
+		                        <td class="text-center"></td>
 	                        </tr>
 	                        <?php
 	                        }

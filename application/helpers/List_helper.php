@@ -271,6 +271,28 @@ if(!function_exists('Get_options_List')) {
 ##############################################################################
 
 
+##############################################################################
+if(!function_exists('Get_options_List_Translation')) {
+
+    function Get_options_List_Translation($options_id,$where_options='')
+    {
+        $lang          = get_current_lang();
+
+        if (!empty($where_options)) {
+            foreach ($where_options as $key => $value) {
+                $query_list_options = app()->db->where( $key,$value);
+            }
+        }
+
+        $query_list_options = app()->db->where('item_id', $options_id);
+        $query_list_options = app()->db->where('translation_lang', $lang);
+        $query_list_options = app()->db->get('portal_list_options_translation')->row();
+
+        return $query_list_options;
+    }
+}
+##############################################################################
+
 
 
 

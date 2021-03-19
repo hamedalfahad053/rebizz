@@ -26,7 +26,12 @@
             .dropdown-toggle {padding-right: 5px !important;}
             .bootstrap-select.btn-group,.dropdown-toggle,.filter-option,.filter-option-inner-inner{text-align: right !important;}
             .bootstrap-select.btn-group .dropdown-toggle .caret {left: 12px !important;right: unset !important;}
+
             th.dt-center,.dt-center { text-align: center; }
+
+            input.datepicker {
+				width: 100% !important;
+			}
         </style>
         <?php
     }
@@ -179,10 +184,6 @@
                                 </ul>
                             </div>
                         </li>
-
-
-
-
 
 
 	                    <li class="menu-section">
@@ -455,22 +456,21 @@
 
 	$('.datepicker').datepicker({
 		rtl: KTUtil.isRTL(),
-		format:'<?= company_settings_system($LoginUser_Company,'datepicker_data_format') ?>',
+		format:'<?= company_settings_system($this->aauth->get_user()->company_id,'datepicker_data_format') ?>',
 		todayHighlight: true,
 		orientation: "bottom left",
 		templates: arrows,
-		language: "ar",
-
+		language: "ar"
 	});
 
 	$('.selectpicker').selectpicker();
 
-
-
-
 	$('.summernote').summernote({
 		height: 150
 	});
+
+
+
 
 </script>
 
