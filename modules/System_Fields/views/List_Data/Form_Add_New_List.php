@@ -193,7 +193,7 @@
 							                </div>
 							                <div class="col-md-2">
 								                <label><?= lang('Table_Status') ?></label>
-								                <select name="options_status"  class="form-control">
+								                <select name="options_status" title="اختر"  class="form-control">
 									                <?php
 									                foreach ($List_status AS $key => $value)
 									                {
@@ -205,7 +205,7 @@
 							                </div>
 							                <div class="col-md-2">
 								                <label><?= lang('options_status') ?></label>
-								                <select name="options_status_system"  class="form-control">
+								                <select name="options_status_system" title="اختر"  class="form-control">
 									                <?php
 									                foreach ($List_status_system AS $key => $value)
 									                {

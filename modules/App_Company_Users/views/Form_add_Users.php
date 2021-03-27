@@ -46,18 +46,18 @@
             </div>
             <div class="card-body">
 
-                <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Company_Users/Create_Users') ?>" method="post">
+                <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Users/Create_Users') ?>" method="post">
                     <?= CSFT_Form() ?>
                     <div class="card-body">
 
 
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
-                                <label><?= lang('user_full_name_ar') ?></label>
+                                <label>الاسم باللغة العربية</label>
                                 <input type="text" name="full_name_ar" class="form-control" placeholder="<?= lang('user_full_name_ar') ?>"/>
                             </div>
                             <div class="col-lg-6 mt-5">
-                                <label><?= lang('user_full_name_en') ?></label>
+                                <label>الاسم باللغة الانجليزية</label>
                                 <input type="text" name="full_name" class="form-control" placeholder="<?= lang('user_full_name_en') ?>"/>
                             </div>
                         </div>
@@ -76,20 +76,20 @@
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('Auth_password') ?></label>
-                                <input type="text" name="password" class="form-control" placeholder="<?= lang('Auth_password') ?>"/>
+                                <input type="password" name="password" class="form-control" placeholder="<?= lang('Auth_password') ?>"/>
                             </div>
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('Auth_confirm_password') ?></label>
-                                <input type="text" name="confirm_password" class="form-control" placeholder="<?= lang('Auth_confirm_password') ?>"/>
+                                <input type="password" name="confirm_password" class="form-control" placeholder="<?= lang('Auth_confirm_password') ?>"/>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-lg-4 mt-5">
+                            <div class="col-lg-3 mt-5">
                                 <label>الفرع</label>
                                 <select name="Locations_Users" id="Locations_Users"  title="اختر من فضلك "  class="form-control selectpicker">
                                     <?php
-                                    foreach ($Company_Locations_Users AS $value)
+                                    foreach ($Locations_Users AS $value)
                                     {
                                         echo '<option value="'.$value['locations_id'].'">'.$value['locations_Name'].'</option>';
                                     }
@@ -97,18 +97,31 @@
                                 </select>
                             </div>
 
-                            <div class="col-lg-4 mt-5">
+	                        <div class="col-lg-3 mt-5">
+		                        <label>القسم </label>
+		                        <select name="departments_id" id="departments_id"  title="اختر من فضلك "  class="form-control selectpicker">
+			                        <?php
+			                        foreach ($departments AS $value)
+			                        {
+				                        echo '<option value="'.$value['departments_id'].'">'.$value['departments_title'].'</option>';
+			                        }
+			                        ?>
+		                        </select>
+	                        </div>
+
+                            <div class="col-lg-3 mt-5">
                                 <label><?= lang('user_group') ?></label>
                                 <select name="user_group" id="user_group"  title="اختر من فضلك "  class="form-control selectpicker">
                                     <?php
-                                    foreach ($Company_Group_Users AS $value2)
+                                    foreach ($Group_Users AS $value_d)
                                     {
-                                        echo '<option value="'.$value2['group_id'].'">'.$value2['group_title'].'</option>';
+                                        echo '<option value="'.$value_d['group_id'].'">'.$value_d['group_title'].'</option>';
                                     }
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-lg-4 mt-5">
+
+                            <div class="col-lg-3 mt-5">
                                 <label><?= lang('Table_Status') ?></label>
                                 <select name="user_Status" id="user_Status"  title="اختر من فضلك "  class="form-control selectpicker">
                                     <?php

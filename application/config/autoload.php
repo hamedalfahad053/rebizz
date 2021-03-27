@@ -96,11 +96,11 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 $autoload['helper'] = array(
-    'User',
-    'Company',
-    'List_Map',
-    'List',
-    'Fields',
+    'user',
+    'company',
+    'list_Map',
+    'list',
+    'fields',
     'app',
     'app_language',
     'layout',
@@ -111,14 +111,16 @@ $autoload['helper'] = array(
     'download',
     'language',
     'logs',
-    'Notifications',
-    'Permissions',
-    'Property_Types',
-    'Forms',
-    'Client_Company',
-    'Evaluation',
-    'Uplode',
-    'Transactions'
+    'notifications',
+    'permissions',
+    'property_Types',
+    'forms',
+    'client_Company',
+    'evaluation',
+    'uplode',
+    'transactions',
+    'company_locations',
+    'hrm'
 );
 
 /*

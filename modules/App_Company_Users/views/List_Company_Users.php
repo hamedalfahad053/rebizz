@@ -17,7 +17,7 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <?= Create_One_Button_Text(array("class"=>"","id"=>"",'title'=> 'اضافة مستخدم' ,'href'=>base_url(APP_NAMESPACE_URL.'/Users/add_Users'))) ?>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -41,7 +41,6 @@
                     <h3 class="card-label"><?= $Page_Title ?></h3>
                 </div>
                 <div class="card-toolbar">
-                    <?= Create_One_Button_Text(array("class"=>"","id"=>"",'title'=> 'اضافة مستخدم' ,'href'=>base_url(APP_NAMESPACE_URL.'/Company_Users/Form_add_Users'))) ?>
                 </div>
             </div>
             <div class="card-body">
@@ -55,6 +54,7 @@
                     <tr>
                         <th class="text-center">#</th>
                         <th class="text-center">المستخدم</th>
+	                    <th class="text-center">المجموعة</th>
                         <th class="text-center">البريد الالكتروني</th>
                         <th class="text-center">الجوال</th>
                         <th class="text-center">الفرع</th>
@@ -66,20 +66,25 @@
                     <tbody>
                     <?php
                     $i = 0;
-                    foreach ($Company_Users AS $row)
-                    {
-                        ?>
-                        <tr>
-                            <td class="text-center"><?= ++$i ?></td>
-                            <td class="text-center"><?= $row['full_name'] ?></td>
-                            <td class="text-center"><?= $row['email'] ?></td>
-                            <td class="text-center"><?= $row['phone'] ?></td>
-                            <td class="text-center"><?= $row['locations'] ?></td>
-                            <td class="text-center"><?= $row['date_created'] ?></td>
-                            <td class="text-center"><?= $row['user_status'] ?></td>
-                            <td class="text-center"><?= $row['user_options'] ?></td>
-                        </tr>
-                        <?php
+
+
+                    if($Company_Users != false){
+	                    foreach ($Company_Users AS $row)
+	                    {
+	                        ?>
+	                        <tr>
+	                            <td class="text-center"><?= ++$i ?></td>
+	                            <td class="text-center"><?= $row['full_name'] ?></td>
+		                        <td class="text-center"><?= $row['group_user'] ?></td>
+	                            <td class="text-center"><?= $row['email'] ?></td>
+	                            <td class="text-center"><?= $row['phone'] ?></td>
+	                            <td class="text-center"><?= $row['locations'] ?></td>
+	                            <td class="text-center"><?= $row['date_created'] ?></td>
+	                            <td class="text-center"><?= $row['user_status'] ?></td>
+	                            <td class="text-center"><?= $row['user_options'] ?></td>
+	                        </tr>
+	                        <?php
+	                    }
                     }
                     ?>
                     </tbody>

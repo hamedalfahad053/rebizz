@@ -42,7 +42,6 @@
                     <h3 class="card-label"><?= $Page_Title ?></h3>
                 </div>
                 <div class="card-toolbar">
-                    <?= Create_One_Button_Text(array('title'=> 'اضافة نموذج جديد' ,'href'=>base_url(APP_NAMESPACE_URL.'/Company_Forms/Add_New_Forms'))) ?>
                 </div>
             </div>
             <div class="card-body">
@@ -55,28 +54,36 @@
 		            <tr>
 			            <th class="text-center">#</th>
 			            <th class="text-center">عنوان النموذج</th>
-			            <th class="text-center">مخصص لـ</th>
-			            <th class="text-center"><?= lang('Table_Status') ?></th>
-			            <th class="text-center"><?= lang('Table_Options') ?></th>
+			            <th class="text-center">حالة النموذج</th>
+			            <th class="text-center">ادارة النموذج</th>
 		            </tr>
 		            </thead>
 		            <tbody>
 		            <?php
 		            $i = 0;
-		            if($List_Forms !== false){
-
-			            foreach ($List_Forms AS $row)
-			            {
-				            ?>
-				            <tr>
-					            <td class="text-center"><?= $row['form_id'] ?></td>
-					            <td class="text-center"><?= $row['form_title_ar'] ?></td>
-					            <td class="text-center"><?= $row['form_Client_id'] ?></td>
-					            <td class="text-center"><?= $row['form_status'] ?></td>
-					            <td class="text-center"><?= $row['form_options'] ?></td>
-				            </tr>
+		            foreach ($Forms AS $R)
+		            {
+		            ?>
+		            <tr>
+			            <td class="text-center"><?= ++$i ?></td>
+			            <td class="text-center"><?= $R['Forms_title'] ?></td>
+			            <td class="text-center"><?= $R['Forms_Status'] ?></td>
+			            <td class="text-center">
 				            <?php
-			            }
+				            $options['custom'] = array(
+						            "class"          => 'Create_Transaction',
+						            "id"             => '',
+						            "title"          => 'اعداد النموذج',
+						            "icon"           => 'flaticon2-settings',
+						            "color"          => 'primary',
+						            "data-attribute" => '',
+						            "href"           => base_url(APP_NAMESPACE_URL.'/Forms/Manage_Forms_Transaction/'.$R['Forms_uuid'])
+				            );
+				            echo Create_Options_Button($options);
+				            ?>
+			            </td>
+		            </tr>
+		            <?php
 		            }
 		            ?>
 		            </tbody>

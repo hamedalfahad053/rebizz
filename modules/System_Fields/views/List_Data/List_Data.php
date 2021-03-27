@@ -6,7 +6,7 @@
             <!--begin::Page Heading-->
             <div class="d-flex align-items-baseline flex-wrap mr-5">
                 <!--begin::Page Title-->
-                <h5 class="text-dark font-weight-bold my-1 mr-5"><?= $Page_Title ?></h5>
+                <h5 class="text-dark font-weight-bold my-1 mr-5"></h5>
                 <!--end::Page Title-->
                 <!--begin::Breadcrumb-->
                 <?= $breadcrumbs ?>
@@ -17,7 +17,7 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <?= Create_One_Button_Text(array('title'=> 'اضافة قائمة جديدة' ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/List_Data/Form_Add_New_List'))) ?>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -32,17 +32,7 @@
 
 
         <div class="card card-custom">
-            <div class="card-header">
-                <div class="card-title">
-                    <span class="card-icon">
-                        <i class="flaticon-squares text-primary"></i>
-                    </span>
-                    <h3 class="card-label"><?= $Page_Title ?></h3>
-                </div>
-                <div class="card-toolbar">
-                    <?= Create_One_Button_Text(array('title'=> lang('List_Data_add_button') ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/List_Data/Form_Add_New_List'))) ?>
-                </div>
-            </div>
+
             <div class="card-body">
 
 

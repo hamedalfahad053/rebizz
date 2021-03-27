@@ -9,7 +9,7 @@ if(!function_exists('Create_Options_Button')) {
         foreach ($options AS $kay => $value) {
 
             if ($kay == 'view') {
-                $HTML .= '<a class="btn btn-icon btn-sm btn-light-primary mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon-arrows"></i></a>';
+                $HTML .= '<a class="btn btn-icon btn-sm btn-light-primary mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon-eye"></i></a>';
             } elseif ($kay == 'edit') {
                 $HTML .= '<a class="btn btn-icon btn-sm btn-light-warning mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-edit"></i></a>';
             } elseif ($kay == 'active') {
@@ -18,6 +18,16 @@ if(!function_exists('Create_Options_Button')) {
                 $HTML .= '<a  class="btn btn-icon btn-sm btn-light-dark mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-eye-slash"></i></a>';
             } elseif ($kay == 'deleted') {
                 $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="la la-times"></i></a>';
+            } elseif ($kay == 'print') {
+                $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-printer"></i></a>';
+            } elseif ($kay == 'search') {
+                $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-magnifier-too"></i></a>';
+            } elseif ($kay == 'loges') {
+                $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-heart-rate-monitor"></i></a>';
+
+
+
+
             }elseif ($kay == 'custom') {
                 $HTML .= '<a class="btn btn-icon btn-sm btn-light-' . $value['color'] . ' ' . $value['class'] . ' ' . $value['id'] . ' mx-2 " data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="' . $value['icon'] . '"></i></a>';
             }
@@ -30,21 +40,21 @@ if(!function_exists('Create_Options_Button')) {
 
 #####################################################################################
 if(!function_exists('Create_Options_Dropdown')) {
-    function Create_Options_Dropdown($options)
+    function Create_Options_Dropdown($title_Dropdown,$icon_Dropdown,$options)
     {
         $HTML  = '';
 
         $HTML  = '
-           <div class="dropdown dropdown-inline mr-4">
-            <button type="button" class="btn btn-light-primary btn-icon btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ki ki-bold-more-hor"></i>
+           <div class="btn-group">
+            <button class="btn btn-primary font-weight-bold btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              '.$icon_Dropdown.'  '.$title_Dropdown.'
             </button>
-           <div class="dropdown-menu">
+           <div class="dropdown-menu dropdown-menu-md">
         ';
 
         foreach ($options AS $kay => $value)
         {
-            $HTML .= '<a class="dropdown-item' . $value['class'] . '" ' . $value['id'] . '  ' . $value['data-attribute'] . ' href="' . $value['href'] . '"> ' . $value['title'] . '</a>';
+            $HTML .= '<a class="dropdown-item' . $value['class'] . '" ' . $value['id'] . '  ' . $value['data-attribute'] . ' href="' . $value['href'] . '">'.$value['icon'].' ' . $value['title'] . '</a>';
         }
 
         $HTML .= '</div></div>';

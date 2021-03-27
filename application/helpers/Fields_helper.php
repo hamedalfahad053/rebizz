@@ -1,15 +1,27 @@
 <?php
 
+##############################################################################
+if(!function_exists('Create_Fields')) {
+
+    function Create_Fields($data)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_fields',$data);
+
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
+        }
+    }
+
+}
+##############################################################################
 
 ##############################################################################
 if(!function_exists('Get_Fields'))
 {
-    /*
-     * Get info fields Get_Fields();
-     * @ where extra  array( Name Column => Value )
-     * @ $lang lang user login
-     * @ return query stander
-     */
     function Get_Fields($where_extra = '')
     {
         app()->load->database();
@@ -35,7 +47,27 @@ if(!function_exists('Get_Fields'))
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Update_Custom_Fields'))
+{
+    function Update_Custom_Fields($Fields_uuid,$Fields_company_id,$Fields_Status)
+    {
+        app()->load->database();
 
+        $query_Fields = app()->db->where('Fields_uuid',$Fields_uuid);
+        $query_Fields = app()->db->where('Fields_company_id',$Fields_company_id);
+        $query_Fields = app()->db->set('Fields_lastModifyDate',time());
+        $query_Fields = app()->db->set('Fields_status_Fields',$Fields_Status);
+        $query_Fields = app()->db->update('portal_fields');
+
+        if($query_Fields){
+             return true;
+        }else{
+            return false;
+        }
+    }
+}
+##############################################################################
 
 ##############################################################################
 if(!function_exists('Creation_Field')) {

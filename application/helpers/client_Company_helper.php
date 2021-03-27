@@ -30,7 +30,7 @@ if(!function_exists('Create_Client'))
 
         $query = app()->db->insert('portal_app_client',$data);
 
-        return $this->db->insert_id();
+        return app()->db->insert_id();
     }
 }
 ##############################################################################
@@ -44,7 +44,7 @@ if(!function_exists('Get_Type_Client'))
 
         $query = app()->db->insert('portal_app_client',$id);
 
-        return $this->db->insert_id();
+        return app()->db->insert_id();
     }
 }
 ##############################################################################
@@ -58,7 +58,7 @@ if(!function_exists('Create_Contracts'))
 
         $query = app()->db->insert('portal_app_client_contract',$data);
 
-        return $this->db->insert_id();
+        return app()->db->insert_id();
     }
 }
 ##############################################################################

@@ -72,6 +72,8 @@ class System_Fields extends Admin
                 "Fields_id"           => $ROW->Fields_id,
                 "Fields_key"          => $ROW->Fields_key,
                 "Fields_type"         => $ROW->Fields_Type_Fields,
+                "Fields_view_company" => $ROW->Fields_view_company,
+                "Fields_FORM_TYPE"    => Get_options_List_Translation($ROW->Fields_FORM_TYPE)->item_translation,
                 "Fields_company_id"   => $Fields_company_id,
                 "Fields_translation"  => $ROW->item_translation,
                 "Fields_status"       => $Fields_status,
@@ -100,9 +102,9 @@ class System_Fields extends Admin
     {
         $this->data['Page_Title'] = lang('Add_New_Fields_button');
 
-        $this->data['Fields_Type']   = array_Type_Fields();
-        $this->data['status']        = array_options_status();
-        $this->data['status_system'] = array_options_status_system();
+        $this->data['Fields_Type']      = array_Type_Fields();
+        $this->data['status']           = array_options_status();
+        $this->data['status_is_system'] = array_options_status_system();
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Fields'));
@@ -150,6 +152,8 @@ class System_Fields extends Admin
                 $data_Fields['Fields_Type_Fields']    = $this->input->post('Type_Fields');
                 $data_Fields['Fields_status_Fields']  = $this->input->post('status_Fields');
                 $data_Fields['Fields_status_system']  = $this->input->post('status_system');
+                $data_Fields['Fields_FORM_TYPE']      = $this->input->post('Fields_FORM_TYPE');
+                $data_Fields['Fields_view_company']   = $this->input->post('Fields_view_company');
                 $data_Fields['Fields_company_id']     = 0;
                 $data_Fields['Fields_createDate']     = time();
                 $data_Fields['Fields_lastModifyDate'] = 0;

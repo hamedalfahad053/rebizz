@@ -65,9 +65,22 @@
                         </div>
 
 	                    <div class="form-group row">
-                            <div class="col-lg-6">
+		                    <div class="col-lg-3">
+			                    <label>نوع النموذج</label>
+			                    <?= Creation_List_HTML('select', 'LIST_FORM_TYPE', '','','options', '','','','',array( 0=> "selectpicker"),'','','') ?>
+		                    </div>
+
+		                    <div class="col-lg-3">
+			                    <label> هل النموذج يظهر باعداد النماذج للشركات </label>
+			                    <select name="company_view" class="form-control selectpicker" title="<?= lang("Select_noneSelectedText") ?>" data-live-search="true">
+					                 <option value="0">لا</option>
+				                     <option value="1">نعم</option>
+			                    </select>
+		                    </div>
+
+                            <div class="col-lg-3">
                                 <label><?= lang('Table_Status') ?> </label>
-                                <select name="Status" class="form-control selectpicker" data-live-search="true">
+                                <select name="Status" class="form-control selectpicker"  title="<?= lang("Select_noneSelectedText") ?>" data-live-search="true">
                                     <?php
                                     foreach ($status AS $key => $value)
                                     {
@@ -76,9 +89,10 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-lg-6">
+
+                            <div class="col-lg-3">
                                 <label><?= lang('Basic_System') ?> </label>
-                                <select name="status_system"  class="form-control selectpicker" data-live-search="true">
+                                <select name="status_system"  class="form-control selectpicker"  title="<?= lang("Select_noneSelectedText") ?>" data-live-search="true">
                                     <?php
                                     foreach ($status_system AS $key => $value)
                                     {

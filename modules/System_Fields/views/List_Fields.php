@@ -56,6 +56,8 @@
                         <th class="text-center">key</th>
                         <th class="text-center">اسم الحقل</th>
                         <th class="text-center">نوع الحقل</th>
+	                    <th class="text-center">فئة الحقل</th>
+	                    <th class="text-center">يظهر للشركات</th>
                         <th class="text-center">بواسطة</th>
                         <th class="text-center">الحالة</th>
                         <th class="text-center">الخيارات</th>
@@ -72,7 +74,17 @@
                             <td class="text-center"><?= $ROW['Fields_key'] ?></td>
                             <td class="text-center"><?= $ROW['Fields_translation'] ?></td>
                             <td class="text-center"><?= $ROW['Fields_type'] ?></td>
-                            <td class="text-center"><?= $ROW['Fields_company_id'] ?></td>
+	                        <td class="text-center"><?= $ROW['Fields_FORM_TYPE'] ?></td>
+	                        <td class="text-center">
+		                        <?php
+		                        if($ROW['Fields_view_company'] == 1){
+			                        echo Create_Status_badge(array("key" => "Success", "value" => 'نعم'));
+		                        }else{
+			                        echo Create_Status_badge(array("key" => "Danger", "value" => 'لا'));
+		                        }
+		                        ?>
+	                        </td>
+	                        <td class="text-center"><?= $ROW['Fields_company_id'] ?></td>
                             <td class="text-center"><?= $ROW['Fields_status'] ?></td>
                             <td class="text-center"><?= $ROW['Fields_main_system'] ?></td>
                         </tr>

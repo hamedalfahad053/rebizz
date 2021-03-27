@@ -29,7 +29,7 @@ if(!function_exists('Get_Evaluation_Types'))
 ##############################################################################
 if(!function_exists('Get_Select_Evaluation_Types')) {
 
-    function Get_Select_Evaluation_Types($type_list, $where_options='',$multiple = '', $plugins ='',$name_field)
+    function Get_Select_Evaluation_Types($type_list, $where_options='',$multiple = '', $plugins ='',$name_field,$js='')
     {
         app()->load->database();
 
@@ -51,11 +51,16 @@ if(!function_exists('Get_Select_Evaluation_Types')) {
         $query = app()->db->get();
 
 
-        if($plugins   == 'none'){
-            $plugins_ = '';
+        $plugins_ = '  ';
+        if (is_array($plugins)) {
+            foreach ($plugins as $c) {
+                $plugins_ .= ' ' . $c;
+            }
         }else{
-            $plugins_ = 'selectpicker';
+            $plugins_ .= ' ' . $plugins_;
         }
+
+        print_r($plugins);
 
         if($multiple   = 1){
             $multiple  = ' multiple data-actions-box="true"';
@@ -70,9 +75,17 @@ if(!function_exists('Get_Select_Evaluation_Types')) {
             $name_form = $name_field;
         }
 
+        if(!empty($js)){
+            $js_ = 'onclick="'.$js.'"';
+        }else{
+            $js_ = '';
+        }
+
+
         if($type_list=='select')
         {
-            $html .= '<select name="'.$name_form.'" id="evaluation_types" title="' . lang('Select_noneSelectedText') . '" class="form-control ' . $plugins_ . '" ' . $multiple . ' data-live-search="true">';
+            $html .= '<select name="'.$name_form.'" id="evaluation_types" title="' . lang('Select_noneSelectedText') . '" class="' . $plugins_ . '" ' . $multiple . '
+             '.$js_.' data-live-search="true">';
 
             foreach ($query->result() as $row) {
                 $html .= '<option value="' . $row->evaluation_types_id . '">' . $row->item_translation . '</option>';
@@ -154,24 +167,35 @@ if(!function_exists('Get_Select_evaluation_methods')) {
         $query = app()->db->get();
 
 
-        if($plugins   == 'none'){
-            $plugins_ = '';
+        $plugins_ = '  ';
+        if (is_array($plugins)) {
+            foreach ($plugins as $c) {
+                $plugins_ .= ' ' . $c;
+            }
         }else{
-            $plugins_ = 'selectpicker';
+            $plugins_ .= ' ' . $plugins_;
         }
 
-        if($multiple   = 1){
+        if($multiple   = 1)
+        {
             $multiple  = ' multiple data-actions-box="true"';
 
+            if($name_field == '')
+            {
+                $name_form = 'evaluation_methods[]';
+            }else{
+                $name_form = ''.$name_field.'[]';
+            }
+
         }else{
+
             $multiple  = '';
+            $name_form = $name_field;
+
         }
 
-        if($name_field == ''){
-            $name_form = 'evaluation_methods';
-        }else{
-            $name_form = $name_field;
-        }
+
+
 
         if($type_list=='select')
         {

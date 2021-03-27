@@ -90,6 +90,55 @@ $Form_id = $this->uri->segment(4);
 					    </h3>
 				    </div>
 				    <div class="card-toolbar">
+
+
+					    <?php
+					    if(is_array($RC->With_Type_CUSTOMER)){
+						    foreach ($RC->With_Type_CUSTOMER AS $FWTC)
+						    {
+							    echo Create_Status_badge(array("key"=>"warning","value"=>$FWTC));
+						    }
+					    }else{
+						    echo Create_Status_badge(array("key"=>"Success","value"=>$RC->With_Type_CUSTOMER));
+					    }
+					    ?>
+
+					    <?php
+					    if(is_array($RC->With_Type_Property)){
+						    foreach ($RC->With_Type_Property AS $WTP)
+						    {
+							    echo Create_Status_badge(array("key"=>"warning","value"=>$WTP));
+						    }
+					    }else{
+						    echo Create_Status_badge(array("key"=>"Success","value"=> $RC->With_Type_Property));
+					    }
+					    ?>
+
+					    <?php
+					    if(is_array($RC->With_TYPES_APPRAISAL)){
+						    foreach ($RC->With_TYPES_APPRAISAL AS $WTA)
+						    {
+							    echo Create_Status_badge(array("key"=>"warning","value"=>$WTA));
+						    }
+					    }else{
+						    echo Create_Status_badge(array("key"=>"Success","value"=> $RC->With_TYPES_APPRAISAL));
+
+					    }
+					    ?>
+
+					    <?php
+					    if(is_array($RC->With_Type_evaluation_methods)){
+						    foreach ($RC->With_Type_evaluation_methods AS $WTAM)
+						    {
+							    echo Create_Status_badge(array("key"=>"warning","value"=>$WTAM));
+						    }
+					    }else{
+						    echo Create_Status_badge(array("key"=>"Success","value"=> $RC->With_Type_evaluation_methods));
+					    }
+					    ?>
+
+
+
 					    <?=  Create_One_Button_Text_Without_tooltip(
 							    array('id'=>'',
 									    'class'=>'',

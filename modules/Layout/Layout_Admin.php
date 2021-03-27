@@ -356,6 +356,13 @@
                             </a>
                         </li>
 
+	                    <li class="menu-item" aria-haspopup="true">
+		                    <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/System/Permissions') ?>" class="menu-link">
+			                    <i class="menu-icon flaticon2-gear"></i>
+			                    <span class="menu-text"> ادارة الصلاحيات </span>
+		                    </a>
+	                    </li>
+
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
                                 <span class="svg-icon menu-icon"><i class="flaticon2-world text-primary"></i></span>

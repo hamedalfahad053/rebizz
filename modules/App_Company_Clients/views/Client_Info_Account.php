@@ -29,7 +29,7 @@
 			</tr>
 			<tr>
 				<td class="text-center">فئةالعميل</td>
-				<td class="text-center"><?= Get_options_Translation($Client_Info->type_id)->item_translation;  ?></td>
+				<td class="text-center"><?= Get_options_List_Translation($Client_Info->type_id)->item_translation;  ?></td>
 			</tr>
 			<tr>
 				<td class="text-center">البريد الالكتروني</td>

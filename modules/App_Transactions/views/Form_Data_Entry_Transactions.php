@@ -37,86 +37,116 @@
 
 	        <input type="hidden" value="" name="Transactions_uuid">
 
+
+	        <?php
+	        $where_extra_Form_Components = array(
+			        'With_Type_CUSTOMER'           => "All",
+			        'With_Type_Property'           => "All",
+			        'With_TYPES_APPRAISAL'         => "All",
+			        'With_Type_evaluation_methods' => "All"
+	        );
+	        $Form_Components             = Get_Form_Components(13,$where_extra_Form_Components);
+
+	        foreach ($Form_Components->result() AS $RC)
+	        {
+		        ?>
+		        <input type="hidden" name="Form_id" value="1">
+		        <div class="card card-custom mt-10">
+
+			        <!--begin::Header-->
+			        <div class="card-header">
+				        <div class="card-title">
+					        <h3 class="card-label">
+						        <?= $RC->item_translation ?>
+					        </h3>
+				        </div>
+				        <div class="card-toolbar">
+
+				        </div>
+			        </div>
+			        <!--begin::Header-->
+
+			        <!--begin::Body-->
+			        <div class="card-body">
+
+
+				        <div class="form-group row">
+
+					        <?php
+					        $Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,'All','All','All','All');
+
+
+					        foreach ($Get_Fields_Components as $GFC)
+					        {
+
+						        if($GFC['Fields_Type_Components'] == 'Fields'){
+
+							        $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
+							        $Get_Fields       = Get_Fields($Where_Get_Fields)->row();
+							        ?>
+
+							        <div class="col-lg-4 mt-5">
+								        <?php
+								        echo Creation_Field_HTML_input($Get_Fields->Fields_key,
+										        true,
+										        '',
+										        '',
+										        '',
+										        '',
+										        '',
+										        '',
+										        '',
+										        '',
+										        '');
+
+								        ?>
+							        </div>
+
+							        <?php
+
+						        }elseif($GFC['Fields_Type_Components'] == 'List'){
+							        ?>
+
+							        <div class="col-lg-4 mt-5">
+								        <?php
+								        $class_List      = array( 0 => "selectpicker");
+								        Building_List_Forms($RC->Forms_id,
+										        $RC->components_id,
+										        $GFC['Fields_id'],
+										        $multiple = '',
+										        $selected='',
+										        $style='',
+										        $id='',
+										        $class = array( 0=> "selectpicker"),
+										        $disabled='',
+										        $label='',
+										        $js='');
+								        ?>
+							        </div>
+
+							        <?php
+						        }
+
+					        } // foreach
+					        ?>
+
+
+
+				        </div><!-- <div class="form-group row"> -->
+
+
+
+			        </div>
+			        <!--begin::Body-->
+
+
+		        </div><!--<div class="card card-custom mt-10">-->
+		        <?php
+	        }
+	        ?>
+
+
 	        <div class="card card-custom mt-10">
-		        <div class="card-header">
-			        <div class="card-title">
-				        <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-				        <h3 class="card-label">بيانات الصك </h3>
-			        </div>
-			        <div class="card-toolbar">
-				        <?= Create_One_Button_Text(array('title'=> 'استعلام عن الصك' ,'href'=> '')) ?>
-			        </div>
-		        </div>
-                <div class="card-body">
-                    <div class="card-body">
-
-                        <div class="form-group row">
-                            <div class="col-lg-6 mt-5">
-                                <label> كتابة عدل </label>
-
-                            </div>
-	                        <div class="col-lg-6 mt-5">
-		                        <?= Creation_Field_HTML_input('PropertyID') ?>
-	                        </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('INSTRUMENT_NUMBER') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('SCHEME_NUMBER') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('BLOCK_NUMBER') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('PART_NUMBER') ?>
-                            </div>
-                        </div>
-
-	                    <div class="separator separator-dashed separator-border-2 mt-5 mb-5"></div>
-
-	                    <div class="form-group row">
-		                    <p class="font-size-h5"> <i class="flaticon2-map"></i>  المساحة و الحدود</p>
-	                    </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('NORTHERN_BORDER') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <label> بطول </label>
-                                <?= Creation_Field_HTML_input('NORTHERN_BORDER_LENGTH') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('SOUTHERN_BORDER') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('SOUTHERN_BORDER_LENGTH') ?>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('EASTERN_BORDER') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <label> بطول </label>
-                                <?= Creation_Field_HTML_input('EASTERN_LENGTH') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <?= Creation_Field_HTML_input('WESTERN_BORDER') ?>
-                            </div>
-                            <div class="col-lg-3 mt-5">
-                                <label> بطول </label>
-                                <?= Creation_Field_HTML_input('WESTERN_LENGTH') ?>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
 		        <div class="card-footer">
 			        <div class="row">
 				        <div class="col-lg-6">
@@ -128,6 +158,8 @@
 			        </div>
 		        </div>
             </div>
+
+
         </form>
 
 

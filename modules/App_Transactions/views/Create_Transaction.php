@@ -130,6 +130,7 @@
 					    ?>
 
 
+
 				    </div><!-- <div class="form-group row"> -->
 
 
@@ -142,6 +143,11 @@
 		    <?php
 		    }
 		    ?>
+
+		    <div id="ajax_Components_With_Type_CUSTOMER"></div>
+		    <div id="ajax_Components_With_CLIENT"></div>
+		    <div id="ajax_Components_With_Type_Property"></div>
+		    <div id="ajax_Components_With_TYPES_APPRAISAL"></div>
 
 
 
@@ -171,6 +177,59 @@
 <?= import_js(BASE_ASSET.'js/pages/crud/forms/editors/summernote',''); ?>
 
 <script type="text/javascript">
+
+	function ajax_Components(div_ajax_Components){
+
+		var form_id                        = 1;
+		var CUSTOMER_CATEGORY              = $("#LIST_CUSTOMER_CATEGORY").val();
+		var TYPE_OF_PROPERTY               = $("#LIST_TYPE_OF_PROPERTY").val();
+		var TYPES_OF_REAL_ESTATE_APPRAISAL = $("#LIST_TYPES_OF_REAL_ESTATE_APPRAISAL").val();
+		var LIST_CLIENT                    = $("#LIST_CLIENT").val();
+
+
+		$.ajax({
+
+			type: 'ajax',
+			method: 'get',
+			async: false,
+			dataType: 'html',
+			url: '<?= base_url('/App_Ajax/Ajax_Components') ?>',
+			data: {
+				form_id:form_id,
+				CUSTOMER_CATEGORY:CUSTOMER_CATEGORY,
+				TYPE_OF_PROPERTY:TYPE_OF_PROPERTY,
+				TYPES_OF_REAL_ESTATE_APPRAISAL:TYPES_OF_REAL_ESTATE_APPRAISAL,
+				LIST_CLIENT:LIST_CLIENT
+			},
+			success: function (data) {
+					$(div_ajax_Components).empty();
+					$(div_ajax_Components).html(data);
+			},
+			error: function () {
+				swal.fire(" خطا ", "في ارسال الطلب ", "error");
+			}
+
+		});
+
+	}
+
+
+	$(document).on('change', '#LIST_CUSTOMER_CATEGORY', function() {
+		ajax_Components('#ajax_Components_With_Type_CUSTOMER');
+	});
+
+	$(document).on('change', '#LIST_TYPE_OF_PROPERTY', function() {
+		ajax_Components('#ajax_Components_With_Type_Property');
+	});
+
+	$(document).on('change', '#LIST_TYPES_OF_REAL_ESTATE_APPRAISAL', function() {
+		ajax_Components('#ajax_Components_With_TYPES_APPRAISAL');
+	});
+
+	$(document).on('change', '#LIST_CLIENT', function() {
+		ajax_Components('#ajax_Components_With_CLIENT');
+	});
+
 	function ajax_list(el){
 
 		    var components_fields_id = $(el).attr("data-components-fields-id");
@@ -207,6 +266,13 @@
 					swal.fire(" خطا ", "في ارسال الطلب ", "error");
 				}
 			});
-	}
+
+	} // function ajax_list(el)
+
+
+
+
+
+
 </script>
 

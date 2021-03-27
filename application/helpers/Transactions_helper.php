@@ -1,18 +1,89 @@
 <?php
 
 ##############################################################################
+if(!function_exists('Get_Transaction')) {
+
+    function Get_Transaction($where)
+    {
+
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $query = app()->db->where($key,$value);
+            }
+        }
+
+        $query= app()->db->get('protal_transaction');
+
+        return $query;
+
+    }
+
+} // if(!function_exists('Create_Transaction'))
+##############################################################################
+
+##############################################################################
+if(!function_exists('Get_Transaction_data')) {
+
+    function Get_Transaction_data($where)
+    {
+
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $query = app()->db->where($key,$value);
+            }
+        }
+
+        $query= app()->db->get('protal_transaction_data');
+
+        return $query;
+
+    }
+
+} // if(!function_exists('Create_Transaction'))
+##############################################################################
+
+##############################################################################
+if(!function_exists('Transaction_data_by_key')) {
+
+    function Transaction_data_by_key($transaction_id,$key)
+    {
+        $query = app()->db->where('Transaction_id',$transaction_id);
+        $query = app()->db->where('data_key',$key);
+        $query = app()->db->get('protal_transaction_data')->row();
+        return $query->data_value;
+    }
+
+} // if(!function_exists('Create_Transaction'))
+##############################################################################
+
+##############################################################################
+if(!function_exists('Get_Transaction_files')) {
+
+    function Get_Transaction_files($where)
+    {
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $query = app()->db->where($key,$value);
+            }
+        }
+        $query= app()->db->get('protal_transaction_files');
+        return $query;
+    }
+
+} // if(!function_exists('Create_Transaction'))
+##############################################################################
+
+##############################################################################
 if(!function_exists('Create_Transaction')) {
 
     function Create_Transaction($data)
     {
         $query = app()->db->insert('protal_transaction',$data);
-
         if($query){
             return app()->db->insert_id();
         }else{
             return false;
         }
-
     }
 
 } // if(!function_exists('Create_Transaction'))
@@ -64,6 +135,21 @@ if(!function_exists('Create_Transaction_files')) {
         }else{
             return false;
         }
+
+    }
+
+} // if(!function_exists('Create_Transaction'))
+##############################################################################
+
+
+##############################################################################
+if(!function_exists('Create_Transaction')) {
+
+    function Create_Transaction_files($data)
+    {
+        $query = app()->db->insert('protal_transaction_files',$data);
+
+
 
     }
 

@@ -22,63 +22,100 @@ class App_Ajax extends Apps
     {
             $lang          = get_current_lang();
 
-            $form_id                      = trim($this->input->get('form_id'));
-            $Type_CUSTOMER                = trim($this->input->get('Type_CUSTOMER'));
-            $With_Type_Property           = trim($this->input->get('With_Type_Property'));
-            $With_TYPES_APPRAISAL         = trim($this->input->get('With_TYPES_APPRAISAL'));
-            $With_Type_evaluation_methods = trim($this->input->get('With_Type_evaluation_methods'));
+            $form_id       = trim($this->input->get('form_id'));
+
+            $CUSTOMER_CATEGORY                 = trim($this->input->get('CUSTOMER_CATEGORY'));
+            $TYPE_OF_PROPERTY                  = trim($this->input->get('TYPE_OF_PROPERTY'));
+            $TYPES_OF_REAL_ESTATE_APPRAISAL    = trim($this->input->get('TYPES_OF_REAL_ESTATE_APPRAISAL'));
+            $LIST_CLIENT                       = trim($this->input->get('LIST_CLIENT'));
 
 
-            $query = $this->db->from('portal_forms_components  components');
-            $query = $this->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
-            $query = $this->db->where('components_translation.translation_lang',$lang);
+            $this->db->from('portal_forms_components  components');
+            $this->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
+            if($LIST_CLIENT)
+            {
+                $this->db->where("FIND_IN_SET(".$LIST_CLIENT.",components.With_CLIENT) !=",0);
+            }else{
+                $this->db->where("FIND_IN_SET('All',components.With_CLIENT) !=",0);
+            }
+            if ($CUSTOMER_CATEGORY){
+                $this->db->where("FIND_IN_SET(".$CUSTOMER_CATEGORY.",components.With_Type_CUSTOMER) !=",0);
+            }else{
+                $this->db->where("FIND_IN_SET('All',components.With_Type_CUSTOMER) !=",0);
+            }
+            if($TYPE_OF_PROPERTY)
+            {
+                $this->db->where("FIND_IN_SET(".$TYPE_OF_PROPERTY.",components.With_Type_Property) !=",0);
+            }else{
+                $this->db->where("FIND_IN_SET('All',components.With_Type_Property) !=",0);
+            }
 
-            $query = $this->db->where_in('components.With_Type_CUSTOMER',$Type_CUSTOMER);
-            $query = $this->db->or_where_in('components.With_Type_Property',$With_Type_Property);
-            $query = $this->db->or_where_in('components.With_TYPES_APPRAISAL',$With_TYPES_APPRAISAL);
-            $query = $this->db->or_where_in('components.With_Type_evaluation_methods',$With_Type_evaluation_methods);
-            $query = $this->db->where('components.Forms_id',$form_id);
-            $query = $this->db->get()->row();
+            if($TYPES_OF_REAL_ESTATE_APPRAISAL)
+            {
+                $this->db->where("FIND_IN_SET(".$TYPES_OF_REAL_ESTATE_APPRAISAL.",components.With_TYPES_APPRAISAL) !=",0);
+            }else{
+                $this->db->where("FIND_IN_SET('All',components.With_TYPES_APPRAISAL) !=",0);
+            }
+            $this->db->where(" (components.company_id = ".$this->aauth->get_user()->company_id." OR components.company_id = 0 ) ");
+            $this->db->where('components.Forms_id',$form_id);
+            $this->db->where('components_translation.translation_lang',$lang);
+            $query = $this->db->get();
+
+            //echo $this->db->last_query();
+
 
             $html = '';
 
-            $html .= '<div class="card card-custom mt-10">';
+            if($query->num_rows()>0) {
 
-            $html .= '<!--begin::Header-->';
-            $html .= '<div class="card-header">';
-            $html .= '<div class="card-title"> <h3 class="card-label"></h3></div><div class="card-toolbar"></div>';
-            $html .= '</div>';
-            $html .= '<!--End::Header-->';
+                    foreach ($query->result() as $row) {
 
-            $html .= '<!--begin::Body-->';
-            $html .= '<div class="card-body">';
+                        $html .= '<div class="card card-custom mt-10">';
+
+                        $html .= '<!--begin::Header-->';
+                        $html .= '<div class="card-header">';
+                        $html .= '<div class="card-title"> <h3 class="card-label">' . $row->item_translation . '</h3></div><div class="card-toolbar"></div>';
+                        $html .= '</div>';
+                        $html .= '<!--End::Header-->';
+
+                        $html .= '<!--begin::Body-->';
+                        $html .= '<div class="card-body">';
 
                         $html .= '<div class="form-group row">';
 
-                        $Get_Fields_Components = Building_Fields_Components_Forms($query->Forms_id,$query->components_id,$query->Type_CUSTOMER,$query->With_Type_Property,$query->With_TYPES_APPRAISAL,$query->With_Type_evaluation_methods);
+                        $Get_Fields_Components = Building_Fields_Components_Forms($row->Forms_id, $row->components_id, $row->With_Type_CUSTOMER, $row->With_Type_Property, $row->With_TYPES_APPRAISAL, $row->With_Type_evaluation_methods);
 
-                        foreach ($Get_Fields_Components as $GFC)
-                        {
-                            if($GFC['Fields_Type_Components'] == 'Fields'){
+                        foreach ($Get_Fields_Components as $GFC) {
+                            if ($GFC['Fields_Type_Components'] == 'Fields') {
                                 $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
-                                $Get_Fields       = Get_Fields($Where_Get_Fields)->row();
+                                $Get_Fields = Get_Fields($Where_Get_Fields)->row();
                                 $html .= '<div class="col-lg-4 mt-5">';
-                                $html .=  Creation_Field_HTML_input($Get_Fields->Fields_key, true, '', '', '', '', '', '', '', '', '');
+                                $html .= Creation_Field_HTML_input($Get_Fields->Fields_key, true, '', '', '', '', '', '', '', '', '');
                                 $html .= '</div>';
-                            }elseif($GFC['Fields_Type_Components'] == 'List'){
+                            } elseif ($GFC['Fields_Type_Components'] == 'List') {
                                 $html .= '<div class="col-lg-4 mt-5">';
-                                $class_List      = array( 0 => "selectpicker");
-                                $html .=  Building_List_Forms($RC->Forms_id, $RC->components_id, $GFC['Fields_id'], $multiple = '', $selected='', $style='', $id='', $class = array( 0=> "selectpicker"), $disabled='', $label='', $js='');
+                                $class_List = array(0 => "selectpicker");
+                                $html .= Building_List_Forms($row->Forms_id, $row->components_id, $GFC['Fields_id'], $multiple = '', $selected = '', $style = '', $id = '', $class = array(0 => "selectpicker"), $disabled = '', $label = '', $js = '');
                                 $html .= '</div>';
                             }
                         } // foreach
 
+
+
+
+                        $html .='<script>$( ".datepicker" ).datepicker("refresh");</script>';
+
                         $html .= '</div><!--<div class="form-group row">-->';
 
-            $html .= '</div>';
-            $html .= '<!--End::Body-->';
+                        $html .= '</div>';
+                        $html .= '<!--End::Body-->';
 
-            $html .= '</div><!--<div class="card card-custom mt-10">-->';
+                        $html .= '</div><!--<div class="card card-custom mt-10">-->';
+
+                    } // foreach ($query->result() as $row) {
+            }
+
+            echo $html;
 
     }
     ###############################################################################################
@@ -120,6 +157,7 @@ class App_Ajax extends Apps
             $query_options = app()->db->where('list_options.list_id',$List_Target_id);
             $query_options = app()->db->where_in('list_options.list_options_id',$option_query->parent_id,false);
             $query_options = app()->db->where('options_translation.translation_lang',$lang);
+            $query_options = app()->db->where('list_options.options_status',1);
             $query_options = app()->db->order_by('list_options.options_sort', 'ASC');
             $query_options = app()->db->get();
 
@@ -240,6 +278,43 @@ class App_Ajax extends Apps
         $msg['success'] = true;
 
         echo json_encode($msg);
+    }
+    ###############################################################################################
+
+
+
+    ###############################################################################################
+    public function Ajax_List_Client_by_type()
+    {
+
+        $company_id  = $this->aauth->get_user()->company_id;
+        $Client_type = $this->input->get('CUSTOMER_CATEGORY');
+
+        $query = $this->db->where('company_id', $company_id);
+        $query = $this->db->where('is_active', 1);
+        $query = $this->db->where_in('type_id', $Client_type);
+        $query = $this->db->get('portal_app_client');
+
+        if($query->num_rows()>0){
+
+            foreach ($query->result() as $row) {
+                $options[] = array(
+                    "options_id"    => $row->client_id,
+                    "options_title" => $row->name,
+                );
+            }
+
+        }else{
+            $options = '';
+        }
+
+
+        $msg['type']    = true;
+        $msg['data']    = $options;
+        $msg['success'] = true;
+
+        echo json_encode($msg);
+
     }
     ###############################################################################################
 

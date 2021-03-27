@@ -24,7 +24,7 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <?= Create_One_Button_Text(array('title'=> lang('add_new_group_button') ,'href'=>base_url(APP_NAMESPACE_URL.'/User_Group/add_Group'))) ?>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -48,9 +48,6 @@
                     </span>
                         <h3 class="card-label"><?= $Page_Title ?></h3>
                     </div>
-                    <div class="card-toolbar">
-                        <?= Create_One_Button_Text(array('title'=> lang('add_new_group_button') ,'href'=>base_url(APP_NAMESPACE_URL.'/Company_UserGroup/Form_add_Group'))) ?>
-                    </div>
                 </div>
                 <div class="card-body">
 
@@ -71,17 +68,19 @@
                         <tbody>
                         <?php
                         $i = 0;
-                        foreach ($Group_Users AS $row)
-                        {
-                            ?>
-                            <tr>
-                                <td class="text-center"><?= ++$i ?></td>
-                                <td class="text-center"><?= $row['group_translation'] ?></td>
-                                <td class="text-center"><?= $row['Group_Num_Users'] ?></td>
-                                <td class="text-center"><?= $row['Group_status'] ?></td>
-                                <td class="text-center"><?= $row['Group_main_system'] ?></td>
-                            </tr>
-                            <?php
+                        if($Group_Users != false){
+	                        foreach ($Group_Users AS $row)
+	                        {
+	                            ?>
+	                            <tr>
+	                                <td class="text-center"><?= ++$i ?></td>
+	                                <td class="text-center"><?= $row['group_translation'] ?></td>
+	                                <td class="text-center"><?= $row['Group_Num_Users'] ?></td>
+	                                <td class="text-center"><?= $row['Group_status'] ?></td>
+	                                <td class="text-center"><?= $row['Group_main_system'] ?></td>
+	                            </tr>
+	                            <?php
+	                        }
                         }
                         ?>
                         </tbody>

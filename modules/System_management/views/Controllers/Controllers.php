@@ -19,7 +19,7 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <?= Create_One_Button_Text(array('title'=> lang('add_new_System_button') ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/System/Form_Add_New_Controllers'))) ?>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -40,7 +40,6 @@
                         <h3 class="card-label"><?= $Page_Title ?></h3>
                     </div>
                     <div class="card-toolbar">
-                        <?= Create_One_Button_Text(array('title'=> lang('add_new_System_button') ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/System/Form_Add_New_Controllers'))) ?>
                     </div>
                 </div>
                 <div class="card-body">
@@ -64,20 +63,23 @@
                             <tbody>
                             <?php
                             $i = 0;
-                            foreach ($System_controllers AS  $ROW)
+                            if($System_controllers != false)
                             {
-                                ?>
-                                <tr>
-                                    <td class="text-center"><?= ++$i ?></td>
-                                    <td class="text-center"><?= $ROW['controllers_name'] ?></td>
-                                    <td class="text-center"><?= $ROW['Controllers_Code'] ?></td>
-                                    <td class="text-center"><?= $ROW['Controllers_Functions'] ?></td>
-                                    <td class="text-center"><?= $ROW['controllers_area'] ?></td>
-                                    <td class="text-center"><?= $ROW['controllers_status'] ?></td>
-                                    <td class="text-center"><?= $ROW['controllers_modification'] ?></td>
-                                </tr>
-                                <?php
-                            }
+	                            foreach ($System_controllers AS  $ROW)
+	                            {
+	                                ?>
+	                                <tr>
+	                                    <td class="text-center"><?= ++$i ?></td>
+	                                    <td class="text-center"><?= $ROW['controllers_name'] ?></td>
+	                                    <td class="text-center"><?= $ROW['Controllers_Code'] ?></td>
+	                                    <td class="text-center"><?= $ROW['Controllers_Functions'] ?></td>
+	                                    <td class="text-center"><?= $ROW['controllers_area'] ?></td>
+	                                    <td class="text-center"><?= $ROW['controllers_status'] ?></td>
+	                                    <td class="text-center"><?= $ROW['controllers_modification'] ?></td>
+	                                </tr>
+	                                <?php
+	                            }
+	                        }
                             ?>
                             </tbody>
                         </table>

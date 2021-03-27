@@ -48,7 +48,7 @@
             </div>
             <div class="card-body">
 
-                <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Company_Locations/Create_Locations') ?>" method="post">
+                <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Locations/Create_Locations') ?>" method="post">
 
                     <?= CSFT_Form() ?>
 
@@ -75,53 +75,37 @@
                                     ?>
                                 </select>
                             </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <div class="col-lg-3 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('companies_Commercial_Registration_No') ?></label>
                                 <input type="text" name="Locations_Commercial_Registration_No" class="form-control" placeholder="<?= lang('companies_Commercial_Registration_No') ?>"/>
                             </div>
-                            <div class="col-lg-3 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('companies_Unified_record_number') ?></label>
                                 <input type="text" name="Locations_Unified_record_number" class="form-control" placeholder="<?= lang('companies_Unified_record_number') ?>"/>
                             </div>
-                            <div class="col-lg-3 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('Global_Registration_Date') ?></label>
                                 <input type="text" name="Locations_Registration_Date" class="form-control datepicker" placeholder="<?= lang('Global_Registration_Date') ?>"/>
                             </div>
-                            <div class="col-lg-3 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('Global_Expiry_Date') ?></label>
                                 <input type="text" name="Locations_Expiry_Date" class="form-control col-12 datepicker" placeholder="<?= lang('Global_Expiry_Date') ?>"/>
                             </div>
-                        </div>
-
-
-
-                        <div class="form-group row">
-                            <div class="col-lg-3 mt-5">
-                                <label><?= lang('Global_Country') ?></label>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <select name="Locations_Country_id" id="companies_Country_id" title="اختر من فضلك "  class="form-control selectpicker" data-size="7" data-live-search="true" >
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('Global_Region_province') ?></label>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <select name="Locations_Region_id" id="companies_Region_id" title="اختر من فضلك " class="form-control selectpicker" data-size="7" data-live-search="true" >
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('Global_City') ?></label>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <select  name="Locations_City_id" id="companies_City_id" title="اختر من فضلك " class="form-control selectpicker" data-size="7" data-live-search="true" >
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3 mt-5">
+                            <div class="col-lg-4 mt-5">
                                 <label><?= lang('Global_District') ?></label>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <select name="Locations_District_id" id="companies_District_id" title="اختر من فضلك " class="form-control selectpicker" data-size="7" data-live-search="true" >
@@ -182,31 +166,9 @@
 
     $('.selectpicker').selectpicker();
 
-    function get_Countries(){
-        $.ajax({
-            type: 'ajax',
-            method: 'get',
-            async: false,
-            dataType: 'json',
-            url: '<?= base_url( 'Ajax/Get_Countries') ?>',
-            success: function (data) {
-                $("#companies_Country_id").empty();
-                $.each(data, function (key, value) {
-                    $("#companies_Country_id").append('<option value=' + value.id + '>' + value.Name + '</option>');
-                });
-                $("#companies_Country_id").selectpicker('refresh');
-            },
-            error: function () {
-                swal.fire(" خطا ", "في ارسال الطلب ", "error");
-            }
-        });
-    } // function get_Countries()
 
-    get_Countries();
-
-    $('#companies_Country_id').change(function(event){
-        event.preventDefault();
-        var Country_id  = $('select[name=Locations_Country_id]').val();
+    function  get_Regions(){
+        var Country_id  =194;
         $.ajax({
             type: 'ajax',
             method: 'get',
@@ -227,13 +189,14 @@
                 swal.fire(" خطا ", "في ارسال الطلب ", "error");
             }
         });
-    });
+    }
+    get_Regions();
 
 
 
     $('#companies_Region_id').change(function(event){
         event.preventDefault();
-        var Country_id  = $('select[name=Locations_Country_id]').val();
+        var Country_id  = 194;
         var Region_id   = $('select[name=Locations_Region_id]').val();
         $.ajax({
             type: 'ajax',
@@ -260,7 +223,7 @@
 
     $('#companies_City_id').change(function(event){
         event.preventDefault();
-        var Country_id  = $('select[name=Locations_Country_id]').val();
+        var Country_id  = 194;
         var Region_id   = $('select[name=Locations_Region_id]').val();
         var City_id     = $('select[name=Locations_City_id]').val();
         $.ajax({

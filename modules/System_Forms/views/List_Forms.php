@@ -57,7 +57,9 @@
                         <th class="text-center">#</th>
                         <th class="text-center">Forms key</th>
                         <th class="text-center">اسم النموذج</th>
+	                    <th class="text-center"> نوع  النموذج </th>
                         <th class="text-center"> مكونات النموذج </th>
+	                    <th class="text-center">بواسطة / الوقت</th>
                         <th class="text-center">الحالة</th>
                         <th class="text-center">الخيارات</th>
                     </tr>
@@ -75,8 +77,10 @@
 	                            <td class="text-center"><?= ++$i ?></td>
 	                            <td class="text-center"><?= $ROW['Forms_key'] ?></td>
 	                            <td class="text-center"><?= $ROW['Forms_translation'] ?></td>
+		                        <td class="text-center"><?= $ROW['Forms_Type'] ?></td>
 	                            <td class="text-center"><?= Create_One_Button_Text(array('title'=> ' مكونات النموذج ','href'=>base_url(ADMIN_NAMESPACE_URL.'/Forms/Form_Components/'.$ROW['Forms_id'].''))) ?></td>
-	                            <td class="text-center"><?= $ROW['Forms_Status'] ?></td>
+		                        <td class="text-center"><?= $ROW['Forms_create'] ?></td>
+		                        <td class="text-center"><?= $ROW['Forms_Status'] ?></td>
 	                            <td class="text-center"><?= $ROW['Forms_main_system'] ?></td>
 	                        </tr>
 	                        <?php

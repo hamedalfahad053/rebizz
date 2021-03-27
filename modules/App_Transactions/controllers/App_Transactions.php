@@ -18,18 +18,37 @@ class App_Transactions extends Apps
         $this->data['Page_Title']      = 'استعراض الطلبات ';
         $Transactions                  = array();
 
+//        if(Check_Permissions(25) == false){
+//            echo  Create_Status_Alert(array("key"=>"Danger","value"=>"لا يوجد لديك صلاحيات "));
+//            die;
+//        }
 
         $where_Transactions = array(
             "company_id"               => $this->aauth->get_user()->company_id,
             "location_id"              => $this->aauth->get_user()->locations_id,
             "Create_Transaction_By_id" => $this->aauth->get_user()->id,
         );
-        $Get_All_Transactions        = '';
 
+        $Get_Transactions  = Get_Transaction($where_Transactions);
 
-        $Transactions = false;
+        if($Get_Transactions->num_rows()>0){
 
+            foreach ($Get_Transactions->result() as $ROW)
+            {
+                $Transactions[] = array(
+                    "transaction_id"           => $ROW->transaction_id,
+                    "transaction_number"       => $ROW->transaction_number,
+                    "transaction_uuid"         => $ROW->uuid,
+                    "Transaction_Stage"        => $ROW->Transaction_Stage,
+                    "Transaction_Status_id"    => $ROW->Transaction_Status_id,
+                    "Create_Transaction_By_id" => $ROW->Create_Transaction_By_id,
+                    "Create_Transaction_Date"  => $ROW->Create_Transaction_Date
+                );
+            }
 
+        }else{
+            $Transactions = false;
+        }
 
         $this->data['Transactions'] = $Transactions;
 
@@ -41,9 +60,18 @@ class App_Transactions extends Apps
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
 
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+
         $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/List_Transactions', $this->data, true);
 
         Layout_Apps($this->data);
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Ajax_Table_Transaction()
+    {
+
     }
     ###################################################################
 
@@ -64,7 +92,6 @@ class App_Transactions extends Apps
 
     }
     ###################################################################
-
 
     ###################################################################
     public function Create_Transaction_Submit()
@@ -87,13 +114,13 @@ class App_Transactions extends Apps
         foreach($POST_Fields AS $key => $value)
         {
 
-           $Fields_Components     =  Query_Fields_Components(array("Fields_key" => $key));
+           $Fields_Components          =  Query_Fields_Components(array("Fields_key" => $key));
 
            if($Fields_Components->num_rows()>0){
 
-               $Get_validating_Fields         = Get_validating_Fields(array("Forms_id" => $Form_id,
-                                                                            "company_id"=>0,
-                                                                            "Fields_id" => $Fields_Components->row()->Fields_id));
+               $Get_validating_Fields  = Get_validating_Fields(array("Forms_id" => $Form_id,
+                                                                     "company_id"=>0,
+                                                                     "Fields_id" => $Fields_Components->row()->Fields_id));
 
                $Get_validating_Fields_company = Get_validating_Fields(array("Forms_id"   => $Form_id,
                                                                             "company_id" => $this->aauth->get_user()->company_id,
@@ -181,6 +208,7 @@ class App_Transactions extends Apps
             $upload_data   = $this->upload->data();
 
             $data_file = array();
+
             $data_file['Transaction_id']        = $Create_Transaction;
             $data_file['File_Name_In']          = $_POST['FILE_Name'][$i];
             $data_file["company_id"]            = $this->aauth->get_user()->company_id;
@@ -208,6 +236,12 @@ class App_Transactions extends Apps
 
 
         if($Create_Transaction and $Create_Transaction_data){
+
+
+
+
+                $Create_Notifications = Create_Notifications('', '', '');
+
                 $msg_result['key'] = 'Success';
                 $msg_result['value'] = lang('message_success_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
@@ -225,7 +259,88 @@ class App_Transactions extends Apps
     ###################################################################
 
 
+    ###################################################################
+    public function Data_Transaction()
+    {
+        $this->data['Page_Title']     = 'ادخال البيانات والمراجعة';
 
+        Create_Logs_User('Create_Transaction','','Transaction','Create');
+
+        $Transaction_id =  $this->uri->segment(4);
+
+        $where_Transactions = array(
+            "uuid"                     => $Transaction_id,
+            "company_id"               => $this->aauth->get_user()->company_id,
+            "location_id"              => $this->aauth->get_user()->locations_id,
+        );
+
+        $Get_Transactions  = Get_Transaction($where_Transactions);
+
+        if($Get_Transactions->num_rows()>0){
+
+            $this->data['Transactions']      = $Get_Transactions->row();
+
+        }
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/Form_Data_Entry_Transactions', $this->data, true);
+
+        Layout_Apps($this->data);
+
+    }
+
+    ###################################################################
+    public function View_Transaction()
+    {
+
+        $this->data['Page_Title']      = 'استعراض المعاملة ';
+
+        $Transaction_id =  $this->uri->segment(4);
+
+        $where_Transactions = array(
+            "uuid"                     => $Transaction_id,
+            "company_id"               => $this->aauth->get_user()->company_id,
+            "location_id"              => $this->aauth->get_user()->locations_id,
+        );
+
+        $Get_Transactions  = Get_Transaction($where_Transactions);
+
+        if($Get_Transactions->num_rows()>0){
+
+
+            $this->data['Transactions']      = $Get_Transactions->row();
+
+            # Get  Transactions Data
+            $where_Transactions_data = array("Transaction_id" => $this->data['Transactions']->transaction_id);
+            $Transactions_data       = Get_Transaction_data($where_Transactions_data)->result();
+            foreach ($Transactions_data AS $RTD)
+            {
+                $this->data['data_transactions'][$RTD->data_key] = array(
+                    "data_value"       => $RTD->data_value,
+                    "data_Create_id"   => $RTD->data_Create_id,
+                    "data_Create_time" => $RTD->data_Create_time
+                );
+		    }
+
+
+
+        }else{
+            $this->data['Transactions'] = false;
+        }
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
+
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/View_Transactions', $this->data, true);
+
+        Layout_Apps($this->data);
+
+    }
+    ###################################################################
 
 
 

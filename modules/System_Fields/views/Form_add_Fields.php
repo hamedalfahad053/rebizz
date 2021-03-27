@@ -48,16 +48,17 @@
                         <form class="form" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Fields/Create_Fields') ?>" method="post">
                             <?= CSFT_Form() ?>
                             <div class="form-group row">
-                                <div class="col-lg-6 mt-5">
+                                <div class="col-lg-4 mt-5">
                                     <label><?= lang('Global_form_title_ar') ?></label>
                                     <input type="text" name="title_ar" class="form-control" placeholder="<?= lang('Global_form_title_ar') ?>"/>
                                 </div>
-                                <div class="col-lg-6 mt-5">
+                                <div class="col-lg-4 mt-5">
                                     <label><?= lang('Global_form_title_en') ?></label>
                                     <input type="text" name="title_en" class="form-control" placeholder="<?= lang('Global_form_title_en') ?>"/>
                                 </div>
-                            </div>
-                            <div class="form-group row">
+
+
+
                                 <div class="col-lg-4 mt-5">
                                     <label><?= lang('Type_Fields') ?></label>
                                     <select name="Type_Fields" id="Type_Fields"  class="form-control selectpicker" title="الرجاء إختيار نوع الحقل">
@@ -69,7 +70,23 @@
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-lg-4 mt-5">
+
+	                            <div class="col-lg-4 mt-5">
+		                            <label>فئة الحقل</label>
+		                            <?= Creation_List_HTML('select', 'LIST_FORM_TYPE', '','','options', '','','','',array( 0=> "selectpicker"),'','','') ?>
+	                            </div>
+
+	                            <div class="col-lg-4  mt-5">
+		                            <label> هل النموذج يظهر بالاعدادت للشركات </label>
+		                            <select name="Fields_view_company" class="form-control selectpicker" title="<?= lang("Select_noneSelectedText") ?>" data-live-search="true">
+			                            <option value="0">لا</option>
+			                            <option value="1">نعم</option>
+		                            </select>
+	                            </div>
+
+
+
+	                            <div class="col-lg-4 mt-5">
                                     <label>حالة الحقل</label>
                                     <select name="status_Fields" id="Type_Fields"  class="form-control selectpicker" title="الرجاء اختر حالة الحقل">
                                         <?php
@@ -80,6 +97,7 @@
                                         ?>
                                     </select>
                                 </div>
+
                                 <div class="col-lg-4 mt-5">
                                     <label>حالة الحقل بالنظام</label>
                                     <select name="status_system" id="status_system"  class="form-control selectpicker" data-live-search="true" title="اختر حالة الحقل بالنظام">
@@ -91,7 +109,10 @@
                                         ?>
                                     </select>
                                 </div>
+
                             </div>
+
+
                             <div class="card-footer">
                                 <div class="row">
                                     <div class="col-lg-6">

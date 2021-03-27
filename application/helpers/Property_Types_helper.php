@@ -30,7 +30,7 @@ if(!function_exists('Get_Property_Types'))
 ##############################################################################
 if(!function_exists('Get_Select_Property_Types')) {
 
-    function Get_Select_Property_Types($type_list, $where_options='',$multiple = '', $plugins ='',$name_field)
+    function Get_Select_Property_Types($type_list, $where_options='',$multiple = '', $plugins ='',$name_field,$js='')
     {
         app()->load->database();
 
@@ -54,28 +54,32 @@ if(!function_exists('Get_Select_Property_Types')) {
         $query_list = app()->db->get();
 
 
-        if($plugins   == 'none'){
-            $plugins_ = '';
-        }else{
-            $plugins_ = 'selectpicker';
+        $plugins_ = '  ';
+        if (is_array($plugins)) {
+            foreach ($plugins as $c) {
+                $plugins_ .= ' ' . $c;
+            }
         }
 
         if($multiple   = 1){
             $multiple  = ' multiple data-actions-box="true"';
-
-        }else{
-            $multiple  = '';
-        }
-
-        if($name_field == ''){
-            $name_form = 'Property_Types';
+            $name_form = 'Property_Types[]';
         }else{
             $name_form = $name_field;
         }
 
+
+
+        if(!empty($js)){
+            $js_ = 'onclick="'.$js.'"';
+        }else{
+            $js_ = '';
+        }
+
         if($type_list=='select')
         {
-            $html .= '<select name="'.$name_form.'" id="Property_Types" title="' . lang('Select_noneSelectedText') . '" class="form-control ' . $plugins_ . '" ' . $multiple . ' data-live-search="true">';
+            $html .= '<select name="'.$name_form.'" id="Property_Types" title="' . lang('Select_noneSelectedText') . '" class="form-control ' . $plugins_ . '" ' . $multiple . '
+             data-live-search="true">';
 
             foreach ($query_list->result() as $row) {
                 $html .= '<option value="' . $row->Property_Types_id . '">' . $row->item_translation . '</option>';

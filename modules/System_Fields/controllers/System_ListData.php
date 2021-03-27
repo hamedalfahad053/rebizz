@@ -172,7 +172,7 @@ class System_ListData extends Admin
         $this->form_validation->set_rules('list_status','حدد حالة القائمة','required');
 
         if($this->input->post('list_type') == 'OPTIONS') {
-            $this->form_validation->set_rules('option_list',' لا يوجد خيارات بالقائمة ','required');
+
         }elseif($this->input->post('list_type') == 'TABLE') {
             $this->form_validation->set_rules('Table_primary','حدد حالة القائمة','required');
             $this->form_validation->set_rules('Table_primary_fields','حدد حالة القائمة','required');
@@ -230,7 +230,7 @@ class System_ListData extends Admin
                             "options_status"        => $value['options_status'],
                             "options_status_system" => $value['options_status_system']
                         );
-                        $Create_options  = Create_options_List($option_list_data);
+                        $Create_options  = Create_options($option_list_data);
                         insert_translation_Language_item('portal_list_options_translation',$Create_options,$value['option_ar'],$value['option_en']);
                     }
                 }
@@ -244,9 +244,14 @@ class System_ListData extends Admin
             }
 
             if($Create_List){
+
+
                 $item_ar = $this->input->post('title_ar');
                 $item_en = $this->input->post('title_en');
                 insert_translation_Language_item('portal_list_data_translation',$Create_List,$item_ar,$item_en);
+
+
+
                 $msg_result['key']   = 'Success';
                 $msg_result['value'] = lang('message_success_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);

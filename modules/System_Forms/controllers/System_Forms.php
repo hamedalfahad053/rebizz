@@ -36,42 +36,17 @@ class System_Forms extends Admin
 
                     $options = array();
 
-                    $options['view'] = array(
-                        "class" => "", "id" => "",
-                        "title" => lang('view_button'),
-                        "data-attribute" => '',
-                        "href" => "#"
-                    );
+                    $options['view'] = array("class" => "", "id" => "", "title" => lang('view_button'), "data-attribute" => '', "href" => "#");
 
-                    $options['edit'] = array(
-                        "class" => "", "id" => "",
-                        "title" => lang('edit_button'),
-                        "data-attribute" => '',
-                        "href" => "#"
-                    );
+                    $options['edit'] = array("class" => "", "id" => "", "title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
 
                     if ($ROW->Forms_Status == 0) {
-                        $options['active'] = array(
-                            "class" => "", "id" => "",
-                            "title" => lang('active_button'),
-                            "data-attribute" => '',
-                            "href" => "#"
-                        );
+                        $options['active'] = array("class" => "", "id" => "", "title" => lang('active_button'), "data-attribute" => '', "href" => "#");
                     } else {
-                        $options['disable'] = array(
-                            "class" => "", "id" => "",
-                            "title" => lang('disable_button'),
-                            "data-attribute" => '',
-                            "href" => "#"
-                        );
+                        $options['disable'] = array("class" => "", "id" => "", "title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
                     }
 
-                    $options['deleted'] = array(
-                        "class" => "", "id" => "",
-                        "title" => lang('deleted_button'),
-                        "data-attribute" => '',
-                        "href" => "#"
-                    );
+                    $options['deleted'] = array("class" => "", "id" => "", "title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
 
                     $Forms_status_system = Create_Options_Button($options);
 
@@ -79,20 +54,23 @@ class System_Forms extends Admin
 
 
                 $this->data['Forms_List'][] = array(
-                    "Forms_id" => $ROW->Forms_id,
-                    "Forms_key" => $ROW->Forms_Key,
+                    "Forms_id"          => $ROW->Forms_id,
+                    "Forms_key"         => $ROW->Forms_Key,
                     "Forms_translation" => $ROW->item_translation,
-                    "Forms_Status" => $Forms_Status,
+                    "Forms_Type"        => Get_options_List_Translation($ROW->LIST_FORM_TYPE)->item_translation,
+                    "Forms_create"      => $this->aauth->get_user($ROW->Forms_createBy)->full_name.' - '.date('Y-m-d h:i:s',$ROW->Forms_createDate),
+                    "Forms_Status"      => $Forms_Status,
                     "Forms_main_system" => $Forms_status_system,
                 );
 
             } // foreach ($Get_Fields AS $ROW )
+
         } else {
             $this->data['Forms_List'] = false;
         }
 
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET . 'plugins/custom/datatables/datatables.bundle', $this->data['direction']);
-        $this->data['Lode_file_Js'] = import_js(BASE_ASSET . 'plugins/custom/datatables/datatables.bundle', '');
+        $this->data['Lode_file_Js']  = import_js(BASE_ASSET . 'plugins/custom/datatables/datatables.bundle', '');
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL . '/Dashboard'));
         $this->mybreadcrumb->add($this->data['Page_Title'], '#');
@@ -103,13 +81,16 @@ class System_Forms extends Admin
     }
     ###################################################################
 
+
+
+
     ###################################################################
     public function Form_add_Forms()
     {
 
         $this->data['Page_Title'] = 'اضافة نموذج ';
 
-        $this->data['status'] = array_options_status();
+        $this->data['status']        = array_options_status();
         $this->data['status_system'] = array_options_status_system();
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL . '/Dashboard'));
@@ -126,6 +107,7 @@ class System_Forms extends Admin
 
         $this->form_validation->set_rules('title_ar', 'title_ar', 'required');
         $this->form_validation->set_rules('title_en', 'title_en', 'required');
+        $this->form_validation->set_rules('LIST_FORM_TYPE', 'LIST_FORM_TYPE', 'required');
         $this->form_validation->set_rules('Status', 'status_Fields', 'required');
         $this->form_validation->set_rules('status_system', 'status_system', 'required');
 
@@ -139,29 +121,39 @@ class System_Forms extends Admin
 
         } else {
 
-            $Forms_Key = strtoupper(str_replace(" ", "_", $this->input->post('title_en')));
+            $Forms_Key = strtoupper(str_replace(" ", "_", $this->input->post('title_en',true)));
 
-            if (Get_All_Forms($Forms_Key)->num_rows() > 0) {
+            $where_forms = array(
+                "forms.Forms_Key"        => $Forms_Key,
+                "forms.LIST_FORM_TYPE"   => $this->input->post('LIST_FORM_TYPE',true),
+                "forms.company_view"     => $this->input->post('company_view',true),
+                "forms.Forms_Status"     => $this->input->post('Status',true)
+            );
+            if (Get_All_Forms($where_forms)->num_rows() > 0) {
 
                 $msg_result['key'] = 'Danger';
-                $msg_result['value'] = 'الحقل مضاف مسبقا';
+                $msg_result['value'] = 'النموذج  مضاف مسبقا';
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
                 redirect(ADMIN_NAMESPACE_URL . '/Forms', 'refresh');
 
             } else {
 
-                $data_Forms['Forms_Key'] = $Forms_Key;
-                $data_Forms['Forms_Status'] = $this->input->post('Status');
-                $data_Forms['Forms_status_system'] = $this->input->post('status_system');
-                $data_Forms['Forms_createDate'] = time();
-                $data_Forms['Forms_lastModifyDate'] = 0;
-                $data_Forms['Forms_isDeleted'] = 0;
-                $data_Forms['Forms_DeletedBy'] = 0;
+                $data_Forms['Forms_Key']               = $Forms_Key;
+                $data_Forms['LIST_FORM_TYPE']          = $this->input->post('LIST_FORM_TYPE');
+                $data_Forms['company_view']            = $this->input->post('company_view');
+                $data_Forms['Forms_Status']            = $this->input->post('Status');
+                $data_Forms['Forms_status_system']     = $this->input->post('status_system');
+                $data_Forms['Forms_createBy']          = $this->aauth->get_user()->id;
+                $data_Forms['Forms_createDate']        = time();
+                $data_Forms['Forms_lastModifyDate']    = 0;
+                $data_Forms['Forms_isDeleted']         = 0;
+                $data_Forms['Forms_DeletedBy']         = 0;
 
-                $create_forms = $this->System_Forms_Model->Create_Forms($data_Forms);
+                $create_forms = Create_Forms($data_Forms);
 
-                if ($create_forms) {
+                if ($create_forms)
+                {
 
                     $item_ar = $this->input->post('title_ar');
                     $item_en = $this->input->post('title_en');
@@ -187,16 +179,21 @@ class System_Forms extends Admin
     }
     ###################################################################
 
+
+
+
+
     ###################################################################
     public function Form_Components()
     {
         $this->data['Page_Title'] = ' مكونات النموذج ';
 
         $form_id = $this->uri->segment(4);
+
         $this->data['Form_Components'] = Get_Form_Components($form_id);
 
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET . 'plugins/custom/datatables/datatables.bundle', $this->data['direction']);
-        $this->data['Lode_file_Js'] = import_js(BASE_ASSET . 'plugins/custom/datatables/datatables.bundle', '');
+        $this->data['Lode_file_Js']  = import_js(BASE_ASSET . 'plugins/custom/datatables/datatables.bundle', '');
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL . '/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
@@ -205,12 +202,14 @@ class System_Forms extends Admin
     }
     ###################################################################
 
+
+
     ###################################################################
     public function Form_Add_Components()
     {
         $this->data['Page_Title'] = 'اضافة قسم جديد ';
 
-        $this->data['status'] = array_options_status();
+        $this->data['status']        = array_options_status();
         $this->data['status_system'] = array_options_status_system();
 
 
@@ -222,6 +221,25 @@ class System_Forms extends Admin
         Layout_Admin($this->data);
     }
     ###################################################################
+
+    ###################################################################
+    public function Form_Edit_Components()
+    {
+        $this->data['Page_Title']    = ' تعديل قسم ';
+
+        $this->data['status']        = array_options_status();
+        $this->data['status_system'] = array_options_status_system();
+
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL . '/Dashboard'));
+
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['PageContent'] = $this->load->view('../../modules/System_Forms/views/Form_Add_Components', $this->data, true);
+
+        Layout_Admin($this->data);
+    }
+    ###################################################################
+
 
     ###################################################################
     public function Create_Components()
@@ -247,10 +265,10 @@ class System_Forms extends Admin
             if ($this->input->post('All_CUSTOMER_CATEGORY') == 1) {
                 $data_Sections_Components['With_Type_CUSTOMER'] = 'All';
             } else {
-                if (is_array($this->input->post('CUSTOMER_CATEGORY'))) {
-                    $data_Sections_Components['With_Type_CUSTOMER'] = implode(',', $this->input->post('CUSTOMER_CATEGORY'));
+                if (is_array($this->input->post('LIST_CUSTOMER_CATEGORY'))) {
+                    $data_Sections_Components['With_Type_CUSTOMER'] = implode(',', $this->input->post('LIST_CUSTOMER_CATEGORY'));
                 } else {
-                    $data_Sections_Components['With_Type_CUSTOMER'] = $this->input->post('CUSTOMER_CATEGORY');
+                    $data_Sections_Components['With_Type_CUSTOMER'] = $this->input->post('LIST_CUSTOMER_CATEGORY');
                 }
             }
 
@@ -267,10 +285,10 @@ class System_Forms extends Admin
             if ($this->input->post('All_TYPES_APPRAISAL') == 1) {
                 $data_Sections_Components['With_TYPES_APPRAISAL'] = 'All';
             } else {
-                if (is_array($this->input->post('TYPES_APPRAISAL'))) {
-                    $data_Sections_Components['With_TYPES_APPRAISAL'] = implode(',', $this->input->post('TYPES_APPRAISAL'));
+                if (is_array($this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL'))) {
+                    $data_Sections_Components['With_TYPES_APPRAISAL'] = implode(',', $this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL'));
                 } else {
-                    $data_Sections_Components['With_TYPES_APPRAISAL'] = $this->input->post('TYPES_APPRAISAL');
+                    $data_Sections_Components['With_TYPES_APPRAISAL'] = $this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
                 }
             }
 
@@ -283,19 +301,18 @@ class System_Forms extends Admin
                     $data_Sections_Components['With_Type_evaluation_methods'] = $this->input->post('evaluation_methods');
                 }
             }
-            
 
-            $data_Sections_Components['components_key'] = strtoupper(str_replace(" ", "_", $this->input->post('Sections_title_en')));
-            $data_Sections_Components['Forms_id'] = $this->input->post('Forms_id');
-            $data_Sections_Components['components_status'] = $this->input->post('Sections_Status');
-            $data_Sections_Components['components_company_id'] = 0;
-            $data_Sections_Components['components_sort'] = 0;
-            $data_Sections_Components['components_createDate'] = time();
+            $data_Sections_Components['components_key']            = strtoupper(str_replace(" ", "_", $this->input->post('Sections_title_en')));
+            $data_Sections_Components['Forms_id']                  = $this->input->post('Forms_id');
+            $data_Sections_Components['components_status']         = $this->input->post('Sections_Status');
+            $data_Sections_Components['company_id']                = 0;
+            $data_Sections_Components['components_sort']           = 0;
+            $data_Sections_Components['components_createDate']     = time();
             $data_Sections_Components['components_lastModifyDate'] = 0;
-            $data_Sections_Components['components_isDeleted'] = 0;
-            $data_Sections_Components['components_DeletedBy'] = 0;
+            $data_Sections_Components['components_isDeleted']      = 0;
+            $data_Sections_Components['components_DeletedBy']      = 0;
 
-            $create_Sections_Form_Components = $this->System_Forms_Model->Create_Forms_Components($data_Sections_Components);
+            $create_Sections_Form_Components = Create_Forms_Components($data_Sections_Components);
 
             if ($create_Sections_Form_Components) {
                 $item_ar = $this->input->post('Sections_title_ar');
@@ -326,8 +343,11 @@ class System_Forms extends Admin
     {
         $this->data['Page_Title'] = ' اضافة حقل للمكون  ';
 
-        $this->data['Components_id'] = $this->uri->segment(4);
+        $this->data['Components_id']   = $this->uri->segment(4);
         $this->data['Fields_All_Data'] = Get_Fields()->result();
+
+        $this->data['status_system'] = array_options_status_system();
+
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL . '/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
@@ -357,55 +377,60 @@ class System_Forms extends Admin
 
         } else {
 
+            $where_Fields_Components = array(
+               "Forms_id"      => $this->input->post('Form_id'),
+               "Fields_id"    => $this->input->post('Fields_Add'),
+               "Fields_Type" => 'Fields'
+            );
+            $Query_Fields_Components = Query_Fields_Components($where_Fields_Components);
 
-            $data_Sections_Components['Forms_id']      = $this->input->post('Form_id');
-            $data_Sections_Components['Components_id'] = $this->input->post('Components_id');
-            $data_Sections_Components['Fields_id']     = $this->input->post('Fields_Add');
-            $data_Sections_Components['Fields_key']    = Get_Fields(array("Fields_id"=>$this->input->post('Fields_Add')))->row()->Fields_key;
+            if($Query_Fields_Components->num_rows()>0){
+                $msg_result['key'] = 'Danger';
+                $msg_result['value'] = 'الحقل مضاف مسبقا للنموذج';
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(ADMIN_NAMESPACE_URL . '/Forms/Form_Components/' . $Form_id . '/' . $Components_id, 'refresh');
+                exit;
+            }
+
+            $data_Sections_Components['Forms_id']         = $this->input->post('Form_id');
+            $data_Sections_Components['Components_id']    = $this->input->post('Components_id');
+            $data_Sections_Components['Fields_id']        = $this->input->post('Fields_Add');
+            $data_Sections_Components['Fields_key']       = Get_Fields(array("Fields_id"=>$this->input->post('Fields_Add')))->row()->Fields_key;
+
+
+
+            $data_Sections_Components['status_is_system'] = $this->input->post('status_is_system');
+
+            $data_Sections_Components['With_client_id']   = 'All';
 
             if ($this->input->post('All_CUSTOMER_CATEGORY') == 1) {
                 $data_Sections_Components['With_Type_CUSTOMER'] = 'All';
             } else {
-                if (is_array($this->input->post('CUSTOMER_CATEGORY'))) {
-                    $data_Sections_Components['With_Type_CUSTOMER'] = implode(',', $this->input->post('LIST_CUSTOMER_CATEGORY'));
-                } else {
-                    $data_Sections_Components['With_Type_CUSTOMER'] = $this->input->post('LIST_CUSTOMER_CATEGORY');
-                }
+                    $data_Sections_Components['With_Type_CUSTOMER'] = @implode(',', $this->input->post('LIST_CUSTOMER_CATEGORY'));
             }
 
             if ($this->input->post('All_Property_Types') == 1) {
                 $data_Sections_Components['With_Type_Property'] = 'All';
             } else {
-                if (is_array($this->input->post('Property_Types'))) {
-                    $data_Sections_Components['With_Type_Property'] = implode(',', $this->input->post('Property_Types'));
-                } else {
-                    $data_Sections_Components['With_Type_Property'] = $this->input->post('Property_Types');
-                }
+                $data_Sections_Components['With_Type_Property'] = @implode(',', $this->input->post('Property_Types'));
             }
 
             if ($this->input->post('All_TYPES_APPRAISAL') == 1) {
                 $data_Sections_Components['With_TYPES_APPRAISAL'] = 'All';
             } else {
-                if (is_array($this->input->post('TYPES_APPRAISAL'))) {
-                    $data_Sections_Components['With_TYPES_APPRAISAL'] = implode(',', $this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL'));
-                } else {
-                    $data_Sections_Components['With_TYPES_APPRAISAL'] = $this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
-                }
+                $data_Sections_Components['With_TYPES_APPRAISAL'] = @implode(',', $this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL'));
             }
 
             if ($this->input->post('All_evaluation_methods') == 1) {
                 $data_Sections_Components['With_Type_evaluation_methods'] = 'All';
             } else {
-                if (is_array($this->input->post('evaluation_methods'))) {
-                    $data_Sections_Components['With_Type_evaluation_methods'] = implode(',', $this->input->post('evaluation_methods'));
-                } else {
-                    $data_Sections_Components['With_Type_evaluation_methods'] = $this->input->post('evaluation_methods');
-                }
+                $data_Sections_Components['With_Type_evaluation_methods'] = @implode(',', $this->input->post('evaluation_methods'));
             }
 
             $data_Sections_Components['Fields_Type'] = 'Fields';
 
-            $Create_Fields = $this->System_Forms_Model->Create_Fields_Form_Components($data_Sections_Components);
+            $Create_Fields = Create_Fields_Form_Components($data_Sections_Components);
 
             if ($Create_Fields) {
                 $msg_result['key'] = 'Success';
@@ -550,6 +575,8 @@ class System_Forms extends Admin
             $data_Sections_Components['Fields_id']     = $this->input->post('List_id');
             $data_Sections_Components['Fields_key']    = Get_All_List(array("list_id"=>$this->input->post('List_id')))->row()->list_key;
             $data_Sections_Components['Fields_data']   = $this->input->post('Fields_data');
+
+            $data_Sections_Components['With_CLIENT'] = 'All';
 
             if ($this->input->post('All_CUSTOMER_CATEGORY') == 1) {
                 $data_Sections_Components['With_Type_CUSTOMER'] = 'All';
@@ -701,6 +728,8 @@ class System_Forms extends Admin
 
         $this->form_validation->set_rules('Forms_id', 'Forms_id', 'required');
         $this->form_validation->set_rules('components_sort', 'components_sort', 'required');
+
+
         $Forms_id        = $this->input->post('Forms_id');
 
         if ($this->form_validation->run() == FALSE) {
@@ -718,24 +747,27 @@ class System_Forms extends Admin
 
             $i = 0;
 
-            foreach ($components_sort AS $R)
-            {
+            foreach ($components_sort AS $R) {
                 $Sort = ++$i;
-                $Update_Sort = Update_Sort_Form_Components($Forms_id,$R,$Sort);
+                $Update_Sort = Update_Sort_Form_Components($Forms_id, $R, $Sort);
+
             }
+
+
+
 
             if ($Update_Sort) {
                 $msg_result['key'] = 'Success';
                 $msg_result['value'] = 'تم تحديث ترتيب الاقسام';
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(ADMIN_NAMESPACE_URL . '/Forms/Sort_Components_Form/'.$Forms_id, 'refresh');
+                //redirect(ADMIN_NAMESPACE_URL . '/Forms/Sort_Components_Form/'.$Forms_id, 'refresh');
             } else {
                 $msg_result['key'] = 'Danger';
                 $msg_result['value'] = 'لم يتم التحديث يوجد خطا ما ';
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(ADMIN_NAMESPACE_URL . '/Forms/Sort_Components_Form/'.$Forms_id, 'refresh');
+                //redirect(ADMIN_NAMESPACE_URL . '/Forms/Sort_Components_Form/'.$Forms_id, 'refresh');
             } // if
 
         }
@@ -756,7 +788,8 @@ class System_Forms extends Admin
 
         $where = array(
             "Forms_id"      => $Form_id,
-            "Components_id" => $Component_id
+            "Components_id" => $Component_id,
+
         );
         $this->data['Form_Components'] = Query_Fields_Components($where);
 
@@ -779,11 +812,10 @@ class System_Forms extends Admin
 
         $this->form_validation->set_rules('Forms_id', 'Forms_id', 'required');
         $this->form_validation->set_rules('Components_id', 'Components_id', 'required');
-        $this->form_validation->set_rules('Fields_sort', 'Fields_sort', 'required');
 
 
         $Forms_id        = $this->input->post('Forms_id');
-        $Components_id        = $this->input->post('Components_id');
+        $Components_id   = $this->input->post('Components_id');
 
         if ($this->form_validation->run() == FALSE) {
 

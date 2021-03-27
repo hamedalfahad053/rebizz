@@ -24,7 +24,7 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <?= Create_One_Button_Text(array('title'=> 'اضافة فرع ' ,'href'=>base_url(APP_NAMESPACE_URL.'/Locations/add_Locations'))) ?>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -41,19 +41,7 @@
 
 
             <div class="card card-custom">
-                <div class="card-header">
-                    <div class="card-title">
-                    <span class="card-icon">
-                        <i class="flaticon-squares text-primary"></i>
-                    </span>
-                        <h3 class="card-label"><?= $Page_Title ?></h3>
-                    </div>
-                    <div class="card-toolbar">
-                        <?= Create_One_Button_Text(array('title'=> 'اضافة فرع جديد' ,'href'=>base_url(APP_NAMESPACE_URL.'/Company_Locations/Form_add_Locations'))) ?>
-                    </div>
-                </div>
                 <div class="card-body">
-
 
                     <?php echo  $this->session->flashdata('message'); ?>
 
@@ -62,7 +50,6 @@
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">الفرع</th>
-                            <th class="text-center">عدد الموظفين</th>
                             <th class="text-center">الحالة</th>
                             <th class="text-center">الخيارات</th>
                         </tr>
@@ -76,7 +63,6 @@
                             <tr>
                                 <td class="text-center"><?= $row['Locations_id'] ?></td>
                                 <td class="text-center"><?= $row['Locations_Name'] ?></td>
-                                <td class="text-center"></td>
                                 <td class="text-center"><?= $row['Locations_Status'] ?></td>
                                 <td class="text-center"><?= $row['Locations_options'] ?></td>
                             </tr>

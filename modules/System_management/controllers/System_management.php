@@ -89,6 +89,7 @@ class System_management extends Admin
         $System_controllers = $this->System_Management_model->Get_System_controllers();
 
         if($System_controllers->num_rows()>0){
+
             foreach ($System_controllers->result() as $ROW) {
 
                 if ($ROW->controllers_status == 1) {
@@ -124,7 +125,7 @@ class System_management extends Admin
 
             }
         }else{
-            $this->data['System_controllers'] = '';
+            $this->data['System_controllers'] = false;
         }
 
         $this->data['Page_Title'] = lang('System_Management_Controllers');
@@ -241,6 +242,7 @@ class System_management extends Admin
 
             $Create_Controllers  = $this->System_Management_model->Create_Controllers($data_Controllers);
 
+
             if($Create_Controllers){
 
                 $item_ar = $this->input->post('title_ar');
@@ -300,14 +302,14 @@ class System_management extends Admin
                 $System_Area = $this->System_Management_model->Get_System_Area_Row($Controllers->controllers_area)->row();
 
                 $this->data['System_Function'][] = array(
-                    "function_id" => $ROW->function_id,
-                    "function_Code" => $ROW->function_Code,
-                    "function_name" => $ROW->item_translation,
-                    "Controllers_id"   => $Controllers_id,
-                    "Controllers_Code" => $Controllers->Controllers_Code,
-                    "Controllers_name" => $Controllers->item_translation,
-                    "Area" => $System_Area->area_name,
-                    "function_status" => $function_status,
+                    "function_id"           => $ROW->function_id,
+                    "function_Code"         => $ROW->function_Code,
+                    "function_name"         => $ROW->item_translation,
+                    "Controllers_id"        => $Controllers_id,
+                    "Controllers_Code"      => $Controllers->Controllers_Code,
+                    "Controllers_name"      => $Controllers->item_translation,
+                    "Area"                  => $System_Area->area_name,
+                    "function_status"       => $function_status,
                     "function_modification" => $function_modification,
                 );
 
@@ -429,6 +431,21 @@ class System_management extends Admin
 
             $Create_Functions  = $this->System_Management_model->Create_Functions($data_Functions);
 
+
+            if($this->input->post('permissions') == 1){
+                $dataPermissions = array();
+
+                $dataPermissions['function_id']              = $Create_Functions;
+                $dataPermissions['controllers_id']           = $this->input->post('Controllers_id');
+                $Create_Permissions                          = Create_Permissions($dataPermissions);
+                $item_ar                                     = $this->input->post('title_ar');
+                $item_en                                     = $this->input->post('title_en');
+                insert_translation_Language_item('portal_auth_permissions_translation',$Create_Permissions,$item_ar,$item_en);
+
+            } //  if($this->input->post('permissions') == 1)
+
+
+
             if($Create_Functions){
 
                 $item_ar = $this->input->post('title_ar');
@@ -454,6 +471,34 @@ class System_management extends Admin
     }
     ###################################################################
 
+    ###################################################################
+    public function Add_Permissions()
+    {
+
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Permissions()
+    {
+
+        $this->data['Page_Title'] = 'ادارة الصلاحيات';
+
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL . '/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL . '/Group_Users'));
+        $this->mybreadcrumb->add($this->data['Page_Title'], '#');
+
+        $this->data['permissions'] = Get_Permissions()->result_array();
+
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        $this->data['PageContent'] = $this->load->view('../../modules/System_management/views/List_Permissions', $this->data, true);
+
+        Layout_Admin($this->data);
+
+    }
+    ###################################################################
 
 }
 

@@ -4,6 +4,7 @@
         <!--begin::Info-->
         <div class="d-flex align-items-center flex-wrap mr-1">
 
+
             <!--begin::Page Heading-->
             <div class="d-flex align-items-baseline flex-wrap mr-5">
                 <!--begin::Page Title-->
@@ -19,7 +20,27 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <?php
+	        $options['custom'] = array(
+			        "class"          => 'Create_Transaction',
+			        "id"             => '',
+			        "title"          => 'انشاء معاملة جديدة',
+			        "icon"           => 'flaticon2-add',
+			        "color"          => 'primary',
+			        "data-attribute" => '',
+			        "href"           => base_url(APP_NAMESPACE_URL.'/Transactions/')
+	        );
+	        $options['custom'] = array(
+			        "class"          => 'Create_Transaction',
+			        "id"             => '',
+			        "title"          => 'البحث المتقدم',
+			        "icon"           => 'flaticon2-search-1',
+			        "color"          => 'primary',
+			        "data-attribute" => '',
+			        "href"           => base_url(APP_NAMESPACE_URL.'/Transactions/')
+	        );
+	        echo Create_Options_Button($options);
+	        ?>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -31,20 +52,10 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
-        <div class="card card-custom">
-            <div class="card-header">
-                <div class="card-title">
-                                <span class="card-icon">
-                                    <i class="flaticon-squares text-primary"></i>
-                                </span>
-                    <h3 class="card-label"><?= $Page_Title ?></h3>
-                </div>
-                <div class="card-toolbar">
-                    <?= Create_One_Button_Text(array('class' => "Create_Transaction",'title'=> 'انشاء طلب جديد','href'=> '#')) ?>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-body">
+
+
+
+
 
                     <?php echo  $this->session->flashdata('message'); ?>
 
@@ -58,45 +69,86 @@
                         echo $msg_result_view;
 
 	                }else{
+
+
+	                }
 	                ?>
 
-                    <style>th.dt-center,.dt-center { text-align: center; }</style>
-                    <table class="data_table table table-bordered table-hover display nowrap" width="100%">
-                        <thead>
-                        <tr>
-                            <th class="text-center">رقم المعاملة</th>
-                            <th class="text-center">طالب التقييم والمالك</th>
-                            <th class="text-center">موقع العقار</th>
-	                        <th class="text-center">بواسطة / التاريخ</th>
-                            <th class="text-center">حالة المعاملة</th>
-                            <th class="text-center">الخيارات</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-	                        foreach ($Transactions AS $Row)
-	                        {
-	                        ?>
-	                        <tr>
-	                            <td class="text-center"></td>
-	                            <td class="text-center"></td>
-		                        <td class="text-center"></td>
-	                            <td class="text-center"></td>
-		                        <td class="text-center"></td>
-		                        <td class="text-center"></td>
-	                        </tr>
-	                        <?php
-	                        }
-                        ?>
-                        </tbody>
-                    </table>
-	                <?php
-	                } // if($Transactions==false)
+
+
+
+	    <style>th.dt-center,.dt-center { text-align: center; }</style>
+	    <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+		    <thead>
+		    <tr>
+			    <th class="text-center">رقم المعاملة</th>
+			    <th class="text-center">طالب التقييم والمالك</th>
+			    <th class="text-center">موقع العقار</th>
+			    <th class="text-center">بواسطة / التاريخ</th>
+			    <th class="text-center">حالة المعاملة</th>
+			    <th class="text-center">الخيارات</th>
+		    </tr>
+		    </thead>
+		    <tbody>
+		    <?php
+		    foreach ($Transactions AS $Row)
+		    {
+			    ?>
+			    <tr>
+				    <td class="text-center">
+					    <?php
+					    echo $CLIENT = Transaction_data_by_key($Row['transaction_id'],'LIST_CLIENT');
+					    ?>
+				    </td>
+				    <td class="text-center">
+
+
+				    </td>
+				    <td class="text-center">
+
+				    </td>
+				    <td class="text-center">
+
+				    </td>
+				    <td class="text-center">
+
+				    </td>
+				    <td class="text-center">
+					    <?php
+					    $options_transaction['view'] = array(
+							    "class"          => '',
+							    "id"             => '',
+							    "title"          => 'عرض المعاملة',
+							    "data-attribute" => '',
+							    "icon"           => '',
+							    "href"           => base_url(APP_NAMESPACE_URL.'/Transactions/View_Transaction/'.$Row['transaction_uuid'])
+					    );
+
+					    $options_transaction['edit'] = array(
+							    "class"          => '',
+							    "id"             => '',
+							    "title"          => 'تعديل المعاملة',
+							    "data-attribute" => '',
+							    "icon"           => '',
+							    "href"           => base_url(APP_NAMESPACE_URL.'/Transactions/View_Transaction/'.$Row['transaction_uuid'])
+					    );
+
+					    echo Create_Options_Dropdown('خيارات المعاملة',
+							    '<i class="flaticon2-gear"></i>', $options_transaction);
+					    ?>
+				    </td>
+			    </tr>
+			    <?php
+		    }
+		    ?>
+		    </tbody>
+	    </table>
+	    <?php
+
 	                ?>
-                    <!--begin: Datatable -->
+	    <!--begin: Datatable -->
 
 
-                </div>
             </div>
         </div>
 

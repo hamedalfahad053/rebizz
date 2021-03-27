@@ -157,9 +157,9 @@ if(!function_exists('Creation_List_HTML')) {
             }
 
             if(empty($id)){
-                $id_ = $query_list->list_key;
+                $id_ = 'id="'.$query_list->list_key.'"';
             }else{
-                $id_ = $id;
+                $id_ = 'id="'.$id.'"';
             }
 
             if(!empty($style)){
@@ -182,8 +182,10 @@ if(!function_exists('Creation_List_HTML')) {
 
             if(!empty($multiple)){
                 $multiple_ = 'multiple="multiple"';
+                $name      = 'name="'.$query_list->list_key.'[]"';
             }else{
                 $multiple_ = '';
+                $name = 'name="'.$query_list->list_key.'"';
             }
 
             if(!empty($js)){
@@ -194,7 +196,7 @@ if(!function_exists('Creation_List_HTML')) {
 
             $title_ = 'title="'.lang("Select_noneSelectedText").'"';
 
-            $form_dropdown .= '<select data-live-search="true" data-size="5" name="'.$query_list->list_key.'" class="'.$class_output.'" '.$id_.' '.$style_.' '.$disabled_.'  '.$title_.' '.$multiple_.' '.$js_.'>';
+            $form_dropdown .= '<select data-live-search="true" data-size="5" '.$name.' class="'.$class_output.'" '.$id_.' '.$style_.' '.$disabled_.'  '.$title_.' '.$multiple_.' '.$js_.'>';
 
             if($type_list == 'options' or $type_list == 'options_ajax'){
                 foreach ($options as $op)
@@ -234,7 +236,7 @@ if(!function_exists('Create_options')) {
 ##############################################################################
 if(!function_exists('Get_options_List')) {
 
-    function Get_options_List($list_id,$where_options)
+    function Get_options_List($list_id,$where_options = '')
     {
         $lang          = get_current_lang();
         $options       = array();
@@ -254,18 +256,90 @@ if(!function_exists('Get_options_List')) {
         $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
         $query_list_options = app()->db->get();
 
-        foreach ($query_list_options->result() as $row) {
+        if($query_list_options->num_rows() >0 ) {
+            foreach ($query_list_options->result() as $row) {
 
-            $options[$row->list_options_id] = $row->item_translation;
-            $attr[$row->list_options_id] = array(
-                "type-item"  => 'options',
-                "data-Table" => "options",
-                'data-id'    => $row->list_options_id,
-                'data-key'   => $row->options_key
-            );
+                $options[$row->list_options_id] = $row->item_translation;
+                $attr[$row->list_options_id] = array(
+                    "type-item" => 'options',
+                    "data-Table" => "options",
+                    'data-id' => $row->list_options_id,
+                    'data-key' => $row->options_key
+                );
+            }
+        }else{
+            $options = false;
         }
 
         return $options;
+    }
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('query_options_List')) {
+
+    function query_options_List($list_id, $where_options = '')
+    {
+        if (!empty($where_options)) {
+            foreach ($where_options as $key => $value) {
+                $query_list_options = app()->db->where($key,$value);
+            }
+        }
+        $query_list_options = app()->db->where('list_id',$list_id);
+        $query_list_options = app()->db->get('portal_list_options_data');
+
+        return $query_list_options;
+    }
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('query_All_options_List')) {
+
+    function query_All_options_List($list_id,$where_options = '')
+    {
+        $lang          = get_current_lang();
+        $options       = array();
+
+        $query_list_options = app()->db->from('portal_list_options_data list_options');
+        $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+        $query_list_options = app()->db->where('list_options.list_id', $list_id);
+
+        if (!empty($where_options)) {
+            foreach ($where_options as $key => $value) {
+                $query_list_options = app()->db->where('list_options.' . $key . '', $value);
+            }
+        }
+
+        $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
+        $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
+        $query_list_options = app()->db->get();
+
+        return $query_list_options;
+    }
+}
+##############################################################################
+
+
+##############################################################################
+if(!function_exists('Update_Custom_Options'))
+{
+    function Update_Custom_Options($options_uuid,$options_company_id,$options_Status)
+    {
+        app()->load->database();
+
+        $Update_Options = app()->db->where('options_uuid',$options_uuid);
+        $Update_Options = app()->db->where('options_company_id',$options_company_id);
+        $Update_Options = app()->db->set('options_lastModifyDate',time());
+        $Update_Options = app()->db->set('options_status',$options_Status);
+        $Update_Options = app()->db->update('portal_list_options_data');
+
+        if($Update_Options){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 ##############################################################################

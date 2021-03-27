@@ -5,7 +5,7 @@
 if(!function_exists('Get_All_Forms'))
 {
 
-    function Get_All_Forms($Forms_id='')
+    function Get_All_Forms($where_extra='')
     {
         app()->load->database();
 
@@ -14,8 +14,12 @@ if(!function_exists('Get_All_Forms'))
         $query_Forms = app()->db->from('portal_forms  forms');
         $query_Forms = app()->db->join('portal_forms_translation  forms_translation', 'forms.Forms_id=forms_translation.item_id');
 
-        if(!empty($Forms_id)){
-            $query = app()->db->where('forms.Forms_Key',$Forms_id);
+        if(!empty($where_extra)){
+
+            foreach ($where_extra AS $key => $value)
+            {
+                $query_Forms = app()->db->where($key,$value);
+            }
         }
 
         $query_Forms = app()->db->where('forms_translation.translation_lang',$lang);
@@ -26,6 +30,41 @@ if(!function_exists('Get_All_Forms'))
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Create_Forms')) {
+
+    function Create_Forms($data)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_forms',$data);
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
+        }
+
+    }
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Create_Forms_Components')) {
+
+    function Create_Forms_Components($data)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_forms_components',$data);
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
+        }
+
+    }
+}
+##############################################################################
 
 ##############################################################################
 if(!function_exists('Get_Form_Components')) {
@@ -40,8 +79,9 @@ if(!function_exists('Get_Form_Components')) {
         $query = app()->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
 
         $query = app()->db->where('components_translation.translation_lang',$lang);
-        $query = app()->db->order_by('components.components_sort','ASC');
         $query = app()->db->where('components.Forms_id',$form_id);
+        $query = app()->db->order_by('components.components_sort','ASC');
+
 
         if(!empty($where_extra)){
 
@@ -59,6 +99,34 @@ if(!function_exists('Get_Form_Components')) {
 
 
 ##############################################################################
+if(!function_exists('Get_Form_Components_Customs')) {
+
+    function Get_Form_Components_Customs($form_id,$Type_CUSTOMER_option,$With_Type_Property_Option,$With_TYPES_APPRAISAL_option,$With_Type_evaluation_methods_option)
+    {
+        app()->load->database();
+        $lang   = get_current_lang();
+
+        $query =  app()->db->from('portal_forms_components  components');
+        $query =  app()->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
+        $query =  app()->db->where('components_translation.translation_lang',$lang);
+
+
+        $query = app()->db->where_in('components.With_Type_CUSTOMER',$Type_CUSTOMER_option);
+        $query = app()->db->or_where_in('components.With_Type_Property',$With_Type_Property_Option);
+        $query = app()->db->or_where_in('components.With_TYPES_APPRAISAL',$With_TYPES_APPRAISAL_option);
+        $query = app()->db->or_where_in('components.With_Type_evaluation_methods',$With_Type_evaluation_methods_option);
+
+
+        $query = app()->db->where('components.Forms_id',$form_id);
+        $query = app()->db->get();
+
+        return  $query;
+
+    }
+}
+##############################################################################
+
+##############################################################################
 if(!function_exists('Update_Sort_Form_Components')) {
 
     function Update_Sort_Form_Components($Forms_id,$Components_id,$Sort)
@@ -67,11 +135,11 @@ if(!function_exists('Update_Sort_Form_Components')) {
         $lang   = get_current_lang();
 
         $query = app()->db->where('Forms_id',$Forms_id);
-        $query = app()->db->where('Components_id',$Components_id);
+        $query = app()->db->where('components_id',$Components_id);
         $query = app()->db->set('components_sort',$Sort);
         $query = app()->db->update('portal_forms_components');
 
-        if(app()->db->affected_rows()){
+        if($query){
             return true;
         }else{
             return false;
@@ -80,6 +148,25 @@ if(!function_exists('Update_Sort_Form_Components')) {
     }
 }
 ##############################################################################
+
+
+
+##############################################################################
+if(!function_exists('Create_Fields_Form_Components')) {
+
+    function Create_Fields_Form_Components($data)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_forms_components_fields',$data);
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
+        }
+
+    }
+}
 
 
 ##############################################################################
@@ -120,8 +207,9 @@ if(!function_exists('Query_Fields_Components')) {
                 $query = app()->db->where($key,$value);
             }
         }
-
+        $query = app()->db->order_by('Fields_Sort','ASC');
         $query = app()->db->get('portal_forms_components_fields');
+
         return $query;
     }
 }
@@ -209,30 +297,52 @@ if(!function_exists('Get_Fields_Components')) {
             }
 
 
+            if($RC->With_CLIENT  == 'All'){
+                $Fields_array_With_CLIENT = lang('All_Components_Filed');
+            }else{
+
+                $Fields_array_With_CLIENT  = array();
+                $array_With_CLIENT         = explode(",",$RC->With_CLIENT);
+
+                foreach ($array_With_CLIENT AS $key_WCI)
+                {
+                    $Fields_array_With_CLIENT[] =  '';
+                }
+            }
+
+
             if ($RC->Fields_Type === 'Fields') {
 
                 $query_Fields = app()->db->from('portal_fields fields');
                 $query_Fields = app()->db->join('portal_fields_translation fields_translation', 'fields_translation.item_id = fields.Fields_id');
                 $query_Fields = app()->db->where('fields.Fields_id', $RC->Fields_id);
+                $query_Fields = app()->db->where(" (fields.Fields_company_id = ".app()->aauth->get_user()->company_id." OR fields.Fields_company_id = 0 ) ");
                 $query_Fields = app()->db->where('fields_translation.translation_lang', $lang);
-                $query_Fields = app()->db->get()->row();
 
-                $Fields[] = array(
+                $query_Fields = app()->db->get();
 
-                    'components_id'          => $Components_id,
-                    'Fields_id_Components'   => $RC->Components_fields_id,
-                    'Fields_id'              => $query_Fields->Fields_id,
-                    'Fields_Type_Components' => $RC->Fields_Type,
-                    'Fields_Type'            => 'Field',
+                if($query_Fields->num_rows()>0) {
 
-                    'Fields_With_Type_CUSTOMER'            => $Fields_With_Type_CUSTOMER,
-                    'Fields_With_Type_Property'            => $Fields_With_Type_Property,
-                    'Fields_With_TYPES_APPRAISAL'          => $Fields_With_TYPES_APPRAISAL,
-                    'Fields_With_Type_evaluation_methods'  => $Fields_With_Type_evaluation_methods,
+                    $query_Fields = $query_Fields->row();
 
-                    'Fields_Title'                         => $query_Fields->item_translation,
-                    'Fields_key'                           => $query_Fields->Fields_key
-                );
+                    $Fields[] = array(
+
+                        'components_id' => $Components_id,
+                        'Fields_id_Components' => $RC->Components_fields_id,
+                        'Fields_id' => $query_Fields->Fields_id,
+                        'Fields_Type_Components' => $RC->Fields_Type,
+                        'Fields_Type' => 'Field',
+                        "status_is_system" => $RC->status_is_system,
+
+                        'Fields_With_Type_CUSTOMER' => $Fields_With_Type_CUSTOMER,
+                        'Fields_With_Type_Property' => $Fields_With_Type_Property,
+                        'Fields_With_TYPES_APPRAISAL' => $Fields_With_TYPES_APPRAISAL,
+                        'Fields_With_Type_evaluation_methods' => $Fields_With_Type_evaluation_methods,
+                        'Fields_With_client_id' => $Fields_array_With_CLIENT,
+                        'Fields_Title' => $query_Fields->item_translation,
+                        'Fields_key' => $query_Fields->Fields_key
+                    );
+                }
 
             } elseif ($RC->Fields_Type === 'List') {
 
@@ -241,6 +351,7 @@ if(!function_exists('Get_Fields_Components')) {
                 $query_Fields = app()->db->from('portal_list_data list');
                 $query_Fields = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
                 $query_Fields = app()->db->where('list.list_id', $RC->Fields_id);
+                $query_Fields = app()->db->where(" (list.list_company_id = ".app()->aauth->get_user()->company_id." OR list.list_company_id = 0 ) ");
                 $query_Fields = app()->db->where('list_translation.translation_lang', $lang);
                 $query_Fields = app()->db->get()->row();
 
@@ -250,10 +361,12 @@ if(!function_exists('Get_Fields_Components')) {
                     'Fields_id'                            => $query_Fields->list_id,
                     'Fields_Type_Components'               => $RC->Fields_Type,
                     'Fields_Type'                          => 'Select',
+                    "status_is_system"                     => $RC->status_is_system,
                     'Fields_With_Type_CUSTOMER'            => $Fields_With_Type_CUSTOMER,
                     'Fields_With_Type_Property'            => $Fields_With_Type_Property,
                     'Fields_With_TYPES_APPRAISAL'          => $Fields_With_TYPES_APPRAISAL,
                     'Fields_With_Type_evaluation_methods'  => $Fields_With_Type_evaluation_methods,
+                    'Fields_With_client_id'                => $Fields_array_With_CLIENT,
                     'Fields_Title'                         => $query_Fields->item_translation,
                     'Fields_key'                           => $query_Fields->list_key
                 );
@@ -288,18 +401,20 @@ if(!function_exists('Building_Fields_Components_Forms')) {
 
         $query = app()->db->where('Forms_id', $Forms_id);
         $query = app()->db->where('Components_id', $Components_id);
+        $query = app()->db->where('(company_id = '.app()->aauth->get_user()->company_id.' OR company_id = 0 )');
         $query = app()->db->order_by('Fields_Sort','ASC');
         $query = app()->db->get('portal_forms_components_fields');
 
         foreach ($query->result() as $RC) {
 
-
-                $array_CUSTOMER   = explode(',',$RC->With_Type_CUSTOMER);
-                $array_Property   = explode(',',$RC->With_Type_Property);
-                $array_APPRAISAL  = explode(',',$RC->With_TYPES_APPRAISAL);
-                $array_evaluation = explode(',',$RC->With_Type_evaluation_methods);
+                $array_With_CLIENT  = explode(',',$RC->With_CLIENT);
+                $array_CUSTOMER     = explode(',',$RC->With_Type_CUSTOMER);
+                $array_Property     = explode(',',$RC->With_Type_Property);
+                $array_APPRAISAL    = explode(',',$RC->With_TYPES_APPRAISAL);
+                $array_evaluation   = explode(',',$RC->With_Type_evaluation_methods);
 
                 if(in_array($Type_CUSTOMER,$array_CUSTOMER)        or $RC->With_Type_CUSTOMER == 'All')                 { $Build = true;  }
+                if(in_array($Type_CUSTOMER,$array_With_CLIENT)     or $RC->With_CLIENT == 'All')                        { $Build = true;  }
                 if(in_array($Type_Property,$array_Property)        or $RC->With_TYPES_APPRAISAL == 'All')               { $Build = true;  }
                 if(in_array($TYPES_APPRAISAL,$array_APPRAISAL)     or $RC->With_Type_Property == 'All')                 { $Build = true;  }
                 if(in_array($evaluation_methods,$array_evaluation) or $RC->With_Type_evaluation_methods == 'All')       { $Build = true;  }
@@ -310,45 +425,54 @@ if(!function_exists('Building_Fields_Components_Forms')) {
 
                         $query_Fields = app()->db->from('portal_fields fields');
                         $query_Fields = app()->db->join('portal_fields_translation fields_translation', 'fields_translation.item_id = fields.Fields_id');
+                        $query_Fields = app()->db->where('fields.Fields_status_Fields',1);
+                        $query_Fields = app()->db->where('fields.Fields_isDeleted',0);
+                        $query_Fields = app()->db->where(" (fields.Fields_company_id = ".app()->aauth->get_user()->company_id." OR fields.Fields_company_id = 0 ) ");
                         $query_Fields = app()->db->where('fields.Fields_id', $RC->Fields_id);
                         $query_Fields = app()->db->where('fields_translation.translation_lang', $lang);
+                        $query_Fields = app()->db->get();
 
-                        # Custom Company and Clint id
-                        //if(){
+                        if($query_Fields->num_rows()){
+                            $query_Fields = $query_Fields->row();
+                            $Fields[] = array(
+                                'components_id'          => $Components_id,
+                                'Fields_id_Components'   => $RC->Components_fields_id,
+                                'Fields_id'              => $query_Fields->Fields_id,
+                                'Fields_Type_Components' => $RC->Fields_Type,
+                                'Fields_Type'            => 'Fields',
+                                'Fields_Title'           => $query_Fields->item_translation,
+                                'Fields_key'             => $query_Fields->Fields_key,
+                                'Fields_data'            => $RC->Fields_data
+                            );
+                        }
 
-                        //}
-
-                        $query_Fields = app()->db->get()->row();
-                        $Fields[] = array(
-                            'components_id'          => $Components_id,
-                            'Fields_id_Components'   => $RC->Components_fields_id,
-                            'Fields_id'              => $query_Fields->Fields_id,
-                            'Fields_Type_Components' => $RC->Fields_Type,
-                            'Fields_Type'            => 'Fields',
-                            'Fields_Title'           => $query_Fields->item_translation,
-                            'Fields_key'             => $query_Fields->Fields_key,
-                            'Fields_data'            => $RC->Fields_data
-                        );
 
                     } elseif ($RC->Fields_Type == 'List') {
 
                         $query_Fields = app()->db->from('portal_list_data list');
                         $query_Fields = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
                         $query_Fields = app()->db->where('list.list_id', $RC->Fields_id);
+                        $query_Fields = app()->db->where(" (list.list_company_id = ".app()->aauth->get_user()->company_id." OR list.list_company_id = 0 ) ");
                         $query_Fields = app()->db->where('list_translation.translation_lang', $lang);
-                        $query_Fields = app()->db->get()->row();
+                        $query_Fields = app()->db->get();
 
-                        $List[] = array(
-                            'components_id'               => $Components_id,
-                            'Fields_id_Components'        => $RC->Components_fields_id,
-                            'Fields_id'                   => $query_Fields->list_id,
-                            'Fields_Type_Components'      => $RC->Fields_Type,
-                            'Fields_Type'                 => 'Select',
-                            'Fields_Title'                => $query_Fields->item_translation,
-                            'Fields_key'                  => $query_Fields->list_key,
-                            'Fields_data'                 => $RC->Fields_data,
-                            'List_Target'                 => $RC->List_Target,
-                        );
+                        if($query_Fields->num_rows()) {
+
+                            $query_Fields = $query_Fields->row();
+
+                            $List[] = array(
+                                'components_id' => $Components_id,
+                                'Fields_id_Components' => $RC->Components_fields_id,
+                                'Fields_id' => $query_Fields->list_id,
+                                'Fields_Type_Components' => $RC->Fields_Type,
+                                'Fields_Type' => 'Select',
+                                'Fields_Title' => $query_Fields->item_translation,
+                                'Fields_key' => $query_Fields->list_key,
+                                'Fields_data' => $RC->Fields_data,
+                                'List_Target' => $RC->List_Target,
+                            );
+
+                        }
                     }
 
                     $Build = false;
@@ -407,6 +531,7 @@ if(!function_exists('Building_List_Forms')) {
             $query_list_options = app()->db->from('portal_list_options_data list_options');
             $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
             $query_list_options = app()->db->where('list_options.list_id', $query_get_setting_list->Fields_id);
+            $query_list_options = app()->db->where('list_options.options_status',1);
             $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
             $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
             $query_list_options = app()->db->get();
@@ -470,6 +595,7 @@ if(!function_exists('Building_List_Forms')) {
             $query_list_options = app()->db->from('portal_list_options_data list_options');
             $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
             $query_list_options = app()->db->where('list_options.list_id', $query_get_setting_list->Fields_id);
+            $query_list_options = app()->db->where('list_options.options_status',1);
             $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
             $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
             $query_list_options = app()->db->get();
@@ -489,6 +615,7 @@ if(!function_exists('Building_List_Forms')) {
             $query_list_options = app()->db->from('portal_list_options_data list_options');
             $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
             $query_list_options = app()->db->where('list_options.list_id', $query_get_setting_list->Fields_id);
+            $query_list_options = app()->db->where('list_options.options_status',1);
             $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
             $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
             $query_list_options = app()->db->get();
@@ -611,7 +738,15 @@ if(!function_exists('Building_List_Forms')) {
 
             foreach ($options as $op)
             {
-                $form_dropdown .= '<option value="'.$op['options_id'].'" data-key="'.$op['options_key'].'" data-type="'.$op['options_type'].'">'.$op['options_title'].'</option>';
+
+
+                if(!empty($selected) and $selected == $op['options_id']){
+                 $selected = 'selected="selected"';
+                }else{
+                    $selected = '';
+                }
+
+                $form_dropdown .= '<option '.$selected.'  value="'.$op['options_id'].'" data-key="'.$op['options_key'].'" data-type="'.$op['options_type'].'">'.$op['options_title'].'</option>';
             }
 
         $form_dropdown .= '</select>';

@@ -76,44 +76,57 @@
 
 
 					<div class="form-group row">
-						<div class="col-lg-3 mt-5">
-							<label> فئة العميل </label>
-							<?= Creation_List_HTML('select', 'LIST_CUSTOMER_CATEGORY', '','','options', '1','','','',array( 0=> "selectpicker"),'','','') ?>
-							<label class="checkbox mt-7">
-								<input type="checkbox" value="1"  checked="checked" name="All_CUSTOMER_CATEGORY"/>
+						<div class="checkbox-list">
+
+							<label class="checkbox mt-3">
+								<input type="checkbox" value="1"  id="All_CUSTOMER_CATEGORY" name="All_CUSTOMER_CATEGORY" onclick="JS_CUSTOMER_CATEGORY()"/>
 								<span></span>
 								عام لجميع العملاء
 							</label>
-						</div>
-						<div class="col-lg-3 mt-5">
-							<label> فئة العقار </label>
-							<?= Get_Select_Property_Types('select','','1', '','') ?>
-							<label class="checkbox mt-5">
-								<input type="checkbox" value="1"  checked="checked" name="All_Property_Types"/>
+
+							<label class="checkbox mt-3">
+								<input type="checkbox" value="1"   id="All_Property_Types" name="All_Property_Types" onclick="JS_Property_Types()" />
 								<span></span>
 								عام لجميع العقارات
 							</label>
-						</div>
-						<div class="col-lg-3 mt-5">
-							<label> فئة الطلب </label>
-							<?= Creation_List_HTML('select', 'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL', '','','options', '1','','','',array( 0=> "selectpicker"),'','','') ?>
 
-							<label class="checkbox mt-7">
-								<input type="checkbox" value="1"  checked="checked" name="All_TYPES_APPRAISAL"/>
+							<label class="checkbox mt-3">
+								<input type="checkbox" value="1"   id="All_TYPES_APPRAISAL" name="All_TYPES_APPRAISAL" onclick="JS_TYPES_APPRAISAL()"/>
 								<span></span>
 								عام لجميع الطلبات
 							</label>
-						</div>
-						<div class="col-lg-3 mt-5">
-							<label> طريقة  التقييم </label>
-							<?= Get_Select_evaluation_methods('select', '',1, '','evaluation_methods') ?>
-							<label class="checkbox mt-5">
-								<input type="checkbox" value="1"  checked="checked" name="All_evaluation_methods"/>
+
+							<label class="checkbox mt-3">
+								<input type="checkbox" value="1"  id="All_evaluation_methods" name="All_evaluation_methods"  onclick="JS_evaluation_methods()"/>
 								<span></span>
 								عام طرق التقييم
 							</label>
 						</div>
 					</div>
+
+
+					<div class="form-group row">
+						<div class="col-lg-6 mt-5">
+							<label> فئة الطلب </label>
+							<?= Creation_List_HTML('select', 'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL', '','','options', '1','','','',array( 0=> "selectpicker",1=>'Select_TYPES_APPRAISAL'),'','','') ?>
+						</div>
+						<div class="col-lg-6 mt-5">
+							<label> فئة العميل </label>
+							<?= Creation_List_HTML('select', 'LIST_CUSTOMER_CATEGORY', '','','options', '1','','','',array( 0=> "selectpicker",1=>'Select_CUSTOMER_CATEGORY'),'','','') ?>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-lg-6 mt-5">
+							<label> طريقة  التقييم </label>
+							<?= Get_Select_evaluation_methods('select', '',1, array( 0=> "selectpicker",1=>'Select_evaluation_methods'),'evaluation_methods') ?>
+						</div>
+						<div class="col-lg-6 mt-5">
+							<label> فئة العقار </label>
+							<?= Get_Select_Property_Types('select','','1', array( 0=> "selectpicker",1=>'Select_Property_Types'),'') ?>
+						</div>
+					</div>
+
 
                 </div>
 
@@ -133,5 +146,49 @@
 </div>
 <!--end::Entry-->
 
+<script type="text/javascript">
 
+	function JS_CUSTOMER_CATEGORY() {
+		if ($("#All_CUSTOMER_CATEGORY").is(":checked")) {
+			$('.Select_CUSTOMER_CATEGORY').attr('disabled', 'disabled');
+			$('#LIST_Client').attr('disabled', 'disabled');
+		}
+		else {
+			$('.Select_CUSTOMER_CATEGORY').removeAttr('disabled');
+			$('#LIST_Client').removeAttr('disabled');
+		}
+		$('.Select_CUSTOMER_CATEGORY').selectpicker('refresh');
+		$('#LIST_Client').selectpicker('refresh');
+	}
+
+	function JS_Property_Types() {
+		if ($("#All_Property_Types").is(":checked")) {
+			$('.Select_Property_Types').attr('disabled', 'disabled');
+		}
+		else {
+			$('.Select_Property_Types').removeAttr('disabled');
+		}
+		$('.Select_Property_Types').selectpicker('refresh');
+	}
+
+	function JS_TYPES_APPRAISAL() {
+		if ($("#All_TYPES_APPRAISAL").is(":checked")) {
+			$('.Select_TYPES_APPRAISAL').attr('disabled', 'disabled');
+		}
+		else {
+			$('.Select_TYPES_APPRAISAL').removeAttr('disabled');
+		}
+		$('.Select_TYPES_APPRAISAL').selectpicker('refresh');
+	}
+
+	function JS_evaluation_methods() {
+		if ($("#All_evaluation_methods").is(":checked")) {
+			$('.Select_evaluation_methods').attr('disabled', 'disabled');
+		}
+		else {
+			$('.Select_evaluation_methods').removeAttr('disabled');
+		}
+		$('.Select_evaluation_methods').selectpicker('refresh');
+	}
+</script>
 

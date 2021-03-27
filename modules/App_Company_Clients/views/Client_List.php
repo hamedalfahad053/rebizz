@@ -63,6 +63,7 @@
                             <th class="text-center"><?= lang('client_name') ?></th>
                             <th class="text-center">فئة العميل</th>
                             <th class="text-center"><?= lang('Table_Status') ?></th>
+	                        <th class="text-center">بواسطة / التاريخ</th>
                             <th class="text-center"><?= lang('Table_Options') ?></th>
                         </tr>
                     </thead>
@@ -75,9 +76,13 @@
                                     <td class="text-center"><?= $row['Client_id'] ?></td>
 	                                <td class="text-center"><img src="<?= $row['Client_logo']; ?>" height="35" width="35" ></td>
 	                                <td class="text-center"><?= $row['Client_name'] ?></td>
-                                    <td class="text-center"><?= $row['Client_name'] ?></td>
                                     <td class="text-center"><?= $row['type_id'] ?></td>
                                     <td class="text-center"><?= $row['status'] ?></td>
+	                                <td class="text-center">
+		                                <?php
+		                                echo $this->aauth->get_user($row['created_By'])->full_name
+		                                ?>
+	                                </td>
                                     <td class="text-center"><?= $row['options'] ?></td>
                                 </tr>
                         <?php

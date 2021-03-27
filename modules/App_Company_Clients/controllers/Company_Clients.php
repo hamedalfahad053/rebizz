@@ -37,10 +37,10 @@ class Company_Clients extends Apps
                 $options['edit']        = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
                 $options['deleted']     = array("class"=>"","id"=>"","title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
 
-                if ($ROW->is_active == true) {
-                    $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '', "href" => "#");
-                } else {
+                if ($ROW->is_active == 1) {
                     $options['disable'] = array("class"=>"","id"=>"","title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
+                } else {
+                    $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '', "href" => "#");
                 }
 
                 $Clients_options =  Create_Options_Button($options);
@@ -58,7 +58,8 @@ class Company_Clients extends Apps
                     "uuid"                => $ROW->uuid,
                     "Client_logo"         => $logo,
                     "Client_name"         => $ROW->name,
-                    "type_id"             => '',
+                    "type_id"             => Get_options_List_Translation($ROW->type_id)->item_translation,
+                    "created_By"          => $ROW->created_By,
                     "company_id"          => $ROW->company_id,
                     "is_active"           => $ROW->is_active,
                     "options"             => $Clients_options,

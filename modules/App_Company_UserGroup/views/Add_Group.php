@@ -1,6 +1,3 @@
-
-
-
 <!--begin::Subheader-->
 <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
     <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -34,7 +31,7 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
-        <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Group_Users/Create_Group') ?>" method="post">
+        <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/User_Group/Create_Group') ?>" method="post">
             <?= CSFT_Form() ?>
 
 
@@ -46,6 +43,9 @@
                         </span>
                         <h3 class="card-label"><?= lang('add_new_group_button') ?></h3>
                     </div>
+	                <div class="card-toolbar">
+
+	                </div>
                 </div>
                 <div class="card-body">
                         <div class="form-group row">
@@ -69,8 +69,8 @@
                                 </select>
                             </div>
                         </div>
-            </div>
-        </div>
+	            </div>
+	        </div>
 
 
             <div class="card card-custom mt-10">
@@ -79,56 +79,83 @@
                         <span class="card-icon">
                             <i class="flaticon-users-1 text-primary"></i>
                         </span>
-                        <h3 class="card-label">صلاحيات المجموعة</h3>
+                        <h3 class="card-label">صلاحيات النظام العامة</h3>
                     </div>
                 </div>
             </div>
-
 
             <?php
-            foreach ($Permissions AS $Row)
+            foreach ($Controllers_Permissions AS $Row)
             {
+
             ?>
-            <div class="col-lg-4  mt-10">
-                <!--begin::List Widget 5-->
-                <div class="card card-custom card-stretch gutter-b">
-                    <!--begin::header-->
-                    <div class="card-header border-0">
-                        <h3 class="card-title font-weight-bolder"><?= $Row['Controllers_title'] ?></h3>
-                    </div>
-                    <!--end::header-->
-                    <!--begin::Body-->
-                    <div class="card-body pt-0">
-                        <?php
-                        foreach ($Row['controllers_functions'] AS $Row_F)
-                        {
-                        ?>
-                        <!--begin::Item-->
-                        <div class="d-flex align-items-center mb-3">
-                            <!--begin::Checkbox-->
-                            <label class="checkbox checkbox-lg checkbox-primary flex-shrink-0 m-0 mr-4">
-                                <input type="checkbox" value="1">
-                                <span></span>
-                            </label>
-                            <!--end::Checkbox-->
-                            <!--begin::Text-->
-                            <div class="d-flex flex-column flex-grow-1 py-2">
-                                <a href="#" class="text-dark-75 font-weight-bold text-hover-primary font-size-lg mb-1"><?= $Row_F['functions_title'] ?></a>
-                            </div>
-                            <!--end::Text-->
-                        </div>
-                        <!--end::Item-->
-                        <?php
-                        }
-                        ?>
-                    </div>
-                    <!--end::Body-->
-                </div>
-                <!--end::List Widget 5-->
-            </div>
+
+	            <div class="card card-custom mt-10">
+		            <div class="card-header">
+			            <div class="card-title">
+	                        <span class="card-icon">
+	                            <i class="flaticon-users-1 text-primary"></i>
+	                        </span>
+				            <h3 class="card-label"><?= $Row['Controllers_title'] ?></h3>
+			            </div>
+			            <div class="card-toolbar">
+				            <label class="checkbox mt-3">
+					            <input type="checkbox" value="1" name="" id="btnDiv3" class="select-all"/>
+					            <span></span>
+					            تحديد الكل / الغاء الكل
+				            </label>
+			            </div>
+		            </div>
+		            <div class="card-body"  id="">
+			            <?php
+			            $functions_Controller = Get_functions_Controller($Row['Controllers_id']);
+			            if($functions_Controller->num_rows()>0){
+					            ?>
+					            <div class="checkbox-inline">
+						            <?php
+
+						            foreach ($functions_Controller->result() AS $F){
+								            $Get_Permissions = Get_Permissions(array("area.area_id" => 3, "controllers.controllers_id" => $Row['Controllers_id'], "functions.function_id" => $F->function_id));
+								            if ($Get_Permissions->num_rows() > 0) {
+									            foreach ($Get_Permissions->result() AS $P)
+									            {
+									            ?>
+										            <label class="checkbox mt-3">
+											            <input type="checkbox" value="<?= $P->permissions_id ?>"  name="permissions[]"/>
+											            <span></span>
+											            <?= $P->permissions_title ?>
+										            </label>
+								                <?php
+									            } // foreach ($Permissions AS $P)
+								            } // if($Permissions != false)
+						            } // foreach ($Row['Function'] AS $F)
+
+					                ?>
+					            </div>
+					            <?php
+			            } // if($functions != false)
+			            ?>
+
+
+		            </div>
+	            </div>
+
             <?php
             }
             ?>
+
+
+	        <div class="card-footer mt-10">
+		        <div class="row">
+			        <div class="col-lg-6">
+				        <button type="submit" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+			        </div>
+			        <div class="col-lg-6 text-lg-right">
+				        <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
+			        </div>
+		        </div>
+	        </div>
+
 
         </form>
 
@@ -137,3 +164,10 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+
+<script type="text/javascript">
+	$('.select-all').on('click', function () {
+		$(this).closest('div').find('.check').prop('checked', true);
+	});
+</script>

@@ -1,153 +1,112 @@
-<div class="card card-custom mb-5 mt-10">
-
-    <div class="card-header">
-        <div class="card-title">
-            <span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-            <h3 class="card-label">البيانات الاساسية للطلب</h3>
-        </div>
-        <div class="card-toolbar"></div>
-    </div>
-    <div class="card-body">
 
 
-	    <table class="data_table table table-bordered table-hover display nowrap" width="100%">
-			    <tr>
-				    <td class="text-center"> طريقة الاستلام</td>
-				    <td class="text-center"><?=  $METHOD_OF_RECEIPT ?></td>
-				    <td class="text-center">وقت الاستلام / بواسطة</td>
-				    <td class="text-center"><?= date('Y-m-d h:i:s a',$Transactions_Data->Create_Transaction_Date) ?></td>
-			    </tr>
-				<tr>
-					<td class="text-center">فئة العميل</td>
-					<td class="text-center"><?= $CUSTOMER_CATEGORY ?></td>
-					<td class="text-center"> العميل</td>
-					<td class="text-center"><img src="<?= $Client_logo; ?>" height="35" width="35" ><?= $Client_id ?></td>
-				</tr>
-
-			    <tr>
-				    <td class="text-center">رقم التكليف</td>
-				    <td class="text-center"><?= $Transactions_Data->COMMISSIONING_NUMBER ?></td>
-				    <td class="text-center">تاريخ / وقت التكليف</td>
-				    <td class="text-center"><?= date('Y-m-d h:i:s a',$Transactions_Data->Create_Transaction_Date) ?></td>
-			    </tr>
-			    <tr>
-				    <td class="text-center">الدولة</td>
-				    <td class="text-center"><?= $Countries_id ?></td>
-				    <td class="text-center">المنطقة</td>
-				    <td class="text-center"><?= $Region_id ?></td>
-			    </tr>
-			    <tr>
-				    <td class="text-center">المدينة</td>
-				    <td class="text-center"><?= $City_id ?></td>
-				    <td class="text-center"> الحي</td>
-				    <td class="text-center"><?= $District_id ?></td>
-			    </tr>
-	    </table>
-	    <!--begin: Datatable -->
+<?php
 
 
-    </div>
-</div>
 
 
-<div class="card card-custom mb-5 mt-10">
+$where_extra_Form_Components = array('With_Type_CUSTOMER'=> "All",'With_Type_Property'=> "All", 'With_TYPES_APPRAISAL'=> "All",'With_Type_evaluation_methods'=>"All");
+$Form_Components = Get_Form_Components(1,$where_extra_Form_Components);
+foreach ($Form_Components->result() AS $RC)
+{
+?>
+<input type="hidden" name="Form_id" value="1">
+<div class="card card-custom mt-10">
 
+	<!--begin::Header-->
 	<div class="card-header">
 		<div class="card-title">
-			<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-			<h3 class="card-label"> بيانات المالك - طالب التقييم </h3>
+			<h3 class="card-label">
+				<?= $RC->item_translation ?>
+			</h3>
 		</div>
-		<div class="card-toolbar"></div>
+		<div class="card-toolbar">
+
+		</div>
 	</div>
+	<!--begin::Header-->
+
+	<!--begin::Body-->
 	<div class="card-body">
 
-		<table class="data_table table table-bordered table-hover display nowrap" width="100%">
-			<tr>
-				<td class="text-center">مالك العقار</td>
-				<td class="text-center">رقم الهوية</td>
-				<td class="text-center">رقم الجوال</td>
-				<td class="text-center">طالب التقييم</td>
-				<td class="text-center">رقم الهوية</td>
-				<td class="text-center">رقم الجوال</td>
-			</tr>
-			<tr>
-				<td class="text-center"><?= $Transactions_Data->OWNER_REAL_ESTATE ?></td>
-				<td class="text-center"><?= $Transactions_Data->OWNER_IDENTITY_NUMBER ?></td>
-				<td class="text-center"><?= $Transactions_Data->OWNERS_MOBILE_NUMBER ?></td>
-				<td class="text-center"><?= $Transactions_Data->OWNER_APPLICANT_EVALUATION ?></td>
-				<td class="text-center"><?= $Transactions_Data->OWNER_APPLICANT_IDENTITY_NUMBER ?></td>
-				<td class="text-center"><?= $Transactions_Data->OWNER_MOBILE_EVALUATION ?></td>
-			</tr>
-		</table>
-		<!--begin: Datatable -->
+
+		<div class="form-group row">
+			<?php
+			$Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,'All','All','All','All');
+			foreach ($Get_Fields_Components as $GFC)
+			{
+			   if($GFC['Fields_Type_Components'] == 'Fields') {
+
+				   $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
+				   $Get_Fields = Get_Fields($Where_Get_Fields)->row();
+				   echo '<div class="col-lg-4 mt-5">';
+
+				   echo '</div>';
+
+			   }elseif($GFC['Fields_Type_Components'] == 'List') {
+				   echo '<div class="col-lg-4 mt-5">';
+
+				   echo '</div>';
+			   }
+
+			}
+			?>
+		</div><!-- <div class="form-group row"> -->
+
+
 
 	</div>
-</div>
+	<!--begin::Body-->
 
 
+</div><!--<div class="card card-custom mt-10">-->
+<?php
+}
+?>
 
-<div class="card card-custom mb-5 mt-10">
 
-	<div class="card-header">
-		<div class="card-title">
-			<span class="card-icon"><i class="flaticon-squares text-primary"></i></span>
-			<h3 class="card-label">بيانات الصك </h3>
-		</div>
-		<div class="card-toolbar"></div>
-	</div>
-	<div class="card-body">
+	<?php
+	$Get_Form_Components_Customs = Get_Form_Components_Customs('1',
+			$data_transactions['LIST_CUSTOMER_CATEGORY']['data_value'],
+			$data_transactions['LIST_TYPE_OF_PROPERTY']['data_value'],
+			$data_transactions['LIST_TYPES_OF_REAL_ESTATE_APPRAISAL']['data_value'],
+			'');
 
-		<table class="data_table table table-bordered table-hover display nowrap" width="100%">
-			<tr>
-				<td class="text-center">كتابة عدل</td>
-				<td class="text-center"></td>
-				<td class="text-center">رقم العقار</td>
-				<td class="text-center"></td>
-			</tr>
-			<tr>
-				<td class="text-center"> فئة العقار</td>
-				<td class="text-center"></td>
-				<td class="text-center">رقم الصك / تاريخة</td>
-				<td class="text-center"></td>
-			</tr>
-		</table>
+	if($Get_Form_Components_Customs->num_rows()>0){
 
-		<div class="separator separator-dashed my-8"></div>
+	foreach ($Get_Form_Components_Customs->result() AS $GFCC)
+	{
+	?>
 
-		<table class="data_table table table-bordered table-hover display nowrap" width="100%">
-			<tr>
-				<td class="text-center">اسم المخطط</td>
-				<td class="text-center"></td>
-				<td class="text-center">رقم المخطط</td>
-				<td class="text-center"></td>
-				<td class="text-center">رقم البلك</td>
-				<td class="text-center"></td>
-				<td class="text-center">رقم القطعة</td>
-				<td class="text-center"></td>
-			</tr>
-			<tr>
-				<td class="text-center">الحد الشمالي</td>
-				<td class="text-center"></td>
-				<td class="text-center">بطول</td>
-				<td class="text-center"></td>
-				<td class="text-center">الحد الجنوبي</td>
-				<td class="text-center"></td>
-				<td class="text-center">بطول</td>
-				<td class="text-center"></td>
-			</tr>
-			<tr>
-				<td class="text-center">الحد الشرقي</td>
-				<td class="text-center"></td>
-				<td class="text-center">بطول</td>
-				<td class="text-center"></td>
-				<td class="text-center">الحد الغربي</td>
-				<td class="text-center"></td>
-				<td class="text-center">بطول</td>
-				<td class="text-center"></td>
-			</tr>
-		</table>
+		<div class="card card-custom mt-10">
 
-	</div>
-</div>
+			<!--begin::Header-->
+			<div class="card-header">
+				<div class="card-title">
+					<h3 class="card-label">
+						<?= $GFCC->item_translation ?>
+					</h3>
+				</div>
+				<div class="card-toolbar">
+
+				</div>
+			</div>
+			<!--begin::Header-->
+
+			<!--begin::Body-->
+			<div class="card-body">
+
+
+			</div><!--begin::Body-->
+
+		</div><!--<div class="card card-custom mt-10">-->
+
+	<?php
+	} // foreach ($Get_Form_Components_Customs->result() AS $GFCC)
+
+	} //if($Get_Form_Components_Customs->num_rows()>0)
+	?>
+
+
 
 

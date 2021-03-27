@@ -97,6 +97,17 @@
                                         ?>
                                     </select>
                                 </div>
+
+	                            <div class="form-group row">
+		                            <div class="col-lg-12">
+			                            <label class="checkbox mt-10">
+				                            <input type="checkbox" value="1"  name="permissions"/>
+				                            <span></span>
+				                            اضافة صلاحيات للكنترول
+			                            </label>
+		                            </div>
+	                            </div>
+
                             </div>
 
                         </div><!--<div class="card-body">-->
