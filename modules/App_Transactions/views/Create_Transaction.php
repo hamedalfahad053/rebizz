@@ -67,30 +67,22 @@
 
 			    <!--begin::Body-->
 			    <div class="card-body">
-
-
 				    <div class="form-group row">
-
 					    <?php
 					    $Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,'All','All','All','All');
-
-
 					    foreach ($Get_Fields_Components as $GFC)
 					    {
-
 							    if($GFC['Fields_Type_Components'] == 'Fields'){
-
 									$Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
 									$Get_Fields       = Get_Fields($Where_Get_Fields)->row();
 							        ?>
-
 									<div class="col-lg-4 mt-5">
 									<?php
 									echo Creation_Field_HTML_input($Get_Fields->Fields_key,
 																			true,
 																			'',
 																			'',
-																			'',
+																			$Get_Fields->Fields_key,
 																			'',
 																			'',
 																			'',
@@ -100,12 +92,9 @@
 
 									?>
 									</div>
-
 							        <?php
-
 							    }elseif($GFC['Fields_Type_Components'] == 'List'){
 							        ?>
-
 							        <div class="col-lg-4 mt-5">
 							        <?php
 								    $class_List      = array( 0 => "selectpicker");
@@ -122,23 +111,14 @@
 														$js='');
 								    ?>
 							        </div>
-
 							    <?php
 							    }
 
 					    } // foreach
 					    ?>
-
-
-
 				    </div><!-- <div class="form-group row"> -->
-
-
-
 			    </div>
 			    <!--begin::Body-->
-
-
 		    </div><!--<div class="card card-custom mt-10">-->
 		    <?php
 		    }
@@ -150,19 +130,78 @@
 		    <div id="ajax_Components_With_TYPES_APPRAISAL"></div>
 
 
+		    <?php
+		    $where_Stages_Assignment = array(
+		    		"stages_key" => 'CREATE_A_TRANSACTION',
+			        "company_id" => $this->aauth->get_user()->company_id
+		    );
+		    $Get_Stages_Transaction = Assignment_Transaction_Departments_To($where_Stages_Assignment);
+		    if($Get_Stages_Transaction == false) {
 
-		    <div class="card card-custom mb-5 mt-5">
-			    <div class="card-footer">
-				    <div class="row">
-					    <div class="col-lg-6">
-						    <button type="submit"   class="btn btn-primary mr-2">ارسال الطلب</button>
+			    $msg_result['key']   = 'Danger';
+			    $msg_result['value'] = 'لا يوجد ضبط صحيح لاسناد المعاملة بعد الاضافة';
+			    $msg_result_view = Create_Status_Alert($msg_result);
+			    echo $msg_result_view;
+
+		    }else{
+
+			    $Assignment_Type_where = array(
+					    'stages_key' => 'CREATE_A_TRANSACTION',
+					    'company_id' => $this->aauth->get_user()->company_id
+			    );
+			    $Assignment_Type = Get_Stages_Transaction_Company($Assignment_Type_where)->row();
+
+		    	if($Assignment_Type->attribution_method == 1){
+		    		echo '<input type="hidden" name="Assignment_userid" value="'.$Get_Stages_Transaction['userid'].'">';
+			    }elseif($Assignment_Type->attribution_method == 2){
+		        ?>
+			    <div class="card card-custom mb-5 mt-5">
+				    <!--begin::Header-->
+				    <div class="card-header">
+					    <div class="card-title">
+						    <h3 class="card-label">تحويل الطلب الى </h3>
 					    </div>
-					    <div class="col-lg-6 text-lg-right">
-						    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Cancel_Create_Transaction') ?>" class="btn btn-danger"><?= lang('cancel_button') ?></a>
+				    </div>
+				    <!--begin::Header-->
+				    <!--begin::Body-->
+				    <div class="card-body">
+					    <select name="Assignment_userid" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
+						    <?php
+						    $t = 'عدد المعاملات الحالية :';
+						    foreach ($Get_Stages_Transaction AS $key_user)
+						    {
+							    echo '<option  data-subtext="  '.$t.$key_user['Assignment_Num'].'" value="'.$key_user['userid'].'">'.$key_user['full_name'].'</option>';
+						    }
+						    ?>
+					    </select>
+				    </div>
+				    <!--begin::Body-->
+			    </div>
+
+
+				<?php
+			    } // if($Assignment_Type->attribution_method == 1)
+				?>
+
+			    <div class="card card-custom mb-5 mt-5">
+				    <div class="card-footer">
+					    <div class="row">
+						    <div class="col-lg-6">
+							    <button type="submit"   class="btn btn-primary mr-2">ارسال الطلب</button>
+						    </div>
+						    <div class="col-lg-6 text-lg-right">
+							    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Cancel_Create_Transaction') ?>" class="btn btn-danger"><?= lang('cancel_button') ?></a>
+						    </div>
 					    </div>
 				    </div>
 			    </div>
-		    </div>
+			<?php
+		    }
+		    ?>
+
+
+
+
 
 	    </form>
 
@@ -173,6 +212,29 @@
 </div>
 <!--end::Entry-->
 
+
+
+
+<!--begin::Modal-->
+<div class="modal fade" id="Modal_INSTRUMENT_NUMBER" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeLg" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">معاملات بنفس رقم الصك</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i aria-hidden="true" class="ki ki-close"></i>
+				</button>
+			</div>
+			<div class="modal-body">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">اغلاق</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end::Modal-->
 
 <?= import_js(BASE_ASSET.'js/pages/crud/forms/editors/summernote',''); ?>
 
@@ -266,11 +328,37 @@
 					swal.fire(" خطا ", "في ارسال الطلب ", "error");
 				}
 			});
-
 	} // function ajax_list(el)
 
 
 
+	$('#INSTRUMENT_NUMBER').blur(function() {
+		if($(this).val().length > 4) {
+			var INSTRUMENT_NUMBER = $(this).val();
+			$.ajax({
+				type: 'ajax',
+				method: 'get',
+				async: false,
+				dataType: 'html',
+				url: '<?= base_url( APP_NAMESPACE_URL.'/Transactions/Check_Instrument_Number_By_Transactions') ?>',
+				data: {
+					INSTRUMENT_NUMBER:INSTRUMENT_NUMBER
+				},
+				success: function (data) {
+
+					if(data.Type == 'zero_result'){
+
+					}else{
+						$('#Modal_INSTRUMENT_NUMBER').modal('show');
+					}
+
+				},
+				error: function () {
+					swal.fire(" خطا ", "في ارسال الطلب ", "error");
+				}
+			});
+		} // if( $(this).val().length > 5 )
+	})
 
 
 

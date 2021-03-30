@@ -18,10 +18,7 @@ class App_Transactions extends Apps
         $this->data['Page_Title']      = 'استعراض الطلبات ';
         $Transactions                  = array();
 
-//        if(Check_Permissions(25) == false){
-//            echo  Create_Status_Alert(array("key"=>"Danger","value"=>"لا يوجد لديك صلاحيات "));
-//            die;
-//        }
+
 
         $where_Transactions = array(
             "company_id"               => $this->aauth->get_user()->company_id,
@@ -69,18 +66,17 @@ class App_Transactions extends Apps
     ###################################################################
 
     ###################################################################
-    public function Ajax_Table_Transaction()
-    {
-
-    }
-    ###################################################################
-
-    ###################################################################
     public function Create_Transaction()
     {
         $this->data['Page_Title']     = 'استلام طلب جديد';
 
         Create_Logs_User('Create_Transaction','','Transaction','Create');
+
+        $where_user_departments = array(
+            "users.departments_id" => ''
+        );
+        $Get_Company_Users = Get_Company_Users($where_user_departments);
+        $emp_departments = '';
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
@@ -97,7 +93,6 @@ class App_Transactions extends Apps
     public function Create_Transaction_Submit()
     {
 
-        $validating_building = array();
         $POST_Fields         = $_POST;
         $FILE_UPLOAD         = $_FILES;
         $Form_id             = $this->input->post('Form_id');
@@ -114,64 +109,72 @@ class App_Transactions extends Apps
         foreach($POST_Fields AS $key => $value)
         {
 
-           $Fields_Components          =  Query_Fields_Components(array("Fields_key" => $key));
+            //ignore $_POST
+            if($key == 'Assignment_userid'){
 
-           if($Fields_Components->num_rows()>0){
+            }else {
+                $Fields_Components = Query_Fields_Components(array("Fields_key" => $key));
 
-               $Get_validating_Fields  = Get_validating_Fields(array("Forms_id" => $Form_id,
-                                                                     "company_id"=>0,
-                                                                     "Fields_id" => $Fields_Components->row()->Fields_id));
+                if ($Fields_Components->num_rows() > 0) {
 
-               $Get_validating_Fields_company = Get_validating_Fields(array("Forms_id"   => $Form_id,
-                                                                            "company_id" => $this->aauth->get_user()->company_id,
-                                                                            "Fields_id"  => $Fields_Components->row()->Fields_id));
-               if ($Get_validating_Fields->num_rows() > 0)
-               {
-                   if ($Fields_Components->row()->Fields_Type == 'Fields') {
+                    $Get_validating_Fields = Get_validating_Fields(array("Forms_id" => $Form_id,
+                        "company_id" => 0,
+                        "Fields_id" => $Fields_Components->row()->Fields_id));
 
-                       $Get_Fields = Get_Fields(array("Fields_id" => $Fields_Components->row()->Fields_id))->row();
-                       Building_form_validation($key,$Get_Fields->item_translation,$Get_validating_Fields->row()->validating_rules);
+                    $Get_validating_Fields_company = Get_validating_Fields(array("Forms_id" => $Form_id,
+                        "company_id" => $this->aauth->get_user()->company_id,
+                        "Fields_id" => $Fields_Components->row()->Fields_id));
 
-                   } elseif ($Fields_Components->row()->Fields_Type == 'List') {
+                    if ($Get_validating_Fields->num_rows() > 0) {
 
-                       $Get_List   = Get_All_List(array("list_id" => $Fields_Components->row()->Fields_id))->row();
-                       Building_form_validation($key,$Get_List->item_translation,$Get_validating_Fields->row()->validating_rules);
+                        if ($Fields_Components->row()->Fields_Type == 'Fields') {
+                            $Get_Fields = Get_Fields(array("Fields_id" => $Fields_Components->row()->Fields_id))->row();
+                            Building_form_validation($key, $Get_Fields->item_translation, $Get_validating_Fields->row()->validating_rules);
+                        } elseif ($Fields_Components->row()->Fields_Type == 'List') {
+                            $Get_List = Get_All_List(array("list_id" => $Fields_Components->row()->Fields_id))->row();
+                            Building_form_validation($key, $Get_List->item_translation, $Get_validating_Fields->row()->validating_rules);
+                        }
 
-                   }
+                        if ($this->form_validation->run() == FALSE) {
+                            $msg_result['key'] = 'Danger';
+                            $msg_result['value'] = validation_errors();
+                            $msg_result_view = Create_Status_Alert($msg_result);
+                            set_message($msg_result_view);
+                            redirect(APP_NAMESPACE_URL . '/Transactions/Create_Transaction/', 'refresh');
+                        }
 
-                   if ($this->form_validation->run() == FALSE) {
-                       $msg_result['key'] = 'Danger';
-                       $msg_result['value'] = validation_errors();
-                       $msg_result_view = Create_Status_Alert($msg_result);
-                       set_message($msg_result_view);
-                       redirect(APP_NAMESPACE_URL . '/Transactions/Create_Transaction/', 'refresh');
-                   }
+                        $data_Transaction[$key] = $this->input->post($key, TRUE);
 
-                   $data_Transaction[$key] = $this->input->post($key,TRUE);
+                    } // if ($Get_validating_Fields->num_rows() > 0)
 
-               } // if ($Get_validating_Fields->num_rows() > 0)
+                } // if($Fields_Components->num_rows()>0)
 
-           } // if($Fields_Components->num_rows()>0)
+            } // ignore $_POST
 
         } // foreach ($POST_Fields AS $field)
 
 
         ##########################################################################################################################################
         # START :: INSERT DB Transaction
+
+        $where_Transaction_Stage = array(
+            "stages_key" => 'DATA_ENTRY',
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $Get_Stages = Get_Stages_Transaction_Company($where_Transaction_Stage)->row();
+
         $data_Transaction_static['transaction_number']        = date('Ymd');
         $data_Transaction_static['company_id']                = $this->aauth->get_user()->company_id;
         $data_Transaction_static['location_id']               = $this->aauth->get_user()->locations_id;
         $data_Transaction_static['Transaction_Status_id']     = '1';
+        $data_Transaction_static['Transaction_Stage']         = $Get_Stages->stages_key;
+        $data_Transaction_static['Assignment_userid']         = $this->input->post('Assignment_userid');
         $data_Transaction_static['Create_Transaction_By_id']  = $this->aauth->get_user()->id;
         $data_Transaction_static['Create_Transaction_Date']   = time();
 
-        $this->db->trans_start(TRUE);
-
-        $Create_Transaction      = Create_Transaction($data_Transaction_static);
-        $Create_Transaction_data = Create_Transaction_data($Create_Transaction,$data_Transaction);
-
-        $this->db->trans_complete();
-
+        $Create_Transaction              = Create_Transaction($data_Transaction_static);
+        $Create_Transaction_data         = Create_Transaction_data($Create_Transaction,$data_Transaction);
+        $Create_Transaction_data_history = Create_Transaction_data_history($Create_Transaction,$data_Transaction,'Create');
 
         # END :: DB Transaction
         ##########################################################################################################################################
@@ -237,10 +240,8 @@ class App_Transactions extends Apps
 
         if($Create_Transaction and $Create_Transaction_data){
 
-
-
-
-                $Create_Notifications = Create_Notifications('', '', '');
+                //$massage_Notifications = lang('Notifications_Assignment_Transaction').'<a >'.$Create_Transaction.'</a>';
+                //$Create_Notifications  = Create_Notifications($data_Transaction_static['Assignment_userid'], 'AssignmentTransaction', $massage_Notifications);
 
                 $msg_result['key'] = 'Success';
                 $msg_result['value'] = lang('message_success_insert');
@@ -258,39 +259,52 @@ class App_Transactions extends Apps
     }
     ###################################################################
 
-
     ###################################################################
-    public function Data_Transaction()
+    public function Check_Instrument_Number_By_Transactions()
     {
-        $this->data['Page_Title']     = 'ادخال البيانات والمراجعة';
+        $INSTRUMENT_NUMBER       = $this->input->get('INSTRUMENT_NUMBER');
 
-        Create_Logs_User('Create_Transaction','','Transaction','Create');
+        $msg = array();
 
-        $Transaction_id =  $this->uri->segment(4);
+        if($INSTRUMENT_NUMBER !=''){
 
-        $where_Transactions = array(
-            "uuid"                     => $Transaction_id,
-            "company_id"               => $this->aauth->get_user()->company_id,
-            "location_id"              => $this->aauth->get_user()->locations_id,
-        );
+            $where_Transactions_data = array(
+                "company_id"    => $this->aauth->get_user()->company_id,
+                "data_key"      => 'INSTRUMENT_NUMBER',
+                "data_value"    => $INSTRUMENT_NUMBER,
+            );
+            $Get_Transaction_data    = Get_Transaction_data($where_Transactions_data);
 
-        $Get_Transactions  = Get_Transaction($where_Transactions);
+            if($Get_Transaction_data->num_rows()>0){
 
-        if($Get_Transactions->num_rows()>0){
+                foreach ($Get_Transaction_data->result() AS $R )
+                {
 
-            $this->data['Transactions']      = $Get_Transactions->row();
+                    $Transaction[] = array(
+                        "Transaction_id"    => "",
+                        "INSTRUMENT_NUMBER" => $R->INSTRUMENT_NUMBER,
+                    );
+
+                } // foreach ($where_Transactions_data->result() AS $R )
+
+
+                $msg['Transaction'] = $Transaction;
+                $msg['Type']        = 'result';
+
+            }else{
+
+                $msg['Transaction'] = false;
+                $msg['Type']        = 'zero_result';
+
+            } // if($where_Transactions_data->num_rows()>0)
+
+        }else{
 
         }
 
-        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
-        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
-        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-
-        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/Form_Data_Entry_Transactions', $this->data, true);
-
-        Layout_Apps($this->data);
-
+        echo json_encode($msg);
     }
+    ###################################################################
 
     ###################################################################
     public function View_Transaction()

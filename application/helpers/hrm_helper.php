@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 ##############################################################################
 if(!function_exists('Get_Departments'))
@@ -42,7 +43,27 @@ if(!function_exists('Create_Departments'))
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Update_Supervisor_Departments'))
+{
+    function Update_Supervisor_Departments($id,$company_id,$supervisor)
+    {
+        app()->load->database();
+        $query = app()->db->where('departments_id',$id);
+        $query = app()->db->where('company_id',$company_id);
+        $query = app()->db->set('departments_lastModifyDate',time());
+        $query = app()->db->set('department_supervisor',$supervisor);
+        $query = app()->db->update('portal_hrm_departments');
 
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+}
+##############################################################################
 
 
 ##############################################################################

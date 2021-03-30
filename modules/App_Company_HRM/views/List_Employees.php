@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <!--begin::Subheader-->
 <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
     <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -17,7 +20,6 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-            <?= Create_One_Button_Text(array("class"=>"","id"=>"",'title'=> 'اضافة موظف ' ,'href'=>base_url(APP_NAMESPACE_URL.'/HRM/add_Employees'))) ?>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -56,28 +58,29 @@
                         <th class="text-center">المسمى الوظيفي</th>
                         <th class="text-center">الرئيس المباشر</th>
                         <th class="text-center">الحالة</th>
-                        <th class="text-center">تاريخ الاضافة</th>
                         <th class="text-center">الخيارات</th>
                     </tr>
                     </thead>
                     <tbody>
-<!--                    --><?php
-//                    $i = 0;
-//                    if($Position != false){
-//                        foreach ($Position AS $row)
-//                        {
-//                            ?>
-<!--                            <tr>-->
-<!--                                <td class="text-center">--><?//= ++$i ?><!--</td>-->
-<!--                                <td class="text-center">--><?//= $row['Position_title'] ?><!--</td>-->
-<!--                                <td class="text-center">--><?//= $row['Position_status'] ?><!--</td>-->
-<!--                                <td class="text-center">--><?//= $row['Position_createBy'] ?><!--</td>-->
-<!--                                <td class="text-center">--><?//= $row['Position_option'] ?><!--</td>-->
-<!--                            </tr>-->
-<!--                            --><?php
-//                        }
-//                    }
-//                    ?>
+                    <?php
+                    $i = 0;
+                    if($Company_Users != false){
+	                    foreach ($Company_Users AS $row)
+	                    {
+		                    ?>
+		                    <tr>
+			                    <td class="text-center"><?= ++$i ?></td>
+			                    <td class="text-center"><?= $row['full_name'] ?></td>
+			                    <td class="text-center"><?= $row['departments'] ?></td>
+			                    <td class="text-center"><?= $row['Position'] ?></td>
+			                    <td class="text-center"><?= $row['department_supervisor'] ?></td>
+			                    <td class="text-center"><?= $row['user_status'] ?></td>
+			                    <td class="text-center"><?= $row['user_options'] ?></td>
+		                    </tr>
+		                    <?php
+	                    }
+                    }
+                    ?>
                     </tbody>
                 </table>
                 <!--begin: Datatable -->

@@ -35,10 +35,10 @@ if(!function_exists('Get_All_List')) {
                 $query_list = app()->db->where('list.'.$key,$value);
             }
         }
-
         $query_list = app()->db->where('list_translation.translation_lang',$lang);
         $query_list = app()->db->get();
         return $query_list;
+
     } // function Get_Data_List($type_list,$key_list)
 }
 ##############################################################################
@@ -308,12 +308,12 @@ if(!function_exists('query_All_options_List')) {
 
         if (!empty($where_options)) {
             foreach ($where_options as $key => $value) {
-                $query_list_options = app()->db->where('list_options.' . $key . '', $value);
+                $query_list_options = app()->db->where($key,$value);
             }
         }
 
         $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
-        $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
+        $query_list_options = app()->db->order_by('list_options.options_sort','ASC');
         $query_list_options = app()->db->get();
 
         return $query_list_options;
@@ -344,7 +344,6 @@ if(!function_exists('Update_Custom_Options'))
 }
 ##############################################################################
 
-
 ##############################################################################
 if(!function_exists('Get_options_List_Translation')) {
 
@@ -367,10 +366,60 @@ if(!function_exists('Get_options_List_Translation')) {
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('get_data_options_List_view')) {
+
+    function get_data_options_List_view($list_id,$options_id)
+    {
+        $lang         = get_current_lang();
+        $_Join_fields = '';
+
+        $query_list = app()->db->where('list_id', $list_id);
+        $query_list = app()->db->get('portal_list_data');
 
 
 
+        if($query_list->num_rows() > 0){
+
+            $row_list = $query_list->row();
+
+            if($row_list->list_type == 'OPTIONS'){
+
+                $query_list_options = app()->db->where('item_id', $options_id);
+                $query_list_options = app()->db->where('translation_lang', $lang);
+                $query_list_options = app()->db->get('portal_list_options_translation')->row()->item_translation;
 
 
+            }elseif($row_list->list_type =='TABLE'){
 
+                $query_list = $query_list->row();
 
+                if($query_list->Linking_table == NULL){
+
+                    $_Join_fields       = $query_list->Table_Join_fields;
+                    $query_list_options = app()->db->where($query_list->Table_primary_fields,$options_id);
+                    $query_list_options = app()->db->get($query_list->Table_primary)->row()->$_Join_fields;
+
+                }elseif($query_list->Linking_table == 1){
+
+                    $query_list_options = app()->db->from($query_list->Table_primary.' Table_Primary');
+                    $query_list_options = app()->db->join($query_list->Table_Join.'    Table_Join', 'Table_Primary.'.$query_list->Table_primary_fields.' = Table_Join.'.$query_list->Table_primary_joining_fields.'');
+                    $query_list_options = app()->db->where('Table_Primary.'.$query_list->Table_primary_fields,$options_id);
+                    $query_list_options = app()->db->where('Table_Join.translation_lang', $lang);
+                    $_Join_fields       = $query_list->Table_Join_fields;
+                    $query_list_options = app()->db->get()->row()->$_Join_fields;
+
+                }
+            }
+
+            return $query_list_options;
+
+        }else{
+
+            return false;
+
+        } //  if($query_list->num_rows() > 0)
+
+    } // function get_data_options_List_view($list_id)
+}
+##############################################################################

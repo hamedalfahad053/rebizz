@@ -27,9 +27,6 @@ class App_Company_HRM extends Apps
     }
     ###################################################################
 
-
-
-
     ###################################################################
     public function Departments()
     {
@@ -48,6 +45,14 @@ class App_Company_HRM extends Apps
                 } else {
                     $departments_status = Create_Status_badge(array("key" => "Danger", "value" => lang('Status_Disabled')));
                 }
+
+                $options['custom'] = array(
+                    "class"=>"","id"=>"", "title" => "تحديث رئيس القسم", "data-attribute" => '',"color" => "success",
+                    "icon" => "flaticon-settings",
+                    "href" => base_url(APP_NAMESPACE_URL."/HRM/Set_Supervisor_Departments/".$ROW->departments_uuid)
+                );
+
+
                 $options['edit'] = array(
                     "class"=>"","id"=>"", "title" => lang('edit_button'), "data-attribute" => '', "href" => "#"
                 );
@@ -63,10 +68,11 @@ class App_Company_HRM extends Apps
                     );
                 }
 
+
                 if($ROW->department_supervisor == 0){
                     $department_supervisor = Create_Status_badge(array("key" => "Danger", "value" => 'لم يحدد رئيس للقسم'));
                 }else{
-                    $department_supervisor = $ROW->department_supervisor;
+                    $department_supervisor = $this->aauth->get_user($ROW->department_supervisor)->full_name;
                 }
 
 
@@ -179,7 +185,7 @@ class App_Company_HRM extends Apps
 
         } // if($this->form_validation->run()==FALSE)
 
-    } //public function Create_Departments()
+    }
     ###################################################################
 
     ###################################################################
@@ -198,6 +204,105 @@ class App_Company_HRM extends Apps
     }
     ###################################################################
 
+    ###################################################################
+    public function Set_Supervisor_Departments()
+    {
+
+        $uuid       =  $this->uri->segment(4);
+
+        $this->data['Page_Title']  = '  تعيين رئيس قسم  ';
+
+        if ($uuid == '') {
+
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = 'طريقة غير صحيحة ';
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL . '/HRM/Departments/', 'refresh');
+
+        } else {
+
+            $Get_Departments           = Get_Departments(array("company_id"=>$this->aauth->get_user()->company_id,"departments.departments_uuid"=>$uuid))->row();
+            $this->data['Departments'] = $Get_Departments;
+
+            $Company_Users   = Get_Company_Users(array("users.company_id" => $this->aauth->get_user()->company_id,"users.banned"=>0));
+
+            if ($Company_Users->num_rows() > 0) {
+
+                foreach ($Company_Users->result() as $Row) {
+
+                    if($Row->position_id != NULL){
+                        $Position =  Get_options_List_Translation($Row->position_id)->item_translation;
+                    }else{
+                        $Position = 'غير محدد';
+                    }
+
+                    $this->data['Company_Users'][] = array(
+                        "user_id"   => $Row->user_id,
+                        "full_name" => $Row->full_name,
+                        "position"  => $Position
+                    );
+
+                } // foreach
+
+            } else {
+                $this->data['Company_Users'] = false;
+            } // if ($Company_Users->num_rows() > 0)
+        } // if ($uuid == '')
+
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Company_HRM/views/Form_Set_Supervisor_Departments', $this->data, true);
+        Layout_Apps($this->data);
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Update_Supervisor_Departments()
+    {
+
+        $this->form_validation->set_rules('departments_id','لم تحدد القسم','required');
+        $this->form_validation->set_rules('Supervisor','لم تحدد رئيس القسم','required');
+
+        if($this->form_validation->run()==FALSE){
+
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = validation_errors();
+            $msg_result_view     = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL.'/HRM/Departments', 'refresh');
+
+        } else {
+
+            $departments_id               =  $this->input->post('departments_id');
+            $Supervisor                   =  $this->input->post('Supervisor');
+            $company_id                   =  $this->aauth->get_user()->company_id;
+
+            $Update_Supervisor_Departments = Update_Supervisor_Departments($departments_id,$company_id,$Supervisor);
+
+            if ($Update_Supervisor_Departments)
+            {
+
+                Create_Logs_User('Update_Supervisor_Departments',$departments_id,'Departments','Update');
+
+                $msg_result['key'] = 'Success';
+                $msg_result['value'] = lang('message_success_insert');
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL . '/HRM/Departments', 'refresh');
+            } else {
+                $msg_result['key'] = 'Danger';
+                $msg_result['value'] = lang('message_error_insert');
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL . '/HRM/Departments', 'refresh');
+            }
+
+        }
+
+    }
+    ###################################################################
 
     ###################################################################
     public function Status_Departments()
@@ -286,14 +391,77 @@ class App_Company_HRM extends Apps
     }
     ###################################################################
 
-
-
-
     ###################################################################
     public function Employees()
     {
 
         $this->data['Page_Title']  = 'ادراة الموظفين';
+
+        $Company_Users = Get_Company_Users(
+            array(
+                "users.company_id" => $this->aauth->get_user()->company_id,
+                "users.banned"     => 0
+            )
+        );
+
+        if($Company_Users->num_rows()>0){
+            foreach ($Company_Users->result() AS $Row)
+            {
+                if($Row->banned == 0) {
+                    $user_status =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+                }else{
+                    $user_status =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+                }
+                $options = array();
+
+                $options['view']    = array("class"=>"","id"=>"","title" => lang('view_button'), "data-attribute" => '', "href" => "#");
+                $options['edit']    = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
+                $options['deleted'] = array("class"=>"","id"=>"","title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
+
+                if($Row->banned == 1) {
+                    $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '', "href" => "#");
+                }else {
+                    $options['disable'] = array("class"=>"","id"=>"","title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
+                }
+
+
+                if($Row->position_id != NULL){
+                    $Position =  Get_options_List_Translation($Row->position_id)->item_translation;
+
+                }else{
+                    $Position = 'غير محدد';
+                }
+
+                if($Row->departments_id == NULL or $Row->departments_id == 0)
+                {
+                    $Departments_name = 'غير محدد';
+                    $supervisor       = 'غير محدد';
+                }else{
+
+                    $Departments      = Get_Departments(array("company_id" =>$this->aauth->get_user()->company_id,"departments.departments_id"=>$Row->departments_id))->row();
+                    $Departments_name = $Departments->item_translation;
+                    $supervisor       = $this->aauth->get_user($Departments->department_supervisor)->full_name;
+                }
+
+                $user_options =  Create_Options_Button($options);
+
+                $this->data['Company_Users'][] = array(
+                    "user_id"                => $Row->user_id,
+                    "email"                  => $Row->email,
+                    "phone"                  => $Row->phone,
+                    "Position"               => $Position,
+                    "departments"            => $Departments_name,
+                    "department_supervisor"  => $supervisor,
+                    "full_name"              => $Row->full_name,
+                    "user_status"            => $user_status,
+                    "group_user"             => $Row->item_translation,
+                    "user_options"           => $user_options,
+                );
+            }
+        }else{
+            $this->data['Company_Users'] = false;
+        }
+
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
@@ -306,7 +474,5 @@ class App_Company_HRM extends Apps
 
     }
     ###################################################################
-
-
 
 }

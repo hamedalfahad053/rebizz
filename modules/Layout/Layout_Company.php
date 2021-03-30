@@ -182,36 +182,66 @@
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
 	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Transaction') ?>" class="menu-link menu-toggle">
+			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text"> انشاء معاملة جديدة </span></a>
+	                                </li>
+	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/index') ?>" class="menu-link menu-toggle">
-			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text">المعاملات الجارية</span></a>
+			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text"> المعاملات الجارية  </span></a>
+	                                </li>
+	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/index') ?>" class="menu-link menu-toggle">
+			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text"> ارشيف المعاملات </span></a>
 	                                </li>
                                 </ul>
                             </div>
                         </li>
 
+	                    <li class="menu-section">
+		                    <h4 class="menu-text">  قسم البيانات والمراجعة  </h4>
+		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+	                    </li>
+	                    <li class="menu-item" aria-haspopup="true">
+		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions_DataEntries') ?>" class="menu-link">
+			                    <i class="menu-icon flaticon-layer"></i>
+			                    <span class="menu-text"> ادارة المعاملات <span class="label  label-sm label-danger mx-auto">0</span></span>
+		                    </a>
+	                    </li>
+
+
+	                    <li class="menu-section">
+		                    <h4 class="menu-text">  قسم التنسيق و الجودة  </h4>
+		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+	                    </li>
+	                    <li class="menu-item" aria-haspopup="true">
+		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions_Coordination_Quality') ?>" class="menu-link">
+			                    <i class="menu-icon flaticon-layer"></i>
+			                    <span class="menu-text"> ادارة المعاملات <span class="label  label-sm label-danger mx-auto">0</span></span>
+		                    </a>
+	                    </li>
 
 	                    <li class="menu-section">
 		                    <h4 class="menu-text">نظام المعاينة</h4>
 		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 	                    </li>
-	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-		                    <a href="javascript:;" class="menu-link menu-toggle">
-			                    <span class="svg-icon menu-icon"><i class="flaticon-placeholder text-primary"></i></span>
-			                    <span class="menu-text">ادارة نظام المعاينة</span>
-			                    <i class="menu-arrow"></i>
+	                    <li class="menu-item" aria-haspopup="true">
+		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
+			                    <i class="menu-icon flaticon-layer"></i>
+			                    <span class="menu-text"> ادارة المعاملات <span class="label  label-sm label-danger mx-auto">0</span></span>
 		                    </a>
-		                    <div class="menu-submenu">
-			                    <i class="menu-arrow"></i>
-			                    <ul class="menu-subnav">
-				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-					                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Preview_RealEstate/Preview_Completed') ?>" class="menu-link menu-toggle">
-						                    <span class="menu-icon"><i class="flaticon-web text-primary"></span></i><span class="menu-text">المعاملات المنجزة</span></a>
-				                    </li>
-			                    </ul>
-		                    </div>
 	                    </li>
 
 
+	                    <li class="menu-section">
+		                    <h4 class="menu-text">نظام التقييم</h4>
+		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+	                    </li>
+	                    <li class="menu-item" aria-haspopup="true">
+		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
+			                    <i class="menu-icon flaticon-layer"></i>
+			                    <span class="menu-text"> ادارة المعاملات <span class="label  label-sm label-danger mx-auto">0</span></span>
+		                    </a>
+	                    </li>
 
 
 	                    <li class="menu-section">
@@ -248,6 +278,7 @@
                                 <span class="menu-text">الاعدادت العامة</span>
                             </a>
                         </li>
+
 	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                    <a href="javascript:;" class="menu-link menu-toggle">
 			                    <span class="svg-icon menu-icon"><i class="flaticon-imac text-primary"></i></span>
@@ -274,12 +305,7 @@
 			                    </ul>
 		                    </div>
 	                    </li>
-	                    <li class="menu-item" aria-haspopup="true">
-		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction') ?>" class="menu-link">
-			                    <i class="menu-icon flaticon-home"></i>
-			                    <span class="menu-text">  اعداد المعاملات   </span>
-		                    </a>
-	                    </li>
+
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= base_url(APP_NAMESPACE_URL.'/Locations') ?>" class="menu-link">
                                 <i class="menu-icon  text-primary flaticon2-favourite"></i>
@@ -304,9 +330,6 @@
                                         <a href="<?= base_url(APP_NAMESPACE_URL.'/User_Group') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="fas fa-users-cog text-primary"></span></i><span class="menu-text">مجموعة المستخدمين</span></a>
                                     </li>
-
-
-
                                 </ul>
                             </div>
                         </li>

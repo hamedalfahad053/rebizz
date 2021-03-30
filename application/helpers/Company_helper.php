@@ -37,6 +37,27 @@ if(!function_exists('Get_Company'))
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Get_Locations'))
+{
+
+    function Get_Locations($where_extra)
+    {
+        app()->load->database();
+
+        if(!empty($where_extra)){
+            foreach ($where_extra AS $key => $value)
+            {
+                $query = app()->db->where($key,$value);
+            }
+        }
+        $query = app()->db->get('portal_company_locations')->row();
+        return $query;
+    }
+
+}
+##############################################################################
+
 
 ##############################################################################
 if(!function_exists('company_settings_system'))

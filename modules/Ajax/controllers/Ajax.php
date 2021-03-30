@@ -300,16 +300,7 @@ class Ajax extends Base_Ajax
 
 
 
-    ###################################################################
-    public function Ajax_Filter_List()
-    {
-        $Selected_item  = $this->input->get('');
 
-        $query_list     = $this->db->get('');
-
-
-    }
-    ###################################################################
 
 
 }

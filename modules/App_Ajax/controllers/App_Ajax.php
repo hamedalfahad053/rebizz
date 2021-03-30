@@ -32,8 +32,8 @@ class App_Ajax extends Apps
 
             $this->db->from('portal_forms_components  components');
             $this->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
-            if($LIST_CLIENT)
-            {
+
+            if($LIST_CLIENT) {
                 $this->db->where("FIND_IN_SET(".$LIST_CLIENT.",components.With_CLIENT) !=",0);
             }else{
                 $this->db->where("FIND_IN_SET('All',components.With_CLIENT) !=",0);
@@ -43,19 +43,18 @@ class App_Ajax extends Apps
             }else{
                 $this->db->where("FIND_IN_SET('All',components.With_Type_CUSTOMER) !=",0);
             }
-            if($TYPE_OF_PROPERTY)
-            {
+            if($TYPE_OF_PROPERTY) {
                 $this->db->where("FIND_IN_SET(".$TYPE_OF_PROPERTY.",components.With_Type_Property) !=",0);
             }else{
                 $this->db->where("FIND_IN_SET('All',components.With_Type_Property) !=",0);
             }
 
-            if($TYPES_OF_REAL_ESTATE_APPRAISAL)
-            {
+            if($TYPES_OF_REAL_ESTATE_APPRAISAL) {
                 $this->db->where("FIND_IN_SET(".$TYPES_OF_REAL_ESTATE_APPRAISAL.",components.With_TYPES_APPRAISAL) !=",0);
             }else{
                 $this->db->where("FIND_IN_SET('All',components.With_TYPES_APPRAISAL) !=",0);
             }
+
             $this->db->where(" (components.company_id = ".$this->aauth->get_user()->company_id." OR components.company_id = 0 ) ");
             $this->db->where('components.Forms_id',$form_id);
             $this->db->where('components_translation.translation_lang',$lang);
@@ -100,9 +99,6 @@ class App_Ajax extends Apps
                             }
                         } // foreach
 
-
-
-
                         $html .='<script>$( ".datepicker" ).datepicker("refresh");</script>';
 
                         $html .= '</div><!--<div class="form-group row">-->';
@@ -114,9 +110,7 @@ class App_Ajax extends Apps
 
                     } // foreach ($query->result() as $row) {
             }
-
             echo $html;
-
     }
     ###############################################################################################
 

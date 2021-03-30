@@ -34,55 +34,34 @@
 
 
         <div class="card card-custom">
-            <div class="card-header">
-                <div class="card-title">
-                    <span class="card-icon">
-                        <i class="flaticon-squares text-primary"></i>
-                    </span>
-                    <h3 class="card-label"><?= $Page_Title ?></h3>
-                </div>
-                <div class="card-toolbar">
-                </div>
-            </div>
             <div class="card-body">
 
-                <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/HRM/Create_Departments') ?>" method="post">
+                <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/HRM/Update_Supervisor_Departments') ?>" method="post">
                     <?= CSFT_Form() ?>
                     <div class="card-body">
-
                         <div class="form-group row">
-                            <div class="col-lg-4 mt-5">
-                                <label>اسم القسم باللغة العربية</label>
-                                <input type="text" name="title_ar" class="form-control" placeholder=""/>
-                            </div>
-                            <div class="col-lg-4 mt-5">
-                                <label>اسم القسم باللغة الانجليزية</label>
-                                <input type="text" name="title_en" class="form-control" placeholder=""/>
-                            </div>
-	                        <div class="col-lg-4 mt-5">
-		                        <label>حالة القسم</label>
-		                        <select name="departments_status" id="user_Status"  title="اختر من فضلك "  class="form-control selectpicker">
+
+	                        <div class="col-lg-6 mt-5">
+		                        <label>اختر رئيس القسم</label>
+		                        <input type="hidden" name="departments_id" value="<?= $Departments->departments_id ?>">
+		                        <select name="Supervisor"  data-size="7" title="اختر من فضلك " data-live-search="true"  class="form-control selectpicker">
 			                        <?php
-			                        foreach ($status AS $key => $value)
+			                        foreach ($Company_Users AS $key)
 			                        {
-				                        echo '<option value="'.$key.'">'.$value.'</option>';
+				                        echo '<option value="'.$key['user_id'].'" data-subtext="'.$key['position'].'" data-icon="la la-user font-size-lg bs-icon">'.$key['full_name'].'</option>';
 			                        }
-			                        ?>
+			                        ?>-
 		                        </select>
 	                        </div>
 
-
                         </div>
-
                     </div>
-
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-lg-6">
-                                <button type="submit" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+                                <button type="submit" class="btn btn-primary mr-2">تحديث رئيس القسم</button>
                             </div>
                             <div class="col-lg-6 text-lg-right">
-                                <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
                             </div>
                         </div>
                     </div>

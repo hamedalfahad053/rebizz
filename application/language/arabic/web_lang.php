@@ -5,6 +5,9 @@
 $lang['Dashboard']     = 'لوحة المعلومات';
 
 
+$lang['Notifications_Assignment_Transaction']  = 'تم اسناد معاملة جديدة برقم ';
+
+
 $lang['deleted_button']    = 'حذف';
 
 #  Global Button

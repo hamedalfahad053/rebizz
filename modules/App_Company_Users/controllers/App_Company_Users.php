@@ -45,17 +45,24 @@ class App_Company_Users extends Apps
 
                 $user_options =  Create_Options_Button($options);
 
+                if(get_current_lang() == 'arabic'){
+                    $Locations = Get_Locations(array("company_locations_id"=>$Row->locations_id,"company_id"=>$this->aauth->get_user()->company_id))->Locations_ar;
+                }else{
+                    $Locations = Get_Locations(array("company_locations_id"=>$Row->locations_id,"company_id"=>$this->aauth->get_user()->company_id))->Locations_en;
+                }
+
                 $this->data['Company_Users'][] = array(
                     "user_id"      => $Row->user_id,
                     "email"        => $Row->email,
                     "phone"        => $Row->phone,
                     "full_name"    => $Row->full_name,
-                    "locations"    => 'locations',
+                    "locations"    => $Locations,
                     "date_created" => $Row->date_created,
                     "user_status"  => $user_status,
                     "group_user"   => $Row->item_translation,
                     "user_options" => $user_options,
                 );
+
             }
         }else{
             $this->data['Company_Users'] = false;

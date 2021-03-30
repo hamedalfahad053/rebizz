@@ -7,7 +7,6 @@ class System_Forms extends Admin
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('System_Forms_Model');
         $this->data['controller_name'] = 'ادارة النماذج';
 
     }

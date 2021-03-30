@@ -99,31 +99,107 @@ if(!function_exists('Get_Form_Components')) {
 
 
 ##############################################################################
-if(!function_exists('Get_Form_Components_Customs')) {
+if(!function_exists('Get_View_Components_Customs')) {
 
-    function Get_Form_Components_Customs($form_id,$Type_CUSTOMER_option,$With_Type_Property_Option,$With_TYPES_APPRAISAL_option,$With_Type_evaluation_methods_option)
+    function Get_View_Components_Customs($form_id,$LIST_CLIENT,$CUSTOMER_CATEGORY,$TYPE_OF_PROPERTY,$TYPES_OF_REAL_ESTATE_APPRAISAL)
     {
-        app()->load->database();
-        $lang   = get_current_lang();
 
-        $query =  app()->db->from('portal_forms_components  components');
-        $query =  app()->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
-        $query =  app()->db->where('components_translation.translation_lang',$lang);
+        $lang          = get_current_lang();
 
 
-        $query = app()->db->where_in('components.With_Type_CUSTOMER',$Type_CUSTOMER_option);
-        $query = app()->db->or_where_in('components.With_Type_Property',$With_Type_Property_Option);
-        $query = app()->db->or_where_in('components.With_TYPES_APPRAISAL',$With_TYPES_APPRAISAL_option);
-        $query = app()->db->or_where_in('components.With_Type_evaluation_methods',$With_Type_evaluation_methods_option);
+        app()->db->from('portal_forms_components  components');
+        app()->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
 
+        if($LIST_CLIENT) {
+            app()->db->where("( FIND_IN_SET(".$LIST_CLIENT.",components.With_CLIENT)  !=0  OR FIND_IN_SET('All',components.With_CLIENT) !=0 )" );
+        }else{
+            app()->db->where("FIND_IN_SET('All',components.With_CLIENT) !=",0);
+        }
+        if ($CUSTOMER_CATEGORY){
+            app()->db->where(" ( FIND_IN_SET(".$CUSTOMER_CATEGORY.",components.With_Type_CUSTOMER) !=0  OR FIND_IN_SET('All',components.With_Type_CUSTOMER) !=0 )" );
+        }else{
+            app()->db->where("FIND_IN_SET('All',components.With_Type_CUSTOMER) !=",0);
+        }
+        if($TYPE_OF_PROPERTY) {
+            app()->db->where(" ( FIND_IN_SET(".$TYPE_OF_PROPERTY.",components.With_Type_Property) !=0  OR FIND_IN_SET('All',components.With_Type_Property) !=0 )"  );
+        }else{
+            app()->db->where("FIND_IN_SET('All',components.With_Type_Property) !=0");
+        }
 
-        $query = app()->db->where('components.Forms_id',$form_id);
+        if($TYPES_OF_REAL_ESTATE_APPRAISAL) {
+            app()->db->where(" ( FIND_IN_SET(".$TYPES_OF_REAL_ESTATE_APPRAISAL.",components.With_TYPES_APPRAISAL) !=0  OR FIND_IN_SET('All',components.With_Type_Property) !=0 )" );
+        }else{
+            app()->db->where("FIND_IN_SET('All',components.With_TYPES_APPRAISAL) !=",0);
+        }
+
+        app()->db->where(" (components.company_id = ".app()->aauth->get_user()->company_id." OR components.company_id = 0 ) ");
+        app()->db->where('components.Forms_id',$form_id);
+        app()->db->where('components_translation.translation_lang',$lang);
+        app()->db->distinct('components.components_key');
         $query = app()->db->get();
 
-        return  $query;
+//        echo app()->db->last_query();
 
+        return $query;
     }
 }
+##############################################################################
+
+
+##############################################################################
+//if(!function_exists('Get_View_Components_Customs')) {
+//
+//    function Get_View_Components_Customs($form_id,$type_Customs,$where)
+//    {
+//        app()->load->database();
+//        $lang   = get_current_lang();
+//
+//        app()->db->from('portal_forms_components  components');
+//        app()->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
+//
+//        if($type_Customs == 'With_CLIENT') {
+//
+//            if ($where) {
+//                app()->db->where("FIND_IN_SET(" . $where . ",components.With_CLIENT) !=", 0);
+//            } else {
+//                app()->db->where("FIND_IN_SET('All',components.With_CLIENT) !=", 0);
+//            }
+//
+//        }elseif($type_Customs == 'With_Type_CUSTOMER'){
+//
+//            if ($where){
+//                app()->db->where("FIND_IN_SET(".$where.",components.With_Type_CUSTOMER) !=",0);
+//            }else{
+//                app()->db->where("FIND_IN_SET('All',components.With_Type_CUSTOMER) !=",0);
+//            }
+//
+//        }elseif($type_Customs == 'With_Type_Property'){
+//
+//            if($where)
+//            {
+//                app()->db->where("FIND_IN_SET(".$where.",components.With_Type_Property) !=",0);
+//            }else{
+//                app()->db->where("FIND_IN_SET('All',components.With_Type_Property) !=",0);
+//            }
+//
+//        }elseif($type_Customs == 'With_TYPES_APPRAISAL') {
+//
+//            if ($where) {
+//                app()->db->where("FIND_IN_SET(" . $where . ",components.With_TYPES_APPRAISAL) !=", 0);
+//            } else {
+//                app()->db->where("FIND_IN_SET('All',components.With_TYPES_APPRAISAL) !=", 0);
+//            }
+//
+//        }
+//        app()->db->where(" (components.company_id = ".app()->aauth->get_user()->company_id." OR components.company_id = 0 ) ");
+//        app()->db->where('components.Forms_id',$form_id);
+//        app()->db->where('components_translation.translation_lang',$lang);
+//        $query = app()->db->get();
+//        echo app()->db->last_query();
+//        return  $query;
+//
+//    }
+//}
 ##############################################################################
 
 ##############################################################################
@@ -150,7 +226,6 @@ if(!function_exists('Update_Sort_Form_Components')) {
 ##############################################################################
 
 
-
 ##############################################################################
 if(!function_exists('Create_Fields_Form_Components')) {
 
@@ -167,7 +242,7 @@ if(!function_exists('Create_Fields_Form_Components')) {
 
     }
 }
-
+##############################################################################
 
 ##############################################################################
 if(!function_exists('Update_Sort_Fields_Components')) {
@@ -193,7 +268,6 @@ if(!function_exists('Update_Sort_Fields_Components')) {
 }
 ##############################################################################
 
-
 ##############################################################################
 
 if(!function_exists('Query_Fields_Components')) {
@@ -214,7 +288,6 @@ if(!function_exists('Query_Fields_Components')) {
     }
 }
 ##############################################################################
-
 
 ##############################################################################
 if(!function_exists('Get_Fields_Components')) {
@@ -382,8 +455,6 @@ if(!function_exists('Get_Fields_Components')) {
 }
 ##############################################################################
 
-
-
 ##############################################################################
 if(!function_exists('Building_Fields_Components_Forms')) {
 
@@ -490,8 +561,6 @@ if(!function_exists('Building_Fields_Components_Forms')) {
 
 }
 ##############################################################################
-
-
 
 ##############################################################################
 if(!function_exists('Building_List_Forms')) {
@@ -758,9 +827,109 @@ if(!function_exists('Building_List_Forms')) {
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Building_Fields_Components_Views')) {
 
+    function Building_Fields_Components_Views($Forms_id, $Components_id,$Type_CUSTOMER,$Type_Property,$TYPES_APPRAISAL,$evaluation_methods)
+    {
+
+        app()->load->database();
+        $lang   = get_current_lang();
+
+        $Build      = false;
+        $Fields     = array();
+        $List       = array();
+        $Fields_all = array();
+
+        $query = app()->db->where('Forms_id', $Forms_id);
+        $query = app()->db->where('Components_id', $Components_id);
+        $query = app()->db->where('(company_id = '.app()->aauth->get_user()->company_id.' OR company_id = 0 )');
+        $query = app()->db->order_by('Fields_Sort','ASC');
+        $query = app()->db->get('portal_forms_components_fields');
+
+        foreach ($query->result() as $RC) {
+
+            $array_With_CLIENT  = explode(',',$RC->With_CLIENT);
+            $array_CUSTOMER     = explode(',',$RC->With_Type_CUSTOMER);
+            $array_Property     = explode(',',$RC->With_Type_Property);
+            $array_APPRAISAL    = explode(',',$RC->With_TYPES_APPRAISAL);
+            $array_evaluation   = explode(',',$RC->With_Type_evaluation_methods);
+
+            if(in_array($Type_CUSTOMER,$array_CUSTOMER)        or $RC->With_Type_CUSTOMER == 'All')                 { $Build = true;  }
+            if(in_array($Type_CUSTOMER,$array_With_CLIENT)     or $RC->With_CLIENT == 'All')                        { $Build = true;  }
+            if(in_array($Type_Property,$array_Property)        or $RC->With_TYPES_APPRAISAL == 'All')               { $Build = true;  }
+            if(in_array($TYPES_APPRAISAL,$array_APPRAISAL)     or $RC->With_Type_Property == 'All')                 { $Build = true;  }
+            if(in_array($evaluation_methods,$array_evaluation) or $RC->With_Type_evaluation_methods == 'All')       { $Build = true;  }
+
+            if($Build == true){
+
+                if($RC->Fields_Type == 'Fields'){
+
+                    $query_Fields = app()->db->from('portal_fields fields');
+                    $query_Fields = app()->db->join('portal_fields_translation fields_translation', 'fields_translation.item_id = fields.Fields_id');
+                    $query_Fields = app()->db->where('fields.Fields_status_Fields',1);
+                    $query_Fields = app()->db->where('fields.Fields_isDeleted',0);
+                    $query_Fields = app()->db->where(" (fields.Fields_company_id = ".app()->aauth->get_user()->company_id." OR fields.Fields_company_id = 0 ) ");
+                    $query_Fields = app()->db->where('fields.Fields_id', $RC->Fields_id);
+                    $query_Fields = app()->db->where('fields_translation.translation_lang', $lang);
+                    $query_Fields = app()->db->get();
+
+                    if($query_Fields->num_rows()){
+                        $query_Fields = $query_Fields->row();
+                        $Fields[] = array(
+                            'components_id'          => $Components_id,
+                            'Fields_id_Components'   => $RC->Components_fields_id,
+                            'Fields_id'              => $query_Fields->Fields_id,
+                            'Fields_Type_Components' => $RC->Fields_Type,
+                            'Fields_Type'            => 'Fields',
+                            'Fields_Title'           => $query_Fields->item_translation,
+                            'Fields_key'             => $query_Fields->Fields_key,
+                            'Fields_data'            => $RC->Fields_data
+                        );
+                    }
+
+
+                } elseif ($RC->Fields_Type == 'List') {
+
+                    $query_Fields = app()->db->from('portal_list_data list');
+                    $query_Fields = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
+                    $query_Fields = app()->db->where('list.list_id', $RC->Fields_id);
+                    $query_Fields = app()->db->where(" (list.list_company_id = ".app()->aauth->get_user()->company_id." OR list.list_company_id = 0 ) ");
+                    $query_Fields = app()->db->where('list_translation.translation_lang', $lang);
+                    $query_Fields = app()->db->get();
+
+                    if($query_Fields->num_rows()) {
+
+                        $query_Fields = $query_Fields->row();
+
+                        $List[] = array(
+                            'components_id' => $Components_id,
+                            'Fields_id_Components' => $RC->Components_fields_id,
+                            'Fields_id' => $query_Fields->list_id,
+                            'Fields_Type_Components' => $RC->Fields_Type,
+                            'Fields_Type'  => 'Select',
+                            'Fields_Title' => $query_Fields->item_translation,
+                            'Fields_key'   => $query_Fields->list_key,
+                            'Fields_data'  => $RC->Fields_data,
+                            'List_Target'  => $RC->List_Target,
+                        );
+
+                    }
+                }
+
+                $Build = false;
+            } // if($Build == 1)
+
+        } // end foreach
+
+        $Fields_all = array_merge($List,$Fields);
+        return $Fields_all;
+    } // end function
+
+}
 ##############################################################################
 
+##############################################################################
 if(!function_exists('Building_form_validation')) {
 
     function Building_form_validation($key,$text,$validating_rules)

@@ -210,6 +210,21 @@ $route[APP_NAMESPACE_URL.'/Transactions/(:any)']                   = 'App_Transa
 $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)']            = 'App_Transactions/App_Transactions/$1/$2';
 $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2/$3';
 
+#  Company  Transactions    departments data_entrants
+$route[APP_NAMESPACE_URL.'/Transactions_DataEntries']                               = 'App_Transactions/Departments_data_entrants';
+$route[APP_NAMESPACE_URL.'/Transactions_DataEntries/(:any)']                        = 'App_Transactions/Departments_data_entrants/$1';
+$route[APP_NAMESPACE_URL.'/Transactions_DataEntries/(:any)/(:any)']                 = 'App_Transactions/Departments_data_entrants/$1/$2';
+$route[APP_NAMESPACE_URL.'/Transactions_DataEntries/(:any)/(:any)/(:any)']          = 'App_Transactions/Departments_data_entrants/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Transactions_DataEntries/(:any)/(:any)/(:any)/(:any)']   = 'App_Transactions/Departments_data_entrants/$1/$2/$3/$4';
+
+#  Company  Transactions    Departments_Coordination_Quality
+$route[APP_NAMESPACE_URL.'/Transactions_Coordination_Quality']                               = 'App_Transactions/Departments_Coordination_Quality';
+$route[APP_NAMESPACE_URL.'/Transactions_Coordination_Quality/(:any)']                        = 'App_Transactions/Departments_Coordination_Quality/$1';
+$route[APP_NAMESPACE_URL.'/Transactions_Coordination_Quality/(:any)/(:any)']                 = 'App_Transactions/Departments_Coordination_Quality/$1/$2';
+$route[APP_NAMESPACE_URL.'/Transactions_Coordination_Quality/(:any)/(:any)/(:any)']          = 'App_Transactions/Departments_Coordination_Quality/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Transactions_Coordination_Quality/(:any)/(:any)/(:any)/(:any)']   = 'App_Transactions/Departments_Coordination_Quality/$1/$2/$3/$4';
+
+
 # Company Clients
 $route[APP_NAMESPACE_URL.'/Clients']                               = 'App_Company_Clients/Company_Clients';
 $route[APP_NAMESPACE_URL.'/Clients/(:any)']                        = 'App_Company_Clients/Company_Clients/$1';

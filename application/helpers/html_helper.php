@@ -24,7 +24,10 @@ if(!function_exists('Create_Options_Button')) {
                 $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-magnifier-too"></i></a>';
             } elseif ($kay == 'loges') {
                 $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-heart-rate-monitor"></i></a>';
-
+            } elseif ($kay == 'Assignment') {
+                $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-user-1"></i></a>';
+            } elseif ($kay == 'back') {
+                $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-back"></i></a>';
 
 
 
