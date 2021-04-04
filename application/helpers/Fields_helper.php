@@ -156,6 +156,7 @@ if(!function_exists('array_Type_Fields')) {
         $Type_Fields = array(
             "text"     => "حقل نصي",
             "textarea" => "حقل نصي كبير",
+            "textarea" => "حقل نصي كبير",
             "date"     => "تاريخ",
             "email"    => "بريد الكتروني",
             "file"     => "تحميل ملف",

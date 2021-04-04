@@ -35,6 +35,7 @@
 
 
 
+
 							    <div class="card card-custom mb-3 mt-2">
 								    <div class="card-body">
 		                                <ul class="nav nav-tabs nav-bold nav-tabs-line">
@@ -55,22 +56,15 @@
 		                                    <li class="nav-item">
 		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3_4">
 		                                            <span class="nav-icon"><i class="flaticon-visible icon-md"></i></span>
-		                                            <span class="nav-text"> المعاينة</span>
+		                                            <span class="nav-text"> المعاين</span>
 		                                        </a>
 		                                    </li>
 		                                    <li class="nav-item">
 		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_4">
 		                                            <span class="nav-icon"><i class="flaticon-price-tag icon-md"></i></span>
-		                                            <span class="nav-text"> تقييم العقار </span>
+		                                            <span class="nav-text"> التقييم  </span>
 		                                        </a>
 		                                    </li>
-
-			                                <li class="nav-item">
-				                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_5_4">
-					                                <span class="nav-icon"><i class="flaticon-interface-3 icon-md"></i></span>
-					                                <span class="nav-text"> مستندات المعاملة </span>
-				                                </a>
-			                                </li>
 
 		                                    <li class="nav-item">
 		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_6_4">

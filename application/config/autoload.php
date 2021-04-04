@@ -113,14 +113,16 @@ $autoload['helper'] = array(
     'logs',
     'notifications',
     'permissions',
-    'property_Types',
+    'property_types',
     'forms',
-    'client_Company',
+    'client_company',
     'evaluation',
     'uplode',
     'transactions',
     'company_locations',
-    'hrm'
+    'hrm',
+    'preview',
+    'stages_self_construction'
 );
 
 /*

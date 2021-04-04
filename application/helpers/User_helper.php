@@ -12,11 +12,11 @@ if(!function_exists('Get_Group'))
         $lang   = get_current_lang();
         $query  = app()->db->from('portal_auth_groups groups');
         $query  = app()->db->join('portal_auth_groups_translation groups_translation', 'groups_translation.item_id = groups.group_id');
-        if(!empty($where_extra)){
-
+        if(!empty($where_extra))
+        {
             foreach ($where_extra AS $key => $value)
             {
-                $query = app()->db->where('groups.'.$key.'',$value);
+                $query = app()->db->where($key,$value);
             }
         }
         $query = app()->db->where('groups_translation.translation_lang', $lang);
@@ -25,6 +25,22 @@ if(!function_exists('Get_Group'))
     }
 }
 ##############################################################################
+
+
+##############################################################################
+if(!function_exists('Get_Group_Translation'))
+{
+    function Get_Group_Translation($lang,$Group_id)
+    {
+        app()->load->database();
+        $query = app()->db->where('translation_lang',$lang);
+        $query = app()->db->where('item_id',$Group_id);
+        $query = app()->db->get('portal_auth_groups_translation');
+        return $query;
+    }
+}
+##############################################################################
+
 
 ##############################################################################
 if(!function_exists('Create_Group_By_Company'))
@@ -124,6 +140,55 @@ if(!function_exists('Get_Group_User')) {
 
 
 
+##############################################################################
+if(!function_exists('Get_Group_User')) {
+
+    function Get_Group_User($users)
+    {
+        $query = $query = app()->db->where('user_id',$users);
+        $query = app()->db->get('portal_auth_user_to_group')->row();
+        return $query->group_id;
+    }
+
+}
+##############################################################################
+
+########################################################################
+if(!function_exists('deleted_Group_Transaction')) {
+
+    function deleted_Group_Transaction($group_id)
+    {
+        app()->load->database();
+        $query = app()->db->where('item_id',$group_id);
+        $query = app()->db->delete('portal_auth_groups_translation');
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+}
+########################################################################
+
+########################################################################
+if(!function_exists('Update_Group')) {
+
+    function Update_Group($group_id,$group_status)
+    {
+        app()->load->database();
+        $query = app()->db->where('group_id',$group_id);
+        $query = app()->db->set('group_status',$group_status);
+        $query = app()->db->update('portal_auth_groups');
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+}
+########################################################################
 
 
 

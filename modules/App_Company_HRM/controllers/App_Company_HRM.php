@@ -72,7 +72,8 @@ class App_Company_HRM extends Apps
                 if($ROW->department_supervisor == 0){
                     $department_supervisor = Create_Status_badge(array("key" => "Danger", "value" => 'لم يحدد رئيس للقسم'));
                 }else{
-                    $department_supervisor = $this->aauth->get_user($ROW->department_supervisor)->full_name;
+
+                    $department_supervisor = @$this->aauth->get_user($ROW->department_supervisor)->full_name;
                 }
 
 

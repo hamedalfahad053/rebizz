@@ -302,5 +302,4 @@ class Ajax extends Base_Ajax
 
 
 
-
 }

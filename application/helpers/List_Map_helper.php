@@ -85,3 +85,27 @@ if(!function_exists('Get_Districts')) {
 
 }
 ##############################################################################
+
+
+##############################################################################
+if(!function_exists('Get_Districts')) {
+
+    function Get_Districts($countries_id,$Regions_id,$cites_id,$district_id='')
+    {
+        app()->load->database();
+
+        $where = '';
+
+        if(!empty($district_id)){
+            $where  = " and `district_id` = (".$district_id.") ";
+        }
+
+
+        $query = app()->db->query('SELECT astext(boundaries) AS Point,district_id,city_id,region_id,countries_id,name_ar,name_en From `portal_map_districts` where `countries_id` = '.$countries_id.'  
+         and `region_id` = '.$Regions_id.' and `city_id` = '.$cites_id.'   '.$where.' ');
+
+        return $query;
+    }
+
+}
+##############################################################################

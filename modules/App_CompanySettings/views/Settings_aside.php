@@ -11,6 +11,9 @@
 
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/stages_transaction/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد سير المعاملة</a>
 
+	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Users_Preview/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">توزيع المعاينين على المناطق الجغرافية</a>
+
+
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Notifications/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد نظام الاشعارات</a>
 
 

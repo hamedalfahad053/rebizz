@@ -513,7 +513,6 @@ class Company_Clients extends Apps
     }
     ###################################################################
 
-
     ###################################################################
     public function Transactions()
     {
@@ -546,7 +545,273 @@ class Company_Clients extends Apps
     }
     ###################################################################
 
+    ###################################################################
+    public function Stages_Self_Construction()
+    {
+
+        $Client_id    =  $this->uri->segment(4);
+
+        $where_Client =  array("uuid"=> $Client_id,"company_id" => $this->aauth->get_user()->company_id);
+
+        $this->data['Client_Info'] = Get_Client_Company($where_Client)->row();
+
+        if($this->data['Client_Info']->is_active == 1) {
+            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+        }else{
+            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+        }
+
+        $where_Stages_Self =  array(
+            "stages_self_construction.clients_id" => $this->data['Client_Info']->client_id,
+            "stages_self_construction.company_id" => $this->aauth->get_user()->company_id
+        );
+        $Stages_Self = Get_Stages_Self_Construction($where_Stages_Self);
 
 
+        if ($Stages_Self->num_rows() > 0) {
 
+            foreach ($Stages_Self->result() as $ROW) {
+
+                if ($ROW->stages_self_status == 1) {
+                    $stages_self_status =  Create_Status_badge(array("key" => "Success", "value" => lang('Status_Active')));
+                } else {
+                    $stages_self_status =  Create_Status_badge(array("key" => "Danger", "value" => lang('Status_Disabled')));
+                }
+
+                $options = array();
+//                $options['edit']        = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '',
+//                    "href" => base_url(APP_NAMESPACE_URL.'/Clients/Form_Edit_Stages_Self_Construction/'.$ROW->stages_self_uuid.'/'.$this->data['Client_Info']->client_id.'/'.$this->data['Client_Info']->uuid));
+
+                if($ROW->stages_self_status == 0) {
+                    $options['active'] = array(
+                        "class"=>"","id"=>"", "title" => lang('active_button'), "data-attribute" => '',
+                        "href" => base_url(APP_NAMESPACE_URL."/Clients/Status_Stages_Self_Construction/".$ROW->stages_self_uuid."/1/".$this->data['Client_Info']->client_id.'/'.$this->data['Client_Info']->uuid)
+                    );
+                }else {
+                    $options['disable'] = array(
+                        "class"=>"","id"=>"", "title" => lang('disable_button'), "data-attribute" => '',
+                        "href" => base_url(APP_NAMESPACE_URL."/Clients/Status_Stages_Self_Construction/".$ROW->stages_self_uuid."/0/".$this->data['Client_Info']->client_id.'/'.$this->data['Client_Info']->uuid)
+                    );
+                }
+
+                $stages_self_construction_options =  Create_Options_Button($options);
+
+                $this->data['stages_self_construction'][]  = array(
+                    "stages_self_id"           => $ROW->stages_self_id,
+                    "stages_self_title"        => $ROW->item_translation,
+                    "stages_self_Percentage"   => $ROW->stages_self_Percentage,
+                    "stages_self_status"       => $stages_self_status,
+                    "stages_self_options"      => $stages_self_construction_options
+                );
+
+            } // foreach ($Stages_Self->result() as $ROW)
+        }
+        else{
+            $this->data['stages_self_construction'] = false;
+        }
+
+        $this->data['Page_Title']  = ' ادارة مراحل البناء الذاتي';
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Clients'));
+        $this->mybreadcrumb->add($this->data['Page_Title'], '#');
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        $this->data['Clients_Company_Page'] = $this->load->view('../../modules/App_Company_Clients/views/Client_Stages_Self_Construction', $this->data, true);
+        $this->data['PageContent']          = $this->load->view('../../modules/App_Company_Clients/views/Client_Profile', $this->data, true);
+
+        Layout_Apps($this->data);
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Form_Stages_Self_Construction()
+    {
+        $Client_id       =  $this->uri->segment(4);
+        $where_Client    =  array(
+            "uuid"       => $Client_id,
+            "company_id" => $this->aauth->get_user()->company_id
+        );
+        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
+
+        if($this->data['Client_Info']->is_active == 1) {
+            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+        }else{
+            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+        }
+
+        $this->data['Page_Title']  = ' اضافة مرحلة بناء ذاتي ';
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Clients'));
+        $this->mybreadcrumb->add($this->data['Page_Title'], '#');
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        $this->data['Clients_Company_Page'] = $this->load->view('../../modules/App_Company_Clients/views/Create_New_Stages_Self_Construction', $this->data, true);
+        $this->data['PageContent']          = $this->load->view('../../modules/App_Company_Clients/views/Client_Profile', $this->data, true);
+
+        Layout_Apps($this->data);
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Create_Stages_Self_Construction()
+    {
+
+        $this->form_validation->set_rules('Clients_id','العميل غير معروف','required');
+        $this->form_validation->set_rules('title_ar','المرحلة بالعربية','required');
+        $this->form_validation->set_rules('title_en','المرحلة بالانجليزية','required');
+        $this->form_validation->set_rules('Percentage','نسبة المرحلة','required');
+
+        if($this->form_validation->run()==FALSE){
+
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = validation_errors();
+            $msg_result_view     = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL.'/Clients/Form_Stages_Self_Construction/'.$Clients_id.'', 'refresh');
+
+        }else{
+
+            $where_Client    =  array(
+                "uuid"       => $this->uri->segment(4),
+                "company_id" => $this->aauth->get_user()->company_id
+            );
+            if(Get_Client_Company($where_Client)->num_rows() == 0)
+            {
+                $msg_result['key']   = 'Danger';
+                $msg_result['value'] = validation_errors();
+                $msg_result_view     = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL.'/Clients/Form_Stages_Self_Construction/'.$this->uri->segment(4).'', 'refresh');
+            }
+
+
+            $data_stages_self['stages_self_key']                =  strtoupper(str_replace(" ", "_", $this->input->post('title_en')));
+            $data_stages_self['company_id']                     =  $this->aauth->get_user()->company_id;
+            $data_stages_self['clients_id']                     =  $this->input->post('Clients_id');
+            $data_stages_self['stages_self_Percentage']         =  $this->input->post('Percentage');
+            $data_stages_self['stages_self_status']             =  0;
+            $data_stages_self['stages_self_created_By']         =  $this->aauth->get_user()->id;
+            $data_stages_self['stages_self_created_date']       =  time();
+            $data_stages_self['stages_self_modified_by']        =  0;
+            $data_stages_self['stages_self_last_modify_date']   =  0;
+            $data_stages_self['stages_self_deleted_by']         =  0;
+            $data_stages_self['stages_self_deleted_date']       =  0;
+            $data_stages_self['stages_self_is_deleted']         =  0;
+
+            $Create_stages_self = Create_Stages_Self_Construction($data_stages_self);
+
+            if($Create_stages_self){
+
+                $item_ar = $this->input->post('title_ar');
+                $item_en = $this->input->post('title_en');
+                insert_translation_Language_item('portal_app_client_stages_of_self_construction_translation', $Create_stages_self, $item_ar, $item_en);
+
+
+                $msg_result['key']   = 'Success';
+                $msg_result['value'] = lang('message_success_insert');
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL.'/Clients/Stages_Self_Construction/'.$this->uri->segment(4).'', 'refresh');
+
+            }else{
+                $msg_result['key']   = 'Danger';
+                $msg_result['value'] = lang('message_error_insert');
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL.'/Clients/Stages_Self_Construction/'.$this->uri->segment(4).'', 'refresh');
+            }
+
+        } // if($this->form_validation->run()==FALSE)
+
+
+    }
+    ###################################################################
+
+
+    ###################################################################
+//    public function Form_Edit_Stages_Self_Construction()
+//    {
+//
+//        $Stages_Self_uuid   =  $this->uri->segment(4);
+//        $Client_id          =  $this->uri->segment(5);
+//        $Client_uuid        =  $this->uri->segment(6);
+//
+//        $where_Client                  =  array("uuid"=> $Client_id,"company_id" => $this->aauth->get_user()->company_id);
+//        $this->data['Client_Info']     = Get_Client_Company($where_Client)->row();
+//
+//        if($this->data['Client_Info']->is_active == 1) {
+//            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+//        }else{
+//            $this->data['Client_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+//        }
+//
+//        $where_Stages_Self =  array(
+//            "stages_self_construction.stages_self_uuid" => $Stages_Self_uuid,
+//            "stages_self_construction.clients_id"       => $Client_id,
+//            "stages_self_construction.company_id"       => $this->aauth->get_user()->company_id
+//        );
+//        $Stages_Self = Get_Stages_Self_Construction($where_Stages_Self);
+//
+//        if($Stages_Self->num_rows() > 0 ){
+//            redirect(APP_NAMESPACE_URL.'/Clients/', 'refresh');
+//        }else{
+//            $this->data['Stages_Self'] = $Stages_Self->row();
+//        }
+//
+//        $this->data['Page_Title']  = ' تعديل مرحلة بناء ذاتي ';
+//
+//        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
+//        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Clients'));
+//        $this->mybreadcrumb->add($this->data['Page_Title'], '#');
+//        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+//
+//        $this->data['Clients_Company_Page'] = $this->load->view('../../modules/App_Company_Clients/views/Edit_Stages_Self_Construction', $this->data, true);
+//        $this->data['PageContent']          = $this->load->view('../../modules/App_Company_Clients/views/Client_Profile', $this->data, true);
+//
+//        Layout_Apps($this->data);
+//    }
+    ###################################################################
+
+
+    ###################################################################
+    public function Status_Stages_Self_Construction()
+    {
+
+         $stages_self_uuid   =    $this->uri->segment(4);
+         $stages_self_status =    $this->uri->segment(5);
+         $clients_id         =    $this->uri->segment(6);
+         $clients_uuid       =    $this->uri->segment(7);
+
+         if($stages_self_uuid == '' or $stages_self_status== '' ){
+
+             $msg_result['key']   = 'Danger';
+             $msg_result['value'] = 'طريقة غير صحيحة';
+             $msg_result_view     = Create_Status_Alert($msg_result);
+             set_message($msg_result_view);
+             redirect(APP_NAMESPACE_URL.'/Clients/', 'refresh');
+
+         }else{
+
+             $Update_Stages_Self =  Update_Stages_Self_Construction($stages_self_uuid,$clients_id,$stages_self_status);
+
+             if($Update_Stages_Self){
+                 $msg_result['key']   = 'Success';
+                 $msg_result['value'] = 'تم التحديث بنجاح';
+                 $msg_result_view = Create_Status_Alert($msg_result);
+                 set_message($msg_result_view);
+                 redirect(APP_NAMESPACE_URL.'/Clients/Stages_Self_Construction/'.$clients_uuid, 'refresh');
+             }else{
+                 $msg_result['key']   = 'Danger';
+                 $msg_result['value'] = 'حدث خطا ما اثناء عملية التحديث';
+                 $msg_result_view = Create_Status_Alert($msg_result);
+                 set_message($msg_result_view);
+                 redirect(APP_NAMESPACE_URL.'/Clients/Stages_Self_Construction/'.$clients_uuid, 'refresh');
+             }
+
+         } // if($stages_self_uuid == '' or $stages_self_status== '' ){
+
+    }
+    ###################################################################
 }

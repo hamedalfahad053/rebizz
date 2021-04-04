@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Site extends Front
 {
+
+
     ###################################################################
     public function __construct()
     {
@@ -16,7 +18,6 @@ class Site extends Front
           echo 'Hello Word';
     }
     ###################################################################
-
 
 
 

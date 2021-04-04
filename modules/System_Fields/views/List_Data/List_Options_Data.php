@@ -40,7 +40,7 @@
                     <h3 class="card-label"><?= $Page_Title ?></h3>
                 </div>
                 <div class="card-toolbar">
-                    <?= Create_One_Button_Text(array('title'=> 'عنصر جديد' ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/List_Data/Form_Add_New_Options/'.$List_id.''))) ?>
+                    <?= Create_One_Button_Text(array('title'=> 'عنصر جديد' ,'href'=>base_url(ADMIN_NAMESPACE_URL.'/List_Data/Form_Add_New_Options/'.$List->list_id.''))) ?>
                 </div>
             </div>
             <div class="card-body">
@@ -64,7 +64,7 @@
                     <tbody>
                     <?php
                     $i = 0;
-                    foreach ($options_List AS  $ROW)
+                    foreach ($option_list_data AS  $ROW)
                     {
                     ?>
                         <tr>

@@ -28,6 +28,8 @@ if(!function_exists('Create_Options_Button')) {
                 $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-user-1"></i></a>';
             } elseif ($kay == 'back') {
                 $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-back"></i></a>';
+            } elseif ($kay == 'Feedback') {
+                $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-sheet"></i></a>';
 
 
 

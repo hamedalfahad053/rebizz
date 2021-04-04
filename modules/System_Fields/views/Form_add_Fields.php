@@ -80,7 +80,7 @@
 		                            <label> هل النموذج يظهر بالاعدادت للشركات </label>
 		                            <select name="Fields_view_company" class="form-control selectpicker" title="<?= lang("Select_noneSelectedText") ?>" data-live-search="true">
 			                            <option value="0">لا</option>
-			                            <option value="1">نعم</option>
+			                            <option  value="1">نعم</option>
 		                            </select>
 	                            </div>
 

@@ -11,9 +11,8 @@ if(!function_exists('Get_Transaction')) {
                 $query = app()->db->where($key,$value);
             }
         }
-
-        $query= app()->db->get('protal_transaction');
-
+        $query = app()->db->order_by('transaction_id', 'DESC');
+        $query = app()->db->get('protal_transaction');
         return $query;
 
     }
@@ -63,12 +62,19 @@ if(!function_exists('Get_Transaction_data')) {
 ##############################################################################
 if(!function_exists('Transaction_data_by_key')) {
 
-    function Transaction_data_by_key($transaction_id,$key)
+    function Transaction_data_by_key($transaction_id,$Forms_id,$Components_id,$key)
     {
         $query = app()->db->where('Transaction_id',$transaction_id);
+        $query = app()->db->where('Forms_id',$Forms_id);
+        $query = app()->db->where('Components_id',$Components_id);
         $query = app()->db->where('data_key',$key);
-        $query = app()->db->get('protal_transaction_data')->row();
-        return $query->data_value;
+        $query = app()->db->get('protal_transaction_data');
+        if($query->num_rows()>0){
+            return $query->row()->data_value;
+        }else{
+            return false;
+        }
+
     }
 
 } // if(!function_exists('Create_Transaction'))
@@ -115,18 +121,23 @@ if(!function_exists('Create_Transaction_data')) {
     {
         if(is_array($data)){
             $data_insert = array();
-            foreach ($data AS $key => $value)
+
+
+            foreach ($data AS $key)
             {
-                if($value !='') {
+                if($key['data_value'] !='') {
                     $data_insert = array(
                         "Transaction_id"   => $Transaction_id,
-                        "data_key"         => $key,
-                        "data_value"       => $value,
+                        "Forms_id"         => $key['Forms_id'],
+                        "Components_id"    => $key['Components_id'],
+                        "data_key"         => $key['data_key'],
+                        "data_value"       => $key['data_value'],
                         "company_id"       => app()->aauth->get_user()->company_id,
                         "data_Create_id"   => app()->aauth->get_user()->id,
                         "data_Create_time" => time(),
                     );
                 }
+
                 $query = app()->db->insert('protal_transaction_data',$data_insert);
             }
         }
@@ -149,13 +160,15 @@ if(!function_exists('Create_Transaction_data_history')) {
     {
         if(is_array($data)){
             $data_insert = array();
-            foreach ($data AS $key => $value)
+            foreach ($data AS $key)
             {
-                if($value !='') {
+                if($key['data_value'] !='') {
                     $data_insert = array(
                         "Transaction_id"   => $Transaction_id,
-                        "data_key"         => $key,
-                        "data_value"       => $value,
+                        "Forms_id"         => $key['Forms_id'],
+                        "Components_id"    => $key['Components_id'],
+                        "data_key"         => $key['data_key'],
+                        "data_value"       => $key['data_value'],
                         "History"          => $History,
                         "company_id"       => app()->aauth->get_user()->company_id,
                         "data_Create_id"   => app()->aauth->get_user()->id,
@@ -195,9 +208,39 @@ if(!function_exists('Create_Transaction_files')) {
 } // if(!function_exists('Create_Transaction'))
 ##############################################################################
 
+########################################################################
+if(!function_exists('Create_Transaction_Assign')) {
 
+    function Create_Transaction_Assign($data)
+    {
+        $query = app()->db->insert('protal_transaction_assign',$data);
 
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
+        }
+    }
 
+}
+########################################################################
+
+########################################################################
+if(!function_exists('Get_Transaction_Assign')) {
+
+    function Get_Transaction_Assign($where)
+    {
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $query = app()->db->where($key,$value);
+            }
+        }
+        $query= app()->db->get('protal_transaction_assign');
+        return $query;
+    }
+
+}
+########################################################################
 
 ##############################################################################
 if(!function_exists('Get_Stages_Transaction_Company')) {
@@ -209,6 +252,7 @@ if(!function_exists('Get_Stages_Transaction_Company')) {
                 $query = app()->db->where($key,$value);
             }
         }
+
         $query= app()->db->get('protal_stages_transaction');
         return $query;
     }

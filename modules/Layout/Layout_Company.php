@@ -181,14 +181,21 @@
                             <div class="menu-submenu">
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
+	                                <?php
+	                                if (Check_Permissions(9)) {
+	                                ?>
 	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Transaction') ?>" class="menu-link menu-toggle">
 			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text"> انشاء معاملة جديدة </span></a>
 	                                </li>
+	                                <?php
+	                                }
+	                                ?>
 	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/index') ?>" class="menu-link menu-toggle">
 			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text"> المعاملات الجارية  </span></a>
 	                                </li>
+
 	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/index') ?>" class="menu-link menu-toggle">
 			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text"> ارشيف المعاملات </span></a>
@@ -197,51 +204,6 @@
                             </div>
                         </li>
 
-	                    <li class="menu-section">
-		                    <h4 class="menu-text">  قسم البيانات والمراجعة  </h4>
-		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-	                    </li>
-	                    <li class="menu-item" aria-haspopup="true">
-		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions_DataEntries') ?>" class="menu-link">
-			                    <i class="menu-icon flaticon-layer"></i>
-			                    <span class="menu-text"> ادارة المعاملات <span class="label  label-sm label-danger mx-auto">0</span></span>
-		                    </a>
-	                    </li>
-
-
-	                    <li class="menu-section">
-		                    <h4 class="menu-text">  قسم التنسيق و الجودة  </h4>
-		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-	                    </li>
-	                    <li class="menu-item" aria-haspopup="true">
-		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions_Coordination_Quality') ?>" class="menu-link">
-			                    <i class="menu-icon flaticon-layer"></i>
-			                    <span class="menu-text"> ادارة المعاملات <span class="label  label-sm label-danger mx-auto">0</span></span>
-		                    </a>
-	                    </li>
-
-	                    <li class="menu-section">
-		                    <h4 class="menu-text">نظام المعاينة</h4>
-		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-	                    </li>
-	                    <li class="menu-item" aria-haspopup="true">
-		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
-			                    <i class="menu-icon flaticon-layer"></i>
-			                    <span class="menu-text"> ادارة المعاملات <span class="label  label-sm label-danger mx-auto">0</span></span>
-		                    </a>
-	                    </li>
-
-
-	                    <li class="menu-section">
-		                    <h4 class="menu-text">نظام التقييم</h4>
-		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-	                    </li>
-	                    <li class="menu-item" aria-haspopup="true">
-		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
-			                    <i class="menu-icon flaticon-layer"></i>
-			                    <span class="menu-text"> ادارة المعاملات <span class="label  label-sm label-danger mx-auto">0</span></span>
-		                    </a>
-	                    </li>
 
 
 	                    <li class="menu-section">
@@ -466,6 +428,11 @@ $(document).ready(function() {
 	$('.summernote').summernote({
 		height: 150
 	});
+
+	// setInterval(function () {
+	// 	if(alert('تنتهي صلاحية النموذج سيتم اعادة تحميل الصفحة لامان النظام بوقت الخمول الطويل')){}
+	// 	else    window.location.reload();
+	// }, 7200);
 
 
 });

@@ -35,7 +35,7 @@
 
                 <form class="form"  action="<?= base_url(ADMIN_NAMESPACE_URL.'/List_Data/Create_options') ?>" method="post">
 
-	                <input type="hidden" name="List_id" value="<?= $List_id ?>">
+	                <input type="hidden" name="List_id" value="<?= $this->uri->segment(4); ?>">
                     <?= CSFT_Form() ?>
                     <?php echo  $this->session->flashdata('message'); ?>
 

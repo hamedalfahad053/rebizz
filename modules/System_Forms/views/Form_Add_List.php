@@ -117,29 +117,19 @@ $Form_id = $this->uri->segment(4);
 	                    </div>
 
 	                    <div class="form-group row">
-		                    <div class="col-lg-6 mt-5">
+		                    <div class="col-lg-3 mt-5">
 			                    <label> فئة العميل </label>
 			                    <?= Creation_List_HTML('select', 'LIST_CUSTOMER_CATEGORY', '','','options', '1','','','',array( 0=> "selectpicker",1=>'Select_CUSTOMER_CATEGORY'),'','','') ?>
 		                    </div>
-		                    <div class="col-lg-6 mt-5">
-			                    <label>  العميل </label>
-			                    <select id="LIST_Client" name="LIST_Client[]" multiple="multiple" class="form-control  selectpicker" data-live-search="true"  data-title="اختر من فضلك "></select>
-		                    </div>
-	                    </div>
-
-	                    <div class="form-group row">
-		                    <div class="col-lg-6 mt-5">
+		                    <div class="col-lg-3 mt-5">
 			                    <label> فئة الطلب </label>
 			                    <?= Creation_List_HTML('select', 'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL', '','','options', '1','','','',array( 0=> "selectpicker",1=>'Select_TYPES_APPRAISAL'),'','','') ?>
 		                    </div>
-		                    <div class="col-lg-6 mt-5">
+		                    <div class="col-lg-3 mt-5">
 			                    <label> طريقة  التقييم </label>
 			                    <?= Get_Select_evaluation_methods('select', '',1, array( 0=> "selectpicker",1=>'Select_evaluation_methods'),'evaluation_methods') ?>
 		                    </div>
-	                    </div>
-
-	                    <div class="form-group row">
-		                    <div class="col-lg-6 mt-5">
+		                    <div class="col-lg-3 mt-5">
 			                    <label> فئة العقار </label>
 			                    <?= Get_Select_Property_Types('select','','1', array( 0=> "selectpicker",1=>'Select_Property_Types'),'') ?>
 		                    </div>
@@ -181,6 +171,7 @@ $Form_id = $this->uri->segment(4);
 
 
 <script type="text/javascript">
+
 	$('#List_id,#Fields_data').change(function(event){
 		event.preventDefault();
 

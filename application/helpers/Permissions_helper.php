@@ -73,6 +73,22 @@ if(!function_exists('Add_Permissions_To_Group')) {
 ##############################################################################
 
 
+##############################################################################
+if(!function_exists('Check_Permissions_By_Group')) {
+
+    function Check_Permissions_By_Group($perm_id,$Group)
+    {
+        app()->load->database();
+
+        $return     = false;
+        $query      = app()->db->where('perm_id',$perm_id);
+        $query      = app()->db->where('group_id',$Group);
+        $query      = app()->db->get('portal_auth_permissions_to_group');
+        return $query;
+    }
+}
+##############################################################################
+
 
 ##############################################################################
 if(!function_exists('Check_Permissions')) {
@@ -109,6 +125,25 @@ if(!function_exists('Check_Permissions')) {
     }
 }
 ##############################################################################
+
+##############################################################################
+if(!function_exists('Delete_All_Permissions_To_Group')) {
+
+    function Delete_All_Permissions_To_Group($group_id)
+    {
+        app()->load->database();
+        $query = app()->db->where('group_id',$group_id);
+        $query = app()->db->delete('portal_auth_permissions_to_group');
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+}
+##############################################################################
+
 
 
 

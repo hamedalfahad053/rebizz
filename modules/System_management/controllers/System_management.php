@@ -500,6 +500,40 @@ class System_management extends Admin
     }
     ###################################################################
 
+
+    ###################################################################
+    public function Update_Permissions_Forms_Fields()
+    {
+        $query_fields = app()->db->where('Fields_FORM_TYPE',65);
+        $query_fields = app()->db->get('portal_fields');
+
+        foreach($query_fields->result() as $ROW)
+        {
+            $dataPermissions['function_id']              = $ROW->Fields_id;
+            $dataPermissions['controllers_id']           = 7;
+            $dataPermissions['Permissions_Key']          = $ROW->Fields_key;
+            $Create_Permissions                          = Create_Permissions($dataPermissions);
+            $item_ar                                     = $this->input->post('title_ar');
+            $item_en                                     = $this->input->post('title_en');
+            insert_translation_Language_item('portal_auth_permissions_translation',$Create_Permissions,$item_ar,$item_en);
+        }
+
+        $query_list = app()->db->where('Fields_FORM_TYPE',65);
+        $query_list = app()->db->get('portal_list_data');
+
+        foreach($query_list->result() as $ROW_list)
+        {
+            $dataPermissions['function_id']              = $ROW_list->list_id;
+            $dataPermissions['controllers_id']           = 7;
+            $dataPermissions['Permissions_Key']          = $ROW_list->list_key;
+            $Create_Permissions                          = Create_Permissions($dataPermissions);
+            $item_ar                                     = $this->input->post('title_ar');
+            $item_en                                     = $this->input->post('title_en');
+            insert_translation_Language_item('portal_auth_permissions_translation',$Create_Permissions,$item_ar,$item_en);
+        }
+    }
+    ###################################################################
+
 }
 
 

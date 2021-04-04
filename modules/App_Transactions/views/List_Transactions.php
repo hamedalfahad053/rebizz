@@ -33,24 +33,109 @@
     <div class="container-fluid">
 
 
-                    <?php echo  $this->session->flashdata('message'); ?>
-	                <?php
-	                if($Transactions == false){
 
-		                $msg_result['key'] = 'Danger';
-		                $msg_result['value'] = 'لا يوجد معاملات تم انشاؤها حاليا';
-		                $msg_result_view = Create_Status_Alert($msg_result);
-                        echo $msg_result_view;
+	    <div class="card card-custom">
+		    <div class="card-body">
+			    <?php echo  $this->session->flashdata('message'); ?>
+			    <?php
+			    if($Transactions == false){
+				    $msg_result['key'] = 'Danger';
+				    $msg_result['value'] = 'لا يوجد معاملات';
+				    $msg_result_view = Create_Status_Alert($msg_result);
+				    echo $msg_result_view;
+			    }else{
+				    ?>
 
-	                }else{
-	                ?>
+				    <style>th.dt-center,.dt-center { text-align: center; }</style>
+				    <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+					    <thead>
+					    <tr>
+						    <th class="text-center">رقم المعاملة</th>
+						    <th class="text-center">طالب التقييم والمالك</th>
+						    <th class="text-center">موقع العقار</th>
+						    <th class="text-center">بواسطة / التاريخ</th>
+						    <th class="text-center">نوع التقييم</th>
+						    <th class="text-center">بحيازة</th>
+						    <th class="text-center">حالة المعاملة</th>
+						    <th class="text-center">الخيارات</th>
+					    </tr>
+					    </thead>
+					    <tbody>
+					    <?php
+					    foreach ($Transactions AS $Row)
+					    {
+						    ?>
+						    <tr>
+							    <td class="text-center">
+								    <img src="
+								    <?php
+								    $path = $LoginUser_Company_Path_Folder.'/'.FOLDER_FILE_Company_client_logo.'/';
+								    echo Get_Client_Logo($LoginUser_Company_Path_Folder,$this->aauth->get_user()->company_id,Transaction_data_by_key($Row['transaction_id'],1,1,'LIST_CLIENT'));
+								    ?>"  height="35" width="35" >
+								    <br>
+								    <?= date('Ymd',$Row['Create_Transaction_Date']).$Row['transaction_id'];?>
+							    </td>
+							    <td class="text-center">
+								    المالك : <?= Transaction_data_by_key($Row['transaction_id'],1,4,'OWNER_REAL_ESTATE') ?>
+								    <?= Transaction_data_by_key($Row['transaction_id'],1,4,'OWNERS_MOBILE_NUMBER') ?>
+								    <br>
+								    طالب التقييم :<?= Transaction_data_by_key($Row['transaction_id'],1,4,'OWNER_APPLICANT_EVALUATION') ?>
+								    <?= Transaction_data_by_key($Row['transaction_id'],1,4,'OWNER_MOBILE_EVALUATION') ?>
+							    </td>
+							    <td class="text-center">
+								    <?php
+								    $d = Transaction_data_by_key($Row['transaction_id'],1,1,'LIST_REGION');
+								    echo get_data_options_List_view(20,$d);
+								    ?>
+								     -
+								    <?php
+								    $d = Transaction_data_by_key($Row['transaction_id'],1,1,'LIST_CITY');
+								    echo get_data_options_List_view(21,$d);
+								    ?>
+								     -
+								    <?php
+								    $d = Transaction_data_by_key($Row['transaction_id'],1,1,'LIST_DISTRICT');
+								    echo get_data_options_List_view(22,$d);
+								    ?>
+							    </td>
+							    <td class="text-center">
+								    <?= $this->aauth->get_user($Row['Create_Transaction_By_id'])->full_name ?>
+								    <br>
+								    <?= date('Y-m-d h:i:s a',$Row['Create_Transaction_Date']);?>
+							    </td>
+							    <td class="text-center">
+								    <?php
+								    $d = Transaction_data_by_key($Row['transaction_id'],1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+								    echo get_data_options_List_view(4,$d);
+								    ?>
+							    </td>
+							    <td class="text-center">
+								    <?php
+								    echo get_data_options_List_view(29,$Row['Transaction_Stage'],'key');
+								    ?>
+								    <br>
+
+							    </td>
+							    <td class="text-center">
+								    <?=  get_data_options_List_view(9,$Row['Transaction_Status_id']); ?>
+							    </td>
+							    <td class="text-center">
+								    <?=  $Row['transaction_options'] ?>
+							    </td>
+						    </tr>
+						    <?php
+					    }
+					    ?>
+					    </tbody>
+				    </table>
+				    <!--begin: Datatable -->
+				    <?php
+			    }
+			    ?>
+		    </div>
+	    </div>
 
 
-
-
-	                <?php
-	                }
-	                ?>
 
 
     </div>

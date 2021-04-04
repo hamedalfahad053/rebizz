@@ -28,21 +28,14 @@
 
 
             <!--begin::Nav-->
-
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients/Profile_Client/'.$Client_Info->uuid.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">لوحة البيانات</a>
-
-
+	        <div class="separator separator-dashed separator-border-1 mt-5 mb-5"></div>
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients/Information/'.$Client_Info->uuid.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">معلومات العميل</a>
-            <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients/Contracts/'.$Client_Info->uuid.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">ادارة العقود</a>
-
+	        <div class="separator separator-dashed separator-border-1 mt-5 mb-5"></div>
+	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients/Contracts/'.$Client_Info->uuid.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">ادارة العقود</a>
             <div class="separator separator-dashed separator-border-1 mt-5 mb-5"></div>
-
-            <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients/Transactions/'.$Client_Info->uuid.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"> معاملات العميل</a>
-
-            <div class="separator separator-dashed separator-border-1 mt-5 mb-5"></div>
-
-            <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients/#/'.$Client_Info->uuid.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"> مطالبات العميل </a>
-
+	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Clients/Stages_Self_Construction/'.$Client_Info->uuid.'') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">مراحل البناء الذاتي</a>
+	        <div class="separator separator-dashed separator-border-1 mt-5 mb-5"></div>
             <!--end::Nav-->
 
         </div>

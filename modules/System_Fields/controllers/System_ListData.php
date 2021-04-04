@@ -37,12 +37,12 @@ class System_ListData extends Admin
 
                 $options['view'] = array(
                     'class' => '', 'id'    => '', "title" => lang('view_button'), "data-attribute" => '',
-                    "href" => "#"
+                    "href" => base_url(ADMIN_NAMESPACE_URL.'/List_Data/view_options/'.$ROW->list_id)
                 );
 
                 $options['edit'] = array(
                     'class' => '', 'id'    => '', "title" => lang('edit_button'), "data-attribute" => '',
-                    "href" => base_url(ADMIN_NAMESPACE_URL.'/List_Data/Form_Edit_List/'.$ROW->list_id)
+                    "href" => "#"
                 );
 
                 if($ROW->list_status == 0) {
@@ -88,6 +88,198 @@ class System_ListData extends Admin
         Layout_Admin($this->data);
     }
     ###################################################################
+
+    ###################################################################
+    public function view_options()
+    {
+        $List_id          =  $this->uri->segment(4);
+        $option_list_data = array();
+        $where_List = array(
+            "list_id"        => $List_id,
+        );
+        $this->data['List'] = Get_All_List($where_List)->row();
+
+        $query_All_options = query_All_options_List($this->data['List']->list_id,$where_options = '');
+
+        if($query_All_options->num_rows()>0) {
+
+            foreach ($query_All_options->result() as $ROW) {
+
+                if($ROW->options_status_system == 1){
+                    $options_button     =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Basic_System')));
+                    $options_company_id =  'النظام';
+                }else{
+
+                    $options_button     = array();
+
+                    if($ROW->options_status == 0) {
+                        $options['active'] = array(
+                            'class' => '', 'id'    => '', "title" => lang('active_button'), "data-attribute" => '',
+                            "href" => base_url(ADMIN_NAMESPACE_URL.'/List/Status_options/'.$ROW->options_uuid.'/1')
+                        );
+                    }else {
+                        $options['disable'] = array(
+                            'class' => '', 'id'    => '', "title" => lang('disable_button'), "data-attribute" => '',
+                            "href" => base_url(ADMIN_NAMESPACE_URL.'/List/Status_options/'.$ROW->options_uuid.'/0')
+                        );
+                    }
+                    $options_button     =  Create_Options_Button($options);
+                    $options_company_id = $this->aauth->get_user($ROW->options_createBy)->full_name.''.date('Y-m-d h:i:s a',$ROW->options_createDate);
+                }
+
+                if($ROW->options_status == 1) {
+                    $status =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+                }else{
+                    $status =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+                }
+
+                $option_list_data[] = array(
+                    "options_id"            => $ROW->list_options_id,
+                    "options_key"           => $ROW->options_key,
+                    "options_translation"   => $ROW->item_translation,
+                    "options_company_id"    => $options_company_id,
+                    "options_status"        => $status,
+                    "options_status_system" => $options_button
+                );
+            }
+
+            $this->data['option_list_data']  = $option_list_data;
+
+        }else{
+            $this->data['option_list_data']  =  false;
+        }
+
+        $this->data['Page_Title'] = 'استعراض عناصر القائمة';
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Fields'));
+        $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+        $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
+        $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
+
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['PageContent'] = $this->load->view('../../modules/System_Fields/views/List_Data/List_Options_Data',$this->data,true);
+
+        Layout_Admin($this->data);
+
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Form_Add_New_Options()
+    {
+
+        $List_id            = $this->uri->segment(4);
+
+        $where_List         = array("list_id" => $List_id);
+        $this->data['List'] = Get_All_List($where_List)->row();
+
+        $this->data['Page_Title'] = 'اضافة عنصر جديد';
+
+        $this->data['options_status']        = array_options_status();
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/List'));
+        $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['PageContent'] = $this->load->view('../../modules/System_Fields/views/List_Data/Form_Add_New_Options',$this->data,true);
+
+        Layout_Admin($this->data);
+
+
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Create_options()
+    {
+
+        $this->form_validation->set_rules('List_id','حدد  القائمة','required');
+
+
+        if($this->form_validation->run() == FALSE) {
+
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = validation_errors();
+            $msg_result_view     = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(ADMIN_NAMESPACE_URL.'/List/Form_Add_New_List', 'refresh');
+
+        }else {
+
+            $option_list = $this->input->post('option_list', true);
+
+            $i = 0;
+            foreach ($option_list as $key => $value) {
+                if($value['option_ar'] =='' and $value['option_en']=='') {
+
+                }else{
+
+                    $option_list_data = array(
+                        "list_id"               => $this->input->post('List_id', true),
+                        "options_sort"          => ++$i,
+                        "options_key"           => strtoupper(str_replace(" ", "_", $value['option_en'])),
+                        "options_company_id"    => 0,
+                        "options_status"        => $value['options_status'],
+                        "options_createDate"    => time(),
+                        "options_status_system" => 0
+                    );
+                    $Create_options = Create_options($option_list_data);
+                    insert_translation_Language_item('portal_list_options_translation', $Create_options, $value['option_ar'], $value['option_en']);
+
+                } // if == ''
+            } // foreach
+
+
+            if($Create_options){
+                $msg_result['key']   = 'Success';
+                $msg_result['value'] = lang('message_success_insert');
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(ADMIN_NAMESPACE_URL.'/List' , 'refresh');
+            }else{
+                $msg_result['key']   = 'Danger';
+                $msg_result['value'] = lang('message_error_insert');
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(ADMIN_NAMESPACE_URL.'/List', 'refresh');
+            }
+
+        }
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Status_options()
+    {
+        $options_id            = $this->uri->segment(4);
+        $status                = $this->uri->segment(5);
+
+        if($options_id == '' or $status==''){
+            redirect(APP_NAMESPACE_URL.'/List' , 'refresh');
+        }else{
+            $options_company_id    = $this->aauth->get_user()->company_id;
+            $Update_options        = Update_Custom_Options($options_id,$options_company_id,$status);
+        }
+
+        if($Update_options){
+            $msg_result['key']   = 'Success';
+            $msg_result['value'] = lang('message_success_insert');
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(ADMIN_NAMESPACE_URL.'/List' , 'refresh');
+        }else{
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = lang('message_error_insert');
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(ADMIN_NAMESPACE_URL.'/List', 'refresh');
+        }
+    }
+    ###################################################################
+
 
     ###################################################################
     public function Form_Add_New_List()
@@ -206,7 +398,7 @@ class System_ListData extends Admin
             $data_list['Table_Join_joining_fields']     =  $this->input->post('Table_Join_joining_fields',true);
 
             $data_list['list_company_id']               =  0;
-            $data_list['list_createBy']                 =  $this->aauth->get_user()->id;
+            $data_list['list_createBy']                 =  0;
             $data_list['list_createDate']               =  time();
             $data_list['list_lastModifyDate']           =  0;
             $data_list['list_isDeleted']                =  0;

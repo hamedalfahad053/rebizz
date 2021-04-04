@@ -5,7 +5,7 @@
 $lang['Dashboard']     = 'لوحة المعلومات';
 
 
-$lang['Notifications_Assignment_Transaction']  = 'تم اسناد معاملة جديدة برقم ';
+
 
 
 $lang['deleted_button']    = 'حذف';
@@ -307,3 +307,7 @@ $lang['client_'] = '';
 $lang['client_'] = '';
 $lang['client_'] = '';
 $lang['client_'] = '';
+
+
+$lang['Notifications_Assignment_Transaction_title']  = 'تم اسناد معاملة جديدة  ';
+$lang['Notifications_Assignment_Transaction_text']   = '  ';

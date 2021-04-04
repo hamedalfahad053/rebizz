@@ -46,6 +46,12 @@
 		    <span></span>
 		    هل الجدول مرتبط بترجمة
 	    </label>
+	    <label class="checkbox">
+		    <input type="checkbox" value="1" name="linked_company_id"/>
+		    <span></span>
+		    هل البيانات  مرتبطة بحساب الشركة
+	    </label>
+
         <label class="checkbox">
             <input type="checkbox" value="1" name="Linking_table"/>
             <span></span>

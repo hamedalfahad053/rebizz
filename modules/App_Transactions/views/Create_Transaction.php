@@ -69,7 +69,7 @@
 			    <div class="card-body">
 				    <div class="form-group row">
 					    <?php
-					    $Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,'All','All','All','All');
+					    $Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,'All','All','All','All','All');
 					    foreach ($Get_Fields_Components as $GFC)
 					    {
 							    if($GFC['Fields_Type_Components'] == 'Fields'){
@@ -78,9 +78,9 @@
 							        ?>
 									<div class="col-lg-4 mt-5">
 									<?php
-									echo Creation_Field_HTML_input($Get_Fields->Fields_key,
+									echo Building_Field_Forms($Get_Fields->Fields_key,
 																			true,
-																			'',
+											                               $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,
 																			'',
 																			$Get_Fields->Fields_key,
 																			'',
@@ -117,6 +117,13 @@
 					    } // foreach
 					    ?>
 				    </div><!-- <div class="form-group row"> -->
+
+				    <?php
+				    if($RC->components_key == 'INSTRUMENT_DATA_AND_LICENSES_'){
+					    echo '<div class="col-lg-12 mt-5"><div id="Check_Instrument_Number_By_Transactions"></div></div>';
+				    }
+				    ?>
+
 			    </div>
 			    <!--begin::Body-->
 		    </div><!--<div class="card card-custom mt-10">-->
@@ -124,10 +131,7 @@
 		    }
 		    ?>
 
-		    <div id="ajax_Components_With_Type_CUSTOMER"></div>
-		    <div id="ajax_Components_With_CLIENT"></div>
-		    <div id="ajax_Components_With_Type_Property"></div>
-		    <div id="ajax_Components_With_TYPES_APPRAISAL"></div>
+		    <div id="ajax_Components"></div>
 
 
 		    <?php
@@ -140,7 +144,7 @@
 
 			    $msg_result['key']   = 'Danger';
 			    $msg_result['value'] = 'لا يوجد ضبط صحيح لاسناد المعاملة بعد الاضافة';
-			    $msg_result_view = Create_Status_Alert($msg_result);
+			    $msg_result_view     = Create_Status_Alert($msg_result);
 			    echo $msg_result_view;
 
 		    }else{
@@ -150,44 +154,18 @@
 					    'company_id' => $this->aauth->get_user()->company_id
 			    );
 			    $Assignment_Type = Get_Stages_Transaction_Company($Assignment_Type_where)->row();
-
 		    	if($Assignment_Type->attribution_method == 1){
 		    		echo '<input type="hidden" name="Assignment_userid" value="'.$Get_Stages_Transaction['userid'].'">';
 			    }elseif($Assignment_Type->attribution_method == 2){
-		        ?>
-			    <div class="card card-custom mb-5 mt-5">
-				    <!--begin::Header-->
-				    <div class="card-header">
-					    <div class="card-title">
-						    <h3 class="card-label">تحويل الطلب الى </h3>
-					    </div>
-				    </div>
-				    <!--begin::Header-->
-				    <!--begin::Body-->
-				    <div class="card-body">
-					    <select name="Assignment_userid" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
-						    <?php
-						    $t = 'عدد المعاملات الحالية :';
-						    foreach ($Get_Stages_Transaction AS $key_user)
-						    {
-							    echo '<option  data-subtext="  '.$t.$key_user['Assignment_Num'].'" value="'.$key_user['userid'].'">'.$key_user['full_name'].'</option>';
-						    }
-						    ?>
-					    </select>
-				    </div>
-				    <!--begin::Body-->
-			    </div>
-
-
-				<?php
-			    } // if($Assignment_Type->attribution_method == 1)
+		    		$data_Assignment_Stages_Transaction['Stages_Transaction'] = $Get_Stages_Transaction;
+				    $this->load->view('../../modules/App_Transactions/views/Template/Assignment_Transaction_userid',$data_Assignment_Stages_Transaction);
+			    }
 				?>
-
 			    <div class="card card-custom mb-5 mt-5">
 				    <div class="card-footer">
 					    <div class="row">
 						    <div class="col-lg-6">
-							    <button type="submit"   class="btn btn-primary mr-2">ارسال الطلب</button>
+							    <button type="submit"  id="submit"  class="btn btn-primary mr-2">ارسال الطلب</button>
 						    </div>
 						    <div class="col-lg-6 text-lg-right">
 							    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Cancel_Create_Transaction') ?>" class="btn btn-danger"><?= lang('cancel_button') ?></a>
@@ -199,10 +177,6 @@
 		    }
 		    ?>
 
-
-
-
-
 	    </form>
 
 
@@ -213,42 +187,17 @@
 <!--end::Entry-->
 
 
-
-
-<!--begin::Modal-->
-<div class="modal fade" id="Modal_INSTRUMENT_NUMBER" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeLg" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">معاملات بنفس رقم الصك</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<i aria-hidden="true" class="ki ki-close"></i>
-				</button>
-			</div>
-			<div class="modal-body">
-
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">اغلاق</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!--end::Modal-->
-
-<?= import_js(BASE_ASSET.'js/pages/crud/forms/editors/summernote',''); ?>
+<?php echo  import_js(BASE_ASSET.'js/pages/crud/forms/editors/summernote',''); ?>
 
 <script type="text/javascript">
 
-	function ajax_Components(div_ajax_Components){
-
+	function ajax_Components(div_ajax_Components)
+	{
 		var form_id                        = 1;
 		var CUSTOMER_CATEGORY              = $("#LIST_CUSTOMER_CATEGORY").val();
 		var TYPE_OF_PROPERTY               = $("#LIST_TYPE_OF_PROPERTY").val();
 		var TYPES_OF_REAL_ESTATE_APPRAISAL = $("#LIST_TYPES_OF_REAL_ESTATE_APPRAISAL").val();
 		var LIST_CLIENT                    = $("#LIST_CLIENT").val();
-
-
 		$.ajax({
 
 			type: 'ajax',
@@ -270,26 +219,25 @@
 			error: function () {
 				swal.fire(" خطا ", "في ارسال الطلب ", "error");
 			}
-
 		});
 
-	}
+	} // function ajax_Components(div_ajax_Components)
 
 
 	$(document).on('change', '#LIST_CUSTOMER_CATEGORY', function() {
-		ajax_Components('#ajax_Components_With_Type_CUSTOMER');
+		ajax_Components('#ajax_Components');
 	});
 
 	$(document).on('change', '#LIST_TYPE_OF_PROPERTY', function() {
-		ajax_Components('#ajax_Components_With_Type_Property');
+		ajax_Components('#ajax_Components');
 	});
 
 	$(document).on('change', '#LIST_TYPES_OF_REAL_ESTATE_APPRAISAL', function() {
-		ajax_Components('#ajax_Components_With_TYPES_APPRAISAL');
+		ajax_Components('#ajax_Components');
 	});
 
 	$(document).on('change', '#LIST_CLIENT', function() {
-		ajax_Components('#ajax_Components_With_CLIENT');
+		ajax_Components('#ajax_Components');
 	});
 
 	function ajax_list(el){
@@ -330,8 +278,6 @@
 			});
 	} // function ajax_list(el)
 
-
-
 	$('#INSTRUMENT_NUMBER').blur(function() {
 		if($(this).val().length > 4) {
 			var INSTRUMENT_NUMBER = $(this).val();
@@ -339,18 +285,13 @@
 				type: 'ajax',
 				method: 'get',
 				async: false,
-				dataType: 'html',
+				dataType: 'json',
 				url: '<?= base_url( APP_NAMESPACE_URL.'/Transactions/Check_Instrument_Number_By_Transactions') ?>',
 				data: {
 					INSTRUMENT_NUMBER:INSTRUMENT_NUMBER
 				},
-				success: function (data) {
-
-					if(data.Type == 'zero_result'){
-
-					}else{
-						$('#Modal_INSTRUMENT_NUMBER').modal('show');
-					}
+				success: function (result) {
+				  $("#Check_Instrument_Number_By_Transactions").html(result.Transaction_Table);
 
 				},
 				error: function () {
@@ -358,9 +299,14 @@
 				}
 			});
 		} // if( $(this).val().length > 5 )
-	})
+	});
 
-
+	//$('#Form_Create_Transaction').submit(function() {
+	//	var errors = 0;
+	//	if($("#").val() < 3 ){
+	//		swal.fire(" رقم الصك قصير جدا ", "  ", "error");
+	//	}
+	//});
 
 </script>
 

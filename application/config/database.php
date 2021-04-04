@@ -73,12 +73,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+
+//
+//'hostname' => 'localhost',
+//	'username' => 'root',
+//	'password' => '',
+//	'database' => 'rebizz',
+
+//'hostname' => '50.87.154.104',
+//	'username' => 'alwaysco_rebizz',
+//	'password' => 'rebizz',
+//	'database' => 'alwaysco_rebizz',
+
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+    'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'rebizz',
+	'database' => 'rebazz_online',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -88,7 +100,7 @@ $db['default'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => FALSE,
+	'encrypt'  => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),

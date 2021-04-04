@@ -60,7 +60,7 @@
 
                                  <div class="col-lg-4">
                                       <label><?= lang('Table_Status') ?> </label>
-                                      <select name="list_status" class="form-control selectpicker" data-live-search="true">
+                                      <select name="list_status" title="اختر من فضلك" class="form-control selectpicker" data-live-search="true">
                                           <?php
                                           foreach ($List_status AS $key => $value)
                                           {
@@ -75,7 +75,7 @@
 
 	                              <div class="col-lg-4">
 		                              <label>نوع القائمة</label>
-		                              <select name="list_type" id="list_type" class="form-control selectpicker" data-live-search="true">
+		                              <select name="list_type" id="list_type"  title="اختر من فضلك" class="form-control selectpicker" data-live-search="true">
 			                              <option value="OPTIONS">خيارات</option>
 			                              <option value="TABLE">جدول بيانات</option>
 		                              </select>

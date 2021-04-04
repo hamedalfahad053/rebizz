@@ -21,96 +21,42 @@ class App_Ajax extends Apps
     public function Ajax_Components()
     {
             $lang          = get_current_lang();
-
             $form_id       = trim($this->input->get('form_id'));
 
             $CUSTOMER_CATEGORY                 = trim($this->input->get('CUSTOMER_CATEGORY'));
             $TYPE_OF_PROPERTY                  = trim($this->input->get('TYPE_OF_PROPERTY'));
             $TYPES_OF_REAL_ESTATE_APPRAISAL    = trim($this->input->get('TYPES_OF_REAL_ESTATE_APPRAISAL'));
             $LIST_CLIENT                       = trim($this->input->get('LIST_CLIENT'));
-
-
+            $this->db->distinct('With_Type_CUSTOMER,With_Type_Property,With_TYPES_APPRAISAL,With_CLIENT,translation_lang');
             $this->db->from('portal_forms_components  components');
             $this->db->join('portal_forms_components_translation   components_translation', 'components.components_id = components_translation.item_id');
 
-            if($LIST_CLIENT) {
-                $this->db->where("FIND_IN_SET(".$LIST_CLIENT.",components.With_CLIENT) !=",0);
-            }else{
-                $this->db->where("FIND_IN_SET('All',components.With_CLIENT) !=",0);
-            }
-            if ($CUSTOMER_CATEGORY){
-                $this->db->where("FIND_IN_SET(".$CUSTOMER_CATEGORY.",components.With_Type_CUSTOMER) !=",0);
-            }else{
-                $this->db->where("FIND_IN_SET('All',components.With_Type_CUSTOMER) !=",0);
-            }
-            if($TYPE_OF_PROPERTY) {
-                $this->db->where("FIND_IN_SET(".$TYPE_OF_PROPERTY.",components.With_Type_Property) !=",0);
-            }else{
-                $this->db->where("FIND_IN_SET('All',components.With_Type_Property) !=",0);
+            if (!empty($CUSTOMER_CATEGORY)){
+                $this->db->where("(FIND_IN_SET(".$CUSTOMER_CATEGORY.",components.With_Type_CUSTOMER) != 0 OR components.With_Type_CUSTOMER = 'All')");
             }
 
-            if($TYPES_OF_REAL_ESTATE_APPRAISAL) {
-                $this->db->where("FIND_IN_SET(".$TYPES_OF_REAL_ESTATE_APPRAISAL.",components.With_TYPES_APPRAISAL) !=",0);
-            }else{
-                $this->db->where("FIND_IN_SET('All',components.With_TYPES_APPRAISAL) !=",0);
+            if ($TYPE_OF_PROPERTY){
+                $this->db->where("( FIND_IN_SET(".$TYPE_OF_PROPERTY.",components.With_Type_Property) !=0 OR components.With_Type_Property= 'All' )");
             }
 
-            $this->db->where(" (components.company_id = ".$this->aauth->get_user()->company_id." OR components.company_id = 0 ) ");
+            if ($TYPES_OF_REAL_ESTATE_APPRAISAL){
+                $this->db->where("( FIND_IN_SET(".$TYPES_OF_REAL_ESTATE_APPRAISAL.",components.With_TYPES_APPRAISAL) != 0 OR components.With_TYPES_APPRAISAL = 'All')");
+            }
+
+            if ($LIST_CLIENT) {
+                $this->db->where("(FIND_IN_SET(" . $LIST_CLIENT . ",components.With_CLIENT) !=0 OR components.With_CLIENT = 'All')");
+            }
+
+            $this->db->where(" (components.company_id = ".$this->aauth->get_user()->company_id." OR (components.company_id = 0 AND ( components.With_Type_CUSTOMER != 'All' OR components.With_Type_Property != 'All' OR components.With_TYPES_APPRAISAL  != 'All' OR components.With_CLIENT != 'All' )) ) ");
             $this->db->where('components.Forms_id',$form_id);
+
             $this->db->where('components_translation.translation_lang',$lang);
             $query = $this->db->get();
 
-            //echo $this->db->last_query();
-
-
-            $html = '';
-
             if($query->num_rows()>0) {
-
-                    foreach ($query->result() as $row) {
-
-                        $html .= '<div class="card card-custom mt-10">';
-
-                        $html .= '<!--begin::Header-->';
-                        $html .= '<div class="card-header">';
-                        $html .= '<div class="card-title"> <h3 class="card-label">' . $row->item_translation . '</h3></div><div class="card-toolbar"></div>';
-                        $html .= '</div>';
-                        $html .= '<!--End::Header-->';
-
-                        $html .= '<!--begin::Body-->';
-                        $html .= '<div class="card-body">';
-
-                        $html .= '<div class="form-group row">';
-
-                        $Get_Fields_Components = Building_Fields_Components_Forms($row->Forms_id, $row->components_id, $row->With_Type_CUSTOMER, $row->With_Type_Property, $row->With_TYPES_APPRAISAL, $row->With_Type_evaluation_methods);
-
-                        foreach ($Get_Fields_Components as $GFC) {
-                            if ($GFC['Fields_Type_Components'] == 'Fields') {
-                                $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
-                                $Get_Fields = Get_Fields($Where_Get_Fields)->row();
-                                $html .= '<div class="col-lg-4 mt-5">';
-                                $html .= Creation_Field_HTML_input($Get_Fields->Fields_key, true, '', '', '', '', '', '', '', '', '');
-                                $html .= '</div>';
-                            } elseif ($GFC['Fields_Type_Components'] == 'List') {
-                                $html .= '<div class="col-lg-4 mt-5">';
-                                $class_List = array(0 => "selectpicker");
-                                $html .= Building_List_Forms($row->Forms_id, $row->components_id, $GFC['Fields_id'], $multiple = '', $selected = '', $style = '', $id = '', $class = array(0 => "selectpicker"), $disabled = '', $label = '', $js = '');
-                                $html .= '</div>';
-                            }
-                        } // foreach
-
-                        $html .='<script>$( ".datepicker" ).datepicker("refresh");</script>';
-
-                        $html .= '</div><!--<div class="form-group row">-->';
-
-                        $html .= '</div>';
-                        $html .= '<!--End::Body-->';
-
-                        $html .= '</div><!--<div class="card card-custom mt-10">-->';
-
-                    } // foreach ($query->result() as $row) {
+                $data['query'] = $query;
+                $this->load->view('../../modules/App_Ajax/Tamplet_Components_Ajax',$data);
             }
-            echo $html;
     }
     ###############################################################################################
 
@@ -201,8 +147,7 @@ class App_Ajax extends Apps
                 $query_list_options = $this->db->where('Table_Primary.'.$query_get_setting_list->primary_fields_link_to_options,$option_id);
 
                 if($query_get_setting_list->linked_company_id == 1){
-                    $company_id = '';
-                    $query_list_options = $this->db->where($query_get_setting_list->Table_primary .'.company_id',$company_id);
+                    $query_list_options = $this->db->where('(Table_Primary.company_id',$this->aauth->get_user()->company_id);
                 }
 
                 if($query_get_setting_list->linked_translation == 1){
@@ -239,14 +184,18 @@ class App_Ajax extends Apps
             $query_list_options = $this->db->get($query_get_setting_list->Table_Join);
 
             if($query_get_setting_list->linked_company_id == 1){
-                $company_id = '';
-                $query_list_options = $this->db->where($query_get_setting_list->Table_Join .'.company_id',$company_id);
+                $query_list_options = $this->db->where('(Table_Primary.company_id',$this->aauth->get_user()->company_id);
             }
 
             if($query_get_setting_list->linked_translation == 1){
                 $where_translation  = $query_get_setting_list->Join_fields;
                 $query_list_options = $this->db->where($query_get_setting_list->Table_Join .'.'.$where_translation,$lang);
             }
+
+            if($query_get_setting_list->linked_company_id == 1){
+                $query_list_options = $this->db->where('(Table_Primary.company_id',$this->aauth->get_user()->company_id);
+            }
+
 
             foreach ($query_list_options->result() as $row) {
 
@@ -274,8 +223,6 @@ class App_Ajax extends Apps
         echo json_encode($msg);
     }
     ###############################################################################################
-
-
 
     ###############################################################################################
     public function Ajax_List_Client_by_type()

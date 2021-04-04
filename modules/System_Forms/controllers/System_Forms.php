@@ -80,9 +80,6 @@ class System_Forms extends Admin
     }
     ###################################################################
 
-
-
-
     ###################################################################
     public function Form_add_Forms()
     {
@@ -179,9 +176,6 @@ class System_Forms extends Admin
     ###################################################################
 
 
-
-
-
     ###################################################################
     public function Form_Components()
     {
@@ -200,8 +194,6 @@ class System_Forms extends Admin
         Layout_Admin($this->data);
     }
     ###################################################################
-
-
 
     ###################################################################
     public function Form_Add_Components()
@@ -238,7 +230,6 @@ class System_Forms extends Admin
         Layout_Admin($this->data);
     }
     ###################################################################
-
 
     ###################################################################
     public function Create_Components()
@@ -378,8 +369,9 @@ class System_Forms extends Admin
 
             $where_Fields_Components = array(
                "Forms_id"      => $this->input->post('Form_id'),
-               "Fields_id"    => $this->input->post('Fields_Add'),
-               "Fields_Type" => 'Fields'
+               "Fields_id"     => $this->input->post('Fields_Add'),
+               "Components_id" => $this->input->post('Components_id'),
+               "Fields_Type"   => 'Fields'
             );
             $Query_Fields_Components = Query_Fields_Components($where_Fields_Components);
 
@@ -398,10 +390,9 @@ class System_Forms extends Admin
             $data_Sections_Components['Fields_key']       = Get_Fields(array("Fields_id"=>$this->input->post('Fields_Add')))->row()->Fields_key;
 
 
-
             $data_Sections_Components['status_is_system'] = $this->input->post('status_is_system');
 
-            $data_Sections_Components['With_client_id']   = 'All';
+            $data_Sections_Components['With_CLIENT']   = 'All';
 
             if ($this->input->post('All_CUSTOMER_CATEGORY') == 1) {
                 $data_Sections_Components['With_Type_CUSTOMER'] = 'All';
@@ -431,7 +422,7 @@ class System_Forms extends Admin
 
             $Create_Fields = Create_Fields_Form_Components($data_Sections_Components);
 
-            if ($Create_Fields) {
+            if($Create_Fields) {
                 $msg_result['key'] = 'Success';
                 $msg_result['value'] = lang('message_success_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
@@ -464,7 +455,6 @@ class System_Forms extends Admin
         Layout_Admin($this->data);
     }
     ###################################################################
-
 
     ###################################################################
     public function Ajax_Setting_List()
@@ -569,6 +559,10 @@ class System_Forms extends Admin
         } else {
 
 
+            $data_Sections_Components['linked_translation']      = $this->input->post('linked_translation');
+            $data_Sections_Components['linked_company_id']       = $this->input->post('linked_company_id');
+
+
             $data_Sections_Components['Forms_id']      = $this->input->post('Form_id');
             $data_Sections_Components['Components_id'] = $this->input->post('Components_id');
             $data_Sections_Components['Fields_id']     = $this->input->post('List_id');
@@ -580,10 +574,10 @@ class System_Forms extends Admin
             if ($this->input->post('All_CUSTOMER_CATEGORY') == 1) {
                 $data_Sections_Components['With_Type_CUSTOMER'] = 'All';
             } else {
-                if (is_array($this->input->post('CUSTOMER_CATEGORY'))) {
-                    $data_Sections_Components['With_Type_CUSTOMER'] = implode(',', $this->input->post('CUSTOMER_CATEGORY'));
+                if (is_array($this->input->post('LIST_CUSTOMER_CATEGORY'))) {
+                    $data_Sections_Components['With_Type_CUSTOMER'] = implode(',', $this->input->post('LIST_CUSTOMER_CATEGORY'));
                 } else {
-                    $data_Sections_Components['With_Type_CUSTOMER'] = $this->input->post('CUSTOMER_CATEGORY');
+                    $data_Sections_Components['With_Type_CUSTOMER'] = $this->input->post('LIST_CUSTOMER_CATEGORY');
                 }
             }
 
@@ -600,10 +594,10 @@ class System_Forms extends Admin
             if ($this->input->post('All_TYPES_APPRAISAL') == 1) {
                 $data_Sections_Components['With_TYPES_APPRAISAL'] = 'All';
             } else {
-                if (is_array($this->input->post('TYPES_APPRAISAL'))) {
-                    $data_Sections_Components['With_TYPES_APPRAISAL'] = implode(',', $this->input->post('TYPES_APPRAISAL'));
+                if (is_array($this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL'))) {
+                    $data_Sections_Components['With_TYPES_APPRAISAL'] = implode(',', $this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL'));
                 } else {
-                    $data_Sections_Components['With_TYPES_APPRAISAL'] = $this->input->post('TYPES_APPRAISAL');
+                    $data_Sections_Components['With_TYPES_APPRAISAL'] = $this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
                 }
             }
 
@@ -673,11 +667,8 @@ class System_Forms extends Admin
 
             $data_Sections_Components['Fields_Type'] = 'List';
 
-            //_array_p($_POST);
-            //die;
 
-
-            $Create_Fields = $this->System_Forms_Model->Create_Fields_Form_Components($data_Sections_Components);
+            $Create_Fields = Create_Fields_Form_Components($data_Sections_Components);
 
             if ($Create_Fields) {
                 $msg_result['key'] = 'Success';

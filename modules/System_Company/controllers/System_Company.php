@@ -59,13 +59,12 @@ class System_Company extends Admin
         $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
 
         $this->data['Page_Title']  = lang('Management_companies_offices');
-
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
         $this->mybreadcrumb->add($this->data['Page_Title'],'#');
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-        $this->data['PageContent'] = $this->load->view('../../modules/System_Company/views/List_company',$this->data,true);
 
+        $this->data['PageContent'] = $this->load->view('../../modules/System_Company/views/List_company',$this->data,true);
         Layout_Admin($this->data);
 
     }
@@ -81,14 +80,12 @@ class System_Company extends Admin
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
         $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
 
         $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
         $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
 
-        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-
         $this->data['PageContent'] = $this->load->view('../../modules/System_Company/views/Form_Add_Company',$this->data,true);
-
         Layout_Admin($this->data);
 
     }
@@ -175,7 +172,7 @@ class System_Company extends Admin
 
 
             $data_companies['companies_Status']           =  0;
-            $data_companies['companies_createBy']         =  0;//$this->aauth->get_user()->id;
+            $data_companies['companies_createBy']         =  $this->aauth->get_user()->id;
             $data_companies['companies_createDate']       =  time();
             $data_companies['companies_lastModifyDate']   =  time();
             $data_companies['companies_isDeleted']        =  0;

@@ -38,10 +38,10 @@
 
 
 	    <?php
-	    $Customs_With_CLIENT            = Transaction_data_by_key($Transactions->transaction_id,'LIST_CLIENT');
-	    $Customs_With_Type_CUSTOMER     = Transaction_data_by_key($Transactions->transaction_id,'LIST_CUSTOMER_CATEGORY');
-	    $Customs_With_Type_Property     = Transaction_data_by_key($Transactions->transaction_id,'LIST_TYPE_OF_PROPERTY');
-	    $Customs_With_TYPES_APPRAISAL   = Transaction_data_by_key($Transactions->transaction_id,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+	    $Customs_With_CLIENT            = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
+	    $Customs_With_Type_CUSTOMER     = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CUSTOMER_CATEGORY');
+	    $Customs_With_Type_Property     = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPE_OF_PROPERTY');
+	    $Customs_With_TYPES_APPRAISAL   = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
 
 	    $Form_Components_Customs        = Get_View_Components_Customs(1,$Customs_With_CLIENT,$Customs_With_Type_CUSTOMER,$Customs_With_Type_Property,$Customs_With_TYPES_APPRAISAL);
 	    foreach ($Form_Components_Customs->result() AS $RC_Customs)
@@ -73,12 +73,12 @@
 
 								    if($Get_Fields->Fields_Type_Fields == 'file_multiple' or $Get_Fields->Fields_Type_Fields == 'file') {
 									    $data_files['Get_Transaction_files'] = Get_Transaction_files(array("Transaction_id"=>$Transactions->transaction_id))->result();
-									    $this->load->view('../../modules/App_Transactions/views/tamplet/tamplet_row_transaction_files',$data_files);
+									    $this->load->view('../../modules/App_Transactions/views/Template/Template_row_transaction_files',$data_files);
 								    }else{
 									    ?>
 									    <tr>
 										    <td><?= $GFC['Fields_Title'] ?></td>
-										    <td><?= Transaction_data_by_key($Transactions->transaction_id,$GFC['Fields_key']) ?></td>
+										    <td><?= Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']) ?></td>
 										    <td><button type="button" class="btn btn-icon btn-sm btn-light-warning mx-2" data-toggle="modal" data-target="#exampleModalCenter"><i class="la la-edit"></i></button>
 									    </tr>
 									    <?php
@@ -87,7 +87,7 @@
 
 							    }elseif($GFC['Fields_Type_Components'] == 'List'){
 
-								    $d = Transaction_data_by_key($Transactions->transaction_id,$GFC['Fields_key']);
+								    $d = Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']);
 								    ?>
 								    <tr>
 									    <td><?= $GFC['Fields_Title'] ?></td>
@@ -111,8 +111,11 @@
 
 
 
-	    <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions_DataEntries/Submit_DataEntries') ?>" enctype="multipart/form-data" method="post">
+	    <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Submit_DataEntries') ?>" enctype="multipart/form-data" method="post">
         <?= CSFT_Form() ?>
+
+		    <?php echo  $this->session->flashdata('message'); ?>
+
 	        <input type="hidden" value="" name="Transactions_uuid">
 	        <?php
 	        $where_extra_Form_Components = array(
@@ -150,7 +153,7 @@
 				        <div class="form-group row">
 
 					        <?php
-					        $Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,'All','All','All','All');
+					        $Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,'All','All','All','All','All');
 
 
 					        foreach ($Get_Fields_Components as $GFC)
@@ -164,11 +167,11 @@
 
 							        <div class="col-lg-4 mt-5">
 								        <?php
-								        echo Creation_Field_HTML_input($Get_Fields->Fields_key,
+								        echo Building_Field_Forms($Get_Fields->Fields_key,
 										        true,
+										        $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,
 										        '',
-										        '',
-										        '',
+										        $Get_Fields->Fields_key,
 										        '',
 										        '',
 										        '',
