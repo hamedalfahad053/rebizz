@@ -24,10 +24,15 @@
     if($direction=='rtl'){
     ?>
     <style type="text/css">
-        .dropdown-toggle {padding-right: 5px !important;}
-        .bootstrap-select.btn-group,.dropdown-toggle,.filter-option,.filter-option-inner-inner{text-align: right !important;}
-        .bootstrap-select.btn-group .dropdown-toggle .caret {left: 12px !important;right: unset !important;}
-        th.dt-center,.dt-center { text-align: center; }
+	    .dropdown-toggle {padding-right: 5px !important;}
+	    .bootstrap-select.btn-group,.dropdown-toggle,.filter-option,.filter-option-inner-inner{text-align: right !important;}
+	    .bootstrap-select.btn-group .dropdown-toggle .caret {left: 12px !important;right: unset !important;}
+
+	    th.dt-center,.dt-center { text-align: center; }
+
+	    input.datepicker {
+		    width: 100% !important;
+	    }
     </style>
     <?php
     }
@@ -210,11 +215,20 @@
                                         </a>
                                     </li>
 
+	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                                <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Calculations') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
+			                                <span class="menu-text"> ادارة حسابات الحقول </span>
+		                                </a>
+	                                </li>
+
                                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                         <a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Forms') ?>" class="menu-link menu-toggle"><span class="menu-icon"><i class="flaticon2-world text-primary"></span></i>
                                             <span class="menu-text"> ادارة النماذج  </span>
                                         </a>
                                     </li>
+
+
+
                                 </ul>
                             </div>
                         </li>

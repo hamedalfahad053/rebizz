@@ -79,11 +79,10 @@
 									    <tr>
 										    <td><?= $GFC['Fields_Title'] ?></td>
 										    <td><?= Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']) ?></td>
-										    <td><button type="button" class="btn btn-icon btn-sm btn-light-warning mx-2" data-toggle="modal" data-target="#exampleModalCenter"><i class="la la-edit"></i></button>
+<!--										    <td><button type="button" class="btn btn-icon btn-sm btn-light-warning mx-2" data-toggle="modal" data-target="#exampleModalCenter"><i class="la la-edit"></i></button>-->
 									    </tr>
 									    <?php
 								    }
-
 
 							    }elseif($GFC['Fields_Type_Components'] == 'List'){
 
@@ -126,6 +125,8 @@
 	        );
 	        $Form_Components  = Get_Form_Components(13,$where_extra_Form_Components);
 
+
+
 	        foreach ($Form_Components->result() AS $RC)
 	        {
 		        ?>
@@ -145,67 +146,65 @@
 				        </div>
 			        </div>
 			        <!--begin::Header-->
-
 			        <!--begin::Body-->
 			        <div class="card-body">
-
-
 				        <div class="form-group row">
 
 					        <?php
 					        $Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,'All','All','All','All','All');
 
 
+
 					        foreach ($Get_Fields_Components as $GFC)
 					        {
 
-						        if($GFC['Fields_Type_Components'] == 'Fields'){
+										        if($GFC['Fields_Type_Components'] == 'Fields'){
 
-							        $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
-							        $Get_Fields       = Get_Fields($Where_Get_Fields)->row();
-							        ?>
+													        $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
+													        $Get_Fields       = Get_Fields($Where_Get_Fields)->row();
+													        ?>
+													        <div class="col-lg-6 mt-5">
+														        <?php
+														        echo Building_Field_Forms($Get_Fields->Fields_key,
+																        true,
+																        $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,
+																        '',
+																        $Get_Fields->Fields_key,
+																        '',
+																        '',
+																        '',
+																        '',
+																        '',
+																        '');
 
-							        <div class="col-lg-4 mt-5">
-								        <?php
-								        echo Building_Field_Forms($Get_Fields->Fields_key,
-										        true,
-										        $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,
-										        '',
-										        $Get_Fields->Fields_key,
-										        '',
-										        '',
-										        '',
-										        '',
-										        '',
-										        '');
+														        ?>
+													        </div>
 
-								        ?>
-							        </div>
+											    <?php
 
-							        <?php
+										        }elseif($GFC['Fields_Type_Components'] == 'List'){
+											    ?>
 
-						        }elseif($GFC['Fields_Type_Components'] == 'List'){
-							        ?>
+														        <div class="col-lg-6 mt-5">
+															        <?php
+															        $class_List      = array( 0 => "selectpicker");
+															        Building_List_Forms($RC->Forms_id,
+																	        $RC->components_id,
+																	        $GFC['Fields_id'],
+																	        $multiple = '',
+																	        $selected='',
+																	        $style='',
+																	        $id='',
+																	        $class = array( 0=> "selectpicker"),
+																	        $disabled='',
+																	        $label='',
+																	        $js='');
+															        ?>
+														        </div>
 
-							        <div class="col-lg-4 mt-5">
-								        <?php
-								        $class_List      = array( 0 => "selectpicker");
-								        Building_List_Forms($RC->Forms_id,
-										        $RC->components_id,
-										        $GFC['Fields_id'],
-										        $multiple = '',
-										        $selected='',
-										        $style='',
-										        $id='',
-										        $class = array( 0=> "selectpicker"),
-										        $disabled='',
-										        $label='',
-										        $js='');
-								        ?>
-							        </div>
+											    <?php
+										        }
 
-							        <?php
-						        }
 
 					        } // foreach
 					        ?>

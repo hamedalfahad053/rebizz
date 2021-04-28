@@ -41,6 +41,9 @@
         <!--end::Header Menu Wrapper-->
         <!--begin::Topbar-->
         <div class="topbar">
+
+
+
             <!--begin::Search-->
             <div class="dropdown" id="kt_quick_search_toggle">
                 <!--begin::Toggle-->
@@ -98,6 +101,8 @@
                 <!--end::Dropdown-->
             </div>
             <!--end::Search-->
+
+
             <!--begin::Notifications-->
             <div class="dropdown">
                 <!--begin::Toggle-->
@@ -556,6 +561,8 @@
                 <!--end::Dropdown-->
             </div>
             <!--end::Notifications-->
+
+
             <!--begin::Quick Actions-->
             <div class="dropdown">
                 <!--begin::Toggle-->

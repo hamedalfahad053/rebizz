@@ -33,18 +33,7 @@
 
 
         <div class="card card-custom">
-            <div class="card-header">
-                <div class="card-title">
-                    <span class="card-icon">
-                        <i class="flaticon-squares text-primary"></i>
-                    </span>
-                    <h3 class="card-label"><?= $Page_Title ?></h3>
-                </div>
-                <div class="card-toolbar">
-                </div>
-            </div>
             <div class="card-body">
-
 
                 <?php echo  $this->session->flashdata('message'); ?>
 
@@ -108,7 +97,16 @@
     $(document).ready(function() {
 
         $('.data_table').DataTable({
-            responsive: true
+            responsive: true,
+	        dom: `<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>
+			<'row'<'col-sm-12'tr>>
+			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+
+	        buttons: [
+		        'print',
+		        'copyHtml5',
+		        'excelHtml5',
+	        ]
         });
 
     });

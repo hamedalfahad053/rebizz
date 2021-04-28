@@ -113,8 +113,6 @@ class Ajax extends Base_Ajax
             $Regions_data[] = array(
                 "id"        => $row->region_id,
                 "Name"      => $Regions_Name,
-                //"point_map_lat" => $point_map[1],
-                //"point_map_lng" => $point_map[0],
             );
 
         }
@@ -144,13 +142,14 @@ class Ajax extends Base_Ajax
             }else{
                 $Cites_Name = $row->name_en;
             }
-
-            $Cites_data[] = array(
-                "id"        => $row->city_id,
-                "Name"      => $Cites_Name,
-            );
+            $Cites_data1[] = array("id"=> $row->city_id, "Name"=> $Cites_Name,);
         }
-        echo json_encode($Cites_data);
+
+        $Cites_data2 = array("id"=>0,"Name"=>'غير معروف');
+
+        $data_merge = array_merge($Cites_data1,$Cites_data2);
+
+        echo json_encode($data_merge);
 
     }
     ###################################################################

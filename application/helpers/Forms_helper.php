@@ -19,12 +19,10 @@ if(!function_exists('Get_All_Forms'))
                 $query_Forms = app()->db->where($key,$value);
             }
         }
-
         $query_Forms = app()->db->where('forms_translation.translation_lang',$lang);
         $query_Forms = app()->db->get();
         return $query_Forms;
     }
-
 }
 ##############################################################################
 
@@ -411,27 +409,28 @@ if(!function_exists('Building_Fields_Components_Forms')) {
         $List       = array();
         $Fields_all = array();
 
-        app()->db->distinct('With_Type_CUSTOMER,With_Type_Property,With_TYPES_APPRAISAL,With_CLIENT,translation_lang');
-        if ($Type_CUSTOMER){
-            app()->db->where("( FIND_IN_SET(".$Type_CUSTOMER.",With_Type_CUSTOMER) != 0 OR With_Type_CUSTOMER = 'All')");
+        if($Type_CUSTOMER !== 'All' and $Type_Property !=='All' and $TYPES_APPRAISAL !=='All' and $With_CLIENT !=='All'){
+            app()->db->distinct('With_Type_CUSTOMER,With_Type_Property,With_TYPES_APPRAISAL,With_CLIENT,translation_lang');
+            if ($Type_CUSTOMER){
+                app()->db->where("( FIND_IN_SET(".$Type_CUSTOMER.",With_Type_CUSTOMER) != 0 OR With_Type_CUSTOMER = 'All')");
+            }
+            if ($Type_Property){
+                app()->db->where("( FIND_IN_SET(".$Type_Property.",With_Type_Property) !=0 OR With_Type_Property = 'All' )");
+            }
+            if ($TYPES_APPRAISAL){
+                app()->db->where("( FIND_IN_SET(".$TYPES_APPRAISAL.",With_TYPES_APPRAISAL) != 0 OR With_TYPES_APPRAISAL = 'All')");
+            }
+            if ($With_CLIENT) {
+                app()->db->where("( FIND_IN_SET(" . $With_CLIENT . ",With_CLIENT) !=0 OR With_CLIENT = 'All')");
+            }
         }
-        if ($Type_Property){
-            app()->db->where("( FIND_IN_SET(".$Type_Property.",With_Type_Property) !=0 OR With_Type_Property = 'All' )");
-        }
-        if ($TYPES_APPRAISAL){
-            app()->db->where("( FIND_IN_SET(".$TYPES_APPRAISAL.",With_TYPES_APPRAISAL) != 0 OR With_TYPES_APPRAISAL = 'All')");
-        }
-        if ($With_CLIENT) {
-            app()->db->where("( FIND_IN_SET(" . $With_CLIENT . ",With_CLIENT) !=0 OR With_CLIENT = 'All')");
-        }
+
 
         app()->db->where(" (company_id = ".app()->aauth->get_user()->company_id." OR ( company_id = 0 AND (  With_Type_CUSTOMER = 'All' OR  With_Type_Property = 'All' OR  With_TYPES_APPRAISAL  = 'All' OR  With_CLIENT = 'All' )) ) ");
         app()->db->where('Forms_id',$Forms_id);
         app()->db->where('Components_id',$Components_id);
+        app()->db->order_by('Fields_Sort', 'ASC');
         $query = app()->db->get('portal_forms_components_fields');
-
-
-
 
         foreach ($query->result() as $RC) {
 
@@ -627,8 +626,7 @@ if(!function_exists('Building_Field_Forms')) {
 
         $data_input = array();
 
-        if($query_Fields->Fields_Type_Fields ==  'text' or $query_Fields->Fields_Type_Fields ==  'date'
-        or $query_Fields->Fields_Type_Fields ==  'number' or $query_Fields->Fields_Type_Fields ==  'time') {
+        if($query_Fields->Fields_Type_Fields ==  'text' or $query_Fields->Fields_Type_Fields ==  'date' or $query_Fields->Fields_Type_Fields ==  'number' or $query_Fields->Fields_Type_Fields ==  'time') {
 
             if($query_Fields->Fields_Type_Fields ==  'number'){
                 $data_input['type'] = 'number';
@@ -646,10 +644,10 @@ if(!function_exists('Building_Field_Forms')) {
 
             $attribute_output = '';
             if (is_array($attribute)) {
-                foreach ($attribute as $atr) {
-                    $attribute_output .= $attribute_output . ' ' . $atr;
+                foreach ($attribute as $kay => $value) {
+                    $data_input[$kay] = $value;
                 }
-            }
+             }
 
             if ($query_Fields->Fields_Type_Fields == 'date') $class_output .= $class_output . ' datepicker';
             if ($query_Fields->Fields_Type_Fields == 'file') $class_output .= $class_output . ' form-control-file';
@@ -666,7 +664,7 @@ if(!function_exists('Building_Field_Forms')) {
 
 
             $data_input['class'] = $class_output;
-            $data_input['attribute'] = $attribute_output;
+
 
             if ($js) {
                 $input = form_input($data_input, $js);
@@ -679,12 +677,18 @@ if(!function_exists('Building_Field_Forms')) {
                 $form_input .= $input;
             }
 
-
-
-
         }elseif ($query_Fields->Fields_Type_Fields ==  'file_multiple'){
 
             $form_input.= app()->load->view('../../modules/System_Fields/views/tamplet_file_multiple',$data_input, true);
+
+        }elseif ($query_Fields->Fields_Type_Fields == 'file'){
+
+           $form_input .= '<div class="form-group row">';
+                $form_input .= '<div class="col-lg-12 mt-5 md-5">';
+                    $form_input .= '<lable>'.$query_Fields->item_translation.'</lable>';
+                    $form_input .= '<input type="file" class="form-control-file" name="'.$query_Fields->Fields_key.'" >';
+                $form_input .= '</div>';
+           $form_input .= '</div>';
 
         }
 
@@ -742,12 +746,17 @@ if(!function_exists('Building_List_Forms')) {
 
             foreach ($query_list_options->result() as $row)
             {
+
+
+
                 $options[] = array(
                     "options_id"    => $row->list_options_id,
                     "options_key"   => $row->options_key,
                     "options_type"  => 'options',
                     "options_title" => $row->item_translation
                 );
+
+
             }
 
         }elseif ($query_get_setting_list->Fields_data == 'options_table'){
@@ -877,8 +886,6 @@ if(!function_exists('Building_List_Forms')) {
                 );
             }
 
-
-
         }elseif ($query_get_setting_list->Fields_data == 'table_to_table_ajax'){
 
             if($query_get_setting_list->linked_company_id == 1) {
@@ -899,8 +906,6 @@ if(!function_exists('Building_List_Forms')) {
             }
 
         }elseif ($query_get_setting_list->Fields_data == 'ajax'){
-
-
 
         }
         ###########################################################################################################
@@ -984,18 +989,52 @@ if(!function_exists('Building_List_Forms')) {
                             onchange="ajax_list(this);" 
                             class="'.$class_output.'" id="'.$id_.'" '.$style_.' '.$disabled_.'  '.$title_.' '.$multiple_.' '.$js_.' data-live-search="true" data-size="5">';
 
+
+
+
+            $query_receipt_emp_permissions = app()->db->where('receipt_emp_userid',app()->aauth->get_user()->id);
+            $query_receipt_emp_permissions = app()->db->where('company_id',app()->aauth->get_user()->company_id);
+            $query_receipt_emp_permissions = app()->db->get('protal_transactions_receipt_emp_permissions');
+
             foreach ($options as $op)
             {
-
-
                 if(!empty($selected) and $selected == $op['options_id']){
                  $selected = 'selected="selected"';
                 }else{
                     $selected = '';
                 }
 
-                $form_dropdown .= '<option '.$selected.'  value="'.$op['options_id'].'" data-key="'.$op['options_key'].'" data-type="'.$op['options_type'].'">'.$op['options_title'].'</option>';
-            }
+
+
+                if($query_list->list_key == 'LIST_METHOD_OF_RECEIPT') {
+
+                    if ($query_receipt_emp_permissions->num_rows() > 0) {
+                        $array_receipt_emp_permissions = explode(',', $query_receipt_emp_permissions->row()->LIST_METHOD_OF_RECEIPT);
+
+                        if (in_array($op['options_id'], $array_receipt_emp_permissions)) {
+                            $form_dropdown .= '<option ' . $selected . '  value="' . $op['options_id'] . '" data-key="' . $op['options_key'] . '" data-type="' . $op['options_type'] . '">' . $op['options_title'] . '</option>';
+                        }
+                    } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                }elseif ($query_list->list_key == 'LIST_CUSTOMER_CATEGORY') {
+
+                    if ($query_receipt_emp_permissions->num_rows() > 0) {
+
+                        $array_receipt_emp_permissions = explode(',', $query_receipt_emp_permissions->row()->LIST_CUSTOMER_CATEGORY);
+                        if (in_array($op['options_id'], $array_receipt_emp_permissions)) {
+                            $form_dropdown .= '<option ' . $selected . '  value="' . $op['options_id'] . '" data-key="' . $op['options_key'] . '" data-type="' . $op['options_type'] . '">' . $op['options_title'] . '</option>';
+                        }
+                    } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                } else{
+
+                    $form_dropdown .= '<option '.$selected.'  value="'.$op['options_id'].'" data-key="'.$op['options_key'].'" data-type="'.$op['options_type'].'">'.$op['options_title'].'</option>';
+
+                }
+
+
+            } // foreach
+
 
         $form_dropdown .= '</select>';
 
@@ -1005,6 +1044,13 @@ if(!function_exists('Building_List_Forms')) {
 
 }
 ##############################################################################
+
+
+
+
+
+
+
 
 ##############################################################################
 if(!function_exists('Building_List_Forms_Views')) {

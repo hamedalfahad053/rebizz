@@ -12,7 +12,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
-
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes
@@ -30,7 +29,6 @@ defined('FILE_READ_MODE')  OR define('FILE_READ_MODE', 0644);
 defined('FILE_WRITE_MODE') OR define('FILE_WRITE_MODE', 0666);
 defined('DIR_READ_MODE')   OR define('DIR_READ_MODE', 0755);
 defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
-
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes
@@ -47,7 +45,6 @@ defined('FOPEN_WRITE_CREATE')                   OR define('FOPEN_WRITE_CREATE', 
 defined('FOPEN_READ_WRITE_CREATE')              OR define('FOPEN_READ_WRITE_CREATE', 'a+b');
 defined('FOPEN_WRITE_CREATE_STRICT')            OR define('FOPEN_WRITE_CREATE_STRICT', 'xb');
 defined('FOPEN_READ_WRITE_CREATE_STRICT')       OR define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
-
 /*
 |--------------------------------------------------------------------------
 | Exit Status Codes
@@ -92,21 +89,16 @@ $fo = str_replace("index.php","", $_SERVER['SCRIPT_NAME']);
 $base = $base = "$http" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . "" . $fo;
 
 defined('BASE_URL') 	OR define('BASE_URL'			, $base);
-
-
-defined('BASE_ASSET') OR define('BASE_ASSET', BASE_URL.'Assets/');
+defined('BASE_ASSET')   OR define('BASE_ASSET', BASE_URL.'Assets/');
 
 defined('ADMIN_NAMESPACE_URL')  OR define('ADMIN_NAMESPACE_URL', 'Admin');
 defined('APP_NAMESPACE_URL')    OR define('APP_NAMESPACE_URL', 'App');
 
 
 /* Folder Company Dir */
-defined('FOLDER_FILE_Company_Logo')      OR define('FOLDER_FILE_Company_Logo', 'Company_Logo');
-
+defined('FOLDER_FILE_Company_Logo')         OR define('FOLDER_FILE_Company_Logo', 'Company_Logo');
 defined('FOLDER_FILE_Company_client_logo')  OR define('FOLDER_FILE_Company_client_logo', 'Company_client_logo');
-
-defined('FOLDER_FILE_CONTRACT_COMPANY')  OR define('FOLDER_FILE_CONTRACT_COMPANY', 'Company_contract');
-
+defined('FOLDER_FILE_CONTRACT_COMPANY')     OR define('FOLDER_FILE_CONTRACT_COMPANY', 'Company_contract');
 defined('FOLDER_FILE_Transaction_COMPANY')  OR define('FOLDER_FILE_Transaction_COMPANY', 'Company_FILE_Transaction');
 
 

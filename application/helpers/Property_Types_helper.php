@@ -14,10 +14,13 @@ if(!function_exists('Get_Property_Types'))
         $query_list = app()->db->from('portal_list_property_types property_types');
         $query_list = app()->db->join('portal_list_property_types_translation  property_types_translation', 'property_types.Property_Types_id=property_types_translation.item_id');
 
-        foreach ($where_extra AS $key => $value)
-        {
-            $query_list = app()->db->where('property_types.'.$key,$value);
+        if(!empty($where_extra)){
+            foreach ($where_extra AS $key => $value)
+            {
+                $query_list = app()->db->where($key,$value);
+            }
         }
+
 
         $query_list = app()->db->where('property_types_translation.translation_lang',$lang);
         $query_list = app()->db->get();
@@ -30,7 +33,7 @@ if(!function_exists('Get_Property_Types'))
 ##############################################################################
 if(!function_exists('Get_Select_Property_Types')) {
 
-    function Get_Select_Property_Types($type_list, $where_options='',$multiple = '', $plugins ='',$name_field,$js='')
+    function Get_Select_Property_Types($type_list, $where_options='',$multiple = 0, $plugins ='',$name_field,$js='')
     {
         app()->load->database();
 
@@ -66,6 +69,7 @@ if(!function_exists('Get_Select_Property_Types')) {
             $name_form = 'Property_Types[]';
         }else{
             $name_form = $name_field;
+            $multiple  = '';
         }
 
 

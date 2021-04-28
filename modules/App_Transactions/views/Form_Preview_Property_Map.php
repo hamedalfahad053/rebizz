@@ -19,7 +19,9 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transactions->uuid.'/'.$Coordination->Coordination_uuid) ?>" class="btn btn-success">
+		        <i class="flaticon2-arrow"></i>   العودة الى لوحة المعاين
+	        </a>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -31,12 +33,51 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
-        <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Preview_Property') ?>" enctype="multipart/form-data" method="post">
-            <?= CSFT_Form() ?>
+        <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Map_Preview_Property/'.$Transactions->uuid.'/'.$Coordination->Coordination_uuid) ?>" enctype="multipart/form-data" method="post">
+	        <?= CSFT_Form() ?>
+	        <input type="hidden" name="Form_id" value="15">
+	        <input type="hidden" name="Transaction_id" value="<?= $Transactions->transaction_id ?>">
+
+
+
+
+<!--				        <div class="col-lg-3 mt-5">-->
+<!--					        <label> زوم الخريطة </label>-->
+<!--					        <select name="zoom_map" onchange="Get_Map(this);" id="zoom_map" class="form-control selectpicker" data-size="5" data-live-search="true"  data-title="اختر من فضلك ">-->
+<!--						        --><?php
+//						        for($i=10;$i<22;$i++)
+//						        {
+//							      echo '<option value="'.$i.'">'.$i.'</option>';
+//						        }
+//						        ?>
+<!--					        </select>-->
+<!--				        </div>-->
+<!--				        <div class="col-lg-3 mt-5">-->
+<!--					        <label> زوم الستالايت </label>-->
+<!--					        <select name="satellite_zoom" onchange="Get_Map(this);" id="satellite_zoom" class="form-control selectpicker" data-size="5" data-live-search="true"  data-title="اختر من فضلك ">-->
+<!--						        --><?php
+//						        for($i=10;$i<22;$i++)
+//						        {
+//							        echo '<option value="'.$i.'">'.$i.'</option>';
+//						        }
+//						        ?>
+<!--					        </select>-->
+<!--				        </div>-->
+<!--				        <div class="col-lg-3 mt-5">-->
+<!--					        <label> زوم التقريب </label>-->
+<!--					        <select name="location_overview_zoom" onchange="Get_Map(this);" id="location_overview_zoom" class="form-control selectpicker" data-size="5" data-live-search="true"  data-title="اختر من فضلك ">-->
+<!--						        --><?php
+//						        for($i=10;$i<22;$i++)
+//						        {
+//							        echo '<option value="'.$i.'">'.$i.'</option>';
+//						        }
+//						        ?>
+<!--					        </select>-->
+<!--				        </div>-->
+
 
 
             <?php echo  $this->session->flashdata('message'); ?>
-
 
             <?php
             $LIST_CLIENT                    = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
@@ -44,13 +85,12 @@
             $TYPE_OF_PROPERTY               = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPE_OF_PROPERTY');
             $TYPES_OF_REAL_ESTATE_APPRAISAL = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
 
-            $Form_Components  = Get_View_Components_Customs(14,$LIST_CLIENT,$CUSTOMER_CATEGORY,$TYPE_OF_PROPERTY,$TYPES_OF_REAL_ESTATE_APPRAISAL);
+            $Form_Components  = Get_View_Components_Customs(15,$LIST_CLIENT,$CUSTOMER_CATEGORY,$TYPE_OF_PROPERTY,$TYPES_OF_REAL_ESTATE_APPRAISAL);
 
             foreach ($Form_Components->result() AS $RC)
             {
                 ?>
-                <input type="hidden" name="Form_id" value="14">
-                <input type="hidden" name="Transaction_id" value="<?= $Transactions->transaction_id ?>">
+
                 <div class="card card-custom mt-10">
 
                     <!--begin::Header-->
@@ -68,6 +108,14 @@
 
                     <!--begin::Body-->
                     <div class="card-body">
+
+
+	                    <?php
+	                    if($RC->components_key == 'MAP'){
+                          echo '<div id="gmap" style="height:300px;"></div>';
+	                    }
+	                    ?>
+
 
                         <div class="form-group row">
                             <?php
@@ -199,7 +247,6 @@
                                 <button type="submit"   class="btn btn-primary mr-2"> حفظ البيانات  </button>
                             </div>
                             <div class="col-lg-6 text-lg-right">
-                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/#') ?>" class="btn btn-danger"><?= lang('cancel_button') ?></a>
                             </div>
                         </div>
                     </div>
@@ -217,3 +264,63 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+<script src="//maps.google.com/maps/api/js?key=AIzaSyBMkLi0BxMHoFVI2CKxGHdduypMeA1I6wk&sensor=false&libraries="></script>
+<?php
+echo import_js(BASE_ASSET.'plugins/custom/gmaps/gmaps','');
+?>
+<script type="text/javascript">
+
+
+	        //var satellite_zoom          =  $('select[name=satellite_zoom]').val();
+	        //var location_overview_zoom  =  $('select[name=location_overview_zoom]').val();
+
+	        var map = new GMaps({
+		        div: '#gmap',
+		        lat: 23.7112692,
+		        lng: 44.4579123,
+
+	        });
+
+	        GMaps.geolocate({
+		        success: function(position) {
+
+			        map.setCenter(position.coords.latitude, position.coords.longitude);
+
+			        var zoom_map = 15;
+
+			        map.addMarker({
+				        lat: position.coords.latitude,
+				        lng: position.coords.longitude,
+				        zoom: zoom_map,
+				        mapTypeId: "satellite",
+				        draggable: true,
+				        dragend: function(event) {
+					        var lat = event.latLng.lat();
+					        var lng = event.latLng.lng();
+					        $("#LATITUDE").val(lat);
+					        $("#LONGITUDE").val(lng);
+				        },
+				        title: 'الموقع الحالي',
+				        infoWindow: {
+					        content: '<span style="color:#000">الموقع الحالي </span>'
+				        }
+			        });
+
+
+
+			        $("#LATITUDE").val(position.coords.latitude);
+			        $("#LONGITUDE").val(position.coords.longitude);
+
+		        },
+		        error: function(error) {
+			        swal.fire("خطا ", "لا يمكن العثور على الموقع الجغرافي ", "error");
+		        },
+		        not_supported: function() {
+			        swal.fire("خطا ", "المتصفح لا يدعم الموقع الجغرافي ", "error");
+		        },
+		        always: function() {
+
+		        }
+	        });
+</script>

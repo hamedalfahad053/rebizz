@@ -399,3 +399,21 @@ if(!function_exists('Assignment_Transaction_Departments_To')) {
 ##############################################################################
 
 
+##############################################################################
+if(!function_exists('Get_Receipt_Emp_Permissions')) {
+
+    function Get_Receipt_Emp_Permissions($where)
+    {
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $query = app()->db->where($key,$value);
+            }
+        }
+
+        $query= app()->db->get('protal_transactions_receipt_emp_permissions');
+
+        return $query;
+    }
+
+} // Get_Stages_Transaction_Company($where)
+##############################################################################

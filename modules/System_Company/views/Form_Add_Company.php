@@ -53,7 +53,7 @@
                             <div class="form-group row">
                                 <div class="col-lg-4 mt-5">
                                     <label><?= lang('companies_Category') ?></label>
-                                    <?= Get_Data_List('select','LIST_BUSINESS_CATEGORIES') ?>
+	                                <?= Creation_List_HTML('select', 'LIST_BUSINESS_CATEGORIES', '','','options', '','','','',array( 0=> "selectpicker",1=>'LIST_BUSINESS_CATEGORIES'),'','','') ?>
                                 </div>
                                 <div class="col-lg-4 mt-5">
                                     <label><?= lang('companies_Trade_Name') ?></label>

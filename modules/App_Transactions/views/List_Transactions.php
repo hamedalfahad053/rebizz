@@ -36,7 +36,11 @@
 
 	    <div class="card card-custom">
 		    <div class="card-body">
+
+
 			    <?php echo  $this->session->flashdata('message'); ?>
+
+
 			    <?php
 			    if($Transactions == false){
 				    $msg_result['key'] = 'Danger';
@@ -51,7 +55,10 @@
 					    <thead>
 					    <tr>
 						    <th class="text-center">رقم المعاملة</th>
-						    <th class="text-center">طالب التقييم والمالك</th>
+
+						    <th class="text-center">المالك</th>
+						    <th class="text-center">طالب التقييم</th>
+
 						    <th class="text-center">موقع العقار</th>
 						    <th class="text-center">بواسطة / التاريخ</th>
 						    <th class="text-center">نوع التقييم</th>
@@ -75,13 +82,26 @@
 								    <br>
 								    <?= date('Ymd',$Row['Create_Transaction_Date']).$Row['transaction_id'];?>
 							    </td>
+
+							    <?php
+							    if(Transaction_data_by_key($Row['transaction_id'],13,4,'OWNER_REAL_ESTATE')){
+							    ?>
 							    <td class="text-center">
-								    المالك : <?= Transaction_data_by_key($Row['transaction_id'],1,4,'OWNER_REAL_ESTATE') ?>
-								    <?= Transaction_data_by_key($Row['transaction_id'],1,4,'OWNERS_MOBILE_NUMBER') ?>
-								    <br>
-								    طالب التقييم :<?= Transaction_data_by_key($Row['transaction_id'],1,4,'OWNER_APPLICANT_EVALUATION') ?>
-								    <?= Transaction_data_by_key($Row['transaction_id'],1,4,'OWNER_MOBILE_EVALUATION') ?>
+								    <?= Transaction_data_by_key($Row['transaction_id'],13,4,'OWNER_REAL_ESTATE') ?>
+								    <?= Transaction_data_by_key($Row['transaction_id'],13,4,'OWNERS_MOBILE_NUMBER') ?>
 							    </td>
+							    <td class="text-center">
+								    <?= Transaction_data_by_key($Row['transaction_id'],13,4,'OWNER_APPLICANT_EVALUATION') ?>
+								    <?= Transaction_data_by_key($Row['transaction_id'],13,4,'OWNER_MOBILE_EVALUATION') ?>
+							    </td>
+							    <?php
+							    }else{
+							    ?>
+								    <td class="text-center">--</td><td class="text-center">--</td>
+							    <?php
+							    }
+							    ?>
+
 							    <td class="text-center">
 								    <?php
 								    $d = Transaction_data_by_key($Row['transaction_id'],1,1,'LIST_REGION');

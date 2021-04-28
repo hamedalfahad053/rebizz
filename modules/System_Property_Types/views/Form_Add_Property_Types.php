@@ -49,10 +49,12 @@
 
 
                             <div class="form-group row">
+
                                 <div class="col-lg-6 mt-5">
                                     <label>العنوان بالعربية</label>
                                     <input type="text" name="title_ar" class="form-control" placeholder=""/>
                                 </div>
+
                                 <div class="col-lg-6 mt-5">
                                     <label>العنوان بالانجليزية</label>
                                     <input type="text" name="title_en" class="form-control" placeholder="<?= lang('name_group') ?>"/>
@@ -60,7 +62,7 @@
 
                                 <div class="col-lg-6 mt-5">
                                     <label>تصنيف العقار</label>
-                                    <?= Get_Data_List('select','LIST_CATEGORY_OF_THE_PROPERTY') ?>
+	                                <?= Creation_List_HTML('select', 'LIST_CATEGORY_OF_THE_PROPERTY', '','','options', '','','','',array( 0=> "selectpicker"),'','','') ?>
                                 </div>
 
                                 <div class="col-lg-6 mt-5">
@@ -74,7 +76,10 @@
                                         ?>
                                     </select>
                                 </div>
+
                             </div>
+
+
                             <div class="card-footer">
                                 <div class="row">
                                     <div class="col-lg-6">

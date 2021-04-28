@@ -74,6 +74,11 @@ class App_Company_HRM extends Apps
                 }else{
 
                     $department_supervisor = @$this->aauth->get_user($ROW->department_supervisor)->full_name;
+                    if($department_supervisor){
+
+                    }else{
+                        $department_supervisor = Create_Status_badge(array("key" => "Danger", "value" => 'لم يحدد رئيس للقسم'));
+                    }
                 }
 
 
@@ -88,8 +93,11 @@ class App_Company_HRM extends Apps
                     "departments_options"   => $departments_options
                 );
             }
+
         }else{
+
             $this->data['Departments']  = false;
+
         }
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
@@ -441,7 +449,12 @@ class App_Company_HRM extends Apps
 
                     $Departments      = Get_Departments(array("company_id" =>$this->aauth->get_user()->company_id,"departments.departments_id"=>$Row->departments_id))->row();
                     $Departments_name = $Departments->item_translation;
-                    $supervisor       = $this->aauth->get_user($Departments->department_supervisor)->full_name;
+                    $supervisor       = @$this->aauth->get_user($Departments->department_supervisor)->full_name;
+                    if($supervisor){
+
+                    }else{
+                        $supervisor       = 'غير محدد';
+                    }
                 }
 
                 $user_options =  Create_Options_Button($options);

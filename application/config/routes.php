@@ -126,6 +126,14 @@ $route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods']                       = 'Syste
 $route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)']                = 'System_Evaluation_Methods/System_Evaluation_Methods/$1';
 $route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)/(:any)']         = 'System_Evaluation_Methods/System_Evaluation_Methods/$1/$2';
 $route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)/(:any)/(:any)']  = 'System_Evaluation_Methods/System_Evaluation_Methods/$1/$2/$3';
+
+
+# System Calculations
+$route[ADMIN_NAMESPACE_URL.'/Calculations']                       = 'System_Calculations/System_Calculations';
+$route[ADMIN_NAMESPACE_URL.'/Calculations/(:any)']                = 'System_Calculations/System_Calculations/$1';
+$route[ADMIN_NAMESPACE_URL.'/Calculations/(:any)/(:any)']         = 'System_Calculations/System_Calculations/$1/$2';
+$route[ADMIN_NAMESPACE_URL.'/Calculations/(:any)/(:any)/(:any)']  = 'System_Calculations/System_Calculations/$1/$2/$3';
+
 /* ################################################################################
  * Admin
 */ ################################################################################
@@ -137,6 +145,7 @@ $route[ADMIN_NAMESPACE_URL.'/Evaluation_Methods/(:any)/(:any)/(:any)']  = 'Syste
 /* ################################################################################
  * Apps
 */ ################################################################################
+$route[APP_NAMESPACE_URL]                                           = 'App_Dashboard/App_Dashboard';
 $route[APP_NAMESPACE_URL.'/Dashboard']                              = 'App_Dashboard/App_Dashboard';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)']                       = 'App_Dashboard/App_Dashboard/$1';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)']                = 'App_Dashboard/App_Dashboard/$1/$2';
@@ -149,10 +158,11 @@ $route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)']                 = 'App_Compa
 $route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)/(:any)']          = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
 
 #  Settings Transaction
-$route[APP_NAMESPACE_URL.'/Settings_Transaction']                          = 'App_CompanySettings/Settings_Transaction';
-$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)']                   = 'App_CompanySettings/Settings_Transaction/$1';
-$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)']            = 'App_CompanySettings/Settings_Transaction/$1/$2';
-$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)/(:any)']     = 'App_CompanySettings/Settings_Transaction/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction']                                 = 'App_CompanySettings/App_Company_Settings_Transactions';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)']                          = 'App_CompanySettings/App_Company_Settings_Transactions/$1';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)']                   = 'App_CompanySettings/App_Company_Settings_Transactions/$1/$2';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)/(:any)']            = 'App_CompanySettings/App_Company_Settings_Transactions/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)/(:any)/(:any)']     = 'App_CompanySettings/App_Company_Settings_Transactions/$1/$2/$3/$4';
 
 
 #  Company HRM
@@ -161,7 +171,6 @@ $route[APP_NAMESPACE_URL.'/HRM/(:any)']                           = 'App_Company
 $route[APP_NAMESPACE_URL.'/HRM/(:any)/(:any)']                    = 'App_Company_HRM/App_Company_HRM/$1/$2';
 $route[APP_NAMESPACE_URL.'/HRM/(:any)/(:any)/(:any)']             = 'App_Company_HRM/App_Company_HRM/$1/$2/$3';
 $route[APP_NAMESPACE_URL.'/HRM/(:any)/(:any)/(:any)/(:any)']      = 'App_Company_HRM/App_Company_HRM/$1/$2/$3/$4';
-
 
 #  Company Locations
 $route[APP_NAMESPACE_URL.'/Locations']                            = 'App_Company_Locations/App_Company_Locations';
@@ -175,9 +184,6 @@ $route[APP_NAMESPACE_URL.'/Users/(:any)']                         = 'App_Company
 $route[APP_NAMESPACE_URL.'/Users/(:any)/(:any)']                  = 'App_Company_Users/App_Company_Users/$1/$2';
 $route[APP_NAMESPACE_URL.'/Users/(:any)/(:any)/(:any)']           = 'App_Company_Users/App_Company_Users/$1/$2/$3';
 
-
-$route[APP_NAMESPACE_URL.'/Online']                                = 'App_Company_Online_Users/App_Company_Online_Users';
-
 #  Company Group Users
 $route[APP_NAMESPACE_URL.'/User_Group']                       = 'App_Company_UserGroup/App_Company_UserGroup';
 $route[APP_NAMESPACE_URL.'/User_Group/(:any)']                = 'App_Company_UserGroup/App_Company_UserGroup/$1';
@@ -190,20 +196,17 @@ $route[APP_NAMESPACE_URL.'/Forms/(:any)']                           = 'App_Compa
 $route[APP_NAMESPACE_URL.'/Forms/(:any)/(:any)']                    = 'App_Company_Forms/App_Company_Forms/$1/$2';
 $route[APP_NAMESPACE_URL.'/Forms/(:any)/(:any)/(:any)']             = 'App_Company_Forms/App_Company_Forms/$1/$2/$3';
 
-
 #  Company Fields
 $route[APP_NAMESPACE_URL.'/Fields']                                 = 'App_Company_Fields/App_Company_Fields';
 $route[APP_NAMESPACE_URL.'/Fields/(:any)']                          = 'App_Company_Fields/App_Company_Fields/$1';
 $route[APP_NAMESPACE_URL.'/Fields/(:any)/(:any)']                   = 'App_Company_Fields/App_Company_Fields/$1/$2';
 $route[APP_NAMESPACE_URL.'/Fields/(:any)/(:any)/(:any)']            = 'App_Company_Fields/App_Company_Fields/$1/$2/$3';
 
-
 #  Company List
 $route[APP_NAMESPACE_URL.'/List']                                 = 'App_Company_List/App_Company_List';
 $route[APP_NAMESPACE_URL.'/List/(:any)']                          = 'App_Company_List/App_Company_List/$1';
 $route[APP_NAMESPACE_URL.'/List/(:any)/(:any)']                   = 'App_Company_List/App_Company_List/$1/$2';
 $route[APP_NAMESPACE_URL.'/List/(:any)/(:any)/(:any)']            = 'App_Company_List/App_Company_List/$1/$2/$3';
-
 
 #  Company  Transactions
 $route[APP_NAMESPACE_URL.'/Transactions']                          = 'App_Transactions/App_Transactions';
@@ -213,7 +216,7 @@ $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)']     = 'App_Transa
 $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2/$3/$4';
 $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2/$3/$4/$5';
 $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2$3/$4/$5/$6';
-
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2$3/$4/$5/$6/$7';
 
 # Company Clients
 $route[APP_NAMESPACE_URL.'/Clients']                               = 'App_Company_Clients/Company_Clients';
@@ -229,16 +232,33 @@ $route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)']                   = 'App_
 $route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)/(:any)']            = 'App_RealEstate_Preview/App_Preview_RealEstate/$1/$2';
 $route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)/(:any)/(:any)']     = 'App_RealEstate_Preview/App_Preview_RealEstate/$1/$2/$3';
 
-
-
 # Company  Ajax Controller
 $route[APP_NAMESPACE_URL.'/App_Ajax']                          = 'App_Ajax/App_Ajax';
 $route[APP_NAMESPACE_URL.'/App_Ajax/(:any)']                   = 'App_Ajax/App_Ajax/$1';
 $route[APP_NAMESPACE_URL.'/App_Ajax/(:any)/(:any)']            = 'App_Ajax/App_Ajax/$1/$2';
 $route[APP_NAMESPACE_URL.'/App_Ajax/(:any)/(:any)/(:any)']     = 'App_Ajax/App_Ajax/$1/$2/$3';
 
+# Company  Print Evaluation Reports
+$route[APP_NAMESPACE_URL.'/Evaluation_Reports']                          = 'App_Print_Evaluation_Reports/App_Print_Evaluation_Reports';
+$route[APP_NAMESPACE_URL.'/Evaluation_Reports/(:any)']                   = 'App_Print_Evaluation_Reports/App_Print_Evaluation_Reports/$1';
+$route[APP_NAMESPACE_URL.'/Evaluation_Reports/(:any)/(:any)']            = 'App_Print_Evaluation_Reports/App_Print_Evaluation_Reports/$1/$2';
+$route[APP_NAMESPACE_URL.'/Evaluation_Reports/(:any)/(:any)/(:any)']     = 'App_Print_Evaluation_Reports/App_Print_Evaluation_Reports/$1/$2/$3';
+
+# Company Map
+$route[APP_NAMESPACE_URL.'/Map']                                 = 'App_Company_Map/App_Map';
+$route[APP_NAMESPACE_URL.'/Map/(:any)']                          = 'App_Company_Map/App_Map/$1';
+$route[APP_NAMESPACE_URL.'/Map/(:any)/(:any)']                   = 'App_Company_Map/App_Map/$1/$2';
+$route[APP_NAMESPACE_URL.'/Map/(:any)/(:any)/(:any)']            = 'App_Company_Map/App_Map/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Map/(:any)/(:any)/(:any)/(:any)']     = 'App_Company_Map/App_Map/$1/$2/$3/$4';
+
+
+$route[APP_NAMESPACE_URL.'/Online']                              = 'App_Company_Online_Users/App_Company_Online_Users';
 /* ################################################################################
- * Site
+ * App_Ajax_Search_Header
 */ ################################################################################
+$route[APP_NAMESPACE_URL.'/Search_Ajax/(:any)']  = 'App_Ajax/App_Search_Header/$1';
+
+
+
 
 

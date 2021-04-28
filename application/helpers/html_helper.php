@@ -31,7 +31,8 @@ if(!function_exists('Create_Options_Button')) {
             } elseif ($kay == 'Feedback') {
                 $HTML .= '<a  class="btn btn-icon btn-sm btn-light-danger mx-2 ' . $value['class'] . ' ' . $value['id'] . '" data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="flaticon2-sheet"></i></a>';
 
-
+            }elseif ($kay == 'Update_Password') {
+                $HTML .= '<a class="btn btn-icon btn-sm btn-light-' . $value['color'] . ' ' . $value['class'] . ' ' . $value['id'] . ' mx-2 " data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="' . $value['icon'] . '"></i></a>';
 
             }elseif ($kay == 'custom') {
                 $HTML .= '<a class="btn btn-icon btn-sm btn-light-' . $value['color'] . ' ' . $value['class'] . ' ' . $value['id'] . ' mx-2 " data-toggle="tooltip" title="' . $value['title'] . '" ' . $value['data-attribute'] . ' href="' . $value['href'] . '"><i class="' . $value['icon'] . '"></i></a>';

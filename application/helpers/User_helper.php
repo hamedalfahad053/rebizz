@@ -96,6 +96,18 @@ if(!function_exists('Get_Company_Group_Users')) {
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Get_Userid_Group')) {
+
+    function Get_Userid_Group($user)
+    {
+        $query =  app()->db->where('user_id',$user);
+        $query = app()->db->get('portal_auth_user_to_group');
+        return $query;
+    }
+}
+##############################################################################
+
 
 ##############################################################################
 if(!function_exists('Get_Company_Users')) {
@@ -113,7 +125,7 @@ if(!function_exists('Get_Company_Users')) {
         if(!empty($where_extra)){
             foreach ($where_extra AS $key => $value)
             {
-                $query = $query = app()->db->where($key,$value);
+                $query =  app()->db->where($key,$value);
             }
         }
         $query = app()->db->where('Groups_Translation.translation_lang',$lang);
@@ -124,13 +136,34 @@ if(!function_exists('Get_Company_Users')) {
 ##############################################################################
 
 
+########################################################################
+if(!function_exists('Update_User')) {
+
+    function Update_User($user_id,$data)
+    {
+        app()->load->database();
+        $query = app()->db->where('user_uuid',$user_id);
+        $query = app()->db->where('company_id',app()->aauth->get_user()->company_id);
+        $query = app()->db->update('portal_auth_users',$data);
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+}
+########################################################################
+
+
+
 
 ##############################################################################
 if(!function_exists('Get_Group_User')) {
 
     function Get_Group_User($users)
     {
-        $query = $query = app()->db->where('user_id',$users);
+        $query = app()->db->where('user_id',$users);
         $query = app()->db->get('portal_auth_user_to_group')->row();
         return $query->group_id;
     }
@@ -139,6 +172,22 @@ if(!function_exists('Get_Group_User')) {
 ##############################################################################
 
 
+##############################################################################
+if(!function_exists('Deleted_Group_User')) {
+
+    function Deleted_Group_User($users)
+    {
+        $query = app()->db->where('user_id',$users);
+        $query = app()->db->delete('portal_auth_user_to_group');
+
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
+##############################################################################
 
 ##############################################################################
 if(!function_exists('Get_Group_User')) {

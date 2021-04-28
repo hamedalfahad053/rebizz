@@ -49,6 +49,22 @@ if (!function_exists('array_options_status')) {
 }
 ###############################################################################
 
+
+###############################################################################
+if (!function_exists('array_options_status_user')) {
+    function array_options_status_user() {
+
+        $options_status = '';
+        $options_status = array(
+            "0" => lang('Status_Active'),
+            "1" => lang('Status_Disabled')
+        );
+        return $options_status;
+    }
+}
+###############################################################################
+
+
 ##############################################################################
 if(!function_exists('Get_Controllers'))
 {

@@ -14,8 +14,127 @@ class App_Ajax extends Apps
     public function index()
     {
 
+
+
     }
     ###################################################################
+
+    ###############################################################################################
+    public function Ajax_Uploaded_File_Transaction()
+    {
+
+            header('Content-Type: application/json');
+
+            $Company_domain = Get_Company($this->aauth->get_user()->company_id)->companies_Domain;
+            $Uploader_path = './uploads/companies/' . $Company_domain . '/' . FOLDER_FILE_Transaction_COMPANY;
+
+            if (!is_dir($Uploader_path)) {
+                mkdir($Uploader_path, 0755, TRUE);
+            }
+
+            $config['upload_path']    = realpath($Uploader_path);
+            $config['allowed_types']  = 'gif|jpg|png|jpeg|pdf|tif|tiff';
+            $config['max_size']       = 1024 * 10;
+            $config['max_filename']   = 30;
+            $config['encrypt_name']   = true;
+            $config['remove_spaces']  = true;
+
+
+
+                        $this->upload->initialize($config);
+
+                        $uploader = $this->upload->do_upload('file_att');
+                        $upload_data = $this->upload->data();
+
+                        $data_file = array();
+
+                        $data_file['Transaction_id']        = '0';
+                        $data_file['File_Name_In']          = $_POST['file_name'];
+                        $data_file['LIST_TRANSACTION_DOCUMENTS']   = $_POST['LIST_TRANSACTION_DOCUMENTS'];
+                        $data_file["company_id"]            = $this->aauth->get_user()->company_id;
+                        $data_file["file_name"]             = $upload_data['file_name'];
+                        $data_file["file_type"]             = $upload_data['file_type'];
+                        $data_file["file_path"]             = $upload_data['file_path'];
+                        $data_file["full_path"]             = $upload_data['full_path'];
+                        $data_file["raw_name"]              = $upload_data['raw_name'];
+                        $data_file["orig_name"]             = $upload_data['orig_name'];
+                        $data_file["client_name"]           = $upload_data['client_name'];
+                        $data_file["file_ext"]              = $upload_data['file_ext'];
+                        $data_file["is_image"]              = $upload_data['is_image']; // Whether the file is an image or not. 1 = image. 0 = not.
+                        $data_file["image_type"]            = $upload_data['image_type'];
+                        $data_file["file_createBy"]         = $this->aauth->get_user()->id;
+                        $data_file["file_createDate"]       = time();
+                        $data_file["file_lastModifyDate"]   = 0;
+                        $data_file["file_isDeleted"]        = 0;
+                        $data_file["file_DeletedBy"]        = 0;
+                        if($uploader){
+                            $Create_Transaction_files = Create_Transaction_files($data_file);
+                            $Get_Transaction_files    = Get_Transaction_files(array("file_uplode_id"=>$Create_Transaction_files))->row();
+                        }
+
+        $msg['uuid_file'] =  $Get_Transaction_files->uuid;
+        echo json_encode($msg);
+
+    }
+    ###############################################################################################
+
+    ###############################################################################################
+    public function Ajax_Uploaded_File_Previewer()
+    {
+
+            header('Content-Type: application/json');
+
+            $Company_domain = Get_Company($this->aauth->get_user()->company_id)->companies_Domain;
+            $Uploader_path = './uploads/companies/' . $Company_domain . '/' . FOLDER_FILE_Transaction_COMPANY;
+
+            if (!is_dir($Uploader_path)) {
+                mkdir($Uploader_path, 0755, TRUE);
+            }
+
+            $config['upload_path']    = realpath($Uploader_path);
+            $config['allowed_types']  = 'gif|jpg|png|jpeg|pdf|tif|tiff';
+            $config['max_size']       = 1024 * 10;
+            $config['max_filename']   = 30;
+            $config['encrypt_name']   = true;
+            $config['remove_spaces']  = true;
+
+            $this->upload->initialize($config);
+
+            $uploader = $this->upload->do_upload('file_att');
+            $upload_data = $this->upload->data();
+
+            $data_file = array();
+
+            $data_file['Transaction_id']        = '0';
+            $data_file['File_Name_In']          = $_POST['file_name'];
+            $data_file['preview_id']            = $_POST['preview_id'];
+            $data_file['Transaction_id']        = $_POST['Transaction_id'];
+            $data_file["company_id"]            = $this->aauth->get_user()->company_id;
+            $data_file["file_name"]             = $upload_data['file_name'];
+            $data_file["file_type"]             = $upload_data['file_type'];
+            $data_file["file_path"]             = $upload_data['file_path'];
+            $data_file["full_path"]             = $upload_data['full_path'];
+            $data_file["raw_name"]              = $upload_data['raw_name'];
+            $data_file["orig_name"]             = $upload_data['orig_name'];
+            $data_file["client_name"]           = $upload_data['client_name'];
+            $data_file["file_ext"]              = $upload_data['file_ext'];
+            $data_file["is_image"]              = $upload_data['is_image']; // Whether the file is an image or not. 1 = image. 0 = not.
+            $data_file["image_type"]            = $upload_data['image_type'];
+            $data_file["file_createBy"]         = $this->aauth->get_user()->id;
+            $data_file["file_createDate"]       = time();
+            $data_file["file_lastModifyDate"]   = 0;
+            $data_file["file_isDeleted"]        = 0;
+            $data_file["file_DeletedBy"]        = 0;
+            if($uploader){
+                $Create_Transaction_files = Create_Transaction_files($data_file);
+                $Get_Transaction_files    = Get_Transaction_files(array("file_uplode_id"=>$Create_Transaction_files))->row();
+            }
+
+            $msg['uuid_file'] =  $Get_Transaction_files->uuid;
+            echo json_encode($msg);
+
+    }
+    ###############################################################################################
 
     ###############################################################################################
     public function Ajax_Components()
@@ -60,6 +179,8 @@ class App_Ajax extends Apps
     }
     ###############################################################################################
 
+
+
     ###############################################################################################
     public function Ajax_LIST()
     {
@@ -86,8 +207,20 @@ class App_Ajax extends Apps
 
         //_array_p($query_get_setting_list);
 
+
+        $query_receipt_emp_permissions = app()->db->where('receipt_emp_userid',app()->aauth->get_user()->id);
+        $query_receipt_emp_permissions = app()->db->where('company_id',app()->aauth->get_user()->company_id);
+        $query_receipt_emp_permissions = app()->db->get('protal_transactions_receipt_emp_permissions');
+
+        $array_receipt_emp_permissions_mr = @explode(',', $query_receipt_emp_permissions->row()->LIST_METHOD_OF_RECEIPT);
+        $array_receipt_emp_permissions_cc = @explode(',', $query_receipt_emp_permissions->row()->LIST_CUSTOMER_CATEGORY);
+        $array_receipt_emp_permissions_cl = @explode(',', $query_receipt_emp_permissions->row()->LIST_CLIENT);
+
+
         ############################################################################################################################################
         if($Fields_Type == 'options_to_options_ajax'){
+
+
 
             $option_query  = $this->db->where('list_options_id',$option_id);
             $option_query  = $this->db->get('portal_list_options_data')->row();
@@ -104,20 +237,63 @@ class App_Ajax extends Apps
             if($query_options->num_rows() == 0){
                 $options[] = '';
             }else{
+
+
+
+
+
                 foreach ($query_options->result() as $row)
                 {
-                    $options[] = array(
-                        "options_id"    => $row->list_options_id,
-                        "options_key"   => $row->options_key,
-                        "options_type"  => 'options',
-                        "options_title" => $row->item_translation,
-                    );
-                }
+
+                    if($list_id == 6) {
+
+
+                        if ($query_receipt_emp_permissions->num_rows() > 0) {
+
+                            if (in_array($row->list_options_id,$array_receipt_emp_permissions_mr)) {
+                                $options[] = array(
+                                    "options_id"    => $row->list_options_id,
+                                    "options_key"   => $row->options_key,
+                                    "options_type"  => 'options',
+                                    "options_title" => $row->item_translation
+                                );
+                            }
+
+                        } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                    }elseif ($list_id == 16){
+
+                        if ($query_receipt_emp_permissions->num_rows() > 0) {
+
+                            if (in_array($row->list_options_id, $array_receipt_emp_permissions_cc)) {
+                                $options[] = array(
+                                    "options_id" => $row->list_options_id,
+                                    "options_key" => $row->options_key,
+                                    "options_type" => 'options',
+                                    "options_title" => $row->item_translation
+                                );
+                            }
+
+                        } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                    }else{
+
+                        $options[] = array(
+                            "options_id" => $row->list_options_id,
+                            "options_key" => $row->options_key,
+                            "options_type" => 'options',
+                            "options_title" => $row->item_translation
+                        );
+
+                    }
+
+                } // foreach ($query_options->result() as $row)
+
+
             } // if($query_options->num_rows() == 0)
 
         }
         ############################################################################################################################################
-
 
         ############################################################################################################################################
         if($Fields_Type == 'options_to_table_ajax') {
@@ -127,18 +303,72 @@ class App_Ajax extends Apps
                 $query_list_options = $this->db->where($query_get_setting_list->primary_fields_link_to_options,$option_id);
                 $query_list_options = $this->db->get($query_get_setting_list->Table_primary);
 
+
                 foreach ($query_list_options->result() as $row)
                 {
                     $primary_fields           = $query_get_setting_list->primary_fields;
                     $Join_fields              = $query_get_setting_list->Join_fields;
 
-                    $options[] = array(
-                        "options_id"    => $row->$primary_fields,
-                        "options_key"   => '',
-                        "options_type"  => 'table',
-                        "options_title" => $row->$Join_fields,
-                    );
-                }
+
+                    if($list_id == 6) {
+
+
+
+                        if ($query_receipt_emp_permissions->num_rows() > 0) {
+
+                            if (in_array($row->$primary_fields, $array_receipt_emp_permissions_cl)) {
+
+                                    $options[] = array(
+                                        "options_id"    => $row->$primary_fields,
+                                        "options_key"   => '',
+                                        "options_type"  => 'table',
+                                        "options_title" => $row->$Join_fields,
+                                    );
+
+                            }
+
+                        } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                    }elseif ($list_id == 16){
+
+                        if ($query_receipt_emp_permissions->num_rows() > 0) {
+                            if (in_array($row->$primary_fields, $array_receipt_emp_permissions_cl)) {
+                                $options[] = array(
+                                    "options_id"    => $row->$primary_fields,
+                                    "options_key"   => '',
+                                    "options_type"  => 'table',
+                                    "options_title" => $row->$Join_fields,
+                                );
+                            }
+                        } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                    }elseif ($list_id == 20){
+
+                        if ($query_receipt_emp_permissions->num_rows() > 0) {
+                            if (in_array($row->$primary_fields, $array_receipt_emp_permissions_cl)) {
+                                $options[] = array(
+                                    "options_id"    => $row->$primary_fields,
+                                    "options_key"   => '',
+                                    "options_type"  => 'table',
+                                    "options_title" => $row->$Join_fields,
+                                );
+                            }
+                        } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                    }else{
+
+                        $options[] = array(
+                            "options_id"    => $row->$primary_fields,
+                            "options_key"   => '',
+                            "options_type"  => 'table',
+                            "options_title" => $row->$Join_fields,
+                        );
+
+                    }
+
+
+
+                } // foreach ($query_list_options->result() as $row)
 
             }else {
 
@@ -161,13 +391,48 @@ class App_Ajax extends Apps
                     $Table_primary_fields = $query_get_setting_list->primary_fields;
                     $Table_Join_fields    = $query_get_setting_list->Join_fields;
 
-                    $options[] = array(
-                        "options_id"    => $row->$Table_primary_fields,
-                        "options_key"   => '',
-                        "options_type"  => 'table',
-                        "options_title" => $row->$Table_Join_fields,
-                    );
+                    if($list_id == 6) {
 
+                        if ($query_receipt_emp_permissions->num_rows() > 0) {
+
+
+                            if (in_array($row->list_options_id, $array_receipt_emp_permissions_me)) {
+
+                                $options[] = array(
+                                    "options_id"    => $row->$primary_fields,
+                                    "options_key"   => '',
+                                    "options_type"  => 'table',
+                                    "options_title" => $row->$Join_fields,
+                                );
+
+                            }
+
+                        } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                    }elseif ($list_id == 16){
+
+                        if ($query_receipt_emp_permissions->num_rows() > 0) {
+
+                            if (in_array($row->list_options_id, $array_receipt_emp_permissions_cc)) {
+
+                                $options[] = array(
+                                    "options_id"    => $row->$primary_fields,
+                                    "options_key"   => '',
+                                    "options_type"  => 'table',
+                                    "options_title" => $row->$Join_fields,
+                                );
+                            }
+
+                        } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                    }else {
+                        $options[] = array(
+                            "options_id" => $row->$Table_primary_fields,
+                            "options_key" => '',
+                            "options_type" => 'table',
+                            "options_title" => $row->$Table_Join_fields,
+                        );
+                    }
                 }
 
             }
@@ -224,6 +489,9 @@ class App_Ajax extends Apps
     }
     ###############################################################################################
 
+
+
+
     ###############################################################################################
     public function Ajax_List_Client_by_type()
     {
@@ -249,7 +517,6 @@ class App_Ajax extends Apps
             $options = '';
         }
 
-
         $msg['type']    = true;
         $msg['data']    = $options;
         $msg['success'] = true;
@@ -258,5 +525,62 @@ class App_Ajax extends Apps
 
     }
     ###############################################################################################
+
+
+    ###############################################################################################
+    public function Ajax_mail_sms_messages()
+    {
+
+        $company_id  = $this->aauth->get_user()->company_id;
+        $query = $this->db->where('company_id', $company_id);
+        $query = $this->db->where('isDeleted', 0);
+        $query = $this->db->get('protal_mail_sms_messages');
+
+        if($query->num_rows()>0){
+
+            foreach ($query->result() as $row) {
+                $options[] = array(
+                    "options_id"    => $row->messages_id,
+                    "options_title" => $row->messages_title,
+                );
+            }
+        }else{
+            $options = '';
+        }
+
+        $msg['type']    = true;
+        $msg['data']    = $options;
+        $msg['success'] = true;
+        echo json_encode($msg);
+    }
+    ###############################################################################################
+
+    ###############################################################################################
+    public function Ajax_text_p_mail_sms_messages()
+    {
+
+        $messages_id = trim($this->input->get('messages_id'));
+
+        $company_id  = $this->aauth->get_user()->company_id;
+        $query = $this->db->where('company_id', $company_id);
+        $query = $this->db->where('messages_id',$messages_id);
+        $query = $this->db->where('isDeleted', 0);
+        $query = $this->db->get('protal_mail_sms_messages');
+
+        if($query->num_rows()>0){
+            $text = $query->row()->messages_text;
+        }else{
+            $text = '';
+        }
+
+        $msg['type']    = true;
+        $msg['data']    = $text;
+        $msg['success'] = true;
+        echo json_encode($msg);
+
+    }
+    ###############################################################################################
+
+
 
 }

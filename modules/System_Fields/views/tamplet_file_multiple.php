@@ -1,42 +1,49 @@
-<fieldset class="todos_labels">
-    <div class="repeatable"></div>
-    <div class="form-group row mt-10">
-        <input type="button" value="اضف المزيد" class="btn btn-primary add" align="center">
-    </div>
-</fieldset>
-
-<script type="text/template" id="todos_labels">
-    <div class="field-group form-group row">
-
-        <div class="col-lg-4 mt-5">
-            <label for="NameFile_{?}">اسم الملف</label>
-	        <input type="text" name="FILE_Name[]" id="FILE_Name[{?}]"  class="form-control">
-        </div>
-
-        <div class="col-lg-4 mt-5">
-            <label for="File_{?}">الملف</label>
-            <input type="file" name="FILE[]" id="FILE[{?}]" class="form-control-file">
-        </div>
-
-        <div class="col-lg-4 mt-5">
-            <label for=""></label>
-            <input type="button" class="btn btn-danger span-2 delete" value="حذف" />
-        </div>
-
-    </div>
-</script>
+<?php echo  import_css(BASE_ASSET.'plugins/file_uplode/uploadfile',''); ?>
+<?php echo  import_js(BASE_ASSET.'plugins/file_uplode/jquery.uploadfile.min',''); ?>
 
 
-<?= import_js(BASE_ASSET.'plugins/jquery.repeatable',''); ?>
-<script>
-	$(function() {
-		$(".todos_labels .repeatable").repeatable({
-			addTrigger: ".todos_labels .add",
-			deleteTrigger: ".todos_labels .delete",
-			template: "#todos_labels",
-			startWith: 1,
-			min:1,
-			max:10
+<div id="fileuploader">مرفقات المعاملة</div>
+
+<div id="extrabutton" class="ajax-file-upload-green">تحميل المرفقات</div>
+
+<div id="message_file_uploader">
+
+</div>
+
+
+	<?php
+	$get_list_type_file = Creation_List_HTML('select', 'LIST_TRANSACTION_DOCUMENTS', '', '', 'options', '', '', '', '', '', '', '', '');
+	?>
+
+
+
+
+	<script type="text/javascript">
+		var extraObj = $("#fileuploader").uploadFile({
+
+			url:"<?= base_url("App_Ajax/Ajax_Uploaded_File_Transaction") ?>",
+			fileName:"file_att",
+			showPreview:true,
+			previewHeight: "150px",
+			previewWidth: "150px",
+			extraHTML:function()
+			{
+				var html = "<div class='form-group'>";
+						html += "<div class='col-lg-12'><label>اسم المستند</label><input type='text' class='form-control' name='file_name' value='' /></div>";
+						html += "<div class='col-lg-12 mt-5'><label>نوع المستند</label>";
+				        html += '<?php echo  $get_list_type_file ?>';
+				        html += "</div>";
+					html += "</div>";
+				return html;
+			},
+			autoSubmit:false,
+			onSuccess:function(files,data,xhr,pd)
+			{
+				$('<input name="files_Transaction_ids[]" type="hidden" value="'+ data.uuid_file +'">').appendTo('#message_file_uploader');
+			}
 		});
-	});
-</script>
+
+		$("#extrabutton").click(function(){
+			extraObj.startUpload();
+		});
+	</script>

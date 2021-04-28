@@ -9,6 +9,9 @@
 
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Logo/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">الشعار</a>
 
+	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/stages_transaction/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد استلام المعاملات</a>
+
+
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/stages_transaction/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد سير المعاملة</a>
 
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Users_Preview/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">توزيع المعاينين على المناطق الجغرافية</a>
@@ -18,6 +21,11 @@
 
 
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/SettingEmailServer/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد خادم البريد الالكتروني</a>
+
+	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_SMS_Messages/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد رسائل النصية</a>
+	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Email_Messages/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد رسائل البريد الالكتروني</a>
+
+
 
 
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Date_Time/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد التاريخ / الوقت</a>

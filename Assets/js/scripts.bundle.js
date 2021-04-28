@@ -321,6 +321,13 @@ $(document).ready(function() {
     KTApp.init(KTAppSettings);
 });
 
+// CSS3 Transitions only after page load(.page-loading class added to body tag and remove with JS on page load)
+window.onload = function() {
+    var result = KTUtil.getByTagName('body');
+    if (result && result[0]) {
+        KTUtil.removeClass(result[0], 'page-loading');
+    }
+}
 "use strict";
 
 // Component Definition
@@ -518,6 +525,12 @@ var KTCard = function(elementId, options) {
         remove: function() {
             if (Plugin.eventTrigger('beforeRemove') === false) {
                 return;
+            }
+
+            // Remove tooltips
+            var tooltips;
+            if ( tooltips = document.querySelectorAll('.tooltip.show') ) {
+                $(tooltips).tooltip('dispose');
             }
 
             KTUtil.remove(element);
@@ -2403,7 +2416,7 @@ var KTOffcanvas = function(elementId, options) {
             return (the.state == 'shown' ? true : false);
         },
 
-        toggle: function() {;
+        toggle: function() {
             Plugin.eventTrigger('toggle');
 
             if (the.state == 'shown') {
@@ -4827,14 +4840,6 @@ KTUtil.ready(function() {
 	}
 });
 
-// CSS3 Transitions only after page load(.page-loading class added to body tag and remove with JS on page load)
-window.onload = function() {
-    var result = KTUtil.getByTagName('body');
-    if (result && result[0]) {
-        KTUtil.removeClass(result[0], 'page-loading');
-    }
-}
-
 "use strict";
 
 // Component Definition
@@ -4854,7 +4859,8 @@ var KTWizard = function(elementId, options) {
     // Default options
     var defaultOptions = {
         startStep: 1,
-        clickableSteps: false // to make steps clickable this set value true and add data-wizard-clickable="true" in HTML for class="wizard" element
+        clickableSteps: false, // to make steps clickable this set value true and add data-wizard-clickable="true" in HTML for class="wizard" element
+        navigation: true
     };
 
     ////////////////////////////
@@ -4920,31 +4926,40 @@ var KTWizard = function(elementId, options) {
          * Build Form Wizard
          */
         build: function() {
-            // Next button event handler
-            KTUtil.addEvent(the.btnNext, 'click', function(e) {
-                e.preventDefault();
+            if (the.options.navigation) {
+                // Next button event handler
+                KTUtil.addEvent(the.btnNext, 'click', function(e) {
+                    e.preventDefault();
 
-                // Set new step number
-                Plugin.setNewStep(Plugin.getNextStep());
+                    // Set new step number
+                    Plugin.setNewStep(Plugin.getNextStep());
 
-                // Trigger change event
-                if (Plugin.eventTrigger('change') !== false) {
-                    Plugin.goTo(Plugin.getNextStep());
-                }
-            });
+                    // Trigger change event
+                    if (Plugin.eventTrigger('change') !== false) {
+                        Plugin.goTo(Plugin.getNextStep());
+                    }
+                });
 
-            // Prev button event handler
-            KTUtil.addEvent(the.btnPrev, 'click', function(e) {
-                e.preventDefault();
+                // Prev button event handler
+                KTUtil.addEvent(the.btnPrev, 'click', function(e) {
+                    e.preventDefault();
 
-                // Set new step number
-                Plugin.setNewStep(Plugin.getPrevStep());
+                    // Set new step number
+                    Plugin.setNewStep(Plugin.getPrevStep());
 
-                // Trigger change event
-                if (Plugin.eventTrigger('change') !== false) {
-                    Plugin.goTo(Plugin.getPrevStep());
-                }
-            });
+                    // Trigger change event
+                    if (Plugin.eventTrigger('change') !== false) {
+                        Plugin.goTo(Plugin.getPrevStep());
+                    }
+                });
+
+                // Submit button event handler
+                KTUtil.addEvent(the.btnSubmit, 'click', function(e) {
+                    e.preventDefault();
+
+                    Plugin.eventTrigger('submit');
+                });
+            }
 
             if (the.options.clickableSteps === true) {
                 KTUtil.on(element, '[data-wizard-type="step"]', 'click', function() {
@@ -4960,13 +4975,6 @@ var KTWizard = function(elementId, options) {
                     }
                 });
             }
-
-            // Submit button event handler
-            KTUtil.addEvent(the.btnSubmit, 'click', function(e) {
-                e.preventDefault();
-
-                Plugin.eventTrigger('submit');
-            });
         },
 
         /**
@@ -5319,7 +5327,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 			 ** PRIVATE METHODS
 			 ********************/
 			isInit: false,
-			cellOffset: 110,
+			cellOffset: 108,
 			iconOffset: 15,
 			stateId: 'meta',
 			ajaxParams: {},
@@ -5559,8 +5567,11 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 						dropdownMenu.css('z-index', '2000');
 					}
 				}).on('hide.bs.dropdown', '.' + pfx + 'datatable .' + pfx + 'datatable-body', function(e) {
-					$(e.target).append(dropdownMenu.detach());
-					dropdownMenu.hide();
+					if (typeof dropdownMenu !== 'undefined') {
+						$(e.target).append(dropdownMenu.detach());
+						dropdownMenu.hide();
+						dropdownMenu.css('display', '');
+					}
 				});
 
 				// remove dropdown if window resize
@@ -6451,8 +6462,8 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 					|| options.data.serverFiltering === false && action === 'search'
 				) {
 					setTimeout(function() {
-						afterGetData();
 						Plugin.setAutoColumns();
+						afterGetData();
 					});
 					return;
 				}
@@ -7398,7 +7409,11 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 					$(datatable.table).find('.' + pfx + 'datatable-cell').show();
 					$(datatable.tableBody).each(function() {
 						var recursive = 0;
-						while ($(this)[0].offsetWidth < $(this)[0].scrollWidth && recursive < options.columns.length) {
+						var offsetWidth = $(this)[0].offsetWidth;
+						var scrollWidth = $(this)[0].scrollWidth;
+
+						while (offsetWidth < scrollWidth && (scrollWidth - offsetWidth) > Plugin.cellOffset && recursive < options.columns.length) {
+
 							$(datatable.table).find('.' + pfx + 'datatable-row').each(function(i) {
 								var cell = $(this).find('.' + pfx + 'datatable-cell:not(:hidden):not([data-autohide-disabled])').last();
 									if (cell.length) {
@@ -7407,6 +7422,9 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 									}
 							});
 							recursive++;
+
+							offsetWidth = $(this)[0].offsetWidth;
+							scrollWidth = $(this)[0].scrollWidth;
 						}
 					});
 
@@ -9764,10 +9782,10 @@ var KTLayoutHeaderTopbar = function() {
 
     // Private functions
     var _init = function() {
-			_toggleObject = new KTToggle(_toggleElement, KTUtil.getBody(), {
-				targetState: 'topbar-mobile-on',
-				toggleState: 'active',
-			});
+        _toggleObject = new KTToggle(_toggleElement, KTUtil.getBody(), {
+            targetState: 'topbar-mobile-on',
+            toggleState: 'active',
+        });
     }
 
     // Public methods

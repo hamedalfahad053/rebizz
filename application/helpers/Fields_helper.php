@@ -101,10 +101,9 @@ if(!function_exists('Creation_Field')) {
                 }
             }
 
-            $attribute_output = '';
             if (is_array($attribute)) {
-                foreach ($attribute as $atr) {
-                    $attribute_output .= $attribute_output . ' ' . $atr;
+                foreach ($attribute as $kay => $value) {
+                    $data_input[$kay] = $value;
                 }
             }
 
@@ -122,7 +121,7 @@ if(!function_exists('Creation_Field')) {
             }
 
 
-            $data_input['class'] = $class_output;
+            $data_input['class']     = $class_output;
             $data_input['attribute'] = $attribute_output;
 
             if ($js) {
@@ -140,6 +139,14 @@ if(!function_exists('Creation_Field')) {
 
             $form_input.= app()->load->view('../../modules/System_Fields/views/tamplet_file_multiple',$data_input, true);
 
+        }elseif ($query_Fields->Fields_Type_Fields == 'file'){
+
+            // $form_input .= '<div class="form-group row">';
+            $form_input .= '<div class="col-lg-12 mt-5 md-5">';
+            $form_input .= '<lable>'.$query_Fields->item_translation.'</lable>';
+            $form_input .= '<input type="file" class="form-control-file" name="'.$query_Fields->Fields_key.'" >';
+            $form_input .= '</div>';
+            //$form_input .= '</div>';
         }
 
         return $form_input;
@@ -156,7 +163,6 @@ if(!function_exists('array_Type_Fields')) {
         $Type_Fields = array(
             "text"     => "حقل نصي",
             "textarea" => "حقل نصي كبير",
-            "textarea" => "حقل نصي كبير",
             "date"     => "تاريخ",
             "email"    => "بريد الكتروني",
             "file"     => "تحميل ملف",
@@ -172,6 +178,53 @@ if(!function_exists('array_Type_Fields')) {
 
 }
 ####################################################################
+
+
+
+
+##############################################################################
+if(!function_exists('Create_Calculations')) {
+
+    function Create_Calculations($data)
+    {
+        app()->load->database();
+
+        $query = app()->db->insert('portal_field_calculations',$data);
+
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
+        }
+    }
+
+}
+##############################################################################
+
+##############################################################################
+if(!function_exists('Get_Calculations'))
+{
+    function Get_Calculations($where_extra = '')
+    {
+        app()->load->database();
+        if(!empty($where_extra))
+        {
+            foreach ($where_extra AS $key => $value)
+            {
+              $query = app()->db->where($key,$value);
+            }
+        }
+        $query = app()->db->get('portal_field_calculations');
+        return $query;
+    }
+}
+##############################################################################
+
+
+
+
+
+
 
 ##############################################################################
 if(!function_exists('Creation_validating_Fields')) {

@@ -19,7 +19,13 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <?= Create_One_Button_Text(
+			        array(
+					        'title'=> 'اضافة فئة جديدة' ,
+					        'href'=>base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Form_Add_Property_Types')
+			        )
+	        );
+	        ?>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -32,23 +38,6 @@
     <div class="container-fluid">
 
             <div class="card card-custom">
-                <div class="card-header">
-                    <div class="card-title">
-                                <span class="card-icon">
-                                    <i class="flaticon-squares text-primary"></i>
-                                </span>
-                        <h3 class="card-label"><?= $Page_Title ?></h3>
-                    </div>
-                    <div class="card-toolbar">
-                        <?= Create_One_Button_Text(
-                            array(
-                                'title'=> 'اضافة فئة جديدة' ,
-                                'href'=>base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Form_Add_Property_Types')
-                            )
-                        );
-                        ?>
-                    </div>
-                </div>
                 <div class="card-body">
                     <div class="card-body">
 
@@ -63,7 +52,6 @@
                                 <th class="text-center">فئة العقار</th>
 	                            <th class="text-center">تقييم - اراضي</th>
 	                            <th class="text-center">تقييم - مباني</th>
-                                <th class="text-center"> مكونات العقار </th>
                                 <th class="text-center">الحالة</th>
                                 <th class="text-center">الخيارات</th>
                             </tr>
@@ -80,16 +68,6 @@
 	                                <td class="text-center"><?= $ROW['CATEGORY_PROPERTY'] ?></td>
 	                                <td class="text-center"><?= $ROW['Evaluation_is_Lands'] ?></td>
 	                                <td class="text-center"><?= $ROW['Evaluation_is_Buildings'] ?></td>
-                                    <td class="text-center">
-                                        <?=
-                                        Create_One_Button_Text(
-                                            array(
-                                                'title'=> ' مكونات العقار ' ,
-                                                'href'=>base_url(ADMIN_NAMESPACE_URL.'/Property_Types/Property_Types_Components/'.$ROW['Property_Types_id'].'')
-                                            )
-                                        );
-                                        ?>
-                                    </td>
                                     <td class="text-center"><?= $ROW['Property_Types_status'] ?></td>
                                     <td class="text-center"><?= $ROW['Property_Types_main_system'] ?></td>
                                 </tr>

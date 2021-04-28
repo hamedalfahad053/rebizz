@@ -18,6 +18,9 @@
         <?= CSFT_Form() ?>
                 <!--begin::Body-->
                 <div class="card-body">
+
+	                    <?php echo  $this->session->flashdata('message'); ?>
+
                         <div class="form-group row">
 
                             <div class="form-group row">
@@ -26,7 +29,18 @@
                                     <input type="file" name="logo_company" class="form-control-file"/>
                                 </div>
                                 <div class="col-lg-6 mt-5">
+	                                <?php
+	                                $Get_Company = Get_Company($this->aauth->get_user()->company_id);
 
+	                                if($Get_Company->Company_Logo == ''){
+                                      echo '<img width="84" height="61" alt="Logo" src="'.base_url('uploads/images.png').'">';
+	                                }else{
+		                              $Uploader_path = base_url('uploads/companies/'.$Get_Company->companies_Domain. '/' . FOLDER_FILE_Company_Logo.'/'.$Get_Company->Company_Logo);
+		                              $size   = getimagesize($Uploader_path);
+		                              //print_r($size);
+		                              echo '<img  alt="Logo" '.$size[3].' src="'.$Uploader_path.'">';
+	                                }
+	                                ?>
                                 </div>
                             </div>
 
@@ -36,10 +50,9 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-lg-6">
-                            <button type="submit" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>
+                            <button type="submit" class="btn btn-primary mr-2">تحديث</button>
                         </div>
                         <div class="col-lg-6 text-lg-right">
-                            <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
                         </div>
                     </div>
                 </div>

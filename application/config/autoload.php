@@ -122,7 +122,8 @@ $autoload['helper'] = array(
     'company_locations',
     'hrm',
     'preview',
-    'stages_self_construction'
+    'stages_self_construction',
+    'sms_email_messages'
 );
 
 /*

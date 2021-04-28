@@ -1,4 +1,6 @@
 
+
+
     <div class="card card-custom mt-10">
 
         <!--begin::Header-->
@@ -25,8 +27,8 @@
 	        $where_Preview_Visit = array(
 			    "Transactions_id"=> $Transactions->transaction_id,"preview_userid"=>$this->aauth->get_user()->id
 	        );
-	        $Get_Preview_Visit = Get_Preview_Visit($where_Preview_Visit);
 
+	        $Get_Preview_Visit = Get_Preview_Visit($where_Preview_Visit);
 
 	        if ($Get_Preview_Visit->num_rows() == 0){
 
@@ -101,14 +103,12 @@
 						        <?php
 						        if($PVF->preview_stauts == 298){
 						        ?>
-						        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Form_Preview_Property/'.$Transactions->uuid) ?>" class="btn btn-primary">
+						        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transactions->uuid.'/'.$PVF->Coordination_uuid) ?>" class="btn btn-primary">
 							        <i class="flaticon-placeholder-1"></i>  معاينة العقار
 						        </a>
 						        <?php
 						        }
 						        ?>
-
-
 					        </td>
 				        </tr>
 				        <?php

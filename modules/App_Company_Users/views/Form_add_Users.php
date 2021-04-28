@@ -50,26 +50,28 @@
                     <?= CSFT_Form() ?>
                     <div class="card-body">
 
+	                    <?php echo  $this->session->flashdata('message'); ?>
+
 
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label>الاسم باللغة العربية</label>
-                                <input type="text" name="full_name_ar" class="form-control" placeholder="<?= lang('user_full_name_ar') ?>"/>
+                                <input type="text" name="full_name_ar" value="<?php echo set_value('full_name_ar'); ?>" class="form-control" placeholder="<?= lang('user_full_name_ar') ?>"/>
                             </div>
                             <div class="col-lg-6 mt-5">
                                 <label>الاسم باللغة الانجليزية</label>
-                                <input type="text" name="full_name" class="form-control" placeholder="<?= lang('user_full_name_en') ?>"/>
+                                <input type="text" name="full_name"  value="<?php echo set_value('full_name'); ?>" class="form-control" placeholder="<?= lang('user_full_name_en') ?>"/>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('Global_email') ?></label>
-                                <input type="text" name="email" class="form-control" placeholder="<?= lang('Global_email') ?>"/>
+                                <input type="text" name="email" class="form-control"  value="<?php echo set_value('email'); ?>"  placeholder="<?= lang('Global_email') ?>"/>
                             </div>
                             <div class="col-lg-6 mt-5">
                                 <label><?= lang('Global_Mobile') ?></label>
-                                <input type="text" name="mobile" class="form-control" placeholder="<?= lang('Global_Mobile') ?>"/>
+                                <input type="text" name="mobile" class="form-control"  value="<?php echo set_value('mobile'); ?>" placeholder="<?= lang('Global_Mobile') ?>"/>
                             </div>
                         </div>
 

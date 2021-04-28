@@ -15,6 +15,31 @@ class App_Dashboard extends Apps
     public function index()
     {
 
+
+        $where_Transactions_in_progress = array(
+          "company_id"        => $this->aauth->get_user()->company_id,
+          "Transaction_Stage" => '',
+        );
+        $Get_Transactions_in_progress  = Get_Transaction($where_Transactions_in_progress);
+
+        $where_Transactions_Under_evaluation = array(
+            "company_id"        => $this->aauth->get_user()->company_id,
+            "Transaction_Stage" => '',
+        );
+        $Get_Transactions_Under_evaluation  = Get_Transaction($where_Transactions_Under_evaluation);
+
+        $where_Transactions_Under_review = array(
+            "company_id"        => $this->aauth->get_user()->company_id,
+            "Transaction_Stage" => '',
+        );
+        $Get_Transactions_Under_review  = Get_Transaction($where_Transactions_Under_review);
+
+        $where_Transactions_Under_review = array(
+            "company_id"        => $this->aauth->get_user()->company_id,
+            "Transaction_Stage" => '',
+        );
+        $Get_Transactions_Under_review  = Get_Transaction($where_Transactions_Under_review);
+
         $this->data['Page_Title']  = 'لوحة المعلومات';
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));

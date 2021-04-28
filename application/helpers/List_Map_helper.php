@@ -33,7 +33,7 @@ if(!function_exists('Get_Regions')) {
             $where  = " and `region_id` = (".$Regions_id.") ";
         }
 
-        $query = app()->db->query('SELECT astext(center) AS Point,code,name_ar,name_en,capital_city_id,region_id From `portal_map_regions` where `countries_id` = '.$countries_id.' '.$where.' ');
+        $query = app()->db->query('SELECT astext(center) AS Point,astext(boundaries) AS Point_2,region_uuid,code,name_ar,name_en,capital_city_id,region_id From `portal_map_regions` where `countries_id` = '.$countries_id.' '.$where.' ');
 
         return $query;
     }
@@ -77,7 +77,7 @@ if(!function_exists('Get_Districts')) {
         }
 
 
-        $query = app()->db->query('SELECT astext(boundaries) AS Point,district_id,city_id,region_id,countries_id,name_ar,name_en From `portal_map_districts` where `countries_id` = '.$countries_id.'  
+        $query = app()->db->query('SELECT astext(boundaries) AS Point,district_uuid,district_id,city_id,region_id,countries_id,name_ar,name_en From `portal_map_districts` where `countries_id` = '.$countries_id.'  
          and `region_id` = '.$Regions_id.' and `city_id` = '.$cites_id.'   '.$where.' ');
 
         return $query;

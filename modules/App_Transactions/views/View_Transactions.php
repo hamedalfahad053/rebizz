@@ -19,7 +19,9 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-
+	        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Print_Transactions/'.$Transactions->uuid) ?>" class="btn btn-success">
+		        <i class="flaticon2-printer"></i>   طباعة
+	        </a>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -46,12 +48,19 @@
 		                                        </a>
 		                                    </li>
 
+			                                <?php
+			                                if (Check_Permissions(3)) {
+			                                ?>
 			                                <li class="nav-item">
 				                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2_4">
 					                                <span class="nav-icon"><i class="flaticon-arrows icon-md"></i></span>
 					                                <span class="nav-text"> المنسق </span>
 				                                </a>
 			                                </li>
+			                                <?php
+			                                }
+			                                ?>
+
 
 		                                    <li class="nav-item">
 		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3_4">
@@ -59,12 +68,19 @@
 		                                            <span class="nav-text"> المعاين</span>
 		                                        </a>
 		                                    </li>
+
+			                                <?php
+			                                if (Check_Permissions(5)) {
+			                                ?>
 		                                    <li class="nav-item">
 		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_4">
 		                                            <span class="nav-icon"><i class="flaticon-price-tag icon-md"></i></span>
 		                                            <span class="nav-text"> التقييم  </span>
 		                                        </a>
 		                                    </li>
+			                                <?php
+			                                }
+			                                ?>
 
 		                                    <li class="nav-item">
 		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_6_4">
@@ -104,11 +120,6 @@
 	                                    ?>
                                     </div>
 
-	                                <div class="tab-pane fade" id="kt_tab_pane_5_4" role="tabpanel" aria-labelledby="kt_tab_pane_5_4">
-		                                <?php
-		                                echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Transaction_Documents', $this->data);
-		                                ?>
-	                                </div>
 
 	                                <div class="tab-pane fade" id="kt_tab_pane_6_4" role="tabpanel" aria-labelledby="kt_tab_pane_6_4">
 		                                <?php

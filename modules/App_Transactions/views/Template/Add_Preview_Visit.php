@@ -99,18 +99,70 @@
 		            </div>
 			        <div class="form-group row">
 				        <div class="checkbox-list">
+
+
 					        <label class="checkbox mt-3">
-						        <input type="checkbox" value="1"  id="SMS" name="SMS"  />
+						        <input type="checkbox" value="1"  id="SMS" name="SMS" onclick="JS_SMS_CATEGORY()"  />
 						        <span></span>
 						        ارسال رسالة SMS
 					        </label>
+
+
 					        <label class="checkbox mt-3">
-						        <input type="checkbox" value="1"  id="email" name="email"  />
+						        <input type="checkbox" value="1"  id="Email" name="Email" onclick="JS_Email_CATEGORY()"  />
 						        <span></span>
 						        ارسال بريد الكتروني
 					        </label>
+
+
 				        </div>
 			        </div>
+
+
+			        <div class="row mt-10">
+				        <div class="col-lg-6" id="preview_SMS" style="display: none">
+					        <label>اختر رسالة نصية</label>
+					        <select name="preview_SMS"  class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
+						        <?php
+						        $company_id  = $this->aauth->get_user()->company_id;
+						        $query_SMS = $this->db->where('company_id', $company_id);
+						        $query_SMS = $this->db->where('isDeleted', 0);
+						        $query_SMS = $this->db->get('protal_mail_sms_messages');
+
+						        if($query_SMS->num_rows()>0){
+							        foreach ($query_SMS->result() as $row_s) {
+								        echo '<option  value="' . $row_s->messages_id . '">' . $row_s->messages_title . '</option>';
+							        }
+						        }
+						        ?>
+					        </select>
+
+					        <br>
+
+					        <textarea name="preview_SMS_text" id="preview_SMS_text" class="form-control"></textarea>
+
+				        </div>
+				        <div class="col-lg-6"  id="preview_Email" style="display: none">
+					        <label>اختر رسالة البريد الالكتروني</label>
+					        <select name="preview_Email"  class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
+						        <?php
+						        $company_id  = $this->aauth->get_user()->company_id;
+						        $query_Email = $this->db->where('company_id', $company_id);
+						        $query_Email = $this->db->where('isDeleted', 0);
+						        $query_Email = $this->db->get('protal_mail_sms_messages');
+						        if($query_Email->num_rows()>0){
+							        foreach ($query_Email->result() as $row_e) {
+								        echo '<option  value="' . $row_e->messages_id . '">' . $row_e->messages_title . '</option>';
+							        }
+						        }
+						        ?>
+					        </select>
+
+					        <textarea name="preview_Email_text"  id="preview_Email_text" class="form-control"></textarea>
+
+				        </div>
+			        </div>
+
 		        </div>
 		        <!--begin::Body-->
 
@@ -136,6 +188,52 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+<script type="text/javascript">
+
+	function JS_SMS_CATEGORY() {
+		if ($("#SMS").is(":checked")) {
+
+			$("#preview_SMS").show();
+
+			$('#preview_SMS').change(function(event){
+				event.preventDefault();
+
+				var messages_id = $('select[name=preview_SMS]').val();
+
+				$.ajax({
+					type: 'ajax',
+					method: 'get',
+					async: false,
+					dataType: 'json',
+					url: '<?= base_url(APP_NAMESPACE_URL . '/App_Ajax/Ajax_text_p_mail_sms_messages') ?>',
+					data: {
+						messages_id: messages_id
+					},
+					success: function (response) {
+						$("#preview_SMS_text").val(response.data);
+					},
+					error: function () {
+						swal.fire(" خطا ", "في ارسال الطلب ", "error");
+					}
+				});
+			});
+
+		}else{
+			$("#preview_SMS").hide();
+		}
+	}
+
+	function JS_Email_CATEGORY() {
+		if ($("#Email").is(":checked")) {
+			$("#preview_Email").show();
+		}else{
+			$("#preview_Email").hide();
+		}
+	}
+
+
+</script>
 
 
 

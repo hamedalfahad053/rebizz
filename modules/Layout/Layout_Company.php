@@ -15,6 +15,8 @@
     <?= $Lode_file_Css ?>
     <!--end::Layout Themes-->
 
+
+	<script>var HOST_URL = '<?= base_url(APP_NAMESPACE_URL.'/') ?>';</script>
     <!--begin::Global Theme Bundle(used by all pages)-->
     <?= assets_layout_js('rtl') ?>
     <?= $Lode_file_Js ?>
@@ -101,8 +103,19 @@
             <!--begin::Brand-->
             <div class="brand flex-column-auto" id="kt_brand">
                 <!--begin::Logo-->
-                <a href="index.html" class="brand-logo">
-                    <img alt="Logo" src="<?= BASE_ASSET.'media/logos/logo-light.png' ?>" />
+                <a href="<?= base_url('App/Dashboard') ?>" class="brand-logo">
+	                <?php
+	                $Get_Company = Get_Company($this->aauth->get_user()->company_id);
+
+	                if($Get_Company->Company_Logo == ''){
+		               // echo '<img width="84" height="61" alt="Logo" src="'.base_url('uploads/images.png').'">';
+	                }else{
+		                $Uploader_path = base_url('uploads/companies/'.$Get_Company->companies_Domain. '/' . FOLDER_FILE_Company_Logo.'/'.$Get_Company->Company_Logo);
+		                $size   = getimagesize($Uploader_path);
+		                //print_r($size);
+		                echo '<img  alt="Logo" width="120" height="60" src="'.$Uploader_path.'">';
+	                }
+	                ?>
                 </a>
                 <!--end::Logo-->
                 <!--begin::Toggle-->
@@ -127,9 +140,7 @@
             <!--begin::Aside Menu-->
             <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
 
-                <li class="menu-section">
-                    <h3 class="menu-text text-center font-size-h3 font-weight-bold">  <?= Get_Company($UserLogin['Company_User'])->companies_Trade_Name ?>  </h3>
-                </li>
+
 
 
                 <!--begin::Menu Container-->
@@ -137,15 +148,24 @@
                     <!--begin::Menu Nav-->
                     <ul class="menu-nav">
 
+
+	                    <?php
+	                    if (Check_Permissions(12)) {
+	                    ?>
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= base_url(APP_NAMESPACE_URL.'/Dashboard') ?>" class="menu-link">
                                 <i class="menu-icon flaticon-home"></i>
                                 <span class="menu-text">لوحة المعلومات</span>
                             </a>
                         </li>
+	                    <?php
+	                    }
+	                    ?>
 
 
-
+	                    <?php
+	                    if (Check_Permissions(1)) {
+	                    ?>
 	                    <li class="menu-section">
 		                    <h4 class="menu-text">   نظام ادارة العملاء  </h4>
 		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
@@ -166,6 +186,9 @@
 			                    </ul>
 		                    </div>
 	                    </li>
+	                    <?php
+	                    }
+	                    ?>
 
 
                         <li class="menu-section">
@@ -185,11 +208,14 @@
 	                                if (Check_Permissions(9)) {
 	                                ?>
 	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Transaction') ?>" class="menu-link menu-toggle">
+		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Checking_Transaction') ?>" class="menu-link menu-toggle">
 			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text"> انشاء معاملة جديدة </span></a>
 	                                </li>
 	                                <?php
 	                                }
+	                                ?>
+	                                <?php
+	                                if (Check_Permissions(3)) {
 	                                ?>
 	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/index') ?>" class="menu-link menu-toggle">
@@ -200,12 +226,18 @@
 		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/index') ?>" class="menu-link menu-toggle">
 			                                <span class="menu-icon"><i class="flaticon-layer text-primary"></span></i><span class="menu-text"> ارشيف المعاملات </span></a>
 	                                </li>
+	                                <?php
+	                                }
+	                                ?>
                                 </ul>
                             </div>
                         </li>
 
 
 
+	                    <?php
+	                    if (Check_Permissions(28)) {
+	                    ?>
 	                    <li class="menu-section">
 		                    <h4 class="menu-text">ادارة المواد البشرية</h4>
 		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
@@ -228,8 +260,25 @@
 			                    <span class="menu-text">ادارة الموظفين </span>
 		                    </a>
 	                    </li>
+	                    <?php
+	                    }
+	                    ?>
+
+	                    <li class="menu-section">
+		                    <h4 class="menu-text">نظام الجغرافية</h4>
+		                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+	                    </li>
+	                    <li class="menu-item" aria-haspopup="true">
+		                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Map') ?>" class="menu-link">
+			                    <i class="menu-icon  text-primary flaticon-map-location"></i>
+			                    <span class="menu-text">استعراض الخريطة</span>
+		                    </a>
+	                    </li>
 
 
+	                    <?php
+	                    if (Check_Permissions(28)) {
+	                    ?>
                         <li class="menu-section">
                             <h4 class="menu-text">ادارة  النظام </h4>
                             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
@@ -240,6 +289,28 @@
                                 <span class="menu-text">الاعدادت العامة</span>
                             </a>
                         </li>
+
+		                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+			                    <a href="javascript:;" class="menu-link menu-toggle">
+				                    <span class="svg-icon menu-icon"><i class="flaticon2-settings text-primary"></i></span>
+				                    <span class="menu-text">اعدادت المعاملات </span>
+				                    <i class="menu-arrow"></i>
+			                    </a>
+			                    <div class="menu-submenu">
+				                    <i class="menu-arrow"></i>
+				                    <ul class="menu-subnav">
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction/index ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> اعداد استلام المعاملات </span></a>
+					                    </li>
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction/index ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> تقارير المعاملات </span></a>
+					                    </li>
+				                    </ul>
+			                    </div>
+		                </li>
+
 
 	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                    <a href="javascript:;" class="menu-link menu-toggle">
@@ -264,9 +335,12 @@
 					                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Fields') ?>" class="menu-link menu-toggle">
 						                    <span class="menu-icon"><i class="flaticon-layers text-primary"></span></i><span class="menu-text">ادارة الحقول</span></a>
 				                    </li>
+
 			                    </ul>
 		                    </div>
 	                    </li>
+
+
 
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= base_url(APP_NAMESPACE_URL.'/Locations') ?>" class="menu-link">
@@ -292,10 +366,16 @@
                                         <a href="<?= base_url(APP_NAMESPACE_URL.'/User_Group') ?>" class="menu-link menu-toggle">
                                             <span class="menu-icon"><i class="fas fa-users-cog text-primary"></span></i><span class="menu-text">مجموعة المستخدمين</span></a>
                                     </li>
+
+	                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+		                                <a href="<?= base_url(APP_NAMESPACE_URL.'/User_Group') ?>" class="menu-link menu-toggle">
+			                                <span class="menu-icon"><i class="fas fa-users-cog text-primary"></span></i><span class="menu-text">صلاحيات مخصصة لمستخدم</span></a>
+	                                </li>
+
+
                                 </ul>
                             </div>
                         </li>
-
 
 	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                    <a href="javascript:;" class="menu-link menu-toggle">
@@ -313,6 +393,9 @@
 			                    </ul>
 		                    </div>
 	                    </li>
+	                    <?php
+	                    }
+	                    ?>
 
 
 	                    <li class="menu-item">
@@ -399,29 +482,56 @@
 <script  type="text/javascript">var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#3699FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };</script>
 <!--end::Global Config-->
 
-<script type="text/javascript">
-$(document).ready(function() {
-	var arrows;
-	if (KTUtil.isRTL()) {
-		arrows = {
-			leftArrow: '<i class="la la-angle-right"></i>',
-			rightArrow: '<i class="la la-angle-left"></i>'
-		}
-	} else {
-		arrows = {
-			leftArrow: '<i class="la la-angle-left"></i>',
-			rightArrow: '<i class="la la-angle-right"></i>'
-		}
-	}
 
-	$('.datepicker').datepicker({
-		rtl: KTUtil.isRTL(),
-		format:'<?= company_settings_system($this->aauth->get_user()->company_id,'datepicker_data_format') ?>',
-		todayHighlight: true,
-		orientation: "bottom left",
-		templates: arrows,
-		language: "ar"
-	});
+
+<?= import_css(BASE_ASSET.'plugins/bootstrap-hijri-datepicker/src/css/bootstrap-datetimepicker',''); ?>
+
+<?= import_js(BASE_ASSET.'plugins/bootstrap-hijri-datepicker/src/js/momentjs',''); ?>
+<?= import_js(BASE_ASSET.'plugins/bootstrap-hijri-datepicker/src/js/moment-with-locales',''); ?>
+<?= import_js(BASE_ASSET.'plugins/bootstrap-hijri-datepicker/src/js/moment-hijri',''); ?>
+<?= import_js(BASE_ASSET.'plugins/bootstrap-hijri-datepicker/src/js/bootstrap-hijri-datetimepicker',''); ?>
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+	//var arrows;
+	//if (KTUtil.isRTL()) {
+	//	arrows = {
+	//		leftArrow: '<i class="la la-angle-right"></i>',
+	//		rightArrow: '<i class="la la-angle-left"></i>'
+	//	}
+	//} else {
+	//	arrows = {
+	//		leftArrow: '<i class="la la-angle-left"></i>',
+	//		rightArrow: '<i class="la la-angle-right"></i>'
+	//	}
+	//}
+    //
+	//$('.datepicker').datepicker({
+	//	rtl: KTUtil.isRTL(),
+	//	format:'<?//= company_settings_system($this->aauth->get_user()->company_id,'datepicker_data_format') ?>//',
+	//	todayHighlight: true,
+	//	orientation: "bottom left",
+	//	templates: arrows,
+	//	language: "ar"
+	//});
+
+    $(".datepicker").hijriDatePicker({
+        hijri:false,
+        format: "DD-MM-YYYY",
+        hijriFormat:"iYYYY-iMM-iDD",
+        dayViewHeaderFormat: "MMMM YYYY",
+        hijriDayViewHeaderFormat: "iMMMM iYYYY",
+        showSwitcher: true,
+        allowInputToggle: true,
+        useCurrent: true,
+        isRTL: true,
+        keepOpen: true,
+        debug: true,
+        showClear: true,
+        showTodayButton: true,
+        showClose: true
+    });
 
 	$('.selectpicker').selectpicker();
 

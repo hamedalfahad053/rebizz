@@ -134,7 +134,7 @@ if(!function_exists('Create_Transaction_Preview_data')) {
     {
         if(is_array($data)){
             $data_insert = array();
-            foreach ($data AS $key => $value)
+            foreach ($data AS $key)
             {
                 if($key['data_value'] !='') {
                     $data_insert = array(
@@ -161,13 +161,34 @@ if(!function_exists('Create_Transaction_Preview_data')) {
 ##############################################################################
 
 ##############################################################################
+if(!function_exists('Get_Transaction_Preview_data_by_key')) {
+
+    function Get_Transaction_Preview_data_by_key($transaction_id,$Forms_id,$Components_id,$key)
+    {
+        $query = app()->db->where('Transaction_id',$transaction_id);
+        $query = app()->db->where('Forms_id',$Forms_id);
+        $query = app()->db->where('Components_id',$Components_id);
+        $query = app()->db->where('data_key',$key);
+        $query = app()->db->get('protal_transaction_preview_data');
+        if($query->num_rows()>0){
+            return $query->row()->data_value;
+        }else{
+            return false;
+        }
+
+    }
+
+} // if(!function_exists('Create_Transaction'))
+##############################################################################
+
+##############################################################################
 if(!function_exists('Create_Transaction_Preview_history')) {
 
     function Create_Transaction_Preview_history($Transaction_id,$data,$History)
     {
         if(is_array($data)){
             $data_insert = array();
-            foreach ($data AS $key => $value)
+            foreach ($data AS $key)
             {
                 if($key['data_value'] !='') {
                     $data_insert = array(
@@ -191,5 +212,38 @@ if(!function_exists('Create_Transaction_Preview_history')) {
             return false;
         }
     } // function
+}
+##############################################################################
+
+
+##############################################################################
+if(!function_exists('Create_Comparisons_Land')) {
+
+    function Create_Comparisons_Land($data)
+    {
+        $query = app()->db->insert('portal_land_comparisons',$data);
+        if($query){
+            return app()->db->insert_id();
+        }else{
+            return false;
+        }
+    }
+
+} // if(!function_exists('Create_Transaction'))
+##############################################################################
+
+##############################################################################
+if(!function_exists('Get_Comparisons_Land')) {
+
+    function Get_Comparisons_Land($where)
+    {
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $query = app()->db->where($key,$value);
+            }
+        }
+        $query  = app()->db->get('portal_land_comparisons');
+        return  $query;
+    }
 }
 ##############################################################################

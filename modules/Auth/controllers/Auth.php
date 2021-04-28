@@ -54,24 +54,31 @@ class Auth extends Authorization
                     redirect(ADMIN_NAMESPACE_URL.'/Dashboard', 'refresh');
                 }else{
 
-                    $userdata        = array();
-                    $userid          = $this->aauth->get_user();
+                    if(Get_Company($this->aauth->get_user()->company_id)->companies_Status == 0){
 
-                    $userdata['Info_User']           = $this->aauth->get_user();
-                    $userdata['User_Group_login']    = Get_Group_User($this->aauth->get_user()->id);
-                    $userdata['Company_User']        = $this->aauth->get_user()->company_id;
-                    $userdata['Company_Locations']   = $this->aauth->get_user()->locations_id;
-                    $userdata['Company_Domain']      = Get_Company($this->aauth->get_user()->company_id)->companies_Domain;
-                    $userdata['time_User_login']     = time();
-                    $userdata['ip_User_login']       = get_real_ip();
+                        $msg_result['key']   = 'Danger';
+                        $msg_result['value'] = 'تم تعطيل الحساب فضلا التواصل مع الدعم الفني';
+                        $msg_result_view     = Create_Status_Alert($msg_result);
+                        set_message($msg_result_view);
+                        redirect('Auth', 'refresh');
 
-                    //print_r($this->aauth->get_user());
-                    //print_r(Get_Company($this->aauth->get_user()->company_id));
+                    }else {
+                        $userdata = array();
+                        $userid = $this->aauth->get_user();
 
-                    Create_Logs_User('Login User','','Login','Login');
+                        $userdata['Info_User']         = $this->aauth->get_user();
+                        $userdata['User_Group_login']  = Get_Group_User($this->aauth->get_user()->id);
+                        $userdata['Company_User']      = $this->aauth->get_user()->company_id;
+                        $userdata['Company_Locations'] = $this->aauth->get_user()->locations_id;
+                        $userdata['Company_Domain']    = Get_Company($this->aauth->get_user()->company_id)->companies_Domain;
+                        $userdata['time_User_login']   = time();
+                        $userdata['ip_User_login']     = get_real_ip();
 
-                    $this->session->set_userdata('UserCompany',$userdata);
-                    redirect(APP_NAMESPACE_URL.'/Dashboard', 'refresh');
+                        Create_Logs_User('Login User', '', 'Login', 'Login');
+
+                        $this->session->set_userdata('UserCompany', $userdata);
+                        redirect(APP_NAMESPACE_URL . '/Dashboard', 'refresh');
+                    }
 
                 } // if($this->aauth->is_member())
 

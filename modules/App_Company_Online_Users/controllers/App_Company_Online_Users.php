@@ -27,7 +27,7 @@ class App_Company_Online_Users extends Apps
                     "mobile"            => $ROW->mobile,
                     "Time_Activity"     => $ROW->Time_Activity,
                     "Locations_text"    => $ROW->Locations_text,
-                    "Userid"            => $ROW->Userid,
+                    "Userid"            => app()->aauth->get_user($ROW->Userid)->full_name,
                     "ip_address"        => $ROW->ip_address
                 );
 
@@ -36,8 +36,6 @@ class App_Company_Online_Users extends Apps
         }else{
             $this->data['Online'] = false;
         }
-
-
 
         $this->data['Page_Title']  = 'المتصلون الان ';
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));

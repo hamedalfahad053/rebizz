@@ -193,51 +193,51 @@ class System_Company extends Admin
 
                     $Create_companies = $this->Companies_model->Create_Company($data_companies);
 
-                    $group_A = array(
-                        "group_owner"=>$Create_companies,
-                        "name"=>'System administrator',
-                        "group_status"=>1,
-                        "group_main_system"=>1
-                    );
-                    $Create_Group_A = $this->Users_Group_Model->Create_Group($group_A);
-                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_A,'مدير النظام','System administrator');
-
-                    $group_B = array(
-                        "group_owner"=>$Create_companies,
-                        "name"=>'data entry',
-                        "group_status"=>1,
-                        "group_main_system"=>1
-                    );
-                    $Create_Group_B = $this->Users_Group_Model->Create_Group($group_B);
-                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_B,'مدخل البيانات','data entry');
-
-                    $group_C = array(
-                        "group_owner"=>$Create_companies,
-                        "name"=>'Evaluation Manager',
-                        "group_status"=>1,
-                        "group_main_system"=>1
-                    );
-                    $Create_Group_C = $this->Users_Group_Model->Create_Group($group_C);
-                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_C,'مدير التقييم','Evaluation Manager');
-
-                    $group_D = array(
-                        "group_owner"=>$Create_companies,
-                        "name"=>'Coordinator',
-                        "group_status"=>1,
-                        "group_main_system"=>1
-                    );
-                    $Create_Group_D = $this->Users_Group_Model->Create_Group($group_D);
-                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_D,'المنسق','Coordinator');
-
-                    $group_F = array(
-                        "group_owner"=>$Create_companies,
-                        "name"=>'Inspector',
-                        "group_status"=>1,
-                        "group_main_system"=>1
-                    );
-                    $Create_Group_F = $this->Users_Group_Model->Create_Group($group_F);
-                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_F,'المعاين','Inspector');
-
+//                    $group_A = array(
+//                        "group_owner"=>$Create_companies,
+//                        "name"=>'System administrator',
+//                        "group_status"=>1,
+//                        "group_main_system"=>1
+//                    );
+//                    $Create_Group_A = $this->Users_Group_Model->Create_Group($group_A);
+//                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_A,'مدير النظام','System administrator');
+//
+//                    $group_B = array(
+//                        "group_owner"=>$Create_companies,
+//                        "name"=>'data entry',
+//                        "group_status"=>1,
+//                        "group_main_system"=>1
+//                    );
+//                    $Create_Group_B = $this->Users_Group_Model->Create_Group($group_B);
+//                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_B,'مدخل البيانات','data entry');
+//
+//                    $group_C = array(
+//                        "group_owner"=>$Create_companies,
+//                        "name"=>'Evaluation Manager',
+//                        "group_status"=>1,
+//                        "group_main_system"=>1
+//                    );
+//                    $Create_Group_C = $this->Users_Group_Model->Create_Group($group_C);
+//                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_C,'مدير التقييم','Evaluation Manager');
+//
+//                    $group_D = array(
+//                        "group_owner"=>$Create_companies,
+//                        "name"=>'Coordinator',
+//                        "group_status"=>1,
+//                        "group_main_system"=>1
+//                    );
+//                    $Create_Group_D = $this->Users_Group_Model->Create_Group($group_D);
+//                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_D,'المنسق','Coordinator');
+//
+//                    $group_F = array(
+//                        "group_owner"=>$Create_companies,
+//                        "name"=>'Inspector',
+//                        "group_status"=>1,
+//                        "group_main_system"=>1
+//                    );
+//                    $Create_Group_F = $this->Users_Group_Model->Create_Group($group_F);
+//                    insert_translation_Language_item('portal_auth_groups_translation',$Create_Group_F,'المعاين','Inspector');
+//
 
                     if($Create_companies){
                         $msg_result['key']   = 'Success';
@@ -277,21 +277,14 @@ class System_Company extends Admin
             }else{
                 $this->data['Companies_status_badge'] =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
             }
-
             $this->data['Page_Title']  = lang('Management_companies_offices');
             $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
             $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/Group_Users'));
             $this->mybreadcrumb->add($this->data['Page_Title'],'#');
-
             $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-
             $this->data['Page_Company'] = $this->load->view('../../modules/System_Company/views/Company_Info',$this->data,true);
-
             $this->data['PageContent']  = $this->load->view('../../modules/System_Company/views/Company_Profile',$this->data,true);
-
             Layout_Admin($this->data);
-
-
         } // if(empty($Company_id) or isset_number_value($Company_id))
 
     }

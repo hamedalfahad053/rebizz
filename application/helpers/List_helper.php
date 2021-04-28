@@ -215,8 +215,6 @@ if(!function_exists('Creation_List_HTML')) {
 
 
 
-
-
 ##############################################################################
 if(!function_exists('Create_options')) {
 
