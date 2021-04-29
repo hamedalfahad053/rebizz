@@ -313,7 +313,8 @@ class App_Transactions extends Apps
         {
 
             //ignore $_POST
-            if($key == 'Assignment_userid' or $key =="ci_csrf_token" or $key =="Form_id" or $key =="FILE_Name" or $key =="FILE" or $key=='file_name' or $key=='LIST_TRANSACTION_DOCUMENTS'){
+            if($key == 'Assignment_userid' or $key =="ci_csrf_token" or $key =="Form_id" or $key =="FILE_Name" or $key =="FILE" or $key=='file_name' or $key=='LIST_TRANSACTION_DOCUMENTS'
+            or $key=='files_Transaction_ids'){
 
             }else {
 
@@ -561,7 +562,7 @@ class App_Transactions extends Apps
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/View_Transactions', $this->data, true);
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/View_Transaction/View_Transactions', $this->data, true);
         Layout_Apps($this->data);
 
     }

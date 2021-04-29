@@ -23,6 +23,9 @@ class App_Ajax extends Apps
     public function Ajax_Uploaded_File_Transaction()
     {
 
+
+            $uuid_file = '';
+
             header('Content-Type: application/json');
 
             $Company_domain = Get_Company($this->aauth->get_user()->company_id)->companies_Domain;
@@ -40,40 +43,122 @@ class App_Ajax extends Apps
             $config['remove_spaces']  = true;
 
 
+            ###################################################################################################################
+            if($_FILES['file_att']['type'] == 'image/tiff' OR $_FILES['file_att']['type'] =='image/tiff'){
 
-                        $this->upload->initialize($config);
+                $config_temp = array();
 
-                        $uploader = $this->upload->do_upload('file_att');
-                        $upload_data = $this->upload->data();
+                $upload_path_temp = 'uploads/tmp';
 
-                        $data_file = array();
+                $config_temp['upload_path']    = realpath($upload_path_temp);
+                $config_temp['allowed_types']  = 'gif|jpg|png|jpeg|pdf|tif|tiff';
+                $config_temp['max_size']       = 1024 * 10;
+                $config_temp['max_filename']   = 30;
+                $config_temp['encrypt_name']   = true;
+                $config_temp['remove_spaces']  = true;
 
-                        $data_file['Transaction_id']        = '0';
-                        $data_file['File_Name_In']          = $_POST['file_name'];
-                        $data_file['LIST_TRANSACTION_DOCUMENTS']   = $_POST['LIST_TRANSACTION_DOCUMENTS'];
-                        $data_file["company_id"]            = $this->aauth->get_user()->company_id;
-                        $data_file["file_name"]             = $upload_data['file_name'];
-                        $data_file["file_type"]             = $upload_data['file_type'];
-                        $data_file["file_path"]             = $upload_data['file_path'];
-                        $data_file["full_path"]             = $upload_data['full_path'];
-                        $data_file["raw_name"]              = $upload_data['raw_name'];
-                        $data_file["orig_name"]             = $upload_data['orig_name'];
-                        $data_file["client_name"]           = $upload_data['client_name'];
-                        $data_file["file_ext"]              = $upload_data['file_ext'];
-                        $data_file["is_image"]              = $upload_data['is_image']; // Whether the file is an image or not. 1 = image. 0 = not.
-                        $data_file["image_type"]            = $upload_data['image_type'];
-                        $data_file["file_createBy"]         = $this->aauth->get_user()->id;
-                        $data_file["file_createDate"]       = time();
-                        $data_file["file_lastModifyDate"]   = 0;
-                        $data_file["file_isDeleted"]        = 0;
-                        $data_file["file_DeletedBy"]        = 0;
-                        if($uploader){
-                            $Create_Transaction_files = Create_Transaction_files($data_file);
-                            $Get_Transaction_files    = Get_Transaction_files(array("file_uplode_id"=>$Create_Transaction_files))->row();
-                        }
+                $this->upload->initialize($config_temp);
 
-        $msg['uuid_file'] =  $Get_Transaction_files->uuid;
-        echo json_encode($msg);
+                $uploader_temp    = $this->upload->do_upload('file_att');
+                $upload_data_temp = $this->upload->data();
+
+                $get_file_temp = realpath('uploads/tmp/'.$upload_data_temp['file_name']);
+
+                $Image_Processing = new Imagick($get_file_temp);
+                 $Count_tiff       = $Image_Processing->getNumberImages();
+
+                $x = 0;
+
+                ###################################################################################################################
+                foreach ( $Image_Processing as $Image_Processing )
+                {
+
+                    $x++;
+
+                    $size_page = getimagesize($get_file_temp);
+
+                    $Image_Processing->setResolution(300, 300);
+                    $Image_Processing->setImageFormat( 'png' );
+                    $Image_Processing->thumbnailImage($size_page[0], $size_page[1]);
+
+                    $file_name = uniqid().md5(time());
+
+                    $uploader = $Image_Processing->writeImage(FCPATH.'uploads/companies/' . $Company_domain . '/' . FOLDER_FILE_Transaction_COMPANY.'/'.$file_name.'_'.$x."_image.png");
+
+
+                    $data_file['Transaction_id']        = '0';
+                    $data_file['File_Name_In']          = $_POST['file_name'];
+                    $data_file['LIST_TRANSACTION_DOCUMENTS']          = $_POST['LIST_TRANSACTION_DOCUMENTS'];
+                    $data_file['Transaction_id']        = 0;
+                    $data_file["company_id"]            = $this->aauth->get_user()->company_id;
+                    $data_file["file_name"]             = $file_name.$x."_image.png";
+                    $data_file["file_type"]             = 'image/png';
+                    $data_file["file_path"]             = FCPATH.'uploads/companies/' . $Company_domain . '/' . FOLDER_FILE_Transaction_COMPANY.'/'.$file_name.'_'.$x."_image.png";
+                    $data_file["full_path"]             = FCPATH.'uploads/companies/' . $Company_domain . '/' . FOLDER_FILE_Transaction_COMPANY.'/'.$file_name.'_'.$x."_image.png";
+                    $data_file["raw_name"]              = $_POST['file_name'];
+                    $data_file["orig_name"]             = $_POST['file_name'];
+                    $data_file["client_name"]           = $_POST['file_name'];
+                    $data_file["file_ext"]              = '.png';
+                    $data_file["is_image"]              = '1';
+                    $data_file["image_type"]            = 'png';
+                    $data_file["file_createBy"]         = $this->aauth->get_user()->id;
+                    $data_file["file_createDate"]       = time();
+                    $data_file["file_lastModifyDate"]   = 0;
+                    $data_file["file_isDeleted"]        = 0;
+                    $data_file["file_DeletedBy"]        = 0;
+
+                    if($uploader)
+                    {
+                        $Create_Transaction_files = Create_Transaction_files($data_file);
+                        $Get_Transaction_files    = Get_Transaction_files(array("file_uplode_id"=>$Create_Transaction_files))->row();
+                    }
+
+                    $uuid_file .=  '<input name="files_Transaction_ids[]" type="hidden" value="'.$Get_Transaction_files->uuid.'">';
+
+                }
+                ###################################################################################################################
+
+            }else{
+
+                $this->upload->initialize($config);
+
+                $uploader    = $this->upload->do_upload('file_att');
+                $upload_data = $this->upload->data();
+                $data_file   = array();
+
+                $data_file['Transaction_id']        = '0';
+                $data_file['File_Name_In']          = $_POST['file_name'];
+                $data_file['LIST_TRANSACTION_DOCUMENTS']          = $_POST['LIST_TRANSACTION_DOCUMENTS'];
+                $data_file['Transaction_id']        = 0;
+                $data_file["company_id"]            = $this->aauth->get_user()->company_id;
+                $data_file["file_name"]             = $upload_data['file_name'];
+                $data_file["file_type"]             = $upload_data['file_type'];
+                $data_file["file_path"]             = $upload_data['file_path'];
+                $data_file["full_path"]             = $upload_data['full_path'];
+                $data_file["raw_name"]              = $upload_data['raw_name'];
+                $data_file["orig_name"]             = $upload_data['orig_name'];
+                $data_file["client_name"]           = $upload_data['client_name'];
+                $data_file["file_ext"]              = $upload_data['file_ext'];
+                $data_file["is_image"]              = $upload_data['is_image']; // Whether the file is an image or not. 1 = image. 0 = not.
+                $data_file["image_type"]            = $upload_data['image_type'];
+                $data_file["file_createBy"]         = $this->aauth->get_user()->id;
+                $data_file["file_createDate"]       = time();
+                $data_file["file_lastModifyDate"]   = 0;
+                $data_file["file_isDeleted"]        = 0;
+                $data_file["file_DeletedBy"]        = 0;
+
+                if($uploader)
+                {
+                    $Create_Transaction_files = Create_Transaction_files($data_file);
+                    $Get_Transaction_files    = Get_Transaction_files(array("file_uplode_id"=>$Create_Transaction_files))->row();
+                }
+
+                $uuid_file .=  '<input name="files_Transaction_ids[]" type="hidden" value="'.$Get_Transaction_files->uuid.'">';
+
+            }
+            ###################################################################################################################
+
+        echo json_encode($uuid_file);
 
     }
     ###############################################################################################
@@ -125,12 +210,15 @@ class App_Ajax extends Apps
             $data_file["file_lastModifyDate"]   = 0;
             $data_file["file_isDeleted"]        = 0;
             $data_file["file_DeletedBy"]        = 0;
+
+
             if($uploader){
                 $Create_Transaction_files = Create_Transaction_files($data_file);
                 $Get_Transaction_files    = Get_Transaction_files(array("file_uplode_id"=>$Create_Transaction_files))->row();
             }
 
             $msg['uuid_file'] =  $Get_Transaction_files->uuid;
+
             echo json_encode($msg);
 
     }
@@ -396,7 +484,7 @@ class App_Ajax extends Apps
                         if ($query_receipt_emp_permissions->num_rows() > 0) {
 
 
-                            if (in_array($row->list_options_id, $array_receipt_emp_permissions_me)) {
+                            if (in_array($row->list_options_id, $array_receipt_emp_permissions_mr)) {
 
                                 $options[] = array(
                                     "options_id"    => $row->$primary_fields,

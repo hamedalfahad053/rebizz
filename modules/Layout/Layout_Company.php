@@ -111,7 +111,7 @@
 		               // echo '<img width="84" height="61" alt="Logo" src="'.base_url('uploads/images.png').'">';
 	                }else{
 		                $Uploader_path = base_url('uploads/companies/'.$Get_Company->companies_Domain. '/' . FOLDER_FILE_Company_Logo.'/'.$Get_Company->Company_Logo);
-		                $size   = getimagesize($Uploader_path);
+		                //$size   = getimagesize($Uploader_path);
 		                //print_r($size);
 		                echo '<img  alt="Logo" width="120" height="60" src="'.$Uploader_path.'">';
 	                }

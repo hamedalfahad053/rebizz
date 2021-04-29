@@ -35,7 +35,7 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 
 							if($Get_Fields->Fields_Type_Fields == 'file_multiple' or $Get_Fields->Fields_Type_Fields == 'file') {
 								$data_files['Get_Transaction_files'] = Get_Transaction_files(array("Transaction_id"=>$Transactions->transaction_id))->result();
-								$this->load->view('../../modules/App_Transactions/views/Template/Template_row_transaction_files',$data_files);
+								$this->load->view('../../modules/App_Transactions/views/View_Transaction/Template_row_transaction_files',$data_files);
 							}else{
 								?>
 								<tr>

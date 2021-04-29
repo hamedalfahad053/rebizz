@@ -45,6 +45,12 @@
 		    <?php echo  $this->session->flashdata('message'); ?>
 
 		    <?php
+
+		    $collecting_Fields_text   = array();
+		    $collecting_Fields_number = array();
+
+
+
 		    // Get Components All
 		    $where_extra_Form_Components = array('With_Type_CUSTOMER'=> "All",'With_Type_Property'=> "All",'With_TYPES_APPRAISAL'=> "All",'With_Type_evaluation_methods' => "All");
 		    $Form_Components             = Get_Form_Components(1,$where_extra_Form_Components);
@@ -79,6 +85,15 @@
 							    $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
 							    $Get_Fields       = Get_Fields($Where_Get_Fields)->row();
 
+
+
+							    if($Get_Fields->Fields_Type_Fields == 'text'){
+								    $collecting_Fields_text[]   = array("Fields_key"=>$Get_Fields->Fields_key,"type"=>"text");
+							    }elseif ($Get_Fields->Fields_Type_Fields =='number'){
+								    $collecting_Fields_number[] = array("Fields_key"=>$Get_Fields->Fields_key,"type"=>"number");
+							    }
+
+
 							    if($GFC['Fields_Type_Components'] == 'Fields'){
 
 								    if($Get_Fields->Fields_Type_Fields == 'file') {
@@ -86,6 +101,7 @@
 								    }else{
 									    $col_size = '6';
 								    }
+
 							        ?>
 
 									<div class="col-lg-<?= $col_size ?> mt-5">
@@ -102,7 +118,9 @@
 									    $col_size = '6';
 								    }
 
+
 							        ?>
+
 								    <div class="col-lg-<?= $col_size ?> mt-5">
 							        <?= Building_List_Forms($RC->Forms_id, $RC->components_id, $GFC['Fields_id'], $multiple = '', $selected='', $style='', $id='', $class = array(0=>"selectpicker"), $disabled='', $label='', $js='');  ?>
 							        </div>
@@ -270,5 +288,16 @@
 
 
 	} // function ajax_list(el)
+
+
+
+
+	// -------------------------------------- //
+	<?php
+	# Marge Array Fields
+	$Array_Marge = @array_merge($collecting_Fields_text,$collecting_Fields_number);
+	?>
+
+
 </script>
 

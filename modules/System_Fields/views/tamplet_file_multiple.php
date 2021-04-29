@@ -2,13 +2,13 @@
 <?php echo  import_js(BASE_ASSET.'plugins/file_uplode/jquery.uploadfile.min',''); ?>
 
 
-<div id="fileuploader">مرفقات المعاملة</div>
+	<div id="fileuploader">مرفقات المعاملة</div>
 
-<div id="extrabutton" class="ajax-file-upload-green">تحميل المرفقات</div>
+	<div id="extrabutton" class="ajax-file-upload-green">تحميل المرفقات</div>
 
-<div id="message_file_uploader">
+	<div id="message_file_uploader">
 
-</div>
+	</div>
 
 
 	<?php
@@ -23,7 +23,7 @@
 
 			url:"<?= base_url("App_Ajax/Ajax_Uploaded_File_Transaction") ?>",
 			fileName:"file_att",
-			showPreview:true,
+			showPreview:false,
 			previewHeight: "150px",
 			previewWidth: "150px",
 			extraHTML:function()
@@ -39,7 +39,7 @@
 			autoSubmit:false,
 			onSuccess:function(files,data,xhr,pd)
 			{
-				$('<input name="files_Transaction_ids[]" type="hidden" value="'+ data.uuid_file +'">').appendTo('#message_file_uploader');
+				$("#message_file_uploader").html($("#message_file_uploader").html() + data);
 			}
 		});
 
