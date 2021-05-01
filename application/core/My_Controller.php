@@ -108,6 +108,23 @@ class Admin extends MY_Controller
         //     }
         // }
 
+//        $second_DB = $this->load->database('another_db', TRUE);
+//
+//        $query2 = $second_DB->get("items");
+//
+//        print_r($query2->result());
+//
+//        exit;
+        /*
+         * $controller = $this->router->fetch_class();
+
+$method = $this->router->fetch_method();
+
+print_r($controller);
+
+print_r($method);
+         */
+
     }
 
 

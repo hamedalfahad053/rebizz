@@ -25,6 +25,7 @@
             <thead>
             <tr>
                 <th class="text-center">#</th>
+	            <th class="text-center"> رقم المرحلة</th>
                 <th class="text-center"> المرحلة</th>
 	            <th class="text-center"> نسبة المرحلة</th>
                 <th class="text-center">الحالة</th>
@@ -39,6 +40,7 @@
 	            ?>
 	            <tr>
 	                <td class="text-center"><?= ++$i ?></td>
+		            <td class="text-center"><?= $row['stages_self_number'] ?></td>
 	                <td class="text-center"><?= $row['stages_self_title'] ?></td>
 		            <td class="text-center">%<?= $row['stages_self_Percentage'] ?></td>
 		            <td class="text-center"><?= $row['stages_self_status'] ?></td>

@@ -1,17 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8874198f-4244-415a-ad8a-e2b16a602954" name="Default Changelist" comment="update 202104284">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="8874198f-4244-415a-ad8a-e2b16a602954" name="Default Changelist" comment="update 2021042855">
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_Company_Settings_Transaction_Reports.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/Editor_Transaction_Reports.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/Form_Add_Transaction_Reports.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/List_Transaction_Reports.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/Upload_File_Transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/core/My_Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/core/My_Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/helpers/app_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/app_helper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Ajax/controllers/App_Ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Ajax/controllers/App_Ajax.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Clients/controllers/Company_Clients.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Clients/controllers/Company_Clients.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Clients/views/Client_Stages_Self_Construction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Clients/views/Client_Stages_Self_Construction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Clients/views/Create_New_Stages_Self_Construction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Clients/views/Create_New_Stages_Self_Construction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Clients/views/Edit_Stages_Self_Construction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Clients/views/Edit_Stages_Self_Construction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Map/controllers/App_Map.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Map/controllers/App_Map.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Print_Evaluation_Reports/controllers/App_Print_Evaluation_Reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Print_Evaluation_Reports/controllers/App_Print_Evaluation_Reports.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Checking_Transaction/Button_Create_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Checking_Transaction/Button_Create_Transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Checking_Transaction/Checking_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Checking_Transaction/Checking_Transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Create_Transaction/Create_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Create_Transaction/Create_Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Template_row_transaction_files.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Form_Data_Entry_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Form_Data_Entry_Transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/Template_row_transaction_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/Template_row_transaction_files.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/View_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/View_Transactions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions_Tab_Data.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions_Tab_Data.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/Layout/Layout_Company.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Layout/Layout_Company.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/System_Fields/views/tamplet_file_multiple.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/System_Fields/views/tamplet_file_multiple.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a256da2d803503f554356378a887b0f8722fe6fc26_1_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a256de6cde3503f554356378a887b0f8722fe6fc26_2_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a256e7b08785c3c228f750fe72123466569e8aadca_3_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a256edc0d185c3c228f750fe72123466569e8aadca_4_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a276fe6e6d9c85ef42e116a2f4f3d843a2babe1b7d_1_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a276feacb19c85ef42e116a2f4f3d843a2babe1b7d_2_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a27703c5725eb6ad5170fb53b109410c77628af078_1_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a27707e0e05eb6ad5170fb53b109410c77628af078_2_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a277111fce90287efe5f35d3fa169485ea3a3e607c_3_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/608a27716a66590287efe5f35d3fa169485ea3a3e607c_4_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/6221de333f2659b4e5f70b5c5df0a62e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/ff5ae047b2f9a9d224d5b7d1eead5768.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/057b6cbdef3656073d579a2c7e500b6d.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/08091657a4627bcb273a1722c554dad7.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/0a8d6932b7f3e1611d5705f4955d8d17.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/1e93669074b9f6e0dfa2fcc65327dabd.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/3b025f8c73cc60a641b603dc14a7f000.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/582fe3bfd02d747c3a33d9afb39b7077.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/70dd46823911d18875a104e8faf784e7.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/71a3759097b9b670ae1846d73c37f800.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/8dbde12d8bdf1e0fe382118ce15193b6.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/ba3c33155727898032fb1f6da0b55a9f.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/bee23be8916773237694b0512dd49292.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/c39f2154a2d9862c7bcde6a4de68f694.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/c3f5b26d0f56c555c31e030ba258ea46.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/c78cc52050b740543a77ee0a1e82842f.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/df92c27a2c3a9d8a1f605fcf97be7c0a.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/e0e150e5d5a4c2b60fd5c20e9a170a4f.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/ed0672184a5a1f91c97a5e00fee7006d.tif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/tmp/ffe451980b4343cb8d2a2c47a5bfe87c.tif" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,12 +80,15 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FCIT" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/App_CompanySettings/controllers" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\xampp\htdocs\rebizz\modules\App_CompanySettings\controllers" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\xampp\htdocs\rebizz\modules\App_Transactions\views\View_Transaction" />
     </key>
@@ -54,8 +103,24 @@
       <updated>1619645536690</updated>
       <workItem from="1619645553241" duration="15135000" />
       <workItem from="1619664611043" duration="8807000" />
-      <workItem from="1619675452546" duration="49000" />
+      <workItem from="1619675452546" duration="8135000" />
+      <workItem from="1619716894815" duration="31838000" />
+      <workItem from="1619802621693" duration="25240000" />
+      <workItem from="1619849952843" duration="2079000" />
     </task>
+    <task id="LOCAL؜٠٠٠٠١" summary="update 202104284">
+      <created>1619675580269</created>
+      <option name="number" value="LOCAL؜٠٠٠٠١" />
+      <option name="presentableId" value="LOCAL؜٠٠٠٠١" />
+      <updated>1619675580269</updated>
+    </task>
+    <task id="LOCAL؜٠٠٠٠٢" summary="update 2021042855">
+      <created>1619675669378</created>
+      <option name="number" value="LOCAL؜٠٠٠٠٢" />
+      <option name="presentableId" value="LOCAL؜٠٠٠٠٢" />
+      <updated>1619675669378</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -77,6 +142,7 @@
     <MESSAGE value="update 20210428" />
     <MESSAGE value="update 202104283" />
     <MESSAGE value="update 202104284" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 202104284" />
+    <MESSAGE value="update 2021042855" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 2021042855" />
   </component>
 </project>

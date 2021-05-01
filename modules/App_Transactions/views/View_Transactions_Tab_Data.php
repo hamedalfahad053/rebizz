@@ -34,8 +34,51 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 							$Get_Fields = Get_Fields(array("Fields_id"=>$GFC['Fields_id']))->row();
 
 							if($Get_Fields->Fields_Type_Fields == 'file_multiple' or $Get_Fields->Fields_Type_Fields == 'file') {
-								$data_files['Get_Transaction_files'] = Get_Transaction_files(array("Transaction_id"=>$Transactions->transaction_id))->result();
-								$this->load->view('../../modules/App_Transactions/views/View_Transaction/Template_row_transaction_files',$data_files);
+
+							$query_transaction_files = app()->db->where('transaction_id',$Transactions->transaction_id);
+							$query_transaction_files = app()->db->get('protal_transaction_files');
+                            ?>
+								<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/View_File_Transaction/'.$Transactions->uuid) ?>" class="btn m-5 btn-success">
+									<i class="flaticon-psd"></i>   تحميل جميع المرفقات
+								</a>
+
+								<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Upload_File_Transaction/'.$Transactions->uuid) ?>" class="btn m-5 btn-success">
+									<i class="flaticon-psd"></i>   اضافة مرفقات اخرى
+								</a>
+
+								<style>th.dt-center,.dt-center { text-align: center; }</style>
+								<table class="data_table table table-bordered table-hover display nowrap" width="100%">
+									<thead>
+									<tr>
+										<th class="text-center">#</th>
+										<th class="text-center">اسم الملف</th>
+										<th class="text-center">نوع الملف</th>
+										<th class="text-center">بواسطة / الوقت</th>
+										<th class="text-center">الحالة</th>
+										<th class="text-center">الخيارات</th>
+									</tr>
+									</thead>
+									<tbody>
+										<?php
+										$f = 0;
+										foreach ($query_transaction_files->result() AS $RF)
+										{
+										?>
+										<tr>
+											<th class="text-center"><?= ++$f; ?></th>
+											<th class="text-center"><?php if($RF->File_Name_In){ echo $RF->File_Name_In; }else{ echo '-'; } ?></th>
+											<th class="text-center"><?php if($RF->LIST_TRANSACTION_DOCUMENTS){ echo Get_options_List_Translation($RF->LIST_TRANSACTION_DOCUMENTS)->item_translation; }else{ echo '-'; } ?></th>
+											<th class="text-center"><?= $this->aauth->get_user($RF->file_createBy)->full_name ?></th>
+											<th class="text-center"></th>
+											<th class="text-center"></th>
+										</tr>
+										<?php
+										}
+										?>
+									</tbody>
+								</table>
+
+							<?php
 							}else{
 								?>
 								<tr>

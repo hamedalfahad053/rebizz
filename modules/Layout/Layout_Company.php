@@ -312,6 +312,29 @@
 		                </li>
 
 
+		                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+			                    <a href="javascript:;" class="menu-link menu-toggle">
+				                    <span class="svg-icon menu-icon"><i class="flaticon2-settings text-primary"></i></span>
+				                    <span class="menu-text">اعدادت التقارير </span>
+				                    <i class="menu-arrow"></i>
+			                    </a>
+			                    <div class="menu-submenu">
+				                    <i class="menu-arrow"></i>
+				                    <ul class="menu-subnav">
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/Form_Add_Transaction_Reports ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> انشاء تقرير جديد </span></a>
+					                    </li>
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/index ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> ادارة التقارير </span></a>
+					                    </li>
+				                    </ul>
+			                    </div>
+		                </li>
+
+
+
 	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                    <a href="javascript:;" class="menu-link menu-toggle">
 			                    <span class="svg-icon menu-icon"><i class="flaticon-imac text-primary"></i></span>
@@ -494,30 +517,8 @@
 
 
 $(document).ready(function() {
-	//var arrows;
-	//if (KTUtil.isRTL()) {
-	//	arrows = {
-	//		leftArrow: '<i class="la la-angle-right"></i>',
-	//		rightArrow: '<i class="la la-angle-left"></i>'
-	//	}
-	//} else {
-	//	arrows = {
-	//		leftArrow: '<i class="la la-angle-left"></i>',
-	//		rightArrow: '<i class="la la-angle-right"></i>'
-	//	}
-	//}
-    //
-	//$('.datepicker').datepicker({
-	//	rtl: KTUtil.isRTL(),
-	//	format:'<?//= company_settings_system($this->aauth->get_user()->company_id,'datepicker_data_format') ?>//',
-	//	todayHighlight: true,
-	//	orientation: "bottom left",
-	//	templates: arrows,
-	//	language: "ar"
-	//});
-
     $(".datepicker").hijriDatePicker({
-        hijri:false,
+        hijri:true,
         format: "DD-MM-YYYY",
         hijriFormat:"iYYYY-iMM-iDD",
         dayViewHeaderFormat: "MMMM YYYY",

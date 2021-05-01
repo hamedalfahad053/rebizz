@@ -30,22 +30,18 @@ class App_Map extends Apps
 
 
 
-//        $Get_Query = app()->db->query("SELECT  ST_Y(center)  AS Latitude,ST_X(center) AS Longitude,
-//        astext(center) AS Center_Point ,
-//        name_ar,name_en,city_id,center,region_id,countries_id From `portal_map_cities` limit 1 ");
-//
-//        foreach ($Get_Query->result() as $c)
-//        {
-//
-//            $name_ar = 'غير مسمى';
-//
-//
-//
-//            app()->db->query(" INSERT INTO `portal_map_districts` (city_id,region_id,countries_id,name_ar,name_en,boundaries)
-//            VALUES ('$c->city_id','$c->region_id','$c->countries_id','$name_ar','Unnamed',ST_PolygonFromText($c->Center_Point) )  ");
-//
-//        }
+        $Get_Query = app()->db->query("SELECT  ST_Y(center)  AS Latitude,ST_X(center) AS Longitude,
+        astext(center) AS Center_Point ,
+        name_ar,name_en,city_id,center,region_id,countries_id From `portal_map_cities` limit 1 ");
 
+
+        foreach ($Get_Query->result() as $c)
+        {
+            $name_ar = 'غير مسمى';
+            app()->db->query(" INSERT INTO `portal_map_districts` (city_id,region_id,countries_id,name_ar,name_en,boundaries)
+            VALUES ('$c->city_id','$c->region_id','$c->countries_id','$name_ar','Unnamed',POLYGON($c->Latitude,$c->Longitude)   )  ");
+        }
+ //PolygonFromText('POLYGON($c->Latitude,$c->Longitude)')
 
     }
     ###################################################################

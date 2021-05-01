@@ -77,21 +77,38 @@ class App_Ajax extends Apps
 
                     $size_page = getimagesize($get_file_temp);
 
-                    $Image_Processing->setResolution(300, 300);
-                    $Image_Processing->setImageFormat( 'png' );
+                    $Image_Processing->setResolution(150, 150);
+                    $Image_Processing->setImageFormat( 'png');
                     $Image_Processing->thumbnailImage($size_page[0], $size_page[1]);
 
-                    $file_name = uniqid().md5(time());
+                    $file_name = uniqid().time();
 
                     $uploader = $Image_Processing->writeImage(FCPATH.'uploads/companies/' . $Company_domain . '/' . FOLDER_FILE_Transaction_COMPANY.'/'.$file_name.'_'.$x."_image.png");
 
+                    ###################################################################
+                    # Start resize
+                    ###################################################################
+                    $configer_resize =  array(
+                        'image_library'   => 'GD2',
+                        'source_image'    =>  realpath('uploads/companies/'.$Company_domain.'/'.FOLDER_FILE_Transaction_COMPANY.'/'.$file_name.'_'.$x."_image.png"),
+                        'new_image'       =>  realpath('uploads/companies/'.$Company_domain.'/'.FOLDER_FILE_Transaction_COMPANY.'/'),
+                        'maintain_ratio'  =>  TRUE,
+                        'width'           =>  1240,
+                    );
+                    $this->load->library('image_lib');
+                    $this->image_lib->clear();
+                    $this->image_lib->initialize($configer_resize);
+                    $this->image_lib->resize();
+                    ###################################################################
+                    # End resize
+                    ###################################################################
 
                     $data_file['Transaction_id']        = '0';
                     $data_file['File_Name_In']          = $_POST['file_name'];
                     $data_file['LIST_TRANSACTION_DOCUMENTS']          = $_POST['LIST_TRANSACTION_DOCUMENTS'];
                     $data_file['Transaction_id']        = 0;
                     $data_file["company_id"]            = $this->aauth->get_user()->company_id;
-                    $data_file["file_name"]             = $file_name.$x."_image.png";
+                    $data_file["file_name"]             = $file_name."_".$x."_image.png";
                     $data_file["file_type"]             = 'image/png';
                     $data_file["file_path"]             = FCPATH.'uploads/companies/' . $Company_domain . '/' . FOLDER_FILE_Transaction_COMPANY.'/'.$file_name.'_'.$x."_image.png";
                     $data_file["full_path"]             = FCPATH.'uploads/companies/' . $Company_domain . '/' . FOLDER_FILE_Transaction_COMPANY.'/'.$file_name.'_'.$x."_image.png";
@@ -124,28 +141,49 @@ class App_Ajax extends Apps
 
                 $uploader    = $this->upload->do_upload('file_att');
                 $upload_data = $this->upload->data();
+
+
+                ###################################################################
+                # Start resize
+                ###################################################################
+                $configer_resize =  array(
+                    'image_library'   => 'GD2',
+                    'source_image'    =>  realpath('uploads/companies/'.$Company_domain.'/'.FOLDER_FILE_Transaction_COMPANY.'/'.$upload_data['file_name']),
+                    'new_image'       =>  realpath('uploads/companies/'.$Company_domain.'/'.FOLDER_FILE_Transaction_COMPANY.'/'),
+                    'maintain_ratio'  =>  TRUE,
+                    'width'           =>  1240,
+                );
+                $this->load->library('image_lib');
+                $this->image_lib->clear();
+                $this->image_lib->initialize($configer_resize);
+                $this->image_lib->resize();
+                ###################################################################
+                # End resize
+                ###################################################################
+
                 $data_file   = array();
 
-                $data_file['Transaction_id']        = '0';
-                $data_file['File_Name_In']          = $_POST['file_name'];
-                $data_file['LIST_TRANSACTION_DOCUMENTS']          = $_POST['LIST_TRANSACTION_DOCUMENTS'];
-                $data_file['Transaction_id']        = 0;
-                $data_file["company_id"]            = $this->aauth->get_user()->company_id;
-                $data_file["file_name"]             = $upload_data['file_name'];
-                $data_file["file_type"]             = $upload_data['file_type'];
-                $data_file["file_path"]             = $upload_data['file_path'];
-                $data_file["full_path"]             = $upload_data['full_path'];
-                $data_file["raw_name"]              = $upload_data['raw_name'];
-                $data_file["orig_name"]             = $upload_data['orig_name'];
-                $data_file["client_name"]           = $upload_data['client_name'];
-                $data_file["file_ext"]              = $upload_data['file_ext'];
-                $data_file["is_image"]              = $upload_data['is_image']; // Whether the file is an image or not. 1 = image. 0 = not.
-                $data_file["image_type"]            = $upload_data['image_type'];
-                $data_file["file_createBy"]         = $this->aauth->get_user()->id;
-                $data_file["file_createDate"]       = time();
-                $data_file["file_lastModifyDate"]   = 0;
-                $data_file["file_isDeleted"]        = 0;
-                $data_file["file_DeletedBy"]        = 0;
+                $data_file['Transaction_id']                = '0';
+                $data_file['File_Name_In']                  = $_POST['file_name'];
+                $data_file['LIST_TRANSACTION_DOCUMENTS']    = $_POST['LIST_TRANSACTION_DOCUMENTS'];
+                $data_file['Transaction_id']                = 0;
+                $data_file["company_id"]                    = $this->aauth->get_user()->company_id;
+                $data_file["file_name"]                     = $upload_data['file_name'];
+                $data_file["file_type"]                     = $upload_data['file_type'];
+                $data_file["file_path"]                     = $upload_data['file_path'];
+                $data_file["full_path"]                     = $upload_data['full_path'];
+                $data_file["raw_name"]                      = $upload_data['raw_name'];
+                $data_file["orig_name"]                     = $upload_data['orig_name'];
+                $data_file["client_name"]                   = $upload_data['client_name'];
+                $data_file["file_ext"]                      = $upload_data['file_ext'];
+                $data_file["is_image"]                      = $upload_data['is_image']; // Whether the file is an image or not. 1 = image. 0 = not.
+                $data_file["image_type"]                    = $upload_data['image_type'];
+                $data_file["file_createBy"]                 = $this->aauth->get_user()->id;
+                $data_file["file_createDate"]               = time();
+                $data_file["file_lastModifyDate"]           = 0;
+                $data_file["file_isDeleted"]                = 0;
+                $data_file["file_DeletedBy"]                = 0;
+
 
                 if($uploader)
                 {
@@ -185,8 +223,31 @@ class App_Ajax extends Apps
 
             $this->upload->initialize($config);
 
-            $uploader = $this->upload->do_upload('file_att');
+
+
+
+            $uploader    = $this->upload->do_upload('file_att');
             $upload_data = $this->upload->data();
+
+
+            ###################################################################
+            # Start resize
+            ###################################################################
+            $configer_resize =  array(
+                'image_library'   => 'GD2',
+                'source_image'    =>  realpath('uploads/companies/'.$Company_domain.'/'.FOLDER_FILE_Transaction_COMPANY.'/'.$upload_data['file_name']),
+                'new_image'       =>  realpath('uploads/companies/'.$Company_domain.'/'.FOLDER_FILE_Transaction_COMPANY.'/'),
+                'maintain_ratio'  =>  TRUE,
+                'width'           =>  1240,
+            );
+            $this->load->library('image_lib');
+            $this->image_lib->clear();
+            $this->image_lib->initialize($configer_resize);
+            $this->image_lib->resize();
+            ###################################################################
+            # End resize
+            ###################################################################
+
 
             $data_file = array();
 

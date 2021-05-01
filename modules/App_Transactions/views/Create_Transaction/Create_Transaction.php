@@ -31,7 +31,6 @@
 
 
 
-
 <!--begin::Entry-->
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
@@ -102,12 +101,20 @@
 									    $col_size = '6';
 								    }
 
-							        ?>
 
-									<div class="col-lg-<?= $col_size ?> mt-5">
-									<?= Building_Field_Forms($Get_Fields->Fields_key, true, $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id, '', $Get_Fields->Fields_key, '', '', '', '', '', '');  ?>
-									</div>
-							        <?php
+								    if($Get_Fields->Fields_key == 'INSTRUMENT_NUMBER'){
+							        ?>
+										<div class="col-lg-<?= $col_size ?> mt-5">
+										<?= Building_Field_Forms($Get_Fields->Fields_key, true, $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,$this->uri->segment(4), $Get_Fields->Fields_key, '', '', '', '', '', '');  ?>
+										</div>
+								        <?php
+								    }else{
+									    ?>
+									    <div class="col-lg-<?= $col_size ?> mt-5">
+										    <?= Building_Field_Forms($Get_Fields->Fields_key, true, $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id, '', $Get_Fields->Fields_key, '', '', '', '', '', '');  ?>
+									    </div>
+									    <?php
+								    }
 
 
 							    }elseif($GFC['Fields_Type_Components'] == 'List'){

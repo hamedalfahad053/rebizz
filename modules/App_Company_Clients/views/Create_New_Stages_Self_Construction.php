@@ -52,6 +52,17 @@
                         <div class="card-body">
                         <?php echo  $this->session->flashdata('message'); ?>
                         <div class="form-group row">
+	                        <div class="col-sm-12 col-md-12 mt-5">
+		                        <label> رقم المرحلة </label>
+		                        <select name="stages_self_number" class="form-control selectpicker">
+			                        <option value="1">1</option>
+			                        <option value="2">2</option>
+			                        <option value="3">3</option>
+			                        <option value="4">4</option>
+			                        <option value="5">5</option>
+		                        </select>
+	                        </div>
+
                             <div class="col-sm-12 col-md-12 mt-5">
                                 <label> المرحلة بالعربية </label>
                                 <input type="text" name="title_ar" class="form-control" placeholder="" />

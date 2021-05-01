@@ -598,6 +598,7 @@ class Company_Clients extends Apps
 
                 $this->data['stages_self_construction'][]  = array(
                     "stages_self_id"           => $ROW->stages_self_id,
+                    "stages_self_number"       => $ROW->stages_self_number,
                     "stages_self_title"        => $ROW->item_translation,
                     "stages_self_Percentage"   => $ROW->stages_self_Percentage,
                     "stages_self_status"       => $stages_self_status,
@@ -659,6 +660,7 @@ class Company_Clients extends Apps
     {
 
         $this->form_validation->set_rules('Clients_id','العميل غير معروف','required');
+        $this->form_validation->set_rules('stages_self_number',' رقم المرحلة','required');
         $this->form_validation->set_rules('title_ar','المرحلة بالعربية','required');
         $this->form_validation->set_rules('title_en','المرحلة بالانجليزية','required');
         $this->form_validation->set_rules('Percentage','نسبة المرحلة','required');
@@ -690,6 +692,7 @@ class Company_Clients extends Apps
             $data_stages_self['stages_self_key']                =  strtoupper(str_replace(" ", "_", $this->input->post('title_en')));
             $data_stages_self['company_id']                     =  $this->aauth->get_user()->company_id;
             $data_stages_self['clients_id']                     =  $this->input->post('Clients_id');
+            $data_stages_self['stages_self_number']             =  $this->input->post('stages_self_number');
             $data_stages_self['stages_self_Percentage']         =  $this->input->post('Percentage');
             $data_stages_self['stages_self_status']             =  0;
             $data_stages_self['stages_self_created_By']         =  $this->aauth->get_user()->id;

@@ -1,23 +1,13 @@
-<?php echo  import_css(BASE_ASSET.'plugins/file_uplode/uploadfile',''); ?>
-<?php echo  import_js(BASE_ASSET.'plugins/file_uplode/jquery.uploadfile.min',''); ?>
-
-
+	<?php echo  import_css(BASE_ASSET.'plugins/file_uplode/uploadfile',''); ?>
+	<?php echo  import_js(BASE_ASSET.'plugins/file_uplode/jquery.uploadfile.min',''); ?>
 	<div id="fileuploader">مرفقات المعاملة</div>
-
 	<div id="extrabutton" class="ajax-file-upload-green">تحميل المرفقات</div>
-
 	<div id="message_file_uploader">
 
 	</div>
-
-
 	<?php
 	$get_list_type_file = Creation_List_HTML('select', 'LIST_TRANSACTION_DOCUMENTS', '', '', 'options', '', '', '', '', '', '', '', '');
 	?>
-
-
-
-
 	<script type="text/javascript">
 		var extraObj = $("#fileuploader").uploadFile({
 

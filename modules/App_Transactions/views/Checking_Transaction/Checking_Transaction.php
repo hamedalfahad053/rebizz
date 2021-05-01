@@ -110,7 +110,6 @@
                 },
                 success: function (result) {
                     $("#Check_Instrument_Number_By_Transactions").html(result.Transaction_Table);
-
                 },
                 error: function () {
                     swal.fire(" خطا ", "في ارسال الطلب ", "error");

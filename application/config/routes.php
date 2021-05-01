@@ -151,11 +151,15 @@ $route[APP_NAMESPACE_URL.'/Dashboard/(:any)']                       = 'App_Dashb
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)']                = 'App_Dashboard/App_Dashboard/$1/$2';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)/(:any)']         = 'App_Dashboard/App_Dashboard/$1/$2/$3';
 
+
+
 # Company Settings
 $route[APP_NAMESPACE_URL.'/Settings']                               = 'App_CompanySettings/App_CompanySettings';
 $route[APP_NAMESPACE_URL.'/Settings/(:any)']                        = 'App_CompanySettings/App_CompanySettings/$1';
 $route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)']                 = 'App_CompanySettings/App_CompanySettings/$1/$2';
 $route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)/(:any)']          = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
+
+
 
 #  Settings Transaction
 $route[APP_NAMESPACE_URL.'/Settings_Transaction']                                 = 'App_CompanySettings/App_Company_Settings_Transactions';
@@ -163,6 +167,16 @@ $route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)']                        
 $route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)']                   = 'App_CompanySettings/App_Company_Settings_Transactions/$1/$2';
 $route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)/(:any)']            = 'App_CompanySettings/App_Company_Settings_Transactions/$1/$2/$3';
 $route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)/(:any)/(:any)']     = 'App_CompanySettings/App_Company_Settings_Transactions/$1/$2/$3/$4';
+
+
+
+#  Settings Transaction Reports
+$route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports']                                 = 'App_CompanySettings/App_Company_Settings_Transaction_Reports';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports/(:any)']                          = 'App_CompanySettings/App_Company_Settings_Transaction_Reports/$1';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports/(:any)/(:any)']                   = 'App_CompanySettings/App_Company_Settings_Transaction_Reports/$1/$2';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports/(:any)/(:any)/(:any)']            = 'App_CompanySettings/App_Company_Settings_Transaction_Reports/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports/(:any)/(:any)/(:any)/(:any)']     = 'App_CompanySettings/App_Company_Settings_Transaction_Reports/$1/$2/$3/$4';
+
 
 
 #  Company HRM
