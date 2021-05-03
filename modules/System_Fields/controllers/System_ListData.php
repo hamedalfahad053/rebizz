@@ -178,6 +178,7 @@ class System_ListData extends Admin
         $this->data['Page_Title'] = 'اضافة عنصر جديد';
 
         $this->data['options_status']        = array_options_status();
+        $this->data['options_status_system'] = array_options_status_system();
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(ADMIN_NAMESPACE_URL.'/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(ADMIN_NAMESPACE_URL.'/List'));
@@ -205,7 +206,7 @@ class System_ListData extends Admin
             $msg_result['value'] = validation_errors();
             $msg_result_view     = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
-            redirect(ADMIN_NAMESPACE_URL.'/List/Form_Add_New_List', 'refresh');
+            redirect(ADMIN_NAMESPACE_URL.'/List_Data/Form_Add_New_List', 'refresh');
 
         }else {
 
@@ -238,13 +239,13 @@ class System_ListData extends Admin
                 $msg_result['value'] = lang('message_success_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(ADMIN_NAMESPACE_URL.'/List' , 'refresh');
+                redirect(ADMIN_NAMESPACE_URL.'/List_Data' , 'refresh');
             }else{
                 $msg_result['key']   = 'Danger';
                 $msg_result['value'] = lang('message_error_insert');
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                redirect(ADMIN_NAMESPACE_URL.'/List', 'refresh');
+                redirect(ADMIN_NAMESPACE_URL.'/List_Data', 'refresh');
             }
 
         }
@@ -437,12 +438,9 @@ class System_ListData extends Admin
 
             if($Create_List){
 
-
                 $item_ar = $this->input->post('title_ar');
                 $item_en = $this->input->post('title_en');
                 insert_translation_Language_item('portal_list_data_translation',$Create_List,$item_ar,$item_en);
-
-
 
                 $msg_result['key']   = 'Success';
                 $msg_result['value'] = lang('message_success_insert');

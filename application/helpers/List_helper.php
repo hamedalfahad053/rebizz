@@ -385,15 +385,15 @@ if(!function_exists('get_data_options_List_view')) {
 
                 if($type_query == 'key'){
 
-                    $query_options      = app()->db->where('options_key',$options_id);
-                    $query_options      = app()->db->get('portal_list_options_data')->row();
-                    $query_list_options = app()->db->where('item_id', $query_options->list_options_id);
+                    $query_options      = @app()->db->where('options_key',$options_id);
+                    $query_options      = @app()->db->get('portal_list_options_data')->row();
+                    $query_list_options = @app()->db->where('item_id', $query_options->list_options_id);
 
                 }else{
-                    $query_list_options = app()->db->where('item_id', $options_id);
+                    $query_list_options = @app()->db->where('item_id', $options_id);
                 }
-                $query_list_options     = app()->db->where('translation_lang', $lang);
-                $query_list_options     = app()->db->get('portal_list_options_translation')->row()->item_translation;
+                $query_list_options     = @app()->db->where('translation_lang', $lang);
+                $query_list_options     = @app()->db->get('portal_list_options_translation')->row()->item_translation;
 
 
             }elseif($row_list->list_type =='TABLE'){
@@ -403,19 +403,19 @@ if(!function_exists('get_data_options_List_view')) {
                 if($query_list->Linking_table == NULL){
 
                     $_Join_fields       = $query_list->Table_Join_fields;
-                    $query_list_options = app()->db->where($query_list->Table_primary_fields,$options_id);
-                    $query_list_options = app()->db->get($query_list->Table_primary)->row()->$_Join_fields;
+                    $query_list_options = @app()->db->where($query_list->Table_primary_fields,$options_id);
+                    $query_list_options = @app()->db->get($query_list->Table_primary)->row()->$_Join_fields;
 
                 }elseif($query_list->Linking_table == 1){
 
-                    $query_list_options = app()->db->from($query_list->Table_primary.' Table_Primary');
-                    $query_list_options = app()->db->join($query_list->Table_Join.'    Table_Join', 'Table_Primary.'.$query_list->Table_primary_fields.' = Table_Join.'.$query_list->Table_primary_joining_fields.'');
+                    $query_list_options = @app()->db->from($query_list->Table_primary.' Table_Primary');
+                    $query_list_options = @app()->db->join($query_list->Table_Join.'    Table_Join', 'Table_Primary.'.$query_list->Table_primary_fields.' = Table_Join.'.$query_list->Table_primary_joining_fields.'');
 
-                    $query_list_options = app()->db->where('Table_Primary.'.$query_list->Table_primary_fields,$options_id);
+                    $query_list_options = @app()->db->where('Table_Primary.'.$query_list->Table_primary_fields,$options_id);
 
-                    $query_list_options = app()->db->where('Table_Join.translation_lang', $lang);
+                    $query_list_options = @app()->db->where('Table_Join.translation_lang', $lang);
                     $_Join_fields       = $query_list->Table_Join_fields;
-                    $query_list_options = app()->db->get()->row()->$_Join_fields;
+                    $query_list_options = @app()->db->get()->row()->$_Join_fields;
 
                 }
             }

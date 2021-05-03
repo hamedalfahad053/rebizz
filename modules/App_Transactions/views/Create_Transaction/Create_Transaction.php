@@ -173,7 +173,7 @@
 			    }elseif($Assignment_Type->attribution_method == 2){
 
 		    		$data_Assignment_Stages_Transaction['Stages_Transaction'] = $Get_Stages_Transaction;
-				    $this->load->view('../../modules/App_Transactions/views/Template/Assignment_Transaction_userid',$data_Assignment_Stages_Transaction);
+				    $this->load->view('../../modules/App_Transactions/views/Assignment_Transaction/Assignment_Transaction_userid',$data_Assignment_Stages_Transaction);
 
 			    }
 
@@ -240,6 +240,11 @@
 
 	} // function ajax_Components(div_ajax_Components)
 
+
+
+
+
+
 	$(document).on('change', '#LIST_CUSTOMER_CATEGORY', function() {
 		ajax_Components('#ajax_Components');
 	});
@@ -297,7 +302,13 @@
 	} // function ajax_list(el)
 
 
+	$("#LIST_CITY").empty();
+	$("#LIST_CLIENT").empty();
+	//$("#LIST_TYPES_OF_REAL_ESTATE_APPRAISAL").empty();
 
+	$("#LIST_CITY").selectpicker('refresh');
+	$("#LIST_CLIENT").selectpicker('refresh');
+	//$("#LIST_TYPES_OF_REAL_ESTATE_APPRAISAL").selectpicker('refresh');
 
 	// -------------------------------------- //
 	<?php

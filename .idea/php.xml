@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="PhpProjectServersManager">
+    <servers>
+      <server host="localhost" id="8ad9fa7a-25e1-4b40-9276-e9535e28f784" name="XXAMP Apache" use_path_mappings="true" />
+    </servers>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>

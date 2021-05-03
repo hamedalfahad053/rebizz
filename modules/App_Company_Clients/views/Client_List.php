@@ -19,6 +19,7 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
+	        <?= Create_One_Button_Text_Without_tooltip(array("class"=>"","id"=>"",'title' => lang('add_new_Client_button'), 'href' => base_url(APP_NAMESPACE_URL.'/Clients/Create_New_Client'))) ?>
 
         </div>
         <!--end::Toolbar-->
@@ -33,19 +34,8 @@
     <div class="container-fluid">
 
         <div class="card card-custom">
-            <div class="card-header">
-                <div class="card-title">
-                    <span class="card-icon">
-                        <i class="flaticon-squares text-primary"></i>
-                    </span>
-                    <h3 class="card-label"><?= $Page_Title ?></h3>
-                </div>
-                <div class="card-toolbar">
-                    <?= Create_One_Button_Text_Without_tooltip(array("class"=>"","id"=>"",'title' => lang('add_new_Client_button'), 'href' => base_url(APP_NAMESPACE_URL.'/Clients/Create_New_Client'))) ?>
-                </div>
-            </div>
-            <div class="card-body">
 
+            <div class="card-body">
 
                 <?php echo  $this->session->flashdata('message'); ?>
 

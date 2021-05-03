@@ -298,16 +298,16 @@
                                 }
 
 
-                                $options['custom'] = array(
-                                    "class"          => '',
-                                    "id"             => '',
-                                    "title"          => 'شروط الحقل',
-                                    "icon"           => 'flaticon2-settings',
-                                    "color"          => 'danger',
-                                    "data-attribute" => '',
-                                    "href"           => base_url(APP_NAMESPACE_URL.'/Forms/Validating_Fields/'.$Forms->Forms_uuid.'/'.$RC->components_id.'/'.$GFC['Fields_id_Components'])
-                                );
-                                echo Create_Options_Button($options);
+//                                $options['custom'] = array(
+//                                    "class"          => '',
+//                                    "id"             => '',
+//                                    "title"          => 'شروط الحقل',
+//                                    "icon"           => 'flaticon2-settings',
+//                                    "color"          => 'danger',
+//                                    "data-attribute" => '',
+//                                    "href"           => base_url(APP_NAMESPACE_URL.'/Forms/Validating_Fields/'.$Forms->Forms_uuid.'/'.$RC->components_id.'/'.$GFC['Fields_id_Components'])
+//                                );
+//                                echo Create_Options_Button($options);
 
 
                                 ?>

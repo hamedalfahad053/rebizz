@@ -232,6 +232,22 @@ $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)']    
 $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2$3/$4/$5/$6';
 $route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2$3/$4/$5/$6/$7';
 
+# Company  Preview
+$route[APP_NAMESPACE_URL.'/Preview']                                      = 'App_Transactions/App_Preview';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)']                               = 'App_Transactions/App_Preview/$1';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)']                        = 'App_Transactions/App_Preview/$1/$2';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)']                 = 'App_Transactions/App_Preview/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)/(:any)']          = 'App_Transactions/App_Preview/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)/(:any)/(:any)']   = 'App_Transactions/App_Preview/$1/$2/$3/$4/$5';
+
+# Company Evluation
+$route[APP_NAMESPACE_URL.'/Evluation']                                      = 'App_Transactions/App_Evluation';
+$route[APP_NAMESPACE_URL.'/Evluation/(:any)']                               = 'App_Transactions/App_Evluation/$1';
+$route[APP_NAMESPACE_URL.'/Evluation/(:any)/(:any)']                        = 'App_Transactions/App_Evluation/$1/$2';
+$route[APP_NAMESPACE_URL.'/Evluation/(:any)/(:any)/(:any)']                 = 'App_Transactions/App_Evluation/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Evluation/(:any)/(:any)/(:any)/(:any)']          = 'App_Transactions/App_Evluation/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Evluation/(:any)/(:any)/(:any)/(:any)/(:any)']   = 'App_Transactions/App_Evluation/$1/$2/$3/$4/$5';
+
 # Company Clients
 $route[APP_NAMESPACE_URL.'/Clients']                               = 'App_Company_Clients/Company_Clients';
 $route[APP_NAMESPACE_URL.'/Clients/(:any)']                        = 'App_Company_Clients/Company_Clients/$1';

@@ -139,6 +139,7 @@ if(!function_exists('Create_Transaction_Preview_data')) {
                 if($key['data_value'] !='') {
                     $data_insert = array(
                         "Transaction_id"   => $Transaction_id,
+                        "preview_id"       => $key['preview_id'],
                         "Forms_id"         => $key['Forms_id'],
                         "Components_id"    => $key['Components_id'],
                         "data_key"         => $key['data_key'],
@@ -193,6 +194,7 @@ if(!function_exists('Create_Transaction_Preview_history')) {
                 if($key['data_value'] !='') {
                     $data_insert = array(
                         "Transaction_id"   => $Transaction_id,
+                        "preview_id"       => $key['preview_id'],
                         "Forms_id"         => $key['Forms_id'],
                         "Components_id"    => $key['Components_id'],
                         "data_key"         => $key['data_key'],

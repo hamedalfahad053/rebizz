@@ -17,21 +17,12 @@
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Users_Preview/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">توزيع المعاينين على المناطق الجغرافية</a>
 
 
-	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Notifications/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد نظام الاشعارات</a>
-
-
-	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/SettingEmailServer/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد خادم البريد الالكتروني</a>
-
-	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_SMS_Messages/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد رسائل النصية</a>
-	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Email_Messages/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد رسائل البريد الالكتروني</a>
-
-
-
-
-	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Date_Time/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد التاريخ / الوقت</a>
-
-
-	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Table_Data/') ?>" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"> اعداد عرض بيانات الجداول </a>
+<!--	        <a href="--><?//= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Notifications/') ?><!--" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد نظام الاشعارات</a>-->
+<!--	        <a href="--><?//= base_url(APP_NAMESPACE_URL.'/Settings/SettingEmailServer/') ?><!--" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد خادم البريد الالكتروني</a>-->
+<!--	        <a href="--><?//= base_url(APP_NAMESPACE_URL.'/Settings/Setting_SMS_Messages/') ?><!--" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد رسائل النصية</a>-->
+<!--	        <a href="--><?//= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Email_Messages/') ?><!--" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد رسائل البريد الالكتروني</a>-->
+<!--	        <a href="--><?//= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Date_Time/') ?><!--" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد التاريخ / الوقت</a>-->
+<!--	        <a href="--><?//= base_url(APP_NAMESPACE_URL.'/Settings/Setting_Table_Data/') ?><!--" class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"> اعداد عرض بيانات الجداول </a>-->
 	        <!--end::Nav-->
         </div>
         <!--end::Body-->

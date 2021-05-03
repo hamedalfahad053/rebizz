@@ -73,20 +73,26 @@
 					        <td class="text-center">
 						        <?php
 						        $type_preview =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+
 						        if($type_preview == 12 or $type_preview ==  14){
+
 							        get_data_options_List_view('4',$type_preview);
 						        }elseif($type_preview == 13){
 
 							        $Get_clients_id =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
+
 							        $where_Get_Stages_Self = array(
 									        "stages_self_id" => $PVF->preview_stages,
 									        "clients_id"     => $Get_clients_id,
 									        "company_id"     => $this->aauth->get_user()->company_id
 							        );
+
 							        $Get_Stages_Self = Get_Stages_Self_Construction($where_Get_Stages_Self);
+
 							        if($Get_Stages_Self->num_rows()>0) {
 								        echo $Get_Stages_Self->row()->item_translation;
 							        }
+
 						        }
 						        ?>
 					        </td>
@@ -95,18 +101,29 @@
 					        </td>
 					        <td class="text-center">
 
-						        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Form_Preview_Feedback/'.$Transactions->uuid.'/'.$PVF->Coordination_uuid) ?>" class="btn btn-success">
-							        <i class="flaticon2-sheet"></i> ارسال افادة
-						        </a>
+
 
 
 						        <?php
-						        if($PVF->preview_stauts == 298){
-						        ?>
-						        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transactions->uuid.'/'.$PVF->Coordination_uuid) ?>" class="btn btn-primary">
-							        <i class="flaticon-placeholder-1"></i>  معاينة العقار
-						        </a>
-						        <?php
+						        $query_preview_data = app()->db->where('Transaction_id',$Transactions->transaction_id);
+						        $query_preview_data = app()->db->where('company_id',$this->aauth->get_user()->company_id);
+						        $query_preview_data = app()->db->where('preview_id',$PVF->Coordination_id);
+						        $query_preview_data = app()->db->get('protal_transaction_preview_data');
+
+						        if($query_preview_data->num_rows()>0){
+
+						        }else{
+
+							        //if($PVF->preview_stauts == 298){
+							        ?>
+								     <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Form_Preview_Feedback/'.$Transactions->uuid.'/'.$PVF->Coordination_uuid) ?>" class="btn btn-success">
+									   <i class="flaticon2-sheet"></i> ارسال افادة
+								    </a>
+							        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transactions->uuid.'/'.$PVF->Coordination_uuid) ?>" class="btn btn-primary">
+								        <i class="flaticon-placeholder-1"></i>  معاينة العقار
+							        </a>
+							        <?php
+							        //}
 						        }
 						        ?>
 					        </td>

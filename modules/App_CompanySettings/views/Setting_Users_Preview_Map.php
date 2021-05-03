@@ -12,6 +12,7 @@
         <div class="card-body">
 
 	        <?php echo  $this->session->flashdata('message'); ?>
+
 	        <?php
 	        if($Users_Preview == false){
 		        $msg_result['key'] = 'Danger';

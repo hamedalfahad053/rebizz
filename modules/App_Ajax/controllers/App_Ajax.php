@@ -44,7 +44,7 @@ class App_Ajax extends Apps
 
 
             ###################################################################################################################
-            if($_FILES['file_att']['type'] == 'image/tiff' OR $_FILES['file_att']['type'] =='image/tiff'){
+            if($_FILES['file_att']['type'] == 'image/tiff' OR $_FILES['file_att']['type'] =='image/tiff' or $_FILES['file_att']['type'] =='application/pdf'){
 
                 $config_temp = array();
 
@@ -223,9 +223,6 @@ class App_Ajax extends Apps
 
             $this->upload->initialize($config);
 
-
-
-
             $uploader    = $this->upload->do_upload('file_att');
             $upload_data = $this->upload->data();
 
@@ -253,7 +250,8 @@ class App_Ajax extends Apps
 
             $data_file['Transaction_id']        = '0';
             $data_file['File_Name_In']          = $_POST['file_name'];
-            $data_file['preview_id']            = $_POST['preview_id'];
+            $data_file['preview_id']              = $_POST['preview_id'];
+            $data_file['LIST_PROPERTY_PICTURES']  = $_POST['LIST_PROPERTY_PICTURES'];
             $data_file['Transaction_id']        = $_POST['Transaction_id'];
             $data_file["company_id"]            = $this->aauth->get_user()->company_id;
             $data_file["file_name"]             = $upload_data['file_name'];
@@ -278,9 +276,9 @@ class App_Ajax extends Apps
                 $Get_Transaction_files    = Get_Transaction_files(array("file_uplode_id"=>$Create_Transaction_files))->row();
             }
 
-            $msg['uuid_file'] =  $Get_Transaction_files->uuid;
+            $uuid_file =  '<input name="files_preview_ids[]" type="hidden" value="'.$Get_Transaction_files->uuid.'">';
 
-            echo json_encode($msg);
+            echo json_encode($uuid_file);
 
     }
     ###############################################################################################

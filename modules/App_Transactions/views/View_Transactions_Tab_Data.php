@@ -35,6 +35,8 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 
 							if($Get_Fields->Fields_Type_Fields == 'file_multiple' or $Get_Fields->Fields_Type_Fields == 'file') {
 
+							$query_transaction_files = $this->db->order_by('LIST_TRANSACTION_DOCUMENTS','ASC');
+							$query_transaction_files = $this->db->where('file_isDeleted !=',1);
 							$query_transaction_files = app()->db->where('transaction_id',$Transactions->transaction_id);
 							$query_transaction_files = app()->db->get('protal_transaction_files');
                             ?>
@@ -46,15 +48,18 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 									<i class="flaticon-psd"></i>   اضافة مرفقات اخرى
 								</a>
 
+								<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Sort_File_Transaction/'.$Transactions->uuid) ?>" class="btn m-5 btn-success">
+									<i class="flaticon-psd"></i> ترتيب المرفقات
+								</a>
+
 								<style>th.dt-center,.dt-center { text-align: center; }</style>
-								<table class="data_table table table-bordered table-hover display nowrap" width="100%">
+								<table class="data_file table table-bordered table-hover display nowrap" width="100%">
 									<thead>
 									<tr>
 										<th class="text-center">#</th>
 										<th class="text-center">اسم الملف</th>
 										<th class="text-center">نوع الملف</th>
 										<th class="text-center">بواسطة / الوقت</th>
-										<th class="text-center">الحالة</th>
 										<th class="text-center">الخيارات</th>
 									</tr>
 									</thead>
@@ -69,8 +74,17 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 											<th class="text-center"><?php if($RF->File_Name_In){ echo $RF->File_Name_In; }else{ echo '-'; } ?></th>
 											<th class="text-center"><?php if($RF->LIST_TRANSACTION_DOCUMENTS){ echo Get_options_List_Translation($RF->LIST_TRANSACTION_DOCUMENTS)->item_translation; }else{ echo '-'; } ?></th>
 											<th class="text-center"><?= $this->aauth->get_user($RF->file_createBy)->full_name ?></th>
-											<th class="text-center"></th>
-											<th class="text-center"></th>
+											<th class="text-center">
+												<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Download_File_Transaction/'.$Transactions->uuid.'/'.$RF->uuid) ?>" class="btn btn-sm btn-primary">
+													<i class="flaticon-download-1"></i>
+												</a>
+												<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Edit_File_Transaction/'.$Transactions->uuid.'/'.$RF->uuid) ?>" class="btn btn-icon btn-sm btn-warning">
+													<i class="flaticon2-edit"></i>
+												</a>
+												<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Delete_File_Transaction/'.$Transactions->uuid.'/'.$RF->uuid) ?>" class="btn btn-icon btn-sm btn-danger">
+													<i class="flaticon2-delete"></i>
+												</a>
+											</th>
 										</tr>
 										<?php
 										}
@@ -78,12 +92,13 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 									</tbody>
 								</table>
 
+
 							<?php
 							}else{
 								?>
 								<tr>
 									<td><?= $GFC['Fields_Title'] ?></td>
-									<td><?= Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']) ?></td>
+									<td><?= @Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']) ?></td>
 									<td>
 										<a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Edit_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-warning mx-2"><i class="la la-edit"></i></a>
 									    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/History_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-info mx-2"><i class="flaticon2-information"></i></a>
@@ -96,16 +111,19 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 						}elseif($GFC['Fields_Type_Components'] == 'List'){
 
 							$d = Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']);
+							if($d){
 							?>
 							<tr>
 								<td><?= $GFC['Fields_Title'] ?></td>
-								<td><?= get_data_options_List_view($GFC['Fields_id'],$d); ?></td>
+								<td><?= @get_data_options_List_view($GFC['Fields_id'],$d); ?></td>
 								<td>
-                                    <a class="btn btn-icon btn-sm btn-light-warning mx-2"><i class="la la-edit"></i></a>
-                                    <a class="btn btn-icon btn-sm btn-light-info mx-2"><i class="flaticon2-information"></i></a>
-                                </td>
+									<a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Edit_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-warning mx-2"><i class="la la-edit"></i></a>
+									<a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/History_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-info mx-2"><i class="flaticon2-information"></i></a>
+								</td>
 							</tr>
 							<?php
+							}
+
 						}
 					} // foreach ($Get_Fields_Components as $GFC)
 					?>
@@ -118,6 +136,8 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 	<?php
 } // foreach ($Form_Components_Customs->result() AS $RC_Customs)
 ?>
+
+
 
 
 <?php

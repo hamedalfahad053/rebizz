@@ -11,13 +11,14 @@ if(!function_exists('Get_Departments'))
         $lang   = get_current_lang();
         $query  = app()->db->from('portal_hrm_departments departments');
         $query  = app()->db->join('portal_hrm_departments_translation departments_translation', 'departments_translation.item_id = departments.departments_id');
-        if(!empty($where_extra)){
 
+        if(!empty($where_extra)){
             foreach ($where_extra AS $key => $value)
             {
                 $query = app()->db->where($key,$value);
             }
         }
+
         $query = app()->db->where('departments_translation.translation_lang', $lang);
         $query = app()->db->get();
         return $query;
@@ -83,7 +84,6 @@ if(!function_exists('Update_Departments_status'))
         }else{
             return false;
         }
-
     }
 }
 ##############################################################################

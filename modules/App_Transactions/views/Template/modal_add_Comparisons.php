@@ -14,6 +14,51 @@
 	            <input type="hidden" name="Coordination_id" value="<?= $Coordination->Coordination_id ?>">
 
                 <div class="modal-body">
+
+
+	                <style type="text/css">
+		                #map_container_Comparisons {
+			                width:100%;
+			                height:300px;
+			                overflow:hidden;
+		                }
+
+		                /* ensures that the content fills its parent when shown again */
+		                #map_container_Comparisons {
+			                height: 100% !important;
+			                width: 100% !important;
+		                }
+	                </style>
+
+
+	                <div id="map_container_Comparisons" class="mt-10 mb-10">
+		                <div id="map_content_Comparisons"></div>
+	                </div>
+
+
+	                <div class="form-group row">
+		                <div class="col-lg-4 mt-5">
+			                <label>زوم الخريطة</label>
+			                <select id="geo-zoom_Comparisons" name="geo-zoom_Comparisons" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
+				                <?php
+				                for($i=0;$i<20;$i++)
+				                {
+					                echo '<option value="'.$i.'">'.$i.'</option>';
+				                }
+				                ?>
+			                </select>
+		                </div>
+		                <div class="col-lg-4 mt-5">
+			                <label>خط العرض</label>
+			                <input type="text" name="LATITUDE_Comparisons" value="" id="LATITUDE_Comparisons" maxlength="" style="" class=" form-control ">
+		                </div>
+		                <div class="col-lg-4 mt-5">
+			                <label>خط الطول</label>
+			                <input type="text" name="LONGITUDE_Comparisons" value="" id="LONGITUDE_Comparisons" maxlength="" style="" class=" form-control ">
+		                </div>
+	                </div>
+
+
 	                <div class="form-group row">
 		                <label>الفئة</label>
 		                <select name="Comparisons_type" id="Comparisons_type" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
@@ -21,7 +66,12 @@
 			                <option value="Building">مبنى</option>
 		                </select>
 	                </div>
+
+
+
+
                     <div class="form-group row">
+
                         <div class="col-lg-4">
                             <label>نوع العقار</label>
 	                        <select name="property_types_id" id="property_types_id" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
@@ -35,13 +85,15 @@
 		                        ?>
 	                        </select>
                         </div>
+
+
                         <div class="col-lg-4">
                             <label>مساحة الأرض</label>
                             <input type="text" name="Land_area" id="Land_area" class="form-control"  placeholder="مساحة الأرض"/>
                         </div>
                         <div class="col-lg-4">
                             <label>سعر المتر المربع</label>
-                            <input type="text" name="Price_per_square_meter" id="Price_per_square_meter" class="form-control"  placeholder="سعر المتر المربع"/>
+                            <input type="text" name="Price_per_square_meter_Comparisons" id="Price_per_square_meter" class="form-control"  placeholder="سعر المتر المربع"/>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -81,49 +133,114 @@
 		var Price_per_square_meter  = $('#Price_per_square_meter').val();
 		$('#total_value_property').val(Land_area * Price_per_square_meter);
 	});
+	/*************************** START MAP ****************************************/
 
 
-	function Get_Ajax_Data_Table_Land_Comparisons() {
-		var Transactions_id        = <?= $Transactions->transaction_id ?>;
-		var Coordination_id        = <?= $Coordination->Coordination_id ?>;
-		$.ajax({
-			url : "<?= base_url(APP_NAMESPACE_URL . '/Transactions/Ajax_Comparisons_Land_Comparisons') ?>",
-			type:'get',
-			data: {
-				Transactions_id:Transactions_id,Coordination_id:Coordination_id
-			},
-			dataType: 'html',
-			beforeSend: function(){
-				$('#Ajax_Data_Table_Land_Comparisons').append("<div style='text-align: center;'><i class='fa fa-spinner fa-spin fa-5x fa-fw'></i></div>")
-			},
-			success: function(response) {
-				$("#Ajax_Data_Table_Land_Comparisons").empty();
-				$("#Ajax_Data_Table_Land_Comparisons").html(response);
-			},
-			error: function(){
-
-			}
-		});
-	} // Get_All_Data_Ajax()
+	//google.maps.event.trigger(map, 'resize');
 
 
-	Get_Ajax_Data_Table_Land_Comparisons();
+	var map_Comparisons = new GMaps({ div: '#map_content_Comparisons' , lat: 23.7112692 , lng: 44.4579123 });
 
+	GMaps.geolocate({
+		success: function(position) {
+			map_Comparisons.setCenter(position.coords.latitude, position.coords.longitude);
+
+			$("#LATITUDE_Comparisons").val(position.coords.latitude);
+			$("#LONGITUDE_Comparisons").val(position.coords.longitude);
+
+			map_Comparisons.addMarker({
+				lat: position.coords.latitude,
+				lng: position.coords.longitude,
+				zoom: 14,
+				draggable: true,
+				streetViewControl:false,
+				dragend: function(event) {
+
+					var lat = event.latLng.lat();
+					var lng = event.latLng.lng();
+
+					$("#LATITUDE_Comparisons").val(lat);
+					$("#LONGITUDE_Comparisons").val(lng);
+
+					map_Comparisons.setCenter(lat,lng);
+					map_Comparisons.refresh();
+				},
+				title: 'الموقع الحالي',
+				infoWindow: {
+					content: '<span  data-container="body" data-offset="20px 20px" data-toggle="popover" data-placement="top" data-content="الموقع الحالي">  </span>'
+				}
+			});
+
+		},
+		error: function(error) {
+			swal.fire("خطا ", "لا يمكن العثور على الموقع الجغرافي ", "error");
+		},
+		not_supported: function() {
+			swal.fire("خطا ", "المتصفح لا يدعم الموقع الجغرافي ", "error");
+		},
+		always: function() {
+
+		}
+	});
+
+	$('#geo-zoom_Comparisons').change(function(){
+		var ToZoom_Comparisons = parseInt($("#geo-zoom_Comparisons").find(":selected").text());
+		map_Comparisons.setZoom(ToZoom_Comparisons);
+	});
+
+	$('#LATITUDE_Comparisons,#LONGITUDE_Comparisons').blur(function() {
+
+		var LATITUDE_Comparisons  = $("#LATITUDE_Comparisons").val();
+		var LONGITUDE_Comparisons = $("#LONGITUDE_Comparisons").val();
+
+		if(LATITUDE_Comparisons.length > 3  || LONGITUDE_Comparisons.length > 3  ){
+
+			map_Comparisons.removeMarkers();
+
+			map_Comparisons.addMarker({
+				lat: LATITUDE_Comparisons,
+				lng: LONGITUDE_Comparisons,
+				zoom: 14,
+				draggable: true,
+				streetViewControl:false,
+				dragend: function(event) {
+
+					var lat_Comparisons = event.latLng.lat();
+					var lng_Comparisons = event.latLng.lng();
+
+					$("#LATITUDE_Comparisons").val(lat_Comparisons);
+					$("#LONGITUDE_Comparisons").val(lng_Comparisons);
+
+					map_Comparisons.setCenter(lat_Comparisons,lng_Comparisons);
+					map_Comparisons.refresh();
+				},
+				title: 'الموقع الحالي',
+				infoWindow: {
+					content: '<span  data-container="body" data-offset="20px 20px" data-toggle="popover" data-placement="top" data-content="الموقع الحالي">  </span>'
+				}
+			});
+
+			map_Comparisons.setCenter(LATITUDE_Comparisons,LONGITUDE_Comparisons);
+			map_Comparisons.refresh();
+		}
+
+	});
+	/*************************** END MAP ****************************************/
 
 	// ------------------------------------------------------------------------------- //
 	// Form Add Land Comparisons
 	$('#Form_Comparisons').on('click', '#Form_Comparisons_Submit', function (event) {
 		event.preventDefault();
 
-		var Transactions_id        = <?= $Transactions->transaction_id ?>;
-		var Coordination_id        = <?= $Coordination->Coordination_id ?>;
-		var Comparisons_type       = $('select[name=Comparisons_type]').val();
+		var Transactions_id         = <?= $Transactions->transaction_id ?>;
+		var Coordination_id         = <?= $Coordination->Coordination_id ?>;
+		var Comparisons_type        = $('select[name=Comparisons_type]').val();
 		var property_types_id       = $('select[name=property_types_id]').val();
-		var Land_area              = $('input[name=Land_area]').val();
-		var Price_per_square_meter = $('input[name=Price_per_square_meter]').val();
-		var total_value_property   = $('input[name=total_value_property]').val();
-		var office                 = $('input[name=office]').val();
-		var office_tel             = $('input[name=office_tel]').val();
+		var Land_area               = $('input[name=Land_area]').val();
+		var Price_per_square_meter  = $('input[name=Price_per_square_meter]').val();
+		var total_value_property    = $('input[name=total_value_property]').val();
+		var office                  = $('input[name=office]').val();
+		var office_tel              = $('input[name=office_tel]').val();
 
 		$.ajax({
 			type: 'ajax',
@@ -153,7 +270,6 @@
 		});
 	});
 	// ------------------------------------------------------------------------------- //
-
 </script>
 
 

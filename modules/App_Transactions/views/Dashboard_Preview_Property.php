@@ -28,6 +28,10 @@
 </div>
 
 
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw_Thx2J7uq9eaqeb-WmZ2fBzUz7hZYGE&libraries=places&callback=initMap"></script>
+<script src="//maps.google.com/maps/api/js?key=AIzaSyBMkLi0BxMHoFVI2CKxGHdduypMeA1I6wk&sensor=false&libraries="></script>
+<?= import_js(BASE_ASSET.'plugins/custom/gmaps/gmaps',''); ?>
+
 <style type="text/css">
 	#map-container {
 		width:100%;
@@ -152,6 +156,9 @@
 										<!--begin: Wizard Form-->
 										<form class="form mt-0 mt-lg-12" method="post" action="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Create_Preview_Property/'.$Transactions->uuid) ?>"  id="kt_form"  enctype="multipart/form-data">
 
+											<input type="hidden" name="Transaction_id" value="<?= $Transactions->transaction_id ?>">
+											<input type="hidden" name="Coordination_id" value="<?= $Coordination->Coordination_id ?>">
+
 												<!--begin: Wizard Step 1-->
 												<div class="p-5" data-wizard-type="step-content" data-wizard-state="current">
 
@@ -236,6 +243,8 @@
 												<!--begin: Wizard Step 2-->
 												<div class="p-5" data-wizard-type="step-content">
 													<div class="row">
+
+
 														<?php
 														$LIST_CLIENT                    = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
 														$CUSTOMER_CATEGORY              = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CUSTOMER_CATEGORY');
@@ -247,22 +256,41 @@
 															?>
 															<?php
 															if($RC->components_key == 'MAP'){
-																echo '<div id="map-container"><div id="map-content"></div></div>';
+																?>
+																<div id="map-container" class="mt-10 mb-10"><div id="map-content"></div></div>
+
+																<div class="form-group row">
+																	<div class="col-lg-12 mt-5">
+																	<label>زوم الخريطة</label>
+																		<select id="geo-zoom" name="geo-zoom" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
+																		<?php
+																		for($i=0;$i<20;$i++)
+																		{
+																			echo '<option value="'.$i.'">'.$i.'</option>';
+																		}
+																		?>
+																		</select>
+																	</div>
+																</div>
+
+														    <?php
 															}
 															?>
 
-															<select id="geo-zoom" name="geo-zoom" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
-																<?php
-																for($i=0;$i<20;$i++)
-																{
-																	echo '<option value="'.$i.'">'.$i.'</option>';
-																}
-																?>
-															</select>
+
+
+
 
 
 															<div class="form-group row">
 																<?php
+
+
+																//$url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=21.518669,39.2590863&radius=5000&name=university,hospital&key=AIzaSyDw_Thx2J7uq9eaqeb-WmZ2fBzUz7hZYGE';
+																//$json = file_get_contents($url);
+																//$data_map = json_decode($json);
+																//print_r($data_map);
+
 																$Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,$LIST_CLIENT,$CUSTOMER_CATEGORY,$TYPE_OF_PROPERTY,$TYPES_OF_REAL_ESTATE_APPRAISAL,'All');
 
 																foreach ($Get_Fields_Components as $GFC)
@@ -290,8 +318,6 @@
 
 																			?>
 
-
-
 																		</div>
 
 																		<?php
@@ -301,18 +327,18 @@
 
 																		<div class="col-lg-4 mt-5">
 																			<?php
-																			$class_List      = array( 0 => "selectpicker");
-																			Building_List_Forms($RC->Forms_id,
-																					$RC->components_id,
-																					$GFC['Fields_id'],
-																					$multiple = '',
-																					$selected='',
-																					$style='',
-																					$id='',
-																					$class = array( 0=> "selectpicker"),
-																					$disabled='',
-																					$label='',
-																					$js='');
+//																			$class_List      = array( 0 => "selectpicker");
+//																			Building_List_Forms($RC->Forms_id,
+//																					$RC->components_id,
+//																					$GFC['Fields_id'],
+//																					$multiple = '',
+//																					$selected='',
+//																					$style='',
+//																					$id='',
+//																					$class = array( 0=> "selectpicker"),
+//																					$disabled='',
+//																					$label='',
+//																					$js='');
 																			?>
 																		</div>
 																		<?php
@@ -321,7 +347,7 @@
 																} // foreach
 																?>
 															</div><!-- <div class="form-group row"> -->
-															<?php
+														<?php
 														}
 														?>
 													</div>
@@ -332,7 +358,7 @@
 
 												<!--begin: Wizard Step 3-->
 												<div class="p-5" data-wizard-type="step-content">
-													<?= $this->load->view('../../modules/App_Transactions/views/Template/Tamplate_Ajax_Uploaded_File_Previewer', $this->data); ?>
+													<?= $this->load->view('../../modules/App_Transactions/views/Previewer/Tamplate_Ajax_Uploaded_File_Previewer', $this->data); ?>
 												</div>
 												<!--end: Wizard Step 3-->
 
@@ -390,14 +416,18 @@
 																} // if(){ Fields ignor
 
 
+
 															} // foreach
 
-															$this->load->view('../../modules/App_Transactions/views/Template/Template_Total_Evluation_Preview_Property');
+
 															?>
 														</div><!-- <div class="form-group row"> -->
 														<?php
 													}
+
+													$this->load->view('../../modules/App_Transactions/views/Template/Template_Total_Evluation_Preview_Property');
 													?>
+
 
 
 
@@ -458,105 +488,128 @@
 <?= $this->load->view('../../modules/App_Transactions/views/Template/modal_add_Comparisons', $this->data); ?>
 
 
-<script src="//maps.google.com/maps/api/js?key=AIzaSyBMkLi0BxMHoFVI2CKxGHdduypMeA1I6wk&sensor=false&libraries="></script>
-
-
-<?= import_js(BASE_ASSET.'plugins/custom/gmaps/gmaps',''); ?>
 
 
 <script type="text/javascript">
 
+	function Get_Ajax_Data_Table_Land_Comparisons() {
+		var Transactions_id        = <?= $Transactions->transaction_id ?>;
+		var Coordination_id        = <?= $Coordination->Coordination_id ?>;
+		$.ajax({
+			url : "<?= base_url(APP_NAMESPACE_URL . '/Transactions/Ajax_Comparisons_Land_Comparisons') ?>",
+			type:'get',
+			data: {
+				Transactions_id:Transactions_id,Coordination_id:Coordination_id
+			},
+			dataType: 'html',
+			beforeSend: function(){
+				$('#Ajax_Data_Table_Land_Comparisons').append("<div style='text-align: center;'><i class='fa fa-spinner fa-spin fa-5x fa-fw'></i></div>")
+			},
+			success: function(response) {
+				$("#Ajax_Data_Table_Land_Comparisons").empty();
+				$("#Ajax_Data_Table_Land_Comparisons").html(response);
+			},
+			error: function(){
+
+			}
+		});
+	} // Get_All_Data_Ajax()
+
+
+	Get_Ajax_Data_Table_Land_Comparisons();
+
 
 	/*************************** START MAP ****************************************/
-	var map = new GMaps({ div: '#map-content' , lat: 23.7112692 , lng: 44.4579123 });
+	        var map = new GMaps({ div: '#map-content' , lat: 23.7112692 , lng: 44.4579123 });
+	        GMaps.geolocate({
+				success: function(position) {
+					map.setCenter(position.coords.latitude, position.coords.longitude);
 
+					$("#LATITUDE").val(position.coords.latitude);
+					$("#LONGITUDE").val(position.coords.longitude);
 
+					map.addMarker({
+						lat: position.coords.latitude,
+						lng: position.coords.longitude,
+						zoom: 14,
+						draggable: true,
+						streetViewControl:false,
+						dragend: function(event) {
 
-		GMaps.geolocate({
-			success: function(position) {
-				map.setCenter(position.coords.latitude, position.coords.longitude);
+							var lat = event.latLng.lat();
+							var lng = event.latLng.lng();
 
-				$("#LATITUDE").val(position.coords.latitude);
-				$("#LONGITUDE").val(position.coords.longitude);
+							$("#LATITUDE").val(lat);
+							$("#LONGITUDE").val(lng);
 
-				map.addMarker({
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-					zoom: 14,
-					draggable: true,
-					streetViewControl:false,
-					dragend: function(event) {
+							map.setCenter(lat,lng);
+							map.refresh();
 
-						var lat = event.latLng.lat();
-						var lng = event.latLng.lng();
+							pos = {
+								lat: lat,
+								lng: lng
+							};
+						},
+						title: 'الموقع الحالي',
+						infoWindow: {
+							content: '<span  data-container="body" data-offset="20px 20px" data-toggle="popover" data-placement="top" data-content="الموقع الحالي">  </span>'
+						}
+					});
 
-						$("#LATITUDE").val(lat);
-						$("#LONGITUDE").val(lng);
+				},
+				error: function(error) {
+					swal.fire("خطا ", "لا يمكن العثور على الموقع الجغرافي ", "error");
+				},
+				not_supported: function() {
+					swal.fire("خطا ", "المتصفح لا يدعم الموقع الجغرافي ", "error");
+				},
+				always: function() {
 
-						map.setCenter(lat,lng);
-						map.refresh();
-					},
-					title: 'الموقع الحالي',
-					infoWindow: {
-						content: '<span  data-container="body" data-offset="20px 20px" data-toggle="popover" data-placement="top" data-content="الموقع الحالي">  </span>'
-					}
-				});
+				}
+			});
 
-			},
-			error: function(error) {
-				swal.fire("خطا ", "لا يمكن العثور على الموقع الجغرافي ", "error");
-			},
-			not_supported: function() {
-				swal.fire("خطا ", "المتصفح لا يدعم الموقع الجغرافي ", "error");
-			},
-			always: function() {
+			$('#geo-zoom').change(function(){
+				var ToZoom = parseInt($("#geo-zoom").find(":selected").text());
 
-			}
-		});
+				map.setZoom(ToZoom);
+			});
 
-		$('#geo-zoom').change(function(){
-			var ToZoom = parseInt($("#geo-zoom").find(":selected").text());
+			 $('#LATITUDE,#LONGITUDE').blur(function() {
+				var LATITUDE  = $("#LATITUDE").val();
+				var LONGITUDE = $("#LONGITUDE").val();
 
-			map.setZoom(ToZoom);
-		});
+				if(LATITUDE.length > 3  || LONGITUDE.length > 3  ){
 
-		$('#LATITUDE,#LONGITUDE').blur(function() {
-			var LATITUDE  = $("#LATITUDE").val();
-			var LONGITUDE = $("#LONGITUDE").val();
+					map.removeMarkers();
 
-			if(LATITUDE.length > 3  || LONGITUDE.length > 3  ){
+					map.addMarker({
+						lat: LATITUDE,
+						lng: LONGITUDE,
+						zoom: 14,
+						draggable: true,
+						streetViewControl:false,
+						dragend: function(event) {
 
-				map.removeMarkers();
+							var lat = event.latLng.lat();
+							var lng = event.latLng.lng();
 
-				map.addMarker({
-					lat: LATITUDE,
-					lng: LONGITUDE,
-					zoom: 14,
-					draggable: true,
-					streetViewControl:false,
-					dragend: function(event) {
+							$("#LATITUDE").val(lat);
+							$("#LONGITUDE").val(lng);
 
-						var lat = event.latLng.lat();
-						var lng = event.latLng.lng();
+							map.setCenter(lat,lng);
+							map.refresh();
+						},
+						title: 'الموقع الحالي',
+						infoWindow: {
+							content: '<span  data-container="body" data-offset="20px 20px" data-toggle="popover" data-placement="top" data-content="الموقع الحالي">  </span>'
+						}
+					});
 
-						$("#LATITUDE").val(lat);
-						$("#LONGITUDE").val(lng);
+					map.setCenter(LATITUDE,LONGITUDE);
+					map.refresh();
+				}
 
-						map.setCenter(lat,lng);
-						map.refresh();
-					},
-					title: 'الموقع الحالي',
-					infoWindow: {
-						content: '<span  data-container="body" data-offset="20px 20px" data-toggle="popover" data-placement="top" data-content="الموقع الحالي">  </span>'
-					}
-				});
-
-				map.setCenter(LATITUDE,LONGITUDE);
-				map.refresh();
-			}
-
-		});
-
+			});
 		/*************************** END MAP ****************************************/
 
 
@@ -683,15 +736,4 @@
 				$('#MARKET_VALUE_Approximate').val(Math.round(MARKET_VALUE));
 
 			});
-
-
-
-			$('#Form_Land_Comparisons_Submit').click(function(e){
-				e.preventDefault();
-			});
-
-			$('#Form_Building_Comparisons_Submit').click(function(e){
-				e.preventDefault();
-			});
-
 </script>

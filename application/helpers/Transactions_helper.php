@@ -113,7 +113,6 @@ if(!function_exists('Create_Transaction')) {
 } // if(!function_exists('Create_Transaction'))
 ##############################################################################
 
-
 ##############################################################################
 if(!function_exists('Create_Transaction_data')) {
 
@@ -191,6 +190,27 @@ if(!function_exists('Create_Transaction_data_history')) {
 ##############################################################################
 
 ##############################################################################
+if(!function_exists('Transaction_data_by_key_history')) {
+
+    function Transaction_data_by_key_history($transaction_id,$Forms_id,$Components_id,$key)
+    {
+        $query = app()->db->where('Transaction_id',$transaction_id);
+        $query = app()->db->where('Forms_id',$Forms_id);
+        $query = app()->db->where('Components_id',$Components_id);
+        $query = app()->db->where('data_key',$key);
+        $query = app()->db->get('protal_transaction_data_history');
+        if($query->num_rows()>0){
+            return $query->row()->data_value;
+        }else{
+            return false;
+        }
+
+    }
+
+} // if(!function_exists('Create_Transaction'))
+##############################################################################
+
+##############################################################################
 if(!function_exists('Create_Transaction_files')) {
 
     function Create_Transaction_files($data)
@@ -260,7 +280,6 @@ if(!function_exists('Get_Stages_Transaction_Company')) {
 } // Get_Stages_Transaction_Company($where)
 ##############################################################################
 
-
 ########################################################################
 if(!function_exists('insert_Stages_Transaction')) {
 
@@ -325,7 +344,6 @@ if(!function_exists('Update_Stages_Transaction')) {
     }
 }
 ########################################################################
-
 
 ##############################################################################
 if(!function_exists('Assignment_Transaction_Departments_To')) {
@@ -397,7 +415,6 @@ if(!function_exists('Assignment_Transaction_Departments_To')) {
 
 } // Get_Stages_Transaction_Company($where)
 ##############################################################################
-
 
 ##############################################################################
 if(!function_exists('Get_Receipt_Emp_Permissions')) {

@@ -19,9 +19,7 @@
         <!--end::Info-->
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-	        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transactions->uuid.'/'.$Coordination->Coordination_uuid) ?>" class="btn btn-success">
-		        <i class="flaticon2-arrow"></i>   العودة الى لوحة المعاين
-	        </a>
+
         </div>
         <!--end::Toolbar-->
     </div>
@@ -33,7 +31,7 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
-        <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Photo_Preview_Property/'.$Transactions->uuid.'/'.$Coordination->Coordination_uuid) ?>" enctype="multipart/form-data" method="post">
+        <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Preview_Property') ?>" enctype="multipart/form-data" method="post">
             <?= CSFT_Form() ?>
 
 
@@ -46,12 +44,12 @@
             $TYPE_OF_PROPERTY               = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPE_OF_PROPERTY');
             $TYPES_OF_REAL_ESTATE_APPRAISAL = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
 
-            $Form_Components  = Get_View_Components_Customs(16,$LIST_CLIENT,$CUSTOMER_CATEGORY,$TYPE_OF_PROPERTY,$TYPES_OF_REAL_ESTATE_APPRAISAL);
+            $Form_Components  = Get_View_Components_Customs(14,$LIST_CLIENT,$CUSTOMER_CATEGORY,$TYPE_OF_PROPERTY,$TYPES_OF_REAL_ESTATE_APPRAISAL);
 
             foreach ($Form_Components->result() AS $RC)
             {
                 ?>
-                <input type="hidden" name="Form_id" value="16">
+                <input type="hidden" name="Form_id" value="14">
                 <input type="hidden" name="Transaction_id" value="<?= $Transactions->transaction_id ?>">
                 <div class="card card-custom mt-10">
 
@@ -78,56 +76,52 @@
                             foreach ($Get_Fields_Components as $GFC)
                             {
 
-                                if($GFC['Fields_Type_Components'] == 'Fields')
-                                {
-                                ?>
+                                if($GFC['Fields_Type_Components'] == 'Fields'){
 
+                                    $Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
+                                    $Get_Fields       = Get_Fields($Where_Get_Fields)->row();
+                                    ?>
 
-	                                <fieldset class="todos_labels_<?= $RC->components_id ?>">
-		                                <div class="repeatable"></div>
-		                                <div class="form-group row mt-10">
-			                                <input type="button" value="اضف المزيد" class="btn btn-primary add_<?= $RC->components_id ?>" align="center">
-		                                </div>
-	                                </fieldset>
+                                    <div class="col-lg-3 mt-5">
+                                        <?php
+                                        echo Building_Field_Forms($Get_Fields->Fields_key,
+		                                        true,
+		                                        $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,
+		                                        '',
+		                                        $Get_Fields->Fields_key,
+		                                        '',
+		                                        '',
+		                                        '',
+		                                        '',
+		                                        '',
+		                                        '');
 
-	                                <script type="text/template" id="todos_labels_<?= $RC->components_id ?>">
-		                                <div class="field-group form-group row">
-			                                <div class="col-lg-4 mt-5">
-				                                <label for="NameFile_{?}">اسم الملف</label>
-				                                <input type="text" name="FILE_Name[]" id="FILE_Name[{?}]"  class="form-control">
-				                                <input type="hidden" name="components_id[]" id="components_id[{?}]"  value="<?= $RC->components_id ?>">
-				                                <input type="hidden" name="Forms_id[]" id="Forms_id[{?}]"  value="<?= $RC->Forms_id ?>">
-				                                <input type="hidden" name="preview_id[]" id="preview_id[{?}]"  value="<?= $Coordination->Coordination_id ?>">
-			                                </div>
-			                                <div class="col-lg-4 mt-5">
-				                                <label for="File_{?}">الملف</label>
-				                                <input type="file" name="FILE[]" id="FILE[{?}]" class="form-control-file">
-			                                </div>
-			                                <div class="col-lg-4 mt-5">
-				                                <label for=""></label>
-				                                <input type="button" class="btn btn-danger span-2 delete_<?= $RC->components_id ?>" value="حذف" />
-			                                </div>
-		                                </div>
-	                                </script>
+                                        ?>
+                                    </div>
 
+                                    <?php
 
-                                <?= import_js(BASE_ASSET.'plugins/jquery.repeatable',''); ?>
-	                                <script>
-		                                $(function() {
-			                                $(".todos_labels_<?= $RC->components_id ?> .repeatable").repeatable({
-				                                addTrigger: ".todos_labels_<?= $RC->components_id ?> .add_<?= $RC->components_id ?>",
-				                                deleteTrigger: ".todos_labels_<?= $RC->components_id ?> .delete_<?= $RC->components_id ?>",
-				                                template: "#todos_labels_<?= $RC->components_id ?>",
-				                                startWith: 1,
-				                                min:1,
-				                                max:5
-			                                });
-		                                });
-	                                </script>
+                                }elseif($GFC['Fields_Type_Components'] == 'List'){
+                                    ?>
 
-	                            <?php
+                                    <div class="col-lg-3 mt-5">
+                                        <?php
+                                        $class_List      = array( 0 => "selectpicker");
+                                        Building_List_Forms($RC->Forms_id,
+                                            $RC->components_id,
+                                            $GFC['Fields_id'],
+                                            $multiple = '',
+                                            $selected='',
+                                            $style='',
+                                            $id='',
+                                            $class = array( 0=> "selectpicker"),
+                                            $disabled='',
+                                            $label='',
+                                            $js='');
+                                        ?>
+                                    </div>
+                                    <?php
                                 }
-
 
                             } // foreach
                             ?>
@@ -170,30 +164,10 @@
                 if($Assignment_Type->attribution_method == 1){
                     echo '<input type="hidden" name="Assignment_userid" value="'.$Get_Stages_Transaction['userid'].'">';
                 }elseif($Assignment_Type->attribution_method == 2){
-                    ?>
-                    <div class="card card-custom mb-5 mt-5">
-                        <!--begin::Header-->
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h3 class="card-label">تحويل الطلب الى </h3>
-                            </div>
-                        </div>
-                        <!--begin::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body">
-                            <select name="Assignment_userid" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
-                                <?php
-                                $t = 'عدد المعاملات الحالية :';
-                                foreach ($Get_Stages_Transaction AS $key_user)
-                                {
-                                    echo '<option  data-subtext="  '.$t.$key_user['Assignment_Num'].'" value="'.$key_user['userid'].'">'.$key_user['full_name'].'</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <!--begin::Body-->
-                    </div>
-                    <?php
+
+	                $data_Assignment_Stages_Transaction['Stages_Transaction'] = $Get_Stages_Transaction;
+	                $this->load->view('../../modules/App_Transactions/views/Assignment_Transaction/Assignment_Transaction_userid',$data_Assignment_Stages_Transaction);
+
                 } // if($Assignment_Type->attribution_method == 1)
                 ?>
 
@@ -205,6 +179,7 @@
                                 <button type="submit"   class="btn btn-primary mr-2"> حفظ البيانات  </button>
                             </div>
                             <div class="col-lg-6 text-lg-right">
+                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/#') ?>" class="btn btn-danger"><?= lang('cancel_button') ?></a>
                             </div>
                         </div>
                     </div>

@@ -170,7 +170,7 @@ $Form_id = $this->uri->segment(4);
 							    "data-attribute" => "",
 							    "class"          => "",
 							    "id"             => "",
-							    "href"           => base_url('')
+							    'href' => base_url(ADMIN_NAMESPACE_URL.'/Forms/Deleted_Components/'.$RC->Forms_id.'/'.$RC->components_id)
 					    );
 
 					    $options_Components['custom'] = array(
@@ -271,6 +271,14 @@ $Form_id = $this->uri->segment(4);
 							    </td>
 							    <td class="text-center">
 								    <?php
+
+								    $options['deleted'] = array(
+										    "class"          => '',
+										    "id"             => '',
+										    "title"          => 'حذف',
+										    "data-attribute" => '',
+										    "href"           => base_url(ADMIN_NAMESPACE_URL.'/Forms/Deleted_Fields_Components/'.$RC->Forms_id.'/'.$RC->components_id.'/'.$GFC['Fields_id_Components'])
+								    );
 
 								    $options['custom'] = array(
 										    "class"          => '',

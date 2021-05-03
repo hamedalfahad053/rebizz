@@ -81,7 +81,7 @@
 
 			            <div class="col-lg-4 mt-5">
 				            <label>العميل</label>
-				            <select name="LIST_CLIENT" id="LIST_CLIENT" multiple="multiple"  class="form-control selectpicker" title="الرجاء إختيار العميل">
+				            <select name="LIST_CLIENT[]" id="LIST_CLIENT" multiple="multiple"  class="form-control selectpicker" title="الرجاء إختيار العميل">
 
 					            <?php
 					            $where_Client_Company = array(

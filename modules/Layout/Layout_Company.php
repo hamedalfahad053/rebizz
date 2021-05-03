@@ -312,6 +312,27 @@
 		                </li>
 
 
+		                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+			                    <a href="javascript:;" class="menu-link menu-toggle">
+				                    <span class="svg-icon menu-icon"><i class="flaticon2-settings text-primary"></i></span>
+				                    <span class="menu-text">اعدادت المعاينين </span>
+				                    <i class="menu-arrow"></i>
+			                    </a>
+			                    <div class="menu-submenu">
+				                    <i class="menu-arrow"></i>
+				                    <ul class="menu-subnav">
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/Form_Add_Transaction_Reports ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> التوزيع الجغرافي  </span></a>
+					                    </li>
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/index ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> اتعاب الزيارات </span></a>
+					                    </li>
+				                    </ul>
+			                    </div>
+		                    </li>
+
 		                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 			                    <a href="javascript:;" class="menu-link menu-toggle">
 				                    <span class="svg-icon menu-icon"><i class="flaticon2-settings text-primary"></i></span>
@@ -323,12 +344,19 @@
 				                    <ul class="menu-subnav">
 					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/Form_Add_Transaction_Reports ') ?>" class="menu-link menu-toggle">
-							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> انشاء تقرير جديد </span></a>
+							                <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> انشاء تقرير جديد </span></a>
 					                    </li>
+
 					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/index ') ?>" class="menu-link menu-toggle">
-							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> ادارة التقارير </span></a>
+							                <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> ادارة التقارير </span></a>
 					                    </li>
+
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/index ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> نصوص التقارير </span></a>
+					                    </li>
+
 				                    </ul>
 			                    </div>
 		                </li>
@@ -337,7 +365,7 @@
 
 	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 		                    <a href="javascript:;" class="menu-link menu-toggle">
-			                    <span class="svg-icon menu-icon"><i class="flaticon-imac text-primary"></i></span>
+			                    <span class="svg-icon menu-icon"><i class="flaticon2-settings text-primary"></i></span>
 			                    <span class="menu-text">اعدادت النماذج والحقول </span>
 			                    <i class="menu-arrow"></i>
 		                    </a>
@@ -367,7 +395,7 @@
 
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= base_url(APP_NAMESPACE_URL.'/Locations') ?>" class="menu-link">
-                                <i class="menu-icon  text-primary flaticon2-favourite"></i>
+                                <i class="menu-icon  text-primary flaticon2-settings"></i>
                                 <span class="menu-text  text-primary"> ادارة  الفروع </span>
                             </a>
                         </li>
@@ -400,22 +428,22 @@
                             </div>
                         </li>
 
-	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-		                    <a href="javascript:;" class="menu-link menu-toggle">
-			                    <span class="svg-icon menu-icon"><i class="flaticon2-rubbish-bin-delete-button text-danger"></i></span>
-			                    <span class="menu-text"> ادارة المحذوفات </span>
-			                    <i class="menu-arrow"></i>
-		                    </a>
-		                    <div class="menu-submenu">
-			                    <i class="menu-arrow"></i>
-			                    <ul class="menu-subnav">
-				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-					                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Forms_Transaction ') ?>" class="menu-link menu-toggle">
-						                    <span class="menu-icon"><i class="flaticon-delete-1 text-danger"></span></i><span class="menu-text  text-danger"">محذوفات الاقسام الوظيفية</span></a>
-				                    </li>
-			                    </ul>
-		                    </div>
-	                    </li>
+<!--	                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">-->
+<!--		                    <a href="javascript:;" class="menu-link menu-toggle">-->
+<!--			                    <span class="svg-icon menu-icon"><i class="flaticon2-rubbish-bin-delete-button text-danger"></i></span>-->
+<!--			                    <span class="menu-text"> ادارة المحذوفات </span>-->
+<!--			                    <i class="menu-arrow"></i>-->
+<!--		                    </a>-->
+<!--		                    <div class="menu-submenu">-->
+<!--			                    <i class="menu-arrow"></i>-->
+<!--			                    <ul class="menu-subnav">-->
+<!--				                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">-->
+<!--					                    <a href="--><?//= base_url(APP_NAMESPACE_URL.'/Forms_Transaction ') ?><!--" class="menu-link menu-toggle">-->
+<!--						                    <span class="menu-icon"><i class="flaticon-delete-1 text-danger"></span></i><span class="menu-text  text-danger"">محذوفات الاقسام الوظيفية</span></a>-->
+<!--				                    </li>-->
+<!--			                    </ul>-->
+<!--		                    </div>-->
+<!--	                    </li>-->
 	                    <?php
 	                    }
 	                    ?>

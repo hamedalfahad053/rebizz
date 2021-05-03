@@ -91,6 +91,61 @@ if(!function_exists('Read_Notifications'))
 
 
 
+##############################################################################
+if(!function_exists('Create_Email_Notifications'))
+{
+
+    function Create_Email_Notifications($Data_Email)
+    {
+        $localhosts = array(
+            '::1',
+            '127.0.0.1',
+            'localhost'
+        );
+
+        $protocol = 'mail';
+
+        if (in_array($_SERVER['REMOTE_ADDR'], $localhosts)) {
+            $protocol = 'smtp';
+        }
+
+        $config = array(
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'wordwrap'  => TRUE,
+            'protocol'  => $protocol,
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smpt_timeout' => '30',
+            'smtp_user' => 'hamedalfahad@gmail.com',
+            'smtp_pass' => 'hamedSAAD@202020',
+            'starttls'  => true,
+            'newline'   => "\r\n",
+        );
+
+        app()->load->library('email',$config);
+
+        app()->email->clear();
+        app()->email->to($Data_Email['to']);
+        app()->email->from($Data_Email['from']);
+        app()->email->set_mailtype("html");
+        app()->email->set_newline("\r\n");
+        app()->email->set_crlf("\r\n");
+        app()->email->subject($Data_Email['subject']);
+        app()->email->message($Data_Email['message']);
+        $send = app()->email->send();
+
+        if($send){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+}
+##############################################################################
+
 
 
 

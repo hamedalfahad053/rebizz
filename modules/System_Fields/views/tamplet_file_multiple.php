@@ -19,18 +19,26 @@
 			extraHTML:function()
 			{
 				var html = "<div class='form-group'>";
-						html += "<div class='col-lg-12'><label>اسم المستند</label><input type='text' class='form-control' name='file_name' value='' /></div>";
+						html += "<div class='col-lg-12'><label>وصف المستند</label><input type='text' class='form-control' required name='file_name' value='' /></div>";
 						html += "<div class='col-lg-12 mt-5'><label>نوع المستند</label>";
 				        html += '<?php echo  $get_list_type_file ?>';
 				        html += "</div>";
 					html += "</div>";
 				return html;
 			},
-			autoSubmit:false,
 			onSuccess:function(files,data,xhr,pd)
 			{
 				$("#message_file_uploader").html($("#message_file_uploader").html() + data);
-			}
+
+				//$('<input name="files_Transaction_ids[]" type="hidden" value="'+ data.uuid_file +'">').appendTo('#message_file_uploader');
+
+
+			},
+			afterUploadAll:function(obj)
+			{
+				swal.fire("نجاح",'تم تحميل جميع المرفقات', "success");
+			},
+			autoSubmit:false
 		});
 
 		$("#extrabutton").click(function(){

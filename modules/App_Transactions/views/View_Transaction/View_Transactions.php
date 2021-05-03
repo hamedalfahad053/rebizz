@@ -35,7 +35,7 @@
 
 
 
-
+	    <?php echo  $this->session->flashdata('message'); ?>
 
 
 							    <div class="card card-custom mb-3 mt-2">

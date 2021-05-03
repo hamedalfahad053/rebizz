@@ -74,13 +74,19 @@
 						    ?>
 						    <tr>
 							    <td class="text-center">
+
+
 								    <img src="
 								    <?php
+
 								    $path = $LoginUser_Company_Path_Folder.'/'.FOLDER_FILE_Company_client_logo.'/';
 								    echo Get_Client_Logo($LoginUser_Company_Path_Folder,$this->aauth->get_user()->company_id,Transaction_data_by_key($Row['transaction_id'],1,1,'LIST_CLIENT'));
 								    ?>"  height="35" width="35" >
+
 								    <br>
+
 								    <?= date('Ymd',$Row['Create_Transaction_Date']).$Row['transaction_id'];?>
+
 							    </td>
 
 							    <?php

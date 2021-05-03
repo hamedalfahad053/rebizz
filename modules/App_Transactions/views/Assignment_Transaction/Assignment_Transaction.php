@@ -20,6 +20,10 @@
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
 
+	        <?= Create_One_Button_Text(array('title'=>  'اضافة موظف لفريق العمل','href'=>base_url(APP_NAMESPACE_URL.'/Transactions/New_Assign_Transaction/'.$this->uri->segment(4)))) ?>
+	        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/View_Transaction/'.$this->uri->segment(4)) ?>" class="btn btn-success">
+		        <i class="flaticon2-arrow"></i>   العودة للمعاملة
+	        </a>
         </div>
         <!--end::Toolbar-->
     </div>
@@ -31,6 +35,8 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
+
+	    <?php echo  $this->session->flashdata('message'); ?>
         <div class="card card-custom mb-5 mt-10">
 
             <div class="card-header">
@@ -49,7 +55,6 @@
                         <th class="text-center">#</th>
                         <th class="text-center">الموظف</th>
                         <th class="text-center">القسم</th>
-                        <th class="text-center">المسمى الوظيفي</th>
                         <th class="text-center">تاريخ الاضافة</th>
                         <th class="text-center">الحالة</th>
                         <th class="text-center">الخيارات</th>
@@ -65,11 +70,29 @@
                             <tr>
                                 <td class="text-center"><?= ++$i ?></td>
                                 <td class="text-center"><?= $R['assign_userid'] ?></td>
+                                <td class="text-center"><?= $R['Department'] ?></td>
                                 <td class="text-center"><?= $R['assign_time'] ?></td>
-                                <td class="text-center"></td>
-                                <td class="text-center"></td>
-                                <td class="text-center"></td>
-                                <td class="text-center"></td>
+                                <td class="text-center">
+	                                <?php
+	                                if($R['assign_type'] == 1) {
+		                                echo Create_Status_badge(array("key"=>"Success","value"=> 'نشط'));
+	                                }else{
+		                                echo Create_Status_badge(array("key"=>"Danger", "value"=> 'غير نشط'));
+	                                }
+	                                ?>
+                                </td>
+                                <td class="text-center">
+	                                <?php
+	                                if($R['assign_type'] == 0) {
+		                                $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '',
+				                                "href" => base_url(APP_NAMESPACE_URL.'/Transactions/Reset_Assign_Transaction/'.$R['uuid'].'/'.$this->uri->segment(4)) );
+	                                }else {
+		                                $options['disable'] = array("class"=>"","id"=>"","title" => lang('disable_button'), "data-attribute" => '',
+				                                "href" => base_url(APP_NAMESPACE_URL.'/Transactions/Unset_Assign_Transaction/'.$R['uuid'].'/'.$this->uri->segment(4)));
+	                                }
+	                                echo Create_Options_Button($options);
+	                                ?>
+                                </td>
                             </tr>
                             <?php
                             }
@@ -85,3 +108,14 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('.data_table').DataTable({
+			responsive: true
+		});
+
+	});
+</script>

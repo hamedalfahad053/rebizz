@@ -39,9 +39,6 @@ class App_Company_Settings_Transactions extends Apps
     ###################################################################
     public function Setting_Receipt_Transactions()
     {
-
-
-
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Company_Settings'));
 

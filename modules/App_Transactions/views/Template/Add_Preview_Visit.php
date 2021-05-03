@@ -137,11 +137,14 @@
 						        ?>
 					        </select>
 
-					        <br>
-
-					        <textarea name="preview_SMS_text" id="preview_SMS_text" class="form-control"></textarea>
+					        <div class="col-lg-12 mt-5">
+						        <textarea name="preview_SMS_text" maxlength="140"  placeholder="Top left" id="preview_SMS_text" class="form-control"></textarea>
+					        </div>
 
 				        </div>
+
+
+
 				        <div class="col-lg-6"  id="preview_Email" style="display: none">
 					        <label>اختر رسالة البريد الالكتروني</label>
 					        <select name="preview_Email"  class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
@@ -158,10 +161,16 @@
 						        ?>
 					        </select>
 
-					        <textarea name="preview_Email_text"  id="preview_Email_text" class="form-control"></textarea>
+					        <div class="col-lg-12  mt-5">
+						        <textarea name="preview_Email_text"  id="preview_Email_text" class="form-control"></textarea>
+					        </div>
 
 				        </div>
+
+
+
 			        </div>
+
 
 		        </div>
 		        <!--begin::Body-->
@@ -231,6 +240,12 @@
 			$("#preview_Email").hide();
 		}
 	}
+
+	$('#preview_SMS_text').maxlength({
+		threshold: 140,
+		warningClass: "label label-warning label-rounded label-inline",
+		limitReachedClass: "label label-success label-rounded label-inline"
+	});
 
 
 </script>

@@ -97,8 +97,6 @@ if(!function_exists('Get_Client_Logo'))
         $query = app()->db->where('company_id',$Company_id);
         $query = app()->db->get('portal_app_client');
 
-        //_array_p(app()->db->error());
-
             if($query->num_rows()>0){
 
                 if($query->row()->logo == ''){
@@ -110,8 +108,6 @@ if(!function_exists('Get_Client_Logo'))
             }else{
                 $logo = LOGO_DEFAULT_CLIENT;
             }
-
-
 
         return $logo;
     }

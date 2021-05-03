@@ -329,6 +329,38 @@ class System_Forms extends Admin
     ###################################################################
 
     ###################################################################
+    public function Deleted_Components()
+    {
+            $Forms_id      =  $this->uri->segment(4);
+            $components_id =  $this->uri->segment(5);
+
+
+        $Deleted_Components = $this->db->where('Forms_id',$Forms_id);
+        $Deleted_Components = $this->db->where('components_id',$components_id);
+        $Deleted_Components = $this->db->delete('portal_forms_components');
+
+            if ($Deleted_Components) {
+
+                $msg_result['key'] = 'Success';
+                $msg_result['value'] = lang('message_success_insert');
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(ADMIN_NAMESPACE_URL . '/Forms/Form_Components/' . $Forms_id, 'refresh');
+
+            } else {
+
+                $msg_result['key'] = 'Danger';
+                $msg_result['value'] = validation_errors();
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(ADMIN_NAMESPACE_URL . '/Forms/Form_Components/' . $Forms_id, 'refresh');
+
+            }
+
+    }
+    ###################################################################
+
+    ###################################################################
     public function Form_Add_Fields_Components()
     {
         $this->data['Page_Title'] = ' اضافة حقل للمكون  ';
@@ -687,6 +719,36 @@ class System_Forms extends Admin
         }
     }
     ###################################################################
+
+    ###################################################################
+    public function Deleted_Fields_Components()
+    {
+        $Forms_id             =  $this->uri->segment(4);
+        $components_id        =  $this->uri->segment(5);
+        $Fields_id_Components =  $this->uri->segment(6);
+
+        $Deleted_Components = $this->db->where('Forms_id',$Forms_id);
+        $Deleted_Components = $this->db->where('components_id',$components_id);
+        $Deleted_Components = $this->db->where('Components_fields_id',$Fields_id_Components);
+        $Deleted_Components = $this->db->delete('portal_forms_components_fields');
+
+        if ($Deleted_Components) {
+            $msg_result['key'] = 'Success';
+            $msg_result['value'] = lang('message_success_insert');
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(ADMIN_NAMESPACE_URL . '/Forms/Form_Components/' . $Forms_id, 'refresh');
+        } else {
+            $msg_result['key'] = 'Danger';
+            $msg_result['value'] = validation_errors();
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(ADMIN_NAMESPACE_URL . '/Forms/Form_Components/' . $Forms_id, 'refresh');
+        }
+
+    }
+    ###################################################################
+
 
     ###################################################################
     public function Sort_Components_Form()
