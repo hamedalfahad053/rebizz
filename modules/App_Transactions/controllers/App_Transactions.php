@@ -308,7 +308,7 @@ class App_Transactions extends Apps
 
             //ignore $_POST
             if($key == 'Assignment_userid' or $key =="ci_csrf_token" or $key =="Form_id" or $key =="FILE_Name" or $key =="FILE" or $key=='file_name' or $key=='LIST_TRANSACTION_DOCUMENTS'
-            or $key=='files_Transaction_ids'){
+            or $key =='files_Transaction_ids'){
 
             }else {
 
@@ -399,8 +399,6 @@ class App_Transactions extends Apps
 
 
         // update file
-
-
         ##########################################################################################################################################
         if($Create_Transaction and $Create_Transaction_data){
 
@@ -437,13 +435,11 @@ class App_Transactions extends Apps
                 redirect(APP_NAMESPACE_URL . '/Transactions/', 'refresh');
 
         } else {
-
                 $msg_result['key'] = 'Danger';
                 $msg_result['value'] = validation_errors();
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
                 redirect(APP_NAMESPACE_URL . '/Transactions', 'refresh');
-
         }
 
     }
@@ -476,11 +472,8 @@ class App_Transactions extends Apps
             $Query_Fields            = Query_Fields_Components($Where_Fields_Components);
 
             if($Query_Fields->num_rows()>0){
-
-
                 $this->data['Query_Fields'] = $Query_Fields->row();
                 $this->data['Transactions']  = $Get_Transactions->row();
-
             }else{
                 $msg_result['key'] = 'Danger';
                 $msg_result['value'] = ' عملية غير صحيحة ';
@@ -488,8 +481,6 @@ class App_Transactions extends Apps
                 set_message($msg_result_view);
                 redirect(APP_NAMESPACE_URL . '/Transactions/', 'refresh');
             }
-
-
 
             Create_Logs_User('Edit_Data_Transaction','','Transaction','Edit_Data');
 
@@ -499,15 +490,12 @@ class App_Transactions extends Apps
             $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/Edit_Data_Transaction', $this->data, true);
             Layout_Apps($this->data);
 
-
         }else{
-
             $msg_result['key'] = 'Danger';
             $msg_result['value'] = ' عملية غير صحيحة ';
             $msg_result_view = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
             redirect(APP_NAMESPACE_URL . '/Transactions/', 'refresh');
-
         }
 
     }
@@ -517,24 +505,83 @@ class App_Transactions extends Apps
     public function Update_Data_Transactions()
     {
 
-        $this->data['Page_Title']     = '  سجل بيانات الحقل';
+            $this->data['Page_Title']     = ' تحديث بيانات الحقل';
+
+            $POST_Fields = $_POST;
+
+            $Transaction_uuid = $this->uri->segment(4);
+
+            $this->form_validation->set_rules('data_uuid','','required');
+            $this->form_validation->set_rules('Form_id','','required');
+            $this->form_validation->set_rules('Components_id','','required');
+            $this->form_validation->set_rules('Transaction_id','','required');
+            $this->form_validation->set_rules('Reason_modification','','required');
+
+            foreach($POST_Fields AS $key => $value) {
 
 
-        $this->form_validation->set_rules('Form_id','','required');
-        $this->form_validation->set_rules('Components_id','','required');
-        $this->form_validation->set_rules('Transaction_id','','required');
+                //ignore $_POST
+                if ($key == 'Form_id' or $key == "ci_csrf_token" or $key == "Components_id" or $key == "Transaction_id" or $key == 'Reason_modification') {
 
-        $key          = $this->input->post('Form_id');
-        $explode_Post = explode("-",$key);
+                } else {
 
-        $Fields_Components = Query_Fields_Components(
-            array("Forms_id"=> $explode_Post[1], "Components_id" => $explode_Post[2],"Fields_key" => $explode_Post[0])
-        );
+                    $explode_Post = explode("-", $key);
+
+                    $Fields_Components = Query_Fields_Components(array("Forms_id" => $explode_Post[1], "Components_id" => $explode_Post[2], "Fields_key" => $explode_Post[0]));
+
+                    if($Fields_Components->num_rows()>0){
+
+                        $data_Transaction_history = array(
+                            "Transaction_id"      => $this->input->post('Transaction_id', TRUE),
+                            "company_id"          => $this->aauth->get_user()->company_id,
+                            "data_key"            => $explode_Post[0],
+                            "data_value"          => $this->input->post($key, TRUE),
+                            "Forms_id"            => $explode_Post[1],
+                            "Components_id"       => $explode_Post[2],
+                            "History"             => "Update",
+                            "Reason_modification" => $this->input->post('Reason_modification', TRUE),
+                            "data_Create_id"      => $this->aauth->get_user()->id,
+                            "data_Create_time"    => time(),
+                        );
+
+                        $query = app()->db->insert('protal_transaction_data_history',$data_Transaction_history);
 
 
+                        $update_query  = app()->db->where('Transaction_id',$this->input->post('Transaction_id', TRUE));
+                        $update_query  = app()->db->where('Forms_id',$explode_Post[1]);
+                        $update_query  = app()->db->where('Components_id',$explode_Post[2]);
+                        $update_query  = app()->db->where('company_id',$this->aauth->get_user()->company_id);
+                        $update_query  = app()->db->where('data_key',$explode_Post[0]);
+                        $update_query  = app()->db->set('data_value',$this->input->post($key, TRUE));
+                        $update_query  = app()->db->update('protal_transaction_data');
 
+                        if($update_query) {
+                            $msg_result['key']   = 'Success';
+                            $msg_result['value'] = 'تم الحذف بنجاح';
+                            $msg_result_view     = Create_Status_Alert($msg_result);
+                            set_message($msg_result_view);
+                            redirect(APP_NAMESPACE_URL . '/Transactions/View_Transaction/'.$Transaction_uuid, 'refresh');
+                        }else{
+                            $msg_result['key']   = 'Danger';
+                            $msg_result['value'] = 'طريقة غير صحيحة ';
+                            $msg_result_view     = Create_Status_Alert($msg_result);
+                            set_message($msg_result_view);
+                            redirect(APP_NAMESPACE_URL . '/Transactions/View_Transaction/'.$Transaction_uuid, 'refresh');
+                        }
 
-    }
+                    }else{
+                        $msg_result['key']   = 'Danger';
+                        $msg_result['value'] = 'طريقة غير صحيحة';
+                        $msg_result_view     = Create_Status_Alert($msg_result);
+                        set_message($msg_result_view);
+                        redirect(APP_NAMESPACE_URL . '/Transactions/View_Transaction/'.$Transaction_uuid, 'refresh');
+                    } // if($Fields_Components->num_rows()>0)
+
+                } // if ($key == 'Form_id'
+
+            } // foreach($POST_Fields AS $key => $value)
+
+    } // public function Update_Data_Transactions()
     ###################################################################
 
     ###################################################################
@@ -675,22 +722,34 @@ class App_Transactions extends Apps
         {
             if($RF->watermark == 0)
             {
+
+                $this->load->library('Arabic',array());
+
+                $wm_text_text_Transaction        = $this->arabic->utf8Glyphs('رقم المعاملة:');
+                $wm_text_number_Transaction      = date('Ymd',$Get_Transactions->Create_Transaction_Date).$Get_Transactions->transaction_id;
+                $wm_text_date_text_Transaction   = $this->arabic->utf8Glyphs('التاريخ:');
+                $wm_text_date_number_Transaction = date('Y-m-d',$Get_Transactions->Create_Transaction_Date);
+                $wm_text_time_Transaction        = $this->arabic->utf8Glyphs('الوقت:');
+                $wm_text_time_number_Transaction = date('h:s:i a',$Get_Transactions->Create_Transaction_Date);
+
+                $wm_text = $wm_text_time_number_Transaction.' '.$wm_text_time_Transaction.' '.$wm_text_date_number_Transaction.' '.$wm_text_date_text_Transaction.' '.$wm_text_number_Transaction.' '.$wm_text_text_Transaction;
+
                 $imgConfig['source_image']      = $Uploader_path.$RF->file_name;
-                $imgConfig['wm_text']           = date('Ymd',$Get_Transactions->Create_Transaction_Date).''.$Get_Transactions->transaction_id;
+                $imgConfig['wm_text']           = $wm_text;
                 $imgConfig['wm_type']           = 'text';
-                $imgConfig['wm_font_size']      = '120';
+                $imgConfig['wm_font_size']      = '24';
                 $imgConfig['quality']           = '100';
+                $imgConfig['wm_font_path']      = FCPATH.'Assets/fonts/arial.ttf';
                 $imgConfig['wm_font_color']     = 'ff0309';
                 $imgConfig['wm_shadow_color']   = '000';
                 $imgConfig['wm_shadow_color']   = '1';
                 $imgConfig['wm_vrt_alignment']  = 'top';
-                $imgConfig['wm_hor_alignment']  = 'right';
-                $imgConfig['wm_padding']        = '0';
+                $imgConfig['wm_hor_alignment']  = 'center';
+                $imgConfig['wm_padding']        = '1';
 
                 $this->load->library('image_lib', $imgConfig);
                 $this->image_lib->initialize($imgConfig);
                 $this->image_lib->watermark();
-
 
                 app()->db->where('file_uplode_id ',$RF->file_uplode_id);
                 app()->db->set('watermark ',1);
@@ -848,6 +907,7 @@ class App_Transactions extends Apps
                 $data_file["file_lastModifyDate"]   = 0;
                 $data_file["file_isDeleted"]        = 0;
                 $data_file["file_DeletedBy"]        = 0;
+                $data_file["files_sort"]            = time();
 
                 if($uploader)
                 {
@@ -907,6 +967,7 @@ class App_Transactions extends Apps
             $data_file["file_lastModifyDate"]           = 0;
             $data_file["file_isDeleted"]                = 0;
             $data_file["file_DeletedBy"]                = 0;
+            $data_file["files_sort"]                    = time();
 
             if($uploader)
             {
@@ -957,6 +1018,44 @@ class App_Transactions extends Apps
         }
 
 
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Edit_File_Transaction()
+    {
+        $Transaction_id     = $this->uri->segment(4);
+
+        $this->data['Page_Title']      = ' تعديل  ملف المعاملة ';
+
+        $Transaction_id     = $this->uri->segment(4);
+        $where_Transactions = array("uuid"=> $Transaction_id,"company_id"=>$this->aauth->get_user()->company_id,"location_id" =>$this->aauth->get_user()->locations_id);
+
+        $Get_Transactions   = Get_Transaction($where_Transactions);
+
+        if($Get_Transactions->num_rows()>0)
+        {
+            $this->data['Transactions']      = $Get_Transactions->row();
+
+            $File_Transaction = $this->db->where('transaction_id',$this->data['Transactions']->transaction_id);
+            $File_Transaction = $this->db->order_by('files_sort','ASC');
+            $File_Transaction = $this->db->where('file_isDeleted !=',1);
+            $File_Transaction = $this->db->get('protal_transaction_files');
+
+            $this->data['File_Transaction']  = $File_Transaction;
+
+            Create_Logs_User('Edit_File_Transaction',$this->data['Transactions']->transaction_id,'Transaction','Edit');
+
+        }else{
+            redirect(APP_NAMESPACE_URL . '/Transactions/', 'refresh');
+        }
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/File_Transaction/Sort_File_Transaction', $this->data, true);
+
+        Layout_Apps($this->data);
     }
     ###################################################################
 
@@ -1062,7 +1161,7 @@ class App_Transactions extends Apps
     public function Update_Sort_File_Transaction()
     {
         $this->form_validation->set_rules('Transactions_id', 'رقم المعاملة غير صحيح', 'required');
-        $this->form_validation->set_rules('components_sort', 'لم يتم تعديل ترتيب الملفات', 'required');
+        $this->form_validation->set_rules('File_Transaction', 'لم يتم تعديل ترتيب الملفات', 'required');
 
 
         $Transactions_uuid = $this->uri->segment(4);
@@ -1077,36 +1176,37 @@ class App_Transactions extends Apps
 
         } else {
 
-            $Transaction_id        = $this->input->post('File_Transaction');
+            $Transaction_id        = $this->input->post('Transactions_id');
             $File_Transaction_sort = explode(",",$this->input->post('File_Transaction'));
 
-            $i = 0;
+            $Sort = 0;
+            $i    = 0;
 
-            foreach ($File_Transaction_sort AS $R) {
-
+            foreach ($File_Transaction_sort AS $R)
+            {
                 $Sort = ++$i;
 
-                $Update_Sort = app()->db->where('Transaction_id',$Transaction_id);
-                $Update_Sort = app()->db->where('File_Transaction_sort',$File_Transaction_sort);
-                $Update_Sort = app()->db->set('files_sort',$Sort);
-                $Update_Sort = app()->db->update('protal_transaction_files');
-
+                @$Update_Sort = app()->db->where('Transaction_id',$Transaction_id);
+                @$Update_Sort = app()->db->where('uuid',$File_Transaction_sort[$Sort]);
+                @$Update_Sort = app()->db->set('files_sort',$Sort);
+                @$Update_Sort = app()->db->update('protal_transaction_files');
             }
 
 
             if ($Update_Sort) {
 
-                $msg_result['key'] = 'Success';
+                $msg_result['key']   = 'Success';
                 $msg_result['value'] = 'تم تحديث ترتيب الاقسام';
-                $msg_result_view = Create_Status_Alert($msg_result);
+                $msg_result_view     = Create_Status_Alert($msg_result);
+
                 set_message($msg_result_view);
                 redirect(APP_NAMESPACE_URL . '/Transactions/Sort_File_Transaction/'.$Transactions_uuid, 'refresh');
 
             } else {
 
-                $msg_result['key'] = 'Danger';
+                $msg_result['key']   = 'Danger';
                 $msg_result['value'] = 'لم يتم التحديث يوجد خطا ما ';
-                $msg_result_view = Create_Status_Alert($msg_result);
+                $msg_result_view     = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
                 redirect(APP_NAMESPACE_URL . '/Transactions/Sort_File_Transaction/'.$Transactions_uuid, 'refresh');
 
@@ -1565,7 +1665,7 @@ class App_Transactions extends Apps
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
 
-        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/Template/Add_Preview_Visit', $this->data, true);
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/Previewer/Add_Preview_Visit', $this->data, true);
         Layout_Apps($this->data);
 
 
@@ -1861,7 +1961,7 @@ class App_Transactions extends Apps
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
 
-        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/Dashboard_Preview_Property', $this->data, true);
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/Previewer/Dashboard_Preview_Property', $this->data, true);
         Layout_Apps($this->data);
     }
     ######################################################################################################
@@ -1883,6 +1983,9 @@ class App_Transactions extends Apps
         $data_Transaction    = array();
 
 
+        die;
+
+
         if ($this->input->post('Total_Land', TRUE)  == '' or
         $this->input->post('LATITUDE-15-37', TRUE)  == '' or
         $this->input->post('LONGITUDE-15-37', TRUE) == ''
@@ -1898,10 +2001,23 @@ class App_Transactions extends Apps
         {
 
             // $_POST
-            if($key=='Transaction_id' or $key == 'Coordination_id' or $key=='Transactions_uuid' or $key =="ci_csrf_token" or $key =="Form_id" or $key =="FILE_Name" or $key =="FILE"
-            or $key =="geo-zoom" or $key =='Total_Land' or $key =='Total_Building' or $key =='CONSUMPTION_RATIO' or $key =='CONSUMPTION_Total'
-                or $key =='ESTIMATED_COSTS' or $key =='PROFIT_RATIO' or $key =='PROFIT_Total'
-                or $key =='MARKET_VALUE' or $key =='MARKET_VALUE_Approximate' ){
+            if($key=='Transaction_id'
+                or $key == 'Coordination_id'
+                or $key=='Transactions_uuid'
+                or $key =="ci_csrf_token"
+                or $key =="Form_id"
+                or $key =="FILE_Name"
+                or $key =="FILE"
+                or $key =="geo-zoom"
+                or $key =='Total_Land'
+                or $key =='Total_Building'
+                or $key =='CONSUMPTION_RATIO'
+                or $key =='CONSUMPTION_Total'
+                or $key =='ESTIMATED_COSTS'
+                or $key =='PROFIT_RATIO'
+                or $key =='PROFIT_Total'
+                or $key =='MARKET_VALUE'
+                or $key =='MARKET_VALUE_Approximate' ){
 
             }else{
 
@@ -1945,10 +2061,10 @@ class App_Transactions extends Apps
 
                         if($this->input->post($key, TRUE) !=='') {
                             $data_Transaction2[] = array(
-                                "data_key" => $explode_Post[0],
+                                "data_key"      => $explode_Post[0],
                                 "preview_id"    => $Coordination_id,
-                                "data_value" => $this->input->post($key, TRUE),
-                                "Forms_id" => $explode_Post[1],
+                                "data_value"    => $this->input->post($key, TRUE),
+                                "Forms_id"      => $explode_Post[1],
                                 "Components_id" => $explode_Post[2]
                             );
                         }

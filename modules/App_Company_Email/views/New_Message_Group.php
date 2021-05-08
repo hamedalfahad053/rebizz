@@ -2,7 +2,7 @@
 
 
 
-        <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Dashboard/Send_Message_Group') ?>" method="post" enctype="multipart/form-data">
+        <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Email/Send_Message_Group') ?>" method="post" enctype="multipart/form-data">
             <?= CSFT_Form() ?>
 
             <div class="card card-custom">

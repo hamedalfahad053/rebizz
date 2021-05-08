@@ -21,7 +21,6 @@ if(!function_exists('Get_Property_Types'))
             }
         }
 
-
         $query_list = app()->db->where('property_types_translation.translation_lang',$lang);
         $query_list = app()->db->get();
         return $query_list;

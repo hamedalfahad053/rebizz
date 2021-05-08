@@ -2,7 +2,7 @@
 
 
 
-        <form class="form" name="" action="<?= base_url(ADMIN_NAMESPACE_URL.'/Dashboard/Send_Message') ?>" method="post" enctype="multipart/form-data">
+        <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Email/Send_Message') ?>" method="post" enctype="multipart/form-data">
             <?= CSFT_Form() ?>
             <input type="hidden" name="student_id" value="<?= $Student->id ?>">
             <div class="card card-custom">

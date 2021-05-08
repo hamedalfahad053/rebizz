@@ -88,6 +88,10 @@
 			                    onSuccess:function(files,data,xhr,pd)
 			                    {
 				                    $("#message_file_uploader").html($("#message_file_uploader").html() + data);
+			                    },
+			                    afterUploadAll:function(obj)
+			                    {
+				                    swal.fire("نجاح",'تم تحميل جميع المرفقات', "success");
 			                    }
 		                    });
 

@@ -156,7 +156,9 @@ class App_Company_Users extends Apps
             );
         }
 
-        $this->data['user_status'] = array_options_status();
+        $this->data['user_status'] = array(
+            0=>"مفعل",
+            1=>"معطل");
         $this->data['Page_Title']  = ' اضافة مستخدم  ';
 
         $this->mybreadcrumb->add(lang('Dashboard'), '');

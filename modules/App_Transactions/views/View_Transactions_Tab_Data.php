@@ -35,65 +35,8 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 
 							if($Get_Fields->Fields_Type_Fields == 'file_multiple' or $Get_Fields->Fields_Type_Fields == 'file') {
 
-							$query_transaction_files = $this->db->order_by('LIST_TRANSACTION_DOCUMENTS','ASC');
-							$query_transaction_files = $this->db->where('file_isDeleted !=',1);
-							$query_transaction_files = app()->db->where('transaction_id',$Transactions->transaction_id);
-							$query_transaction_files = app()->db->get('protal_transaction_files');
-                            ?>
-								<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/View_File_Transaction/'.$Transactions->uuid) ?>" class="btn m-5 btn-success">
-									<i class="flaticon-psd"></i>   تحميل جميع المرفقات
-								</a>
+								$this->load->view('../../modules/App_Transactions/views/File_Transaction/Components_View_Files_Row', $this->data);
 
-								<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Upload_File_Transaction/'.$Transactions->uuid) ?>" class="btn m-5 btn-success">
-									<i class="flaticon-psd"></i>   اضافة مرفقات اخرى
-								</a>
-
-								<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Sort_File_Transaction/'.$Transactions->uuid) ?>" class="btn m-5 btn-success">
-									<i class="flaticon-psd"></i> ترتيب المرفقات
-								</a>
-
-								<style>th.dt-center,.dt-center { text-align: center; }</style>
-								<table class="data_file table table-bordered table-hover display nowrap" width="100%">
-									<thead>
-									<tr>
-										<th class="text-center">#</th>
-										<th class="text-center">اسم الملف</th>
-										<th class="text-center">نوع الملف</th>
-										<th class="text-center">بواسطة / الوقت</th>
-										<th class="text-center">الخيارات</th>
-									</tr>
-									</thead>
-									<tbody>
-										<?php
-										$f = 0;
-										foreach ($query_transaction_files->result() AS $RF)
-										{
-										?>
-										<tr>
-											<th class="text-center"><?= ++$f; ?></th>
-											<th class="text-center"><?php if($RF->File_Name_In){ echo $RF->File_Name_In; }else{ echo '-'; } ?></th>
-											<th class="text-center"><?php if($RF->LIST_TRANSACTION_DOCUMENTS){ echo Get_options_List_Translation($RF->LIST_TRANSACTION_DOCUMENTS)->item_translation; }else{ echo '-'; } ?></th>
-											<th class="text-center"><?= $this->aauth->get_user($RF->file_createBy)->full_name ?></th>
-											<th class="text-center">
-												<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Download_File_Transaction/'.$Transactions->uuid.'/'.$RF->uuid) ?>" class="btn btn-sm btn-primary">
-													<i class="flaticon-download-1"></i>
-												</a>
-												<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Edit_File_Transaction/'.$Transactions->uuid.'/'.$RF->uuid) ?>" class="btn btn-icon btn-sm btn-warning">
-													<i class="flaticon2-edit"></i>
-												</a>
-												<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Delete_File_Transaction/'.$Transactions->uuid.'/'.$RF->uuid) ?>" class="btn btn-icon btn-sm btn-danger">
-													<i class="flaticon2-delete"></i>
-												</a>
-											</th>
-										</tr>
-										<?php
-										}
-										?>
-									</tbody>
-								</table>
-
-
-							<?php
 							}else{
 								?>
 								<tr>
@@ -115,7 +58,15 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 							?>
 							<tr>
 								<td><?= $GFC['Fields_Title'] ?></td>
-								<td><?= @get_data_options_List_view($GFC['Fields_id'],$d); ?></td>
+								<td>
+								<?php
+								if($d == ''){
+									echo 'غير مدخل';
+								}else{
+									echo @get_data_options_List_view($GFC['Fields_id'],$d);
+								}
+								?>
+								</td>
 								<td>
 									<a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Edit_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-warning mx-2"><i class="la la-edit"></i></a>
 									<a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/History_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-info mx-2"><i class="flaticon2-information"></i></a>
@@ -174,41 +125,9 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 							$Get_Fields = Get_Fields(array("Fields_id"=>$GFC['Fields_id']))->row();
 
 							if($Get_Fields->Fields_Type_Fields == 'file_multiple' or $Get_Fields->Fields_Type_Fields == 'file') {
-							?>
 
-								<table class="data_table table table-bordered table-hover display nowrap" width="100%">
-									<thead>
-									<tr>
-										<th class="text-center">اسم الملف</th>
-										<th class="text-center">تحميل</th>
-										<th class="text-center">بواسطة / التاريخ</th>
-									</tr>
-									</thead>
-									<tbody>
-									<?php
-									$i=0;
-									$Get_Transaction_files = Get_Transaction_files(array("Transaction_id"=>$Transactions->transaction_id));
-									if($Get_Transaction_files->num_rows()>0){
+								$this->load->view('../../modules/App_Transactions/views/File_Transaction/Components_View_Files_Row', $this->data);
 
-										foreach ($Get_Transaction_files->result() as $File)
-										{
-										?>
-										<tr>
-											<td class="text-center"><?= $File->raw_name ?></td>
-											<td class="text-center"><?= $this->aauth->get_user($File->file_createBy)->full_name ?></td>
-											<td class="text-center"><?= date('Y-m-d',$File->file_createDate) ?></td>
-										</tr>
-										<?php
-										} // foreach
-
-									}else{
-										echo 'لا يوجد مرفقات ';
-									}
-									?>
-									</tbody>
-								</table>
-
-							<?php
 							}else{
 
 								?>
@@ -236,7 +155,17 @@ foreach ($Form_Components_Customs->result() AS $RC_Customs)
 							?>
 							<tr>
 								<td><?= $GFC['Fields_Title'] ?></td>
-								<td><?= get_data_options_List_view($GFC['Fields_id'],$d); ?></td>
+								<td>
+									<?php
+									$Transaction_data_by_options_List = get_data_options_List_view($GFC['Fields_id'],$d);
+
+									if($Transaction_data_by_options_List == ''){
+										echo 'غير مدخل';
+									}else{
+										echo $Transaction_data_by_options_List;
+									}
+									?>
+								</td>
 								<td></td>
 							</tr>
 							<?php

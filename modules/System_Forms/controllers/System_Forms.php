@@ -802,24 +802,20 @@ class System_Forms extends Admin
             foreach ($components_sort AS $R) {
                 $Sort = ++$i;
                 $Update_Sort = Update_Sort_Form_Components($Forms_id, $R, $Sort);
-
             }
-
-
-
 
             if ($Update_Sort) {
                 $msg_result['key'] = 'Success';
                 $msg_result['value'] = 'تم تحديث ترتيب الاقسام';
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                //redirect(ADMIN_NAMESPACE_URL . '/Forms/Sort_Components_Form/'.$Forms_id, 'refresh');
+                redirect(ADMIN_NAMESPACE_URL . '/Forms/Sort_Components_Form/'.$Forms_id, 'refresh');
             } else {
                 $msg_result['key'] = 'Danger';
                 $msg_result['value'] = 'لم يتم التحديث يوجد خطا ما ';
                 $msg_result_view = Create_Status_Alert($msg_result);
                 set_message($msg_result_view);
-                //redirect(ADMIN_NAMESPACE_URL . '/Forms/Sort_Components_Form/'.$Forms_id, 'refresh');
+                redirect(ADMIN_NAMESPACE_URL . '/Forms/Sort_Components_Form/'.$Forms_id, 'refresh');
             } // if
 
         }

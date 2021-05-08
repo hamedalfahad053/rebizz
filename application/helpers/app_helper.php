@@ -226,3 +226,26 @@ if(!function_exists('gen_random_string')) {
     }
 }
 ##############################################################################
+
+
+##############################################################################
+if(!function_exists('encryption_data')) {
+
+    function encryption_data($plain_text,$type) {
+
+        app()->load->library('encryption');
+
+        if($type == 'in'){
+
+            $out_plain_text = app()->encryption->encrypt($plain_text);
+
+        }elseif($type == 'out'){
+
+            $out_plain_text = app()->encryption->decrypt($plain_text);
+
+        }
+
+        return $out_plain_text;
+    }
+}
+##############################################################################

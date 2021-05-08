@@ -1,62 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8874198f-4244-415a-ad8a-e2b16a602954" name="Default Changelist" comment="update 20210428588">
-      <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction/Files_Numbering_Transactions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_Company_HRM/views/Edit_Employees.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Evluation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Preview.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Assignment_Transaction/New_Assignment_User_Transaction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Data_Entry/History_Data_Transaction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evluation/Form_Evluation_Cost.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/File_Transaction/Sort_File_Transaction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/View_Preview_Property.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="8874198f-4244-415a-ad8a-e2b16a602954" name="Default Changelist" comment="update 20210428589">
+      <change afterPath="$PROJECT_DIR$/application/libraries/Arabic.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Ajax/controllers/0.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Ajax/controllers/Ajax_Map_Place.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_Company_Settings_Preview.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/QuickActions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction/Setting_Stages_Transaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/Edit_Form_Text_Static_Transaction_Reports.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/Form_Text_Static_Transaction_Reports.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/List_Text_Static_Transaction_Reports.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Users_Preview/Form_Set_Fees_Preview.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Users_Preview/Setting_Fees_Preview.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Users_Preview/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Company_ProfileUser/controllers/Company_ProfileUser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Company_ProfileUser/views/ProfileUser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_File_Transaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evluation/Add_New_Evluation.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/File_Transaction/Components_View_Files_Row.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Template_Map.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/plugins/file_uplode/uploadfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/plugins/file_uplode/uploadfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/config/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/List_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/List_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/Notifications_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/Notifications_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/Transactions_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/Transactions_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/client_company_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/client_company_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/hrm_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/hrm_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/preview_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/preview_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/core/My_Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/core/My_Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/helpers/Forms_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/Forms_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/helpers/List_Map_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/List_Map_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/helpers/Property_Types_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/Property_Types_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/helpers/app_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/app_helper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Ajax/controllers/App_Ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Ajax/controllers/App_Ajax.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_CompanySettings.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_CompanySettings.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_Company_Settings_Transaction_Reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_Company_Settings_Transaction_Reports.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_Company_Settings_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_Company_Settings_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Setting_Users_Preview_Map.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Setting_Users_Preview_Map.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction/Form_Add_Receipt_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction/Form_Add_Receipt_Transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Form_Set_CRD_Users_Preview.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Users_Preview/Form_Set_Users_Preview_Map.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Setting_Stages_Transaction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Setting_Users_Preview_Map.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Users_Preview/Setting_Users_Preview_Map.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction/Files_Numbering_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction/Files_Numbering_Transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/Form_Add_Transaction_Reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/Form_Add_Transaction_Reports.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/List_Transaction_Reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/List_Transaction_Reports.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_aside.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_aside.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Company_Clients/views/Client_List.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Clients/views/Client_List.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Company_Forms/views/Manage_Forms_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Forms/views/Manage_Forms_Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Company_HRM/views/Form_Set_Supervisor_Departments.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_HRM/views/Form_Set_Supervisor_Departments.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Company_Map/controllers/App_Map.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Map/controllers/App_Map.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/company_information.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/company_information.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/controllers/System_Email.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/controllers/Company_Email.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/views/Inbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/views/Inbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/views/Layout_Email.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/views/Layout_Email.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/views/New_Message.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/views/New_Message.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/views/New_Message_Group.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/views/New_Message_Group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/views/Outbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/views/Outbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/views/View_Message_Inbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/views/View_Message_Inbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/views/View_Message_Outbox.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/views/View_Message_Outbox.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Email/views/archive_Message.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Email/views/archive_Message.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_HRM/controllers/App_Company_HRM.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_HRM/controllers/App_Company_HRM.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_HRM/views/Edit_Employees.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_HRM/views/Edit_Employees.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Company_Users/controllers/App_Company_Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_Users/controllers/App_Company_Users.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Evluation.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Evluation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Create_Transaction/Create_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Create_Transaction/Create_Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Dashboard_Preview_Property.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Dashboard_Preview_Property.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Dashboard_Preview_Property.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Dashboard_Preview_Property.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Data_Entry/History_Data_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Data_Entry/History_Data_Transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Edit_Data_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Edit_Data_Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Form_Data_Entry_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Data_Entry/Form_Data_Entry_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Form_Preview_Property_Evaluation.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Form_Preview_Property_Evaluation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Form_Preview_Property_Map.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Form_Preview_Property_Pictures.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Form_Previewer_Feedback_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Form_Previewer_Feedback_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/List_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/List_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Add_Preview_Visit.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Add_Preview_Visit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Assignment_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Assignment_Transaction/Assignment_Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Assignment_Transaction_userid.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Assignment_Transaction/Assignment_Transaction_userid.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Tamplate_Ajax_Uploaded_File_Previewer.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Tamplate_Ajax_Uploaded_File_Previewer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/modal_add_Comparisons.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Template/modal_add_Comparisons.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/View_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/View_Transactions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/File_Transaction/Sort_File_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/File_Transaction/Sort_File_Transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Form_Preview_Property_Evaluation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Tamplate_Ajax_Uploaded_File_Previewer.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Tamplate_Ajax_Uploaded_File_Previewer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Add_Preview_Visit.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Add_Preview_Visit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Template_Evluation_Preview_REAL_ESTATE_APPRAISAL.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Template_Evluation_Preview_REAL_ESTATE_APPRAISAL.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Template_Table_Land_Comparisons.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Template_Table_Land_Comparisons.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/Template_Total_Evluation_Preview_Property.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Template_Total_Evluation_Preview_Property.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Template/modal_add_Comparisons.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/modal_add_Comparisons.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/Upload_File_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/Upload_File_Transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions_Tab_Data.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions_Tab_Data.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions_Tab_Preview_RealEstate.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions_Tab_Preview_RealEstate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions_Tab_Evaluation.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transactions_Tab_Evaluation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/Layout/Layout_Company.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Layout/Layout_Company.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/System_Fields/controllers/System_ListData.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/System_Fields/controllers/System_ListData.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/System_Fields/views/tamplet_file_multiple.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/System_Fields/views/tamplet_file_multiple.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/Layout/Widgets_Company/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Layout/Widgets_Company/Header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/System_Forms/controllers/System_Forms.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/System_Forms/controllers/System_Forms.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/System_Forms/views/Form_Components.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/System_Forms/views/Form_Components.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Template_Email/Transactions/Assignment_Transaction_User.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Template_Email/Transactions/Assignment_Transaction_User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/companies/Company_Logo/633ff7c65fcb833efe6f347892f496bd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/companies/Company_Logo/d7c68293ea4f43bb2b8a2e2295744ca0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/2db061484d31cdfa0024ea71e7f016d4.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/35939b514c1792bb01b44966bdab66df.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/8a3cc33c9cfaa5737aa90895f39bc1f0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/912b78b158aab7e9599fab5e3494035b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/bd138718bb2f562ad5051c89fad49e7e.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/companies/Alfahad/Company_FILE_Transaction/e665cf287f4168d9f76c712bd49cbb65.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,24 +107,25 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/App_Company_HRM/views" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="PhpAnnotations.SettingsForm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\xampp\htdocs\rebizz\modules\App_CompanySettings\views\Settings_Transaction_Reports" />
+      <recent name="D:\xampp\htdocs\rebizz\modules\App_Company_Email\views" />
       <recent name="D:\xampp\htdocs\rebizz\modules\App_Company_HRM\views" />
-      <recent name="D:\xampp\htdocs\rebizz\modules\App_Transactions\views\Create_Transaction" />
-      <recent name="D:\xampp\htdocs\rebizz\modules\App_Transactions\views\Assignment_Transaction" />
+      <recent name="D:\xampp\htdocs\rebizz\modules" />
       <recent name="D:\xampp\htdocs\rebizz\modules\App_CompanySettings\controllers" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\xampp\htdocs\rebizz\modules\App_Transactions\views\Previewer" />
+      <recent name="D:\xampp\htdocs\rebizz\modules\App_CompanySettings\views\Settings_Users_Preview" />
       <recent name="D:\xampp\htdocs\rebizz\modules\App_Transactions\views\Data_Entry" />
       <recent name="D:\xampp\htdocs\rebizz\modules\App_Transactions\views\Rmove_Old_ver" />
       <recent name="D:\xampp\htdocs\rebizz\modules\App_Transactions\views\Assignment_Transaction" />
-      <recent name="D:\xampp\htdocs\rebizz\modules\App_Transactions\views\View_Transaction" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -125,7 +146,10 @@
       <workItem from="1619898846629" duration="36173000" />
       <workItem from="1619975194454" duration="2571000" />
       <workItem from="1620024536808" duration="2088000" />
-      <workItem from="1620064971109" duration="2367000" />
+      <workItem from="1620064971109" duration="29028000" />
+      <workItem from="1620148896456" duration="15727000" />
+      <workItem from="1620324431915" duration="24782000" />
+      <workItem from="1620410854171" duration="16951000" />
     </task>
     <task id="LOCAL؜٠٠٠٠١" summary="update 202104284">
       <created>1619675580269</created>
@@ -145,7 +169,19 @@
       <option name="presentableId" value="LOCAL؜٠٠٠٠٣" />
       <updated>1619853816333</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL؜٠٠٠٠٤" summary="update 20210428589">
+      <created>1620067606410</created>
+      <option name="number" value="LOCAL؜٠٠٠٠٤" />
+      <option name="presentableId" value="LOCAL؜٠٠٠٠٤" />
+      <updated>1620067606411</updated>
+    </task>
+    <task id="LOCAL؜٠٠٠٠٥" summary="update 20210428589">
+      <created>1620067643027</created>
+      <option name="number" value="LOCAL؜٠٠٠٠٥" />
+      <option name="presentableId" value="LOCAL؜٠٠٠٠٥" />
+      <updated>1620067643027</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +205,8 @@
     <MESSAGE value="update 202104284" />
     <MESSAGE value="update 2021042855" />
     <MESSAGE value="update 20210428588" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 20210428588" />
+    <MESSAGE value="update 20210428589" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 20210428589" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

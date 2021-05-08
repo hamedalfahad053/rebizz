@@ -20,6 +20,11 @@
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
 
+
+	        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/View_Transaction/'.$this->uri->segment(4)) ?>" class="btn btn-success">
+		        <i class="flaticon2-arrow"></i>   العودة للمعاملة
+	        </a>
+
         </div>
         <!--end::Toolbar-->
     </div>

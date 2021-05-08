@@ -1048,7 +1048,533 @@ if(!function_exists('Building_List_Forms')) {
 
 
 
+#############################################################################
+if(!function_exists('Building_ChekBox_Forms')) {
 
+    function Building_ChekBox_Forms($Building_Form,$Forms_id,$Components_id,$list_id,$multiple = '',$selected='',$style='',$id='',$class='',$disabled='',$label='',$js='')
+    {
+
+        app()->load->database();
+
+
+        $form_dropdown = '';
+        $class_output  = '';
+
+        $extra_options = array();
+        $options_list  = array();
+        $options       = [];
+
+        $lang          = get_current_lang();
+
+        ###########################################################################################################
+        # List setting
+        ###########################################################################################################
+
+
+        $query_get_setting_list = app()->db->where('Forms_id', $Forms_id);
+        $query_get_setting_list = app()->db->where('Components_id',$Components_id);
+        $query_get_setting_list = app()->db->where('Fields_id', $list_id);
+        $query_get_setting_list = app()->db->get('portal_forms_components_fields')->row();
+
+        $query_list = app()->db->from('portal_list_data list');
+        $query_list = app()->db->join('portal_list_data_translation  list_translation', 'list.list_id=list_translation.item_id');
+        $query_list = app()->db->where('list.list_id', $list_id);
+        $query_list = app()->db->where('list_translation.translation_lang', $lang);
+        $query_list = app()->db->get()->row();
+        ###########################################################################################################
+        # List setting
+        ###########################################################################################################
+
+
+
+        ###########################################################################################################
+        # List Data
+        ###########################################################################################################
+        if($query_get_setting_list->Fields_data == 'options'){
+
+            $query_list_options = app()->db->from('portal_list_options_data list_options');
+            $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+            $query_list_options = app()->db->where('list_options.list_id', $query_get_setting_list->Fields_id);
+            $query_list_options = app()->db->where('list_options.options_status',1);
+            $query_list_options = app()->db->where(' ( list_options.options_company_id = '.app()->aauth->get_user()->company_id.' OR list_options.options_company_id = 0 ) ');
+            $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
+            $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
+            $query_list_options = app()->db->get();
+
+            //print_r($query_list_options->result());
+
+            foreach ($query_list_options->result() as $row)
+            {
+
+
+
+                $options[] = array(
+                    "options_id"    => $row->list_options_id,
+                    "options_key"   => $row->options_key,
+                    "options_type"  => 'options',
+                    "options_title" => $row->item_translation
+                );
+
+
+            }
+
+        }elseif ($query_get_setting_list->Fields_data == 'options_table'){
+
+            if($query_get_setting_list->join_table == NULL){
+
+                if($query_get_setting_list->join_table == 1){
+
+
+                    $query_list_options = app()->db->from($query_get_setting_list->Table_primary . ' Table_Primary');
+                    $query_list_options = app()->db->join($query_get_setting_list->Table_Join . '    Table_Join', 'Table_Primary.' . $query_get_setting_list->primary_joining_fields . ' = Table_Join.' . $query_get_setting_list->Join_joining_fields . '');
+
+                    if($query_get_setting_list->linked_translation == 1){
+                        $query_list_options = app()->db->where('Table_Join.translation_lang', $lang);
+                    }
+
+                    if($query_get_setting_list->linked_company_id == 1) {
+                        $query_list_options = app()->db->where(' ( Table_Primary.company_id = ' . app()->aauth->get_user()->company_id . ' OR Table_Primary.company_id = 0 ) ');
+                    }
+
+                    $query_list_options = app()->db->get();
+                    foreach ($query_list_options->result() as $row) {
+
+                        $Table_primary_fields = $query_get_setting_list->primary_fields;
+                        $Table_Join_fields    = $query_get_setting_list->Join_fields;
+
+                        $options[] = array(
+                            "options_id"    => $row->$Table_primary_fields,
+                            "options_key"   => '',
+                            "options_type"  => 'table',
+                            "options_title" => $row->$Table_Join_fields,
+                        );
+
+                    }
+
+
+                }else{
+
+
+                    if($query_get_setting_list->linked_company_id == 1) {
+                        $query_list_options = app()->db->where(' (  company_id = ' . app()->aauth->get_user()->company_id . ' OR company_id = 0 ) ');
+                    }
+                    $query_list_options = app()->db->get($query_get_setting_list->Table_primary);
+                    foreach ($query_list_options->result() as $row)
+                    {
+                        $Table_primary_fields = $query_get_setting_list->primary_fields;
+                        $Table_Join_fields    = $query_get_setting_list->Join_fields;
+
+                        $options[] = array(
+                            "options_id"    => $row->$Table_primary_fields,
+                            "options_key"   => '',
+                            "options_type"  => 'table',
+                            "options_title" => $row->$Table_Join_fields,
+                        );
+                    }
+                }
+
+
+            }else {
+
+                $query_list_options = app()->db->from($query_get_setting_list->Table_primary . ' Table_Primary');
+                $query_list_options = app()->db->join($query_get_setting_list->Table_Join . '    Table_Join', 'Table_Primary.' . $query_get_setting_list->primary_joining_fields . ' = Table_Join.' . $query_get_setting_list->Join_joining_fields . '');
+                if($query_get_setting_list->linked_company_id == 1) {
+                    $query_list_options = app()->db->where(' ( Table_Primary.company_id = ' . app()->aauth->get_user()->company_id . ' OR Table_Primary.company_id = 0 ) ');
+                }
+                if($query_get_setting_list->linked_translation == 1) {
+                    $query_list_options = app()->db->where('Table_Join.translation_lang', $lang);
+                }
+                $query_list_options = app()->db->get();
+                foreach ($query_list_options->result() as $row) {
+
+                    $Table_primary_fields = $query_get_setting_list->primary_fields;
+                    $Table_Join_fields    = $query_get_setting_list->Join_fields;
+
+                    $options[] = array(
+                        "options_id"    => $row->$Table_primary_fields,
+                        "options_key"   => '',
+                        "options_type"  => 'table',
+                        "options_title" => $row->$Table_Join_fields,
+                    );
+
+                }
+            }
+
+        }elseif ($query_get_setting_list->Fields_data == 'options_to_options_ajax'){
+
+
+            $query_list_options = app()->db->from('portal_list_options_data list_options');
+            $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+            $query_list_options = app()->db->where('list_options.list_id', $query_get_setting_list->Fields_id);
+            $query_list_options = app()->db->where('list_options.options_status',1);
+            $query_list_options = app()->db->where(' ( list_options.options_company_id = '.app()->aauth->get_user()->company_id.' OR list_options.options_company_id = 0 ) ' );
+            $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
+            $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
+            $query_list_options = app()->db->get();
+
+            foreach ($query_list_options->result() as $row)
+            {
+                $options[] = array(
+                    "options_id"    => $row->list_options_id,
+                    "options_key"   => $row->options_key,
+                    "options_type"  => 'options',
+                    "options_title" => $row->item_translation
+                );
+            }
+
+        }elseif ($query_get_setting_list->Fields_data == 'options_to_table_ajax'){
+
+            $query_list_options = app()->db->from('portal_list_options_data list_options');
+            $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+            $query_list_options = app()->db->where('list_options.list_id', $query_get_setting_list->Fields_id);
+            $query_list_options = app()->db->where(' ( list_options.options_company_id = '.app()->aauth->get_user()->company_id.' OR list_options.options_company_id = 0 ) ' );
+            $query_list_options = app()->db->where('list_options.options_status',1);
+            $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
+            $query_list_options = app()->db->order_by('list_options.options_sort', 'ASC');
+            $query_list_options = app()->db->get();
+
+            foreach ($query_list_options->result() as $row)
+            {
+                $options[] = array(
+                    "options_id"    => $row->list_options_id,
+                    "options_key"   => $row->options_key,
+                    "options_type"  => 'options',
+                    "options_title" => $row->item_translation
+                );
+            }
+
+        }elseif ($query_get_setting_list->Fields_data == 'table_to_table_ajax'){
+
+            if($query_get_setting_list->linked_company_id == 1) {
+                $query_list_options = app()->db->where(' ( company_id = ' . app()->aauth->get_user()->company_id . ' OR company_id = 0 ) ');
+            }
+            $query_list_options = app()->db->get($query_get_setting_list->Table_primary);
+
+            foreach ($query_list_options->result() as $row) {
+                $Table_primary_fields = $query_get_setting_list->primary_fields;
+                $Table_Join_fields    = $query_get_setting_list->Join_fields;
+
+                $options[] = array(
+                    "options_id"    => $row->$Table_primary_fields,
+                    "options_key"   => '',
+                    "options_type"  => 'table',
+                    "options_title" => $row->$Table_Join_fields,
+                );
+            }
+
+        }elseif ($query_get_setting_list->Fields_data == 'ajax'){
+
+        }
+        ###########################################################################################################
+        # List Data
+        ###########################################################################################################
+
+
+        # Default Tags Building
+
+        if (is_array($class)) {
+            foreach ($class as $c) {
+                $class_output .= $class_output . ' ' . $c;
+            }
+        }
+
+        ###########################################################################################################
+        # Start Building
+        # 1- Select
+        ###########################################################################################################
+        if($Building_Form == 'select'){
+
+            $class_output .= ' form-control selectpicker';
+
+            if(empty($id)){
+                $id_ = $query_list->list_key;
+            }else{
+                $id_ = $id;
+            }
+
+            if(!empty($style)){
+                $style_ = 'style="'.$style.'"';
+            }else{
+                $style_ = '';
+            }
+
+            if(!empty($disabled)){
+                $disabled_ = "disabled ='disabled' ";
+            }else{
+                $disabled_ = '';
+            }
+
+            if(!empty($label)){
+                $label_ = '<label>'.$label.'</label>';
+            }else{
+                $label_ = '<label>'.$query_list->item_translation.' <span class="text-danger">*</span></label>';
+            }
+
+            if(!empty($multiple)){
+                $multiple_ = 'multiple="multiple"';
+            }else{
+                $multiple_ = '';
+            }
+
+            if(!empty($js)){
+                $js_ = 'onClick="'.$js.'"';
+            }else{
+                $js_ = '';
+            }
+
+            echo $label_;
+
+            $form_dropdown .= '';
+
+            $title_ = 'title="'.lang("Select_noneSelectedText").'"';
+
+            # data-List-Target
+            if($query_get_setting_list->Fields_data == 'options_to_options_ajax' or $query_get_setting_list->Fields_data == 'options_to_table_ajax'
+                or $query_get_setting_list->Fields_data == 'options_to_options_ajax' or $query_get_setting_list->Fields_data == 'table_to_table_ajax'){
+
+                $query_list_target          = app()->db->where('list_id',$query_get_setting_list->List_Target);
+                $query_list_target          = app()->db->get('portal_list_data')->row();
+                $data_attr_id_list_target   = 'data-List-Target-div="#'.$query_list_target->list_key.'"';
+
+            }else{
+
+                $data_attr_id_list_target = '';
+
+            }
+
+
+            $form_dropdown .= '<select name="'.$query_list->list_key.'-'.$query_get_setting_list->Forms_id.'-'.$query_get_setting_list->Components_id.'" 
+                            data-list-key-div = "#'.$query_list->list_key.'"
+                            data-list-key-id  = "'.$query_list->list_id.'"
+                            data-components-fields-id="'.$query_get_setting_list->Components_fields_id.'" 
+                            data-form-id="'.$query_get_setting_list->Forms_id.'" 
+                            data-components-id="'.$query_get_setting_list->Components_id.'" 
+                            data-Fields-Type="'.$query_get_setting_list->Fields_data.'" 
+                            data-Fields-id="'.$query_get_setting_list->Fields_id.'" 
+                            data-List-Target-id="'.$query_get_setting_list->List_Target.'" 
+                            '.$data_attr_id_list_target.'
+                            onchange="ajax_list(this);" 
+                            class="'.$class_output.'" id="'.$id_.'" '.$style_.' '.$disabled_.'  '.$title_.' '.$multiple_.' '.$js_.' >';
+
+            $query_receipt_emp_permissions = app()->db->where('receipt_emp_userid',app()->aauth->get_user()->id);
+            $query_receipt_emp_permissions = app()->db->where('company_id',app()->aauth->get_user()->company_id);
+            $query_receipt_emp_permissions = app()->db->get('protal_transactions_receipt_emp_permissions');
+
+            foreach ($options as $op)
+            {
+                if(!empty($selected) and $selected == $op['options_id']){
+                    $selected = 'selected="selected"';
+                }else{
+                    $selected = '';
+                }
+
+                if($query_list->list_key == 'LIST_METHOD_OF_RECEIPT') {
+
+                    if ($query_receipt_emp_permissions->num_rows() > 0) {
+                        $array_receipt_emp_permissions = explode(',', $query_receipt_emp_permissions->row()->LIST_METHOD_OF_RECEIPT);
+                        if (in_array($op['options_id'], $array_receipt_emp_permissions)) {
+                            $form_dropdown .= '<option ' . $selected . '  value="' . $op['options_id'] . '" data-key="' . $op['options_key'] . '" data-type="' . $op['options_type'] . '">' . $op['options_title'] . '</option>';
+                        }
+                    } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                }elseif ($query_list->list_key == 'LIST_CUSTOMER_CATEGORY') {
+
+                    if ($query_receipt_emp_permissions->num_rows() > 0) {
+                        $array_receipt_emp_permissions = explode(',', $query_receipt_emp_permissions->row()->LIST_CUSTOMER_CATEGORY);
+                        if (in_array($op['options_id'], $array_receipt_emp_permissions)) {
+                            $form_dropdown .= '<option ' . $selected . '  value="' . $op['options_id'] . '" data-key="' . $op['options_key'] . '" data-type="' . $op['options_type'] . '">' . $op['options_title'] . '</option>';
+                        }
+                    } // if($query_receipt_emp_permissions->num_rows()>0)
+
+                } else{
+                    $form_dropdown .= '<option '.$selected.'  value="'.$op['options_id'].'" data-key="'.$op['options_key'].'" data-type="'.$op['options_type'].'">'.$op['options_title'].'</option>';
+                }
+
+            } // foreach
+
+            $form_dropdown .= '</select>';
+            echo $form_dropdown;
+
+
+        }
+        ###########################################################################################################
+        # End Building
+        # 1- Select
+        ###########################################################################################################
+
+
+
+        ###########################################################################################################
+        # Start Building
+        # 2- radio
+        ###########################################################################################################
+        if($Building_Form == 'radio')
+        {
+
+
+                    $form_dropdown .='<label class="m-3">'.$query_list->item_translation.'</label>';
+
+                    $form_dropdown .='<div class="radio-inline">';
+
+                    if(!empty($style)){
+                        $style_ = 'style="'.$style.'"';
+                    }else{
+                        $style_ = '';
+                    }
+
+                    if(!empty($disabled)){
+                        $disabled_ = "disabled ='disabled' ";
+                    }else{
+                        $disabled_ = '';
+                    }
+
+
+                    if(!empty($js)){
+                        $js_ = 'onClick="'.$js.'"';
+                    }else{
+                        $js_ = '';
+                    }
+
+                    # data-List-Target
+                    if($query_get_setting_list->Fields_data == 'options_to_options_ajax' or $query_get_setting_list->Fields_data == 'options_to_table_ajax'
+                        or $query_get_setting_list->Fields_data == 'options_to_options_ajax' or $query_get_setting_list->Fields_data == 'table_to_table_ajax'){
+                        $query_list_target          = app()->db->where('list_id',$query_get_setting_list->List_Target);
+                        $query_list_target          = app()->db->get('portal_list_data')->row();
+                        $data_attr_id_list_target   = 'data-List-Target-div="#'.$query_list_target->list_key.'"';
+                    }else{
+                        $data_attr_id_list_target = '';
+                    }
+
+
+
+                    foreach ($options as $op)
+                    {
+
+
+                            $form_dropdown .= '<label class="radio">';
+
+                            $form_dropdown .= '<input  type="radio" name="'.$query_list->list_key.'-'.$query_get_setting_list->Forms_id.'-'.$query_get_setting_list->Components_id.'"
+                                        value="'.$op['options_id'].'"
+                                        data-list-key-div = "#'.$query_list->list_key.'"
+                                        data-list-key-id  = "'.$query_list->list_id.'"
+                                        data-components-fields-id="'.$query_get_setting_list->Components_fields_id.'"
+                                        data-form-id="'.$query_get_setting_list->Forms_id.'"
+                                        data-components-id="'.$query_get_setting_list->Components_id.'"
+                                        data-Fields-Type="'.$query_get_setting_list->Fields_data.'"
+                                        data-Fields-id="'.$query_get_setting_list->Fields_id.'"
+                                        data-List-Target-id="'.$query_get_setting_list->List_Target.'"
+                                        '.$data_attr_id_list_target.'
+                                        onchange="ajax_list(this);"
+                                        class="'.$class_output.'"  '.$style_.' '.$disabled_.'  '.$js_.' >';
+
+
+                            $form_dropdown .= $op['options_title'];
+
+                            $form_dropdown .='<span></span>';
+
+
+                            $form_dropdown .='</label>';
+                    } // foreach ($options as $op)
+
+
+                    $form_dropdown .='</div>';
+
+            echo $form_dropdown;
+
+        } // if($Building_Form == 'radio')
+        ###########################################################################################################
+        # End Building
+        # 2- radio
+        ###########################################################################################################
+
+
+        ###########################################################################################################
+        # Start Building
+        # 3- checkbox
+        ###########################################################################################################
+        if($Building_Form == 'checkbox')
+        {
+
+            $form_dropdown .='<label class="m-3">'.$query_list->item_translation.'</label>';
+
+            $form_dropdown .='<div class="checkbox-inline">';
+
+            if(!empty($style)){
+                $style_ = 'style="'.$style.'"';
+            }else{
+                $style_ = '';
+            }
+
+            if(!empty($disabled)){
+                $disabled_ = "disabled ='disabled' ";
+            }else{
+                $disabled_ = '';
+            }
+
+
+            if(!empty($js)){
+                $js_ = 'onClick="'.$js.'"';
+            }else{
+                $js_ = '';
+            }
+
+            # data-List-Target
+            if($query_get_setting_list->Fields_data == 'options_to_options_ajax' or $query_get_setting_list->Fields_data == 'options_to_table_ajax'
+                or $query_get_setting_list->Fields_data == 'options_to_options_ajax' or $query_get_setting_list->Fields_data == 'table_to_table_ajax'){
+                $query_list_target          = app()->db->where('list_id',$query_get_setting_list->List_Target);
+                $query_list_target          = app()->db->get('portal_list_data')->row();
+                $data_attr_id_list_target   = 'data-List-Target-div="#'.$query_list_target->list_key.'"';
+            }else{
+                $data_attr_id_list_target = '';
+            }
+
+
+
+            foreach ($options as $op)
+            {
+
+
+                $form_dropdown .= '<label class="checkbox">';
+
+                $form_dropdown .= '<input  type="radio" name="'.$query_list->list_key.'-'.$query_get_setting_list->Forms_id.'-'.$query_get_setting_list->Components_id.'"
+                                        value="'.$op['options_id'].'"
+                                        data-list-key-div = "#'.$query_list->list_key.'"
+                                        data-list-key-id  = "'.$query_list->list_id.'"
+                                        data-components-fields-id="'.$query_get_setting_list->Components_fields_id.'"
+                                        data-form-id="'.$query_get_setting_list->Forms_id.'"
+                                        data-components-id="'.$query_get_setting_list->Components_id.'"
+                                        data-Fields-Type="'.$query_get_setting_list->Fields_data.'"
+                                        data-Fields-id="'.$query_get_setting_list->Fields_id.'"
+                                        data-List-Target-id="'.$query_get_setting_list->List_Target.'"
+                                        '.$data_attr_id_list_target.'
+                                        onchange="ajax_list(this);"
+                                        class="'.$class_output.'"  '.$style_.' '.$disabled_.'  '.$js_.' >';
+
+
+                $form_dropdown .= $op['options_title'];
+
+                $form_dropdown .='<span></span>';
+
+
+                $form_dropdown .='</label>';
+            } // foreach ($options as $op)
+
+
+            $form_dropdown .='</div>';
+
+            echo $form_dropdown;
+
+        } // if($Building_Form == 'checkbox')
+        ###########################################################################################################
+        # End Building
+        # 3- checkbox
+        ###########################################################################################################
+
+
+    } // end Building_List_Forms
+
+}
+##############################################################################
 
 
 

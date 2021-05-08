@@ -45,29 +45,39 @@
                         <div class="card-toolbar"></div>
                     </div>
                     <div class="card-body">
-                        <form class="form" action="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/Create_Transaction_Reports') ?>" method="post">
+                        <form class="form" action="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/Create_Text_Static_Transaction_Reports') ?>" method="post">
                             <?= CSFT_Form() ?>
 
+	                        <?php echo  $this->session->flashdata('message'); ?>
 
                             <div class="form-group row">
 
                                 <div class="col-lg-6 mt-5">
-                                    <label>عنوان التقرير</label>
-                                    <input type="text" name="title_ar" class="form-control" placeholder="<?= lang('Global_form_title_ar') ?>"/>
+                                    <label>عنوان  النص بالعربية</label>
+                                    <input type="text" name="title_ar" value="<?=  set_value('title_ar');  ?>" class="form-control" placeholder="<?= lang('Global_form_title_ar') ?>"/>
                                 </div>
                                 <div class="col-lg-6 mt-5">
-                                    <label>عنوان التقرير</label>
-                                    <input type="text" name="title_en" class="form-control" placeholder="<?= lang('Global_form_title_ar') ?>"/>
+	                                <label>عنوان  النص بالانجليزية</label>
+                                    <input type="text" name="title_en" value="<?=  set_value('title_en');  ?>"  class="form-control" placeholder="<?= lang('Global_form_title_ar') ?>"/>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-
-
+                                <div class="col-lg-12 mt-5">
+                                    <label>النص بالعربية </label>
+	                                <textarea name="text_ar" class="summernote" ><?=  set_value('text_ar');  ?></textarea>
+                                </div>
                             </div>
 
+	                        <div class="form-group row">
+		                        <div class="col-lg-12 mt-5">
+			                        <label>النص بالانجليزية </label>
+			                        <textarea name="text_en" class="summernote" ><?=  set_value('text_en');  ?></textarea>
+		                        </div>
+	                        </div>
 
-                            <div class="card-footer">
+
+	                        <div class="card-footer">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <button type="submit" id="buttonCreateSections" class="btn btn-primary mr-2"><?= lang('add_button') ?></button>

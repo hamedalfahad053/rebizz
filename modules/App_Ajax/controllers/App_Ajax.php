@@ -123,6 +123,7 @@ class App_Ajax extends Apps
                     $data_file["file_lastModifyDate"]   = 0;
                     $data_file["file_isDeleted"]        = 0;
                     $data_file["file_DeletedBy"]        = 0;
+                    $data_file["files_sort"]            = time();
 
                     if($uploader)
                     {
@@ -183,6 +184,7 @@ class App_Ajax extends Apps
                 $data_file["file_lastModifyDate"]           = 0;
                 $data_file["file_isDeleted"]                = 0;
                 $data_file["file_DeletedBy"]                = 0;
+                $data_file["files_sort"]                    = time();
 
 
                 if($uploader)
@@ -248,27 +250,28 @@ class App_Ajax extends Apps
 
             $data_file = array();
 
-            $data_file['Transaction_id']        = '0';
-            $data_file['File_Name_In']          = $_POST['file_name'];
+            $data_file['Transaction_id']          = '0';
+            $data_file['File_Name_In']            = $_POST['file_name'];
             $data_file['preview_id']              = $_POST['preview_id'];
             $data_file['LIST_PROPERTY_PICTURES']  = $_POST['LIST_PROPERTY_PICTURES'];
-            $data_file['Transaction_id']        = $_POST['Transaction_id'];
-            $data_file["company_id"]            = $this->aauth->get_user()->company_id;
-            $data_file["file_name"]             = $upload_data['file_name'];
-            $data_file["file_type"]             = $upload_data['file_type'];
-            $data_file["file_path"]             = $upload_data['file_path'];
-            $data_file["full_path"]             = $upload_data['full_path'];
-            $data_file["raw_name"]              = $upload_data['raw_name'];
-            $data_file["orig_name"]             = $upload_data['orig_name'];
-            $data_file["client_name"]           = $upload_data['client_name'];
-            $data_file["file_ext"]              = $upload_data['file_ext'];
-            $data_file["is_image"]              = $upload_data['is_image']; // Whether the file is an image or not. 1 = image. 0 = not.
-            $data_file["image_type"]            = $upload_data['image_type'];
-            $data_file["file_createBy"]         = $this->aauth->get_user()->id;
-            $data_file["file_createDate"]       = time();
-            $data_file["file_lastModifyDate"]   = 0;
-            $data_file["file_isDeleted"]        = 0;
-            $data_file["file_DeletedBy"]        = 0;
+            $data_file['Transaction_id']          = $_POST['Transaction_id'];
+            $data_file["company_id"]              = $this->aauth->get_user()->company_id;
+            $data_file["file_name"]               = $upload_data['file_name'];
+            $data_file["file_type"]               = $upload_data['file_type'];
+            $data_file["file_path"]               = $upload_data['file_path'];
+            $data_file["full_path"]               = $upload_data['full_path'];
+            $data_file["raw_name"]                = $upload_data['raw_name'];
+            $data_file["orig_name"]               = $upload_data['orig_name'];
+            $data_file["client_name"]             = $upload_data['client_name'];
+            $data_file["file_ext"]                = $upload_data['file_ext'];
+            $data_file["is_image"]                = $upload_data['is_image']; // Whether the file is an image or not. 1 = image. 0 = not.
+            $data_file["image_type"]              = $upload_data['image_type'];
+            $data_file["file_createBy"]           = $this->aauth->get_user()->id;
+            $data_file["file_createDate"]         = time();
+            $data_file["file_lastModifyDate"]     = 0;
+            $data_file["file_isDeleted"]          = 0;
+            $data_file["file_DeletedBy"]          = 0;
+            $data_file["files_sort"]              = time();
 
 
             if($uploader){

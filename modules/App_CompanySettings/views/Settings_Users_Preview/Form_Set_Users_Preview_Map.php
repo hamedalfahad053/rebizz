@@ -9,7 +9,7 @@
 	    </div>
 	    <!--end::Header-->
         <!--begin::Body-->
-	    <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Settings/Update_Set_CRD_Users_Preview') ?>" method="post">
+	    <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Settings_Preview/Update_Set_CRD_Users_Preview') ?>" method="post">
         <div class="card-body">
 			        <?= CSFT_Form() ?>
 	                <input type="hidden" name="Users_Preview" value="<?=  $this->uri->segment(4); ?>">
@@ -54,16 +54,20 @@
 </div>
 <!--end: Card-->
 
-<?php
-$where_Assignment = array("users_preview_id" => $this->uri->segment(4),"company_id"=>app()->aauth->get_user()->company_id);
-$Get_Assignment_Map_users_preview = Get_Assignment_Map_users_preview($where_Assignment);
-if($Get_Assignment_Map_users_preview->num_rows()>0){
-	$Map_users_preview = $Get_Assignment_Map_users_preview->row();
-	$Get_Regions       = @Get_Regions(194,$Map_users_preview->regions_id)->row();
-	$Get_City          = @Get_City(194,$Map_users_preview->regions_id,$Map_users_preview->city_id)->row();
-	$Get_Districts     = @Get_Districts(194,$Map_users_preview->regions_id,$Map_users_preview->city_id)->result();
-}
-?>
+	<?php
+	$where_Assignment = array("users_preview_id" => $this->uri->segment(4),"company_id"=>app()->aauth->get_user()->company_id);
+	$Get_Assignment_Map_users_preview = Get_Assignment_Map_users_preview($where_Assignment);
+
+	if($Get_Assignment_Map_users_preview->num_rows()>0){
+
+		$Map_users_preview = $Get_Assignment_Map_users_preview->row();
+		$Get_Regions       = @Get_Regions(194,$Map_users_preview->regions_id)->row();
+		$Get_City          = @Get_City(194,$Map_users_preview->regions_id,$Map_users_preview->city_id)->row();
+		$Get_Districts     = @Get_Districts(194,$Map_users_preview->regions_id,$Map_users_preview->city_id)->result();
+
+	}
+
+	?>
 <script type="text/javascript">
 
       function Get_Regions()

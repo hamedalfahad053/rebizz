@@ -194,6 +194,76 @@ class App_Company_Settings_Transactions extends Apps
     }
     ###################################################################
 
+    ###################################################################
+    public function stages_transaction()
+    {
 
+        $stages = query_All_options_List('29');
+
+        foreach ($stages->result() as $R) {
+
+            $this->data['stages'][] = array(
+                "stages_id"    => $R->list_options_id,
+                "stages_title" => $R->item_translation,
+                "stages_key"   => $R->options_key,
+            );
+
+        }
+
+        $Get_Departments = Get_Departments(array("company_id" => $this->aauth->get_user()->company_id, "departments_isDeleted" => 0));
+        if ($Get_Departments->num_rows() > 0) {
+            foreach ($Get_Departments->result() as $ROW) {
+                $this->data['Departments'][] = array(
+                    "departments_id" => $ROW->departments_id,
+                    "departments_title" => $ROW->item_translation,
+                );
+            }
+        }
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL . '/Dashboard'));
+        $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Company_Settings'));
+
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['Page_Title'] = ' اعداد سير المعاملة ';
+        $this->data['PageContent'] = $this->load->view('../../modules/App_CompanySettings/views/Settings_Transaction/Setting_Stages_Transaction', $this->data, true);
+        Layout_Apps($this->data);
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Update_Stages()
+    {
+
+        $Departments_To     = $this->input->post('Departments_To');
+        $attribution_method = $this->input->post('attribution_method');
+        $stages_key         = $this->input->post('stages_key');
+
+
+        $countarray = count($this->input->post('stages_key'));
+
+        for ($i = 0; $i < $countarray; $i++)
+        {
+            $company_id    = $this->aauth->get_user()->company_id;
+            $Clear_Stages  = clear_Stages_Transaction($company_id, $stages_key[$i]);
+            $insert_Stages = insert_Stages_Transaction($company_id, $stages_key[$i], $Departments_To[$i], $attribution_method[$i]);
+        }
+
+        if ($insert_Stages) {
+            $msg_result['key']   = 'Success';
+            $msg_result['value'] = 'تم تحديث سير المعاملة بنجاح';
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL . '/Settings_Transaction/stages_transaction', 'refresh');
+        } else {
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = 'خطا اثناء التحديث حاول مجددا';
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL . '/Settings_Transaction/stages_transaction', 'refresh');
+        }
+
+
+    }
+    ###################################################################
 
 }

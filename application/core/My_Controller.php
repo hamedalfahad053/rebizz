@@ -48,10 +48,10 @@ class MY_Controller extends MX_Controller  {
             $this->data['dir']         = '';
         }
 
-        $this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
-        $this->output->set_header("Cache-Control: private, no-store, max-age=0, no-cache, must-revalidate, post-check=0, pre-check=0");
-        $this->output->set_header("Pragma: no-cache");
-        $this->output->set_header("Access-Control-Allow-Origin: *");
+//        $this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
+//        $this->output->set_header("Cache-Control: private, no-store, max-age=0, no-cache, must-revalidate, post-check=0, pre-check=0");
+//        $this->output->set_header("Pragma: no-cache");
+//        $this->output->set_header("Access-Control-Allow-Origin: *");
 
         $this->data['PageContent']   = '';
         $this->data['Lode_file_Css'] = '';

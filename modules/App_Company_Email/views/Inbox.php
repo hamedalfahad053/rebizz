@@ -13,6 +13,7 @@
             </div>
             <div class="card-body">
 
+	            <?php echo  $this->session->flashdata('message'); ?>
 
 	            <style>th.dt-center,.dt-center { text-align: center; }</style>
 	            <table class="data_table table table-bordered table-hover display nowrap" width="100%">
@@ -30,7 +31,7 @@
 		            <?php
 		            $i = 0;
 
-		            if($Student_Inbox->num_rows()==0){
+		            if($Inbox->num_rows()==0){
 
 			            $msg_result['key']   = 'Warning';
 			            $msg_result['value'] = 'لا يوجد رسائل ';
@@ -64,7 +65,7 @@
 								            "class" => "", "id" => "",
 								            "title" => 'عرض الرسالة',
 								            "data-attribute" => '',
-								            "href" => base_url(ADMIN_NAMESPACE_URL.'/Email/View_Message_Inbox/'.$row->uuid)
+								            "href" => base_url(APP_NAMESPACE_URL.'/Email/View_Message_Inbox/'.$row->uuid)
 						            );
 
 						            $options['custom'] = array(
@@ -73,7 +74,7 @@
 								            "data-attribute" => '',
 								            'icon' =>'flaticon-envelope',
 								            'color'=> 'warning',
-								            'href' => base_url(ADMIN_NAMESPACE_URL.'/Email/Transfer_archive_Message/'.$row->uuid.'/Inbox')
+								            'href' => base_url(APP_NAMESPACE_URL.'/Email/Transfer_archive_Message/'.$row->uuid.'/Inbox')
 						            );
 
 						            echo Create_Options_Button($options)

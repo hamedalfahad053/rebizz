@@ -109,3 +109,19 @@ if(!function_exists('Get_Districts')) {
 
 }
 ##############################################################################
+
+##############################################################################
+if(!function_exists('Get_Nearby_Search_Map')) {
+
+    function Get_Nearby_Search_Map($latLng_lat,$latLng_lng,$radius,$type_place)
+    {
+        $url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='.$latLng_lat.','.$latLng_lng.'&radius='.$radius.'&name='.$type_place.'&key=AIzaSyDw_Thx2J7uq9eaqeb-WmZ2fBzUz7hZYGE';
+        $json = file_get_contents($url);
+        $data_map = json_decode($json);
+        print_r($data_map);
+    }
+
+}
+##############################################################################
+
+

@@ -52,14 +52,14 @@
 
 							<!--begin::Nav-->
 
-							<a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Email/New_Message_Group') ?>" class="mb-10 btn btn-block btn-primary font-weight-bold text-uppercase py-4 px-6 text-center">ارسال رسالة جديدة</a>
+							<a href="<?= base_url(APP_NAMESPACE_URL.'/Email/New_Message_Group') ?>" class="mb-10 btn btn-block btn-primary font-weight-bold text-uppercase py-4 px-6 text-center">ارسال رسالة جديدة</a>
 
 
-							<a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Email') ?>" class="text-left btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"><i class="flaticon-multimedia"></i> البريد الوارد  </a>
+							<a href="<?= base_url(APP_NAMESPACE_URL.'/Email') ?>" class="text-left btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"><i class="flaticon-multimedia"></i> البريد الوارد  </a>
 							<div class="separator separator-dashed my-1"></div>
-							<a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Email/Outbox') ?>" class="text-left btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"><i class="flaticon-paper-plane-1"></i> البريد الصادر </a>
+							<a href="<?= base_url(APP_NAMESPACE_URL.'/Email/Outbox') ?>" class="text-left btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"><i class="flaticon-paper-plane-1"></i> البريد الصادر </a>
 							<div class="separator separator-dashed my-1"></div>
-							<a href="<?= base_url(ADMIN_NAMESPACE_URL.'/Email/archive_Message') ?>" class="text-left btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"><i class="flaticon-envelope"></i> الارشيف </a>
+							<a href="<?= base_url(APP_NAMESPACE_URL.'/Email/archive_Message') ?>" class="text-left btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block"><i class="flaticon-envelope"></i> الارشيف </a>
 							<div class="separator separator-dashed my-1"></div>
 							<!--end::Nav-->
 

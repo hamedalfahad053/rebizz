@@ -35,7 +35,6 @@
     <div class="container-fluid">
 
         <div class="row">
-
             <div class="col-lg-12 mt-5">
                 <div class="card card-custom">
                     <div class="card-body">
@@ -106,7 +105,6 @@
                     </div>
                 </div>
             </div><!--<div class="col-lg-12 mt-5">-->
-
         </div>
 
     </div>

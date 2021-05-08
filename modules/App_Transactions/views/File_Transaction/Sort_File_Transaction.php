@@ -45,7 +45,7 @@
 
 
 				?>
-				<div class="grid-square" data-File-Transaction="<?= $RC->file_uplode_id ?>">
+				<div class="grid-square" data-File-Transaction="<?= $RC->uuid ?>">
 					<div class="card mt-10 card-custom">
 						<div class="card-header">
 							<div class="card-title">
@@ -72,7 +72,7 @@
 		</div>
 
 
-		<form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Update_Sort_File_Transaction') ?>" enctype="multipart/form-data" method="post">
+		<form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Update_Sort_File_Transaction/'.$this->uri->segment(4)) ?>" enctype="multipart/form-data" method="post">
 			<?= CSFT_Form() ?>
 			<input type="hidden" name="Transactions_id"  value="<?= $Transactions->transaction_id ?>">
 			<input type="hidden" name="File_Transaction" id="File_Transaction" >
@@ -105,7 +105,7 @@
 				expression: /(.+)/
 			});
 			console.log(postData);
-			$("#File_sort").val(postData);
+			$("#File_Transaction").val(postData);
 		}
 	});
 </script>

@@ -56,7 +56,7 @@
 								            "class" => "", "id" => "",
 								            "title" => 'عرض الرسالة',
 								            "data-attribute" => '',
-								            "href" => base_url(ADMIN_NAMESPACE_URL.'/Email/View_Message_Outbox/'.$row->uuid)
+								            "href" => base_url(APP_NAMESPACE_URL.'/Email/View_Message_Outbox/'.$row->uuid)
 						            );
 						            $options['custom'] = array(
 								            "class" => "", "id" => "",
@@ -64,7 +64,7 @@
 								            "data-attribute" => '',
 								            'icon' =>'flaticon-envelope',
 								            'color'=> 'warning',
-								            'href' => base_url(ADMIN_NAMESPACE_URL.'/Email/Transfer_archive_Message/'.$row->uuid.'/Outbox')
+								            'href' => base_url(APP_NAMESPACE_URL.'/Email/Transfer_archive_Message/'.$row->uuid.'/Outbox')
 						            );
 						            echo Create_Options_Button($options);
 						            ?>

@@ -151,6 +151,12 @@ $route[APP_NAMESPACE_URL.'/Dashboard/(:any)']                       = 'App_Dashb
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)']                = 'App_Dashboard/App_Dashboard/$1/$2';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)/(:any)']         = 'App_Dashboard/App_Dashboard/$1/$2/$3';
 
+# Company Email
+$route[APP_NAMESPACE_URL]                                       = 'App_Company_Email/Company_Email';
+$route[APP_NAMESPACE_URL.'/Email']                              = 'App_Company_Email/Company_Email';
+$route[APP_NAMESPACE_URL.'/Email/(:any)']                       = 'App_Company_Email/Company_Email/$1';
+$route[APP_NAMESPACE_URL.'/Email/(:any)/(:any)']                = 'App_Company_Email/Company_Email/$1/$2';
+$route[APP_NAMESPACE_URL.'/Email/(:any)/(:any)/(:any)']         = 'App_Company_Email/Company_Email/$1/$2/$3';
 
 
 # Company Settings
@@ -158,7 +164,6 @@ $route[APP_NAMESPACE_URL.'/Settings']                               = 'App_Compa
 $route[APP_NAMESPACE_URL.'/Settings/(:any)']                        = 'App_CompanySettings/App_CompanySettings/$1';
 $route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)']                 = 'App_CompanySettings/App_CompanySettings/$1/$2';
 $route[APP_NAMESPACE_URL.'/Settings/(:any)/(:any)/(:any)']          = 'App_CompanySettings/App_CompanySettings/$1/$2/$3';
-
 
 
 #  Settings Transaction
@@ -169,13 +174,19 @@ $route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)/(:any)']          
 $route[APP_NAMESPACE_URL.'/Settings_Transaction/(:any)/(:any)/(:any)/(:any)']     = 'App_CompanySettings/App_Company_Settings_Transactions/$1/$2/$3/$4';
 
 
-
 #  Settings Transaction Reports
 $route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports']                                 = 'App_CompanySettings/App_Company_Settings_Transaction_Reports';
 $route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports/(:any)']                          = 'App_CompanySettings/App_Company_Settings_Transaction_Reports/$1';
 $route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports/(:any)/(:any)']                   = 'App_CompanySettings/App_Company_Settings_Transaction_Reports/$1/$2';
 $route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports/(:any)/(:any)/(:any)']            = 'App_CompanySettings/App_Company_Settings_Transaction_Reports/$1/$2/$3';
 $route[APP_NAMESPACE_URL.'/Settings_Transaction_Reports/(:any)/(:any)/(:any)/(:any)']     = 'App_CompanySettings/App_Company_Settings_Transaction_Reports/$1/$2/$3/$4';
+
+#  Settings  Preview
+$route[APP_NAMESPACE_URL.'/Settings_Preview']                                 = 'App_CompanySettings/App_Company_Settings_Preview';
+$route[APP_NAMESPACE_URL.'/Settings_Preview/(:any)']                          = 'App_CompanySettings/App_Company_Settings_Preview/$1';
+$route[APP_NAMESPACE_URL.'/Settings_Preview/(:any)/(:any)']                   = 'App_CompanySettings/App_Company_Settings_Preview/$1/$2';
+$route[APP_NAMESPACE_URL.'/Settings_Preview/(:any)/(:any)/(:any)']            = 'App_CompanySettings/App_Company_Settings_Preview/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Settings_Preview/(:any)/(:any)/(:any)/(:any)']     = 'App_CompanySettings/App_Company_Settings_Preview/$1/$2/$3/$4';
 
 
 
@@ -280,6 +291,13 @@ $route[APP_NAMESPACE_URL.'/Map/(:any)']                          = 'App_Company_
 $route[APP_NAMESPACE_URL.'/Map/(:any)/(:any)']                   = 'App_Company_Map/App_Map/$1/$2';
 $route[APP_NAMESPACE_URL.'/Map/(:any)/(:any)/(:any)']            = 'App_Company_Map/App_Map/$1/$2/$3';
 $route[APP_NAMESPACE_URL.'/Map/(:any)/(:any)/(:any)/(:any)']     = 'App_Company_Map/App_Map/$1/$2/$3/$4';
+
+# Company Ajax Map
+$route[APP_NAMESPACE_URL.'/Tools_Map_Ajax']                                 = 'App_Ajax/Ajax_Map_Place';
+$route[APP_NAMESPACE_URL.'/Tools_Map_Ajax/(:any)']                          = 'App_Ajax/Ajax_Map_Place/$1';
+$route[APP_NAMESPACE_URL.'/Tools_Map_Ajax/(:any)/(:any)']                   = 'App_Ajax/Ajax_Map_Place/$1/$2';
+$route[APP_NAMESPACE_URL.'/Tools_Map_Ajax/(:any)/(:any)/(:any)']            = 'App_Ajax/Ajax_Map_Place/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Tools_Map_Ajax/(:any)/(:any)/(:any)/(:any)']     = 'App_Ajax/Ajax_Map_Place/$1/$2/$3/$4';
 
 
 $route[APP_NAMESPACE_URL.'/Online']                              = 'App_Company_Online_Users/App_Company_Online_Users';

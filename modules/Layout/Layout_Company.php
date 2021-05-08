@@ -307,6 +307,18 @@
 						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction/index ') ?>" class="menu-link menu-toggle">
 							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> تقارير المعاملات </span></a>
 					                    </li>
+
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction/stages_transaction ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> اعداد سير المعاملة </span></a>
+					                    </li>
+
+
+					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction/index ') ?>" class="menu-link menu-toggle">
+							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> اعداد مرفقات المعاملات </span></a>
+					                    </li>
+
 				                    </ul>
 			                    </div>
 		                </li>
@@ -322,11 +334,11 @@
 				                    <i class="menu-arrow"></i>
 				                    <ul class="menu-subnav">
 					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/Form_Add_Transaction_Reports ') ?>" class="menu-link menu-toggle">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Preview/Users_Preview_Map') ?>" class="menu-link menu-toggle">
 							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> التوزيع الجغرافي  </span></a>
 					                    </li>
 					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/index ') ?>" class="menu-link menu-toggle">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Preview/Setting_Fees_Preview ') ?>" class="menu-link menu-toggle">
 							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> اتعاب الزيارات </span></a>
 					                    </li>
 				                    </ul>
@@ -353,7 +365,7 @@
 					                    </li>
 
 					                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/index ') ?>" class="menu-link menu-toggle">
+						                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/List_Text_Static_Transaction_Reports ') ?>" class="menu-link menu-toggle">
 							                    <span class="menu-icon"><i class="flaticon-background text-primary"></span></i><span class="menu-text"> نصوص التقارير </span></a>
 					                    </li>
 
@@ -545,6 +557,7 @@
 
 
 $(document).ready(function() {
+
     $(".datepicker").hijriDatePicker({
         hijri:true,
         format: "DD-MM-YYYY",
@@ -552,26 +565,24 @@ $(document).ready(function() {
         dayViewHeaderFormat: "MMMM YYYY",
         hijriDayViewHeaderFormat: "iMMMM iYYYY",
         showSwitcher: true,
-        allowInputToggle: true,
+        allowInputToggle: false,
         useCurrent: true,
         isRTL: true,
-        keepOpen: true,
+        keepOpen: false,
         debug: true,
-        showClear: true,
+        showClear: false,
         showTodayButton: true,
         showClose: true
     });
 
 	$('.selectpicker').selectpicker();
 
+
+
+
 	$('.summernote').summernote({
 		height: 150
 	});
-
-	// setInterval(function () {
-	// 	if(alert('تنتهي صلاحية النموذج سيتم اعادة تحميل الصفحة لامان النظام بوقت الخمول الطويل')){}
-	// 	else    window.location.reload();
-	// }, 7200);
 
 
 });

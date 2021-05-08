@@ -25,9 +25,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] =  BASE_URL;
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -327,8 +324,8 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
+// &@11775cba1b7bfaa2^a660#$5cfdfdb5*c%*e0e
 $config['encryption_key'] = '&@11775cba1b7bfaa2^a660#$5cfdfdb5*c%*e0e';
-
 /*
 |--------------------------------------------------------------------------
 | Session Variables
@@ -435,7 +432,7 @@ $config['standardize_newlines'] = FALSE;
 |          for backwards compatibility purposes!
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -492,7 +489,7 @@ $config['csrf_exclude_uris'] = array(
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-$config['compress_output'] = FALSE;
+$config['compress_output'] = false;
 
 /*
 |--------------------------------------------------------------------------

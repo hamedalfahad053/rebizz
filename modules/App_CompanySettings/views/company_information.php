@@ -173,6 +173,11 @@
 						<label><?= lang('Global_Region_province') ?></label>
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<select name="companies_Region_id" id="companies_Region_id" class="form-control selectpicker" data-size="7" data-live-search="true" >
+								<option selected value="<?= $Company_Profile->companies_Region_id ?>">
+									<?php
+									echo Get_Regions(194,$Company_Profile->companies_Region_id)->row()->name_ar;
+									?>
+								</option>
 							</select>
 						</div>
 					</div>
@@ -180,6 +185,11 @@
 						<label><?= lang('Global_City') ?></label>
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<select  name="companies_City_id" id="companies_City_id" class="form-control selectpicker" data-size="7" data-live-search="true" >
+								<option selected value="<?= $Company_Profile->companies_City_id ?>">
+									<?php
+									echo Get_City(194,$Company_Profile->companies_Region_id,$Company_Profile->companies_City_id)->row()->name_ar;
+									?>
+								</option>
 							</select>
 						</div>
 					</div>
@@ -187,6 +197,11 @@
 						<label><?= lang('Global_District') ?></label>
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<select name="companies_District_id" id="companies_District_id" class="form-control selectpicker" data-size="7" data-live-search="true" >
+								<option selected value="<?= $Company_Profile->companies_District_id ?>">
+									<?php
+									echo Get_Districts(194,$Company_Profile->companies_Region_id,$Company_Profile->companies_City_id,$Company_Profile->companies_District_id)->row()->name_ar;
+									?>
+								</option>
 							</select>
 						</div>
 					</div>
@@ -209,6 +224,8 @@
 
 					<div class="col-lg-12 mt-5">
 						<label><?= lang('Google_Location_on_Google') ?> </label>
+
+
 						<input type="text" name="companies_Location_on_Google" class="form-control" value="" placeholder="<?= lang('Google_Location_on_Google') ?>"/>
 					</div>
 
@@ -234,8 +251,6 @@
 </form>
 
 <script type="text/javascript">
-
-
 	function Country_id(){
 		var Country_id  = 194;
 		$.ajax({
@@ -259,10 +274,7 @@
 			}
 		});
 	}
-
 	Country_id();
-
-
 
 	$('#companies_Region_id').change(function(event){
 		event.preventDefault();
@@ -289,8 +301,6 @@
 			}
 		});
 	});
-
-
 	$('#companies_City_id').change(function(event){
 		event.preventDefault();
 		var Country_id  = 194;
@@ -318,7 +328,6 @@
 		});
 	});
 
-
 	function get_Nationality(){
 		$.ajax({
 			type: 'ajax',
@@ -338,7 +347,6 @@
 			}
 		});
 	} // function get_Nationality()
+
 	get_Nationality();
-
-
 </script>

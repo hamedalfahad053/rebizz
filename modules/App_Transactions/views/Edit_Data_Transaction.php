@@ -20,7 +20,7 @@
         <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
 
-            <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/View_Transaction/') ?>" class="btn btn-success">
+            <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/View_Transaction/'.$this->uri->segment(4)) ?>" class="btn btn-success">
                 <i class="flaticon2-arrow"></i>   العودة للمعاملة
             </a>
 
@@ -38,8 +38,8 @@
 	    <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Update_Data_Transactions') ?>" enctype="multipart/form-data" method="post">
 		<?= CSFT_Form() ?>
 
-		<input type="hidden" name="Form_id" value="<?= $Query_Fields->Forms_id ?>">
-		<input type="hidden" name="Components_id" value="<?= $Query_Fields->Components_id ?>">
+		<input type="hidden" name="Form_id"        value="<?= $Query_Fields->Forms_id ?>">
+		<input type="hidden" name="Components_id"  value="<?= $Query_Fields->Components_id ?>">
 		<input type="hidden" name="Transaction_id" value="<?= $Transactions->transaction_id ?>">
 
 	    <div class="card card-custom mt-10">
@@ -83,8 +83,6 @@
 							    '',
 							    '');
 
-
-
 				    }elseif($Query_Fields->Fields_Type == 'List'){
 
 					    $class_List      = array( 0 => "selectpicker");
@@ -99,7 +97,6 @@
 							    $disabled='',
 							    $label='',
 							    $js='');
-
 				    }
 				    ?>
 			    </div><!-- <div class="form-group row"> -->

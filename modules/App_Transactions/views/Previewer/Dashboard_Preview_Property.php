@@ -29,13 +29,12 @@
 
 
 <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw_Thx2J7uq9eaqeb-WmZ2fBzUz7hZYGE&libraries=places&callback=initMap"></script>
-<script src="//maps.google.com/maps/api/js?key=AIzaSyBMkLi0BxMHoFVI2CKxGHdduypMeA1I6wk&sensor=false&libraries="></script>
 <?= import_js(BASE_ASSET.'plugins/custom/gmaps/gmaps',''); ?>
 
 <style type="text/css">
 	#map-container {
 		width:100%;
-		height:300px;
+		height:400px;
 		overflow:hidden;
 	}
 
@@ -50,37 +49,6 @@
 <?= import_css(BASE_ASSET.'css/pages/wizard/wizard-4',$this->data['direction']); ?>
 
 
-
-<?php
-//
-//		$config = Array(
-//				'protocol'  => 'smtp',
-//				'smtp_host' => 'smtp.googlemail.com',
-//				'smtp_port' => 465,
-//				'smtp_user' => 'hamedalfahad@gmail.com',
-//				'smtp_pass' => 'hamedSAAD@202020',
-//				'mailtype'  => 'html',
-//				'charset'   => 'utf-8',
-//				'wordwrap'  => TRUE
-//		);
-//$this->load->library('email',$config);
-//$this->email->clear();
-//$this->email->to('hamedalfahad@gmail.com');
-//$this->email->from('hamedalfahad@gmail.com');
-//$this->email->set_mailtype("html");
-//$this->email->set_newline("\r\n");
-//$this->email->set_crlf("\r\n");
-//$this->email->subject('   test  ');
-//$this->email->message('test');
-//
-//$s = $this->email->send();
-//
-//if($s){
-//	echo 1;
-//}else{
-//	echo 2;
-//}
-?>
 <!--begin::Entry-->
 <div class="d-flex flex-column-fluid">
 
@@ -90,6 +58,14 @@
 			<div class="card-body p-0">
 
 
+				<?php
+				$this->load->library('Arabic',array());
+				$obj = new I18N_Arabic('Date');
+
+				$y = '2021 04 26';
+
+				echo $obj->gregToJd(9,26,1442);
+				?>
 				<!--begin: Wizard-->
 				<div class="wizard wizard-4" id="kt_wizard" data-wizard-state="step-first" data-wizard-clickable="true">
 
@@ -213,14 +189,14 @@
 																			<div class="col-lg-3 mt-5">
 																				<?php
 																				$class_List      = array( 0 => "selectpicker");
-																				Building_List_Forms($RC->Forms_id,
+																				echo Building_ChekBox_Forms('radio',$RC->Forms_id,
 																						$RC->components_id,
 																						$GFC['Fields_id'],
 																						$multiple = '',
 																						$selected='',
 																						$style='',
 																						$id='',
-																						$class = array( 0=> "selectpicker"),
+																						$class = array( 0=>"selectpicker"),
 																						$disabled='',
 																						$label='',
 																						$js='');
@@ -242,115 +218,7 @@
 
 												<!--begin: Wizard Step 2-->
 												<div class="p-5" data-wizard-type="step-content">
-													<div class="row">
-
-
-														<?php
-														$LIST_CLIENT                    = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
-														$CUSTOMER_CATEGORY              = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CUSTOMER_CATEGORY');
-														$TYPE_OF_PROPERTY               = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPE_OF_PROPERTY');
-														$TYPES_OF_REAL_ESTATE_APPRAISAL = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
-														$Form_Components  = Get_View_Components_Customs(15,$LIST_CLIENT,$CUSTOMER_CATEGORY,$TYPE_OF_PROPERTY,$TYPES_OF_REAL_ESTATE_APPRAISAL);
-														foreach ($Form_Components->result() AS $RC)
-														{
-															?>
-															<?php
-															if($RC->components_key == 'MAP'){
-																?>
-																<div id="map-container" class="mt-10 mb-10"><div id="map-content"></div></div>
-
-																<div class="form-group row">
-																	<div class="col-lg-12 mt-5">
-																	<label>زوم الخريطة</label>
-																		<select id="geo-zoom" name="geo-zoom" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
-																		<?php
-																		for($i=0;$i<20;$i++)
-																		{
-																			echo '<option value="'.$i.'">'.$i.'</option>';
-																		}
-																		?>
-																		</select>
-																	</div>
-																</div>
-
-														    <?php
-															}
-															?>
-
-
-
-
-
-
-															<div class="form-group row">
-																<?php
-
-
-																//$url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=21.518669,39.2590863&radius=5000&name=university,hospital&key=AIzaSyDw_Thx2J7uq9eaqeb-WmZ2fBzUz7hZYGE';
-																//$json = file_get_contents($url);
-																//$data_map = json_decode($json);
-																//print_r($data_map);
-
-																$Get_Fields_Components = Building_Fields_Components_Forms($RC->Forms_id, $RC->components_id,$LIST_CLIENT,$CUSTOMER_CATEGORY,$TYPE_OF_PROPERTY,$TYPES_OF_REAL_ESTATE_APPRAISAL,'All');
-
-																foreach ($Get_Fields_Components as $GFC)
-																{
-
-																	if($GFC['Fields_Type_Components'] == 'Fields'){
-
-																		$Where_Get_Fields = array("Fields_id" => $GFC['Fields_id']);
-																		$Get_Fields       = Get_Fields($Where_Get_Fields)->row();
-																		?>
-
-																		<div class="col-lg-4 mt-5">
-																			<?php
-																			echo Building_Field_Forms($Get_Fields->Fields_key,
-																					true,
-																					$Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,
-																					'',
-																					$Get_Fields->Fields_key,
-																					'',
-																					'',
-																					'',
-																					'',
-																					'',
-																					'');
-
-																			?>
-
-																		</div>
-
-																		<?php
-
-																	}elseif($GFC['Fields_Type_Components'] == 'List'){
-																		?>
-
-																		<div class="col-lg-4 mt-5">
-																			<?php
-//																			$class_List      = array( 0 => "selectpicker");
-//																			Building_List_Forms($RC->Forms_id,
-//																					$RC->components_id,
-//																					$GFC['Fields_id'],
-//																					$multiple = '',
-//																					$selected='',
-//																					$style='',
-//																					$id='',
-//																					$class = array( 0=> "selectpicker"),
-//																					$disabled='',
-//																					$label='',
-//																					$js='');
-																			?>
-																		</div>
-																		<?php
-																	}
-
-																} // foreach
-																?>
-															</div><!-- <div class="form-group row"> -->
-														<?php
-														}
-														?>
-													</div>
+													<?= $this->load->view('../../modules/App_Transactions/views/Previewer/Template_Map'); ?>
 												</div>
 												<!--end: Wizard Step 2-->
 
@@ -425,26 +293,13 @@
 														<?php
 													}
 
-													$this->load->view('../../modules/App_Transactions/views/Template/Template_Total_Evluation_Preview_Property');
+													$this->load->view('../../modules/App_Transactions/views/Previewer/Template_Total_Evluation_Preview_Property');
 													?>
-
-
 
 
                                                     <div class="row">
-	                                                    <?= $this->load->view('../../modules/App_Transactions/views/Template/Template_Table_Land_Comparisons', $this->data); ?>
+	                                                    <?= $this->load->view('../../modules/App_Transactions/views/Previewer/Template_Table_Land_Comparisons', $this->data); ?>
                                                     </div>
-
-
-													<?php
-													$TYPES_OF_REAL_ESTATE_APPRAISAL = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
-													if($TYPES_OF_REAL_ESTATE_APPRAISAL == 13){
-													?>
-													<h3 class="font-size-h5 mt-10 font-weight-boldest">مراحل البناء</h3>
-													<div class="separator separator-dashed separator-border-1 separator-primary"></div>
-													<?php
-													}
-													?>
 
 
 												</div>
@@ -485,132 +340,39 @@
 
 
 
-<?= $this->load->view('../../modules/App_Transactions/views/Template/modal_add_Comparisons', $this->data); ?>
+<?= $this->load->view('../../modules/App_Transactions/views/Previewer/modal_add_Comparisons', $this->data); ?>
 
 
 
 
 <script type="text/javascript">
 
-	function Get_Ajax_Data_Table_Land_Comparisons() {
-		var Transactions_id        = <?= $Transactions->transaction_id ?>;
-		var Coordination_id        = <?= $Coordination->Coordination_id ?>;
-		$.ajax({
-			url : "<?= base_url(APP_NAMESPACE_URL . '/Transactions/Ajax_Comparisons_Land_Comparisons') ?>",
-			type:'get',
-			data: {
-				Transactions_id:Transactions_id,Coordination_id:Coordination_id
-			},
-			dataType: 'html',
-			beforeSend: function(){
-				$('#Ajax_Data_Table_Land_Comparisons').append("<div style='text-align: center;'><i class='fa fa-spinner fa-spin fa-5x fa-fw'></i></div>")
-			},
-			success: function(response) {
-				$("#Ajax_Data_Table_Land_Comparisons").empty();
-				$("#Ajax_Data_Table_Land_Comparisons").html(response);
-			},
-			error: function(){
-
-			}
-		});
-	} // Get_All_Data_Ajax()
-
-
-	Get_Ajax_Data_Table_Land_Comparisons();
-
-
-	/*************************** START MAP ****************************************/
-	        var map = new GMaps({ div: '#map-content' , lat: 23.7112692 , lng: 44.4579123 });
-	        GMaps.geolocate({
-				success: function(position) {
-					map.setCenter(position.coords.latitude, position.coords.longitude);
-
-					$("#LATITUDE").val(position.coords.latitude);
-					$("#LONGITUDE").val(position.coords.longitude);
-
-					map.addMarker({
-						lat: position.coords.latitude,
-						lng: position.coords.longitude,
-						zoom: 14,
-						draggable: true,
-						streetViewControl:false,
-						dragend: function(event) {
-
-							var lat = event.latLng.lat();
-							var lng = event.latLng.lng();
-
-							$("#LATITUDE").val(lat);
-							$("#LONGITUDE").val(lng);
-
-							map.setCenter(lat,lng);
-							map.refresh();
-
-							pos = {
-								lat: lat,
-								lng: lng
-							};
-						},
-						title: 'الموقع الحالي',
-						infoWindow: {
-							content: '<span  data-container="body" data-offset="20px 20px" data-toggle="popover" data-placement="top" data-content="الموقع الحالي">  </span>'
-						}
-					});
-
+		function Get_Ajax_Data_Table_Land_Comparisons() {
+			var Transactions_id        = <?= $Transactions->transaction_id ?>;
+			var Coordination_id        = <?= $Coordination->Coordination_id ?>;
+			$.ajax({
+				url : "<?= base_url(APP_NAMESPACE_URL . '/Transactions/Ajax_Comparisons_Land_Comparisons') ?>",
+				type:'get',
+				data: {
+					Transactions_id:Transactions_id,Coordination_id:Coordination_id
 				},
-				error: function(error) {
-					swal.fire("خطا ", "لا يمكن العثور على الموقع الجغرافي ", "error");
+				dataType: 'html',
+				beforeSend: function(){
+					$('#Ajax_Data_Table_Land_Comparisons').append("<div style='text-align: center;'><i class='fa fa-spinner fa-spin fa-5x fa-fw'></i></div>")
 				},
-				not_supported: function() {
-					swal.fire("خطا ", "المتصفح لا يدعم الموقع الجغرافي ", "error");
+				success: function(response) {
+					$("#Ajax_Data_Table_Land_Comparisons").empty();
+					$("#Ajax_Data_Table_Land_Comparisons").html(response);
 				},
-				always: function() {
+				error: function(){
 
 				}
 			});
+		} // Get_All_Data_Ajax()
 
-			$('#geo-zoom').change(function(){
-				var ToZoom = parseInt($("#geo-zoom").find(":selected").text());
+		Get_Ajax_Data_Table_Land_Comparisons();
 
-				map.setZoom(ToZoom);
-			});
 
-			 $('#LATITUDE,#LONGITUDE').blur(function() {
-				var LATITUDE  = $("#LATITUDE").val();
-				var LONGITUDE = $("#LONGITUDE").val();
-
-				if(LATITUDE.length > 3  || LONGITUDE.length > 3  ){
-
-					map.removeMarkers();
-
-					map.addMarker({
-						lat: LATITUDE,
-						lng: LONGITUDE,
-						zoom: 14,
-						draggable: true,
-						streetViewControl:false,
-						dragend: function(event) {
-
-							var lat = event.latLng.lat();
-							var lng = event.latLng.lng();
-
-							$("#LATITUDE").val(lat);
-							$("#LONGITUDE").val(lng);
-
-							map.setCenter(lat,lng);
-							map.refresh();
-						},
-						title: 'الموقع الحالي',
-						infoWindow: {
-							content: '<span  data-container="body" data-offset="20px 20px" data-toggle="popover" data-placement="top" data-content="الموقع الحالي">  </span>'
-						}
-					});
-
-					map.setCenter(LATITUDE,LONGITUDE);
-					map.refresh();
-				}
-
-			});
-		/*************************** END MAP ****************************************/
 
 
 		var _wizardEl;
@@ -624,7 +386,6 @@
 				clickableSteps: true  // allow step clicking
 			});
 			_wizardObj.on('change', function (wizard) {
-
 				if (wizard.getStep() > wizard.getNewStep()) {
 					return; // Skip if stepped back
 				}
@@ -635,12 +396,10 @@
 				KTUtil.scrollTop();
 			});
 
-
 			// Submit event
 			_wizardObj.on('submit', function (wizard) {
 				_formEl.submit(); // Submit form
 			});
-
 
 		}
 		_wizardEl = KTUtil.getById('kt_wizard');
@@ -650,14 +409,13 @@
 		var Total_Land     = 0;
 		var Total_Building = 0;
 
-		<?php
-		$where_Get_Calculations = array(
-			"Form_loc" => "Preview_Property_FORM",
-		);
-
-		$Get_Calculations = Get_Calculations($where_Get_Calculations);
-        foreach ($Get_Calculations->result() AS $R_GC)
-        {
+			<?php
+			$where_Get_Calculations = array(
+				"Form_loc" => "Preview_Property_FORM",
+			);
+			$Get_Calculations = Get_Calculations($where_Get_Calculations);
+	        foreach ($Get_Calculations->result() AS $R_GC)
+	        {
 
 			if($R_GC->Type_Value == 'Building'){
 			?>
@@ -684,11 +442,11 @@
 			}
 	        ?>
 
-			var PROFIT_RATIO      = 0;
-			var CONSUMPTION_RATIO = 0;
+			var PROFIT_RATIO         = 0;
+			var CONSUMPTION_RATIO    = 0;
 			var CONSUMPTION_Building = 0;
-			var ESTIMATED_COSTS = 0;
-			var PROFIT_Total = 0 ;
+			var ESTIMATED_COSTS      = 0;
+			var PROFIT_Total         = 0;
 
 			$(document).on("keyup","input[data-calculations=true]",function(){
 				Total_Land = 0;

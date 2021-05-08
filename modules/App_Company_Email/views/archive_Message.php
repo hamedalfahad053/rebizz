@@ -74,7 +74,7 @@
 								            "class" => "", "id" => "",
 								            "title" => 'عرض الرسالة',
 								            "data-attribute" => '',
-								            "href" => base_url(ADMIN_NAMESPACE_URL.'/Email/views_archive_Message/'.$row->id)
+								            "href" => base_url(APP_NAMESPACE_URL.'/Email/views_archive_Message/'.$row->uuid)
 						            );
 						            echo Create_Options_Button($options)
 						            ?>

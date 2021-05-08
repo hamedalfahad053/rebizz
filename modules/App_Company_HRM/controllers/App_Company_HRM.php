@@ -423,16 +423,10 @@ class App_Company_HRM extends Apps
                 }
                 $options = array();
 
-                $options['view']    = array("class"=>"","id"=>"","title" => lang('view_button'), "data-attribute" => '', "href" => "#");
-                $options['edit']    = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '', "href" => "#");
-                $options['deleted'] = array("class"=>"","id"=>"","title" => lang('deleted_button'), "data-attribute" => '', "href" => "#");
-
-                if($Row->banned == 1) {
-                    $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '', "href" => "#");
-                }else {
-                    $options['disable'] = array("class"=>"","id"=>"","title" => lang('disable_button'), "data-attribute" => '', "href" => "#");
-                }
-
+                $options['view']    = array("class"=>"","id"=>"","title" => lang('view_button'), "data-attribute" => '',
+                    "href" => base_url(APP_NAMESPACE_URL."/HRM/View_Employees/".$Row->user_uuid));
+                $options['edit']    = array("class"=>"","id"=>"","title" => lang('edit_button'), "data-attribute" => '',
+                    "href" => base_url(APP_NAMESPACE_URL."/HRM/Edit_Employees/".$Row->user_uuid));
 
                 if($Row->position_id != NULL){
                     $Position =  Get_options_List_Translation($Row->position_id)->item_translation;
@@ -488,5 +482,22 @@ class App_Company_HRM extends Apps
 
     }
     ###################################################################
+
+    ###################################################################
+    public function Edit_Employees()
+    {
+
+        $this->data['Page_Title']  = ' تعديل ملف موظف ';
+
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
+
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Company_HRM/views/Edit_Employees', $this->data, true);
+        Layout_Apps($this->data);
+
+    }
+    ###################################################################
+
 
 }
