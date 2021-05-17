@@ -102,13 +102,14 @@
                 method: 'get',
                 async: false,
                 dataType: 'json',
-                url: '<?= base_url( APP_NAMESPACE_URL.'/Transactions/Check_Ajax_Transactions') ?>',
+                url: '<?= base_url( APP_NAMESPACE_URL.'/Transactions/Create_Transaction/Query_Ajax_Transaction') ?>',
                 data: {
                     INSTRUMENT_NUMBER:INSTRUMENT_NUMBER,
                     COMMISSIONING_NUMBER:COMMISSIONING_NUMBER,
                     OWNER_APPLICANT_IDENTITY_NUMBER:OWNER_APPLICANT_IDENTITY_NUMBER
                 },
                 success: function (result) {
+	                $("#Check_Instrument_Number_By_Transactions").empty();
                     $("#Check_Instrument_Number_By_Transactions").html(result.Transaction_Table);
                 },
                 error: function () {

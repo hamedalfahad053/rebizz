@@ -304,7 +304,7 @@ class App_Company_UserGroup extends Apps
                 } // if($this->input->post('permissions'))
 
 
-                if($update){
+                if($Update_Group){
                     $msg_result['key']   = 'Success';
                     $msg_result['value'] = 'تم التحديث بنجاح';
                     $msg_result_view = Create_Status_Alert($msg_result);

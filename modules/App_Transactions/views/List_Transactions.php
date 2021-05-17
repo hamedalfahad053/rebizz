@@ -32,33 +32,103 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
+	    <div class="card card-custom mb-5">
+		    <div class="card-body">
+			    <form class="mb-5">
+				    <div class="row mb-6">
+					    <div class="col-lg-3 mb-lg-0 mb-6">
+						    <label>رقم المعاملة</label>
+						    <input type="text" class="form-control datatable-input" placeholder="رقم المعاملة" data-col-index="0">
+					    </div>
+					    <div class="col-lg-3 mb-lg-0 mb-6">
+						    <label>المالك</label>
+						    <input type="text" class="form-control datatable-input" placeholder="المالك" data-col-index="1">
+					    </div>
+					    <div class="col-lg-3 mb-lg-0 mb-6">
+						    <label>طالب التقييم</label>
+						    <input type="text" class="form-control datatable-input" placeholder="طالب التقييم" data-col-index="2">
+					    </div>
+					    <div class="col-lg-3 mb-lg-0 mb-6">
+						    <label>المنطقة</label>
+						    <select class="form-control selectpicker datatable-input" data-col-index="3">
+							    <option value="">Select</option>
+							    <option value="Brazil">Brazil</option>
+						    </select>
+					    </div>
 
+				    </div>
+				    <div class="row mb-6">
+					    <div class="col-lg-3 mb-lg-0 mb-6">
+						    <label>المدينة</label>
+						    <select class="form-control selectpicker datatable-input" data-col-index="4">
+							    <option value="">Select</option>
+							    <option value="Brazil">Brazil</option>
+						    </select>
+					    </div>
+
+					    <div class="col-lg-3 mb-lg-0 mb-6">
+						    <label>نوع التقييم</label>
+						    <select class="form-control selectpicker datatable-input" data-col-index="5">
+							    <option value="">Select</option>
+							    <option value="Brazil">Brazil</option>
+						    </select>
+					    </div>
+
+					    <div class="col-lg-3 mb-lg-0 mb-6">
+						    <label> بحيازة </label>
+						    <select class="form-control selectpicker datatable-input" data-col-index="6">
+							    <option value="">Select</option>
+							    <option value="Brazil">Brazil</option>
+						    </select>
+					    </div>
+
+					    <div class="col-lg-3 mb-lg-0 mb-6">
+						    <label>حالة المعاملة</label>
+						    <select class="form-control selectpicker datatable-input" data-col-index="7">
+							    <option value="">Select</option>
+							    <option value="Brazil">Brazil</option>
+						    </select>
+					    </div>
+
+				    </div>
+
+				    <div class="row mt-8">
+					    <div class="col-lg-12">
+						    <button class="btn btn-primary btn-primary--icon" id="kt_search"><span><i class="la la-search"></i><span>بحث</span></span></button>&nbsp;&nbsp;
+						    <button class="btn btn-secondary btn-secondary--icon" id="kt_reset"><span><i class="la la-close"></i><span>اعادة ضبط</span></span></button>
+					    </div>
+				    </div>
+			    </form>
+		    </div>
+	    </div>
 
 	    <div class="card card-custom">
 		    <div class="card-body">
+
+
 
 
 			    <?php echo  $this->session->flashdata('message'); ?>
 
 
 			    <?php
-			    if($Transactions == false){
+			    if($Transactions == false)
+			    {
 				    $msg_result['key'] = 'Danger';
 				    $msg_result['value'] = 'لا يوجد معاملات';
 				    $msg_result_view = Create_Status_Alert($msg_result);
 				    echo $msg_result_view;
+
 			    }else{
 				    ?>
 
 				    <style>th.dt-center,.dt-center { text-align: center; }</style>
-				    <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+				    <table id="list_data" class=" table table-bordered table-hover display nowrap" width="100%">
 					    <thead>
 					    <tr>
 						    <th class="text-center">رقم المعاملة</th>
-
 						    <th class="text-center">المالك</th>
 						    <th class="text-center">طالب التقييم</th>
-
 						    <th class="text-center">موقع العقار</th>
 						    <th class="text-center">بواسطة / التاريخ</th>
 						    <th class="text-center">نوع التقييم</th>
@@ -171,38 +241,95 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
 
-		$(".Create_Transaction").click(function(e) {
-			e.preventDefault();
+	var KTDatatablesSearchOptionsAdvancedSearch = function() {
 
-			Swal.fire({
-				title: "انشاء معاملة جديدة",
-				text: "سيتم انشاء رقم معاملة مباشرة هل انت متأكد من انشاء معاملة جديدة",
-				icon: "warning",
-				showCancelButton: true,
-				confirmButtonText: "نعم تابع",
-				cancelButtonText: "الغاء الامر",
-				reverseButtons: true
+		$.fn.dataTable.Api.register('column().title()', function() {
+			return $(this.header()).text().trim();
+		});
 
-		}).then(function(result) {
-				if (result.value) {
-					window.location= "<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Transaction/') ?>"
-				} else if (result.dismiss === "cancel") {
-					Swal.fire("الغاء العملية", "تم الغاء طلب انشاء معاملة جديدة", "error");
+		var initTable1 = function() {
+			// begin first table
+			var table = $('#list_data').DataTable({
+				responsive: true,
+				// Pagination settings
+				dom: `<'row'<'col-sm-12'tr>>
+				<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+				lengthMenu: [5, 10, 25, 50],
+				pageLength: 10,
+				language: {
+					'lengthMenu': 'Display _MENU_',
+				},
+				searchDelay: 500,
+				processing: true,
+				initComplete: function() {
+					this.api().columns().every(function() {
+						var column = this;
+						switch (column.title()) {
+
+						}
+					});
 				}
 			});
-		});
 
+			var filter = function() {
+				var val = $.fn.dataTable.util.escapeRegex($(this).val());
+				table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
+			};
 
-		$('.data_table').DataTable({
-			responsive: true,
-			pageLength: 10,
-			language: {
-				'lengthMenu': 'Display _MENU_',
-			}
-		});
+			var asdasd = function(value, index) {
+				var val = $.fn.dataTable.util.escapeRegex(value);
+				table.column(index).search(val ? val : '', false, true);
+			};
 
+			$('#kt_search').on('click', function(e) {
+				e.preventDefault();
+				var params = {};
+				$('.datatable-input').each(function() {
+					var i = $(this).data('col-index');
+					if (params[i]) {
+						params[i] += '|' + $(this).val();
+					}
+					else {
+						params[i] = $(this).val();
+					}
+				});
+				$.each(params, function(i, val) {
+					table.column(i).search(val ? val : '', false, false);
+				});
+				table.table().draw();
+			});
+
+			$('#kt_reset').on('click', function(e) {
+				e.preventDefault();
+				$('.datatable-input').each(function() {
+					$(this).val('');
+					table.column($(this).data('col-index')).search('', false, false);
+				});
+				table.table().draw();
+			});
+
+			$('#kt_datepicker').datepicker({
+				todayHighlight: true,
+				templates: {
+					leftArrow: '<i class="la la-angle-left"></i>',
+					rightArrow: '<i class="la la-angle-right"></i>',
+				},
+			});
+
+		};
+
+		return {
+			init: function() {
+				initTable1();
+			},
+		};
+
+	}();
+
+	jQuery(document).ready(function() {
+		KTDatatablesSearchOptionsAdvancedSearch.init();
 	});
+
 </script>
 

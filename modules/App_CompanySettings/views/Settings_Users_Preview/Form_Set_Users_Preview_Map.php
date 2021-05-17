@@ -1,60 +1,99 @@
-
-
-<div class="card card-custom mt-5">
-	    <!--begin::Header-->
-	    <div class="card-header">
-	        <div class="card-title">
-	            <h3 class="card-label">توزيع المعاينين على المناطق الجغرافية</h3>
-	        </div>
-	    </div>
-	    <!--end::Header-->
-        <!--begin::Body-->
-	    <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Settings_Preview/Update_Set_CRD_Users_Preview') ?>" method="post">
-        <div class="card-body">
-			        <?= CSFT_Form() ?>
-	                <input type="hidden" name="Users_Preview" value="<?=  $this->uri->segment(4); ?>">
-			        <div class="form-group row">
-			        <div class="col-lg-4 mt-5">
-				        <label><?= lang('Global_Region_province') ?></label>
-				        <div class="col-lg-12 col-md-12 col-sm-12">
-					        <select name="Region_id" id="Region_id" title="اختر من فضلك" class="form-control selectpicker" data-size="7" data-live-search="true" >
-					        </select>
-				        </div>
-			        </div>
-			        <div class="col-lg-4 mt-5">
-				        <label>المدينة</label>
-				        <div class="col-lg-12 col-md-12 col-sm-12">
-					        <select  name="City_id" id="City_id" title="اختر من فضلك" class="form-control selectpicker" data-size="7" data-live-search="true" >
-					        </select>
-				        </div>
-			        </div>
-			        <div class="col-lg-4 mt-5">
-				        <label>الاحياء</label>
-				        <div class="col-lg-12 col-md-12 col-sm-12">
-					        <select name="District_id[]" id="District_id" title="اختر من فضلك" class="form-control selectpicker"  multiple="multiple" data-size="7" data-live-search="true" >
-					        </select>
-				        </div>
-			        </div>
-		        </div>
-        </div>
-	    <!--begin::Body-->
-		<div class="card card-custom  mt-10">
-			    <div class="card-footer">
-				    <div class="row">
-					    <div class="col-lg-6">
-						    <button type="submit" class="btn btn-primary mr-2">تحديث</button>
-					    </div>
-					    <div class="col-lg-6 text-lg-right">
-						    <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
-					    </div>
-				    </div>
-			    </div>
+<!--begin::Subheader-->
+<div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
+	<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+		<!--begin::Info-->
+		<div class="d-flex align-items-center flex-wrap mr-1">
+			<!--begin::Page Heading-->
+			<div class="d-flex align-items-baseline flex-wrap mr-5">
+				<!--begin::Page Title-->
+				<h5 class="text-dark font-weight-bold my-1 mr-5"><?= $Page_Title ?></h5>
+				<!--end::Page Title-->
+				<!--begin::Breadcrumb-->
+				<?= $breadcrumbs ?>
+				<!--end::Breadcrumb-->
+			</div>
+			<!--end::Page Heading-->
 		</div>
-	    </form>
-</div>
-<!--end: Card-->
+		<!--end::Info-->
+		<!--begin::Toolbar-->
+		<div class="d-flex align-items-center">
 
-	<?php
+		</div>
+		<!--end::Toolbar-->
+	</div>
+</div>
+<!--end::Subheader-->
+
+<!--begin::Entry-->
+<div class="d-flex flex-column-fluid">
+	<!--begin::Container-->
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-lg-12 mt-5">
+
+				<div class="card card-custom mt-5">
+					    <!--begin::Header-->
+					    <div class="card-header">
+					        <div class="card-title">
+					            <h3 class="card-label">توزيع المعاينين على المناطق الجغرافية</h3>
+					        </div>
+					    </div>
+					    <!--end::Header-->
+				        <!--begin::Body-->
+					    <form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Settings_Preview/Update_Set_Users_Preview_Map') ?>" method="post">
+				        <div class="card-body">
+							        <?= CSFT_Form() ?>
+					                <input type="hidden" name="Users_Preview" value="<?=  $this->uri->segment(4); ?>">
+							        <div class="form-group row">
+							        <div class="col-lg-6 mt-5">
+								        <label><?= lang('Global_Region_province') ?></label>
+								        <div class="col-lg-12 col-md-12 col-sm-12">
+									        <select name="Region_id" id="Region_id" title="اختر من فضلك" class="form-control selectpicker" data-size="7" data-live-search="true" >
+									        </select>
+								        </div>
+							        </div>
+							        <div class="col-lg-6 mt-5">
+								        <label>المدينة</label>
+								        <div class="col-lg-12 col-md-12 col-sm-12">
+									        <select  name="City_id" id="City_id" title="اختر من فضلك" class="form-control selectpicker" data-size="7" data-live-search="true" >
+									        </select>
+								        </div>
+							        </div>
+<!--							        <div class="col-lg-4 mt-5">-->
+<!--								        <label>الاحياء</label>-->
+<!--								        <div class="col-lg-12 col-md-12 col-sm-12">-->
+<!--									        <select name="District_id[]" id="District_id" title="اختر من فضلك" class="form-control selectpicker"  multiple="multiple" data-size="7" data-live-search="true" >-->
+<!--									        </select>-->
+<!--								        </div>-->
+<!--							        </div>-->
+						        </div>
+				        </div>
+					    <!--begin::Body-->
+						<div class="card card-custom  mt-10">
+							    <div class="card-footer">
+								    <div class="row">
+									    <div class="col-lg-6">
+										    <button type="submit" class="btn btn-primary mr-2">تحديث</button>
+									    </div>
+									    <div class="col-lg-6 text-lg-right">
+										    <button type="reset" class="btn btn-danger"><?= lang('cancel_button') ?></button>
+									    </div>
+								    </div>
+							    </div>
+						</div>
+					    </form>
+				</div>
+
+			</div><!--<div class="col-lg-12 mt-5">-->
+		</div>
+
+	</div>
+	<!--end::Container-->
+</div>
+<!--end::Entry-->
+
+<?php
 	$where_Assignment = array("users_preview_id" => $this->uri->segment(4),"company_id"=>app()->aauth->get_user()->company_id);
 	$Get_Assignment_Map_users_preview = Get_Assignment_Map_users_preview($where_Assignment);
 

@@ -58,14 +58,8 @@
 			<div class="card-body p-0">
 
 
-				<?php
-				$this->load->library('Arabic',array());
-				$obj = new I18N_Arabic('Date');
 
-				$y = '2021 04 26';
 
-				echo $obj->gregToJd(9,26,1442);
-				?>
 				<!--begin: Wizard-->
 				<div class="wizard wizard-4" id="kt_wizard" data-wizard-state="step-first" data-wizard-clickable="true">
 
@@ -132,6 +126,7 @@
 										<!--begin: Wizard Form-->
 										<form class="form mt-0 mt-lg-12" method="post" action="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Create_Preview_Property/'.$Transactions->uuid) ?>"  id="kt_form"  enctype="multipart/form-data">
 
+											<input type="hidden" name="Start_Form_Progresses" value="<?= time() ?>" >
 											<input type="hidden" name="Transaction_id" value="<?= $Transactions->transaction_id ?>">
 											<input type="hidden" name="Coordination_id" value="<?= $Coordination->Coordination_id ?>">
 
@@ -347,30 +342,7 @@
 
 <script type="text/javascript">
 
-		function Get_Ajax_Data_Table_Land_Comparisons() {
-			var Transactions_id        = <?= $Transactions->transaction_id ?>;
-			var Coordination_id        = <?= $Coordination->Coordination_id ?>;
-			$.ajax({
-				url : "<?= base_url(APP_NAMESPACE_URL . '/Transactions/Ajax_Comparisons_Land_Comparisons') ?>",
-				type:'get',
-				data: {
-					Transactions_id:Transactions_id,Coordination_id:Coordination_id
-				},
-				dataType: 'html',
-				beforeSend: function(){
-					$('#Ajax_Data_Table_Land_Comparisons').append("<div style='text-align: center;'><i class='fa fa-spinner fa-spin fa-5x fa-fw'></i></div>")
-				},
-				success: function(response) {
-					$("#Ajax_Data_Table_Land_Comparisons").empty();
-					$("#Ajax_Data_Table_Land_Comparisons").html(response);
-				},
-				error: function(){
 
-				}
-			});
-		} // Get_All_Data_Ajax()
-
-		Get_Ajax_Data_Table_Land_Comparisons();
 
 
 
@@ -494,4 +466,55 @@
 				$('#MARKET_VALUE_Approximate').val(Math.round(MARKET_VALUE));
 
 			});
+
+
+		function Get_Ajax_Data_Table_Land_Comparisons() {
+			var Transactions_id        = <?= $Transactions->transaction_id ?>;
+			var Coordination_id        = <?= $Coordination->Coordination_id ?>;
+			$.ajax({
+				url : "<?= base_url(APP_NAMESPACE_URL . '/Preview/Ajax_Comparisons_Land_Comparisons') ?>",
+				type:'get',
+				data: {
+					Transactions_id:Transactions_id,Coordination_id:Coordination_id
+				},
+				dataType: 'html',
+				beforeSend: function(){
+					$('#Ajax_Data_Table_Land_Comparisons').append("<div style='text-align: center;'><i class='fa fa-spinner fa-spin fa-5x fa-fw'></i></div>")
+				},
+				success: function(response) {
+					$("#Ajax_Data_Table_Land_Comparisons").empty();
+					$("#Ajax_Data_Table_Land_Comparisons").html(response);
+				},
+				error: function(){
+
+				}
+			});
+		} // Get_All_Data_Ajax()
+
+		Get_Ajax_Data_Table_Land_Comparisons();
+
+		// ------------------------------------------------------------------------------- //
+		$('#Ajax_Data_Table_Land_Comparisons').on('click', '.deleted_Comparisons', function (event) {
+			event.preventDefault();
+			var Comparisons_uuid = $(this).data('uuid');
+
+			$.ajax({
+				url : "<?= base_url(APP_NAMESPACE_URL . '/Preview/Deleted_Ajax_Comparisons_Land_Comparisons') ?>",
+				type:'get',
+				data: {
+					Comparisons_uuid:Comparisons_uuid
+				},
+				dataType: 'html',
+				success: function(response) {
+					swal.fire("نجاح",response.Message_result, "success");
+					Get_Ajax_Data_Table_Land_Comparisons();
+				},
+				error: function(){
+					swal.fire(" خطا ", response.Message_result, "error");
+					Get_Ajax_Data_Table_Land_Comparisons();
+				}
+			});
+
+		});
+
 </script>

@@ -17,12 +17,12 @@
                 <i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
-                <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"><?= $this->data['UserLogin']['Info_User']->full_name ?></a>
+                <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"><?= $this->aauth->get_user()->full_name ?></a>
                 <div class="text-muted mt-1"></div>
                 <div class="navi mt-2">
                     <a href="#" class="navi-item">
 								<span class="navi-link p-0 pb-2">
-									<span class="navi-text text-muted text-hover-primary"><?= $this->data['UserLogin']['Info_User']->email ?></span>
+									<span class="navi-text text-muted text-hover-primary"><?= $this->aauth->get_user()->email ?></span>
 								</span>
                     </a>
                     <a href="<?= base_url(APP_NAMESPACE_URL."/Dashboard/logout") ?>" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">تسجيل الخروج</a>
@@ -35,8 +35,10 @@
         <!--end::Separator-->
         <!--begin::Nav-->
         <div class="navi navi-spacer-x-0 p-0">
+
+
             <!--begin::Item-->
-            <a href="#" class="navi-item">
+            <a href="<?= base_url(APP_NAMESPACE_URL.'/Profile') ?>" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label ">
@@ -50,8 +52,10 @@
                 </div>
             </a>
             <!--end:Item-->
+
+
             <!--begin::Item-->
-            <a href="#" class="navi-item">
+            <a href="<?= base_url(APP_NAMESPACE_URL.'/Email') ?>" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">
@@ -65,8 +69,9 @@
                 </div>
             </a>
             <!--end:Item-->
+
             <!--begin::Item-->
-            <a href="#" class="navi-item">
+            <a href="<?= base_url(APP_NAMESPACE_URL.'/Profile/Notifications') ?>" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">

@@ -48,6 +48,15 @@ class App_Company_Users extends Apps
                 );
 
 
+                $options['custom'] = array(
+                    "class"=>"","id"=>"",
+                    "title" => 'تسجيل دخول بالحساب',
+                    "data-attribute" => '',
+                    'color' => 'danger',
+                    'icon'=> 'flaticon-logout',
+                    "href" => base_url(APP_NAMESPACE_URL.'/Users/Login_As/'.$Row->id)
+                );
+
 
                 if($Row->banned == 1) {
                     $options['active'] = array("class"=>"","id"=>"","title" => lang('active_button'), "data-attribute" => '',
@@ -237,8 +246,6 @@ class App_Company_Users extends Apps
 
         $this->data['Page_Title']  = 'تعديل بيانات مستخدم';
         $User_id =  $this->uri->segment(4);
-
-
 
         $Company_Users = Get_Company_Users(
             array(
@@ -476,6 +483,185 @@ class App_Company_Users extends Apps
 
 
 
+        }
+
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Login_As()
+    {
+        $id       = $this->uri->segment(4);
+
+        $query_group = $this->db->where('user_id',$this->aauth->get_user($id)->id);
+        $query_group = $this->db->get('portal_auth_user_to_group')->row();
+
+
+        $this->aauth->login_fast($id);
+        redirect(APP_NAMESPACE_URL.'/Dashboard', 'refresh');
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Custom_Permissions()
+    {
+        $Company_Users = Get_Company_Users(
+            array(
+                "users.company_id" => $this->aauth->get_user()->company_id,
+                "users.banned"     => 0
+            )
+        );
+
+        if($Company_Users->num_rows()>0){
+            foreach ($Company_Users->result() AS $Row)
+            {
+                if($Row->banned == 0) {
+                    $user_status =  Create_Status_badge(array("key"=>"Success","value"=>lang('Status_Active')));
+                }else{
+                    $user_status =  Create_Status_badge(array("key"=>"Danger","value"=>lang('Status_Disabled')));
+                }
+                $options = array();
+
+                $options['custom'] = array(
+                    "class"=>"","id"=>"",
+                    "title" => ' صلاحيات مخصصة للمستخدم ',
+                    "data-attribute" => '',
+                    'color' => 'danger',
+                    'icon'=> 'flaticon-multimedia-5',
+                    "href" => base_url(APP_NAMESPACE_URL.'/Users/Permissions_User/'.$Row->user_uuid)
+                );
+
+
+                $user_options =  Create_Options_Button($options);
+
+                if(get_current_lang() == 'arabic'){
+                    $Locations = Get_Locations(array("company_locations_id"=>$Row->locations_id,"company_id"=>$this->aauth->get_user()->company_id))->Locations_ar;
+                }else{
+                    $Locations = Get_Locations(array("company_locations_id"=>$Row->locations_id,"company_id"=>$this->aauth->get_user()->company_id))->Locations_en;
+                }
+
+                $this->data['Company_Users'][] = array(
+                    "user_id"      => $Row->user_id,
+                    "email"        => $Row->email,
+                    "phone"        => $Row->phone,
+                    "full_name"    => $Row->full_name,
+                    "locations"    => $Locations,
+                    "date_created" => $Row->date_created,
+                    "user_status"  => $user_status,
+                    "group_user"   => $Row->item_translation,
+                    "user_options" => $user_options,
+                );
+
+            }
+        }else{
+            $this->data['Company_Users'] = false;
+        }
+
+        $this->data['Lode_file_Css'] = import_css(BASE_ASSET.'plugins/custom/datatables/datatables.bundle',$this->data['direction']);
+        $this->data['Lode_file_Js']  = import_js(BASE_ASSET.'plugins/custom/datatables/datatables.bundle','');
+
+        $this->data['Page_Title']  = 'ادارة المستخدمين';
+
+        $this->mybreadcrumb->add(lang('Dashboard'), '');
+        $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Company_Users/views/List_Users_Permissions', $this->data, true);
+        Layout_Apps($this->data);
+
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Permissions_User()
+    {
+
+        $User_id =  $this->uri->segment(4);
+
+        $Company_Users = Get_Company_Users(array("users.company_id" => $this->aauth->get_user()->company_id,"users.user_uuid"  => $User_id));
+
+        if ($User_id == '' or $Company_Users->num_rows() == 0) {
+            $msg_result['key'] = 'Danger';
+            $msg_result['value'] = 'المستخدم غير صحيح';
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL . '/Users/', 'refresh');
+        } else {
+
+            $this->data['Page_Title']  = 'صلاحيات مخصصة للمستخدم';
+            $this->data['User_data']   = $Company_Users->row();
+
+            $Controllers     = array();
+            $Get_Controllers = Get_Controllers(3);
+            foreach ($Get_Controllers->result() AS $Row_Controllers)
+            {
+                $Controllers[] = array(
+                    "Controllers_id"          => $Row_Controllers->controllers_id,
+                    "Controllers_title"       => $Row_Controllers->item_translation,
+                );
+
+            }
+            $this->data['Controllers_Permissions'] = $Controllers;
+
+
+            $this->mybreadcrumb->add(lang('Dashboard'), '');
+            $this->mybreadcrumb->add($this->data['Page_Title'],'#');
+            $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+            $this->data['PageContent'] = $this->load->view('../../modules/App_Company_Users/views/Users_Permissions', $this->data, true);
+            Layout_Apps($this->data);
+
+        }
+
+    }
+    ###################################################################
+
+
+    ###################################################################
+    public function Update_Permissions_User()
+    {
+
+        $User_id =  $this->uri->segment(4);
+
+        $Company_Users = Get_Company_Users(array("users.company_id" => $this->aauth->get_user()->company_id,"users.user_uuid"  => $User_id));
+
+        if ($User_id == '' or $Company_Users->num_rows() == 0) {
+            $msg_result['key'] = 'Danger';
+            $msg_result['value'] = 'المستخدم غير صحيح';
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL . '/Users/', 'refresh');
+        } else {
+
+
+            if($this->input->post('permissions'))
+            {
+                $permissions = $this->input->post('permissions');
+
+                Delete_All_Permissions_To_Users($Company_Users->row()->id);
+
+                foreach ($permissions AS $value)
+                {
+                    $data_Permissions   = array("user_id" => $Company_Users->row()->id,"perm_id" => $value);
+                    $Update_Permissions = Add_Permissions_To_User($data_Permissions);
+                }
+
+            } // if($this->input->post('permissions'))
+
+            if($Update_Permissions){
+                $msg_result['key']   = 'Success';
+                $msg_result['value'] = 'تم التحديث بنجاح';
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL.'/Users/Permissions_User/'.$User_id, 'refresh');
+
+            }else{
+                $msg_result['key']   = 'Danger';
+                $msg_result['value'] = 'يوجد خطا اثناء التحديث ';
+                $msg_result_view = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL.'/Users/Permissions_User/'.$User_id, 'refresh');
+            }
         }
 
     }

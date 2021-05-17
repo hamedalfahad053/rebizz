@@ -14,7 +14,7 @@
     <tr>
         <th class="text-center" width="25%">نسبة الاستهلاك (%)</th>
         <td class="text-center">
-	        <input type="number" name="CONSUMPTION_RATIO" value="0"  min="0" max="100" step="0.0" id="CONSUMPTION_RATIO" maxlength="" style="" class=" form-control " data-calculations="true">
+	        <input type="number" name="CONSUMPTION_RATIO" value="0"  min="0" max="100" step="0.0" id="CONSUMPTION_RATIO" maxlength="2" style="" class=" form-control " data-calculations="true">
         </td>
     </tr>
     <tr>
@@ -32,7 +32,7 @@
     <tr>
         <th class="text-center" width="25%">نسبة الربح (%)</th>
         <td class="text-center">
-	        <input type="number" name="PROFIT_RATIO" value="0"  min="0" max="100" step="0.0" id="PROFIT_RATIO" maxlength="" style="" class=" form-control " data-calculations="true">
+	        <input type="number" name="PROFIT_RATIO" value="0"  min="0" max="100" step="0.0" id="PROFIT_RATIO" maxlength="2" style="" class=" form-control " data-calculations="true">
         </td>
     </tr>
     <tr>

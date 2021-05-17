@@ -88,7 +88,7 @@ $http = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 's' 
 $fo = str_replace("index.php","", $_SERVER['SCRIPT_NAME']);
 $base = $base = "$http" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . "" . $fo;
 
-defined('BASE_URL') 	OR define('BASE_URL'			, $base);
+defined('BASE_URL') 	 OR define('BASE_URL'			, $base);
 defined('BASE_ASSET')   OR define('BASE_ASSET', BASE_URL.'Assets/');
 
 defined('ADMIN_NAMESPACE_URL')  OR define('ADMIN_NAMESPACE_URL', 'Admin');
@@ -100,7 +100,7 @@ defined('FOLDER_FILE_Company_Logo')         OR define('FOLDER_FILE_Company_Logo'
 defined('FOLDER_FILE_Company_client_logo')  OR define('FOLDER_FILE_Company_client_logo', 'Company_client_logo');
 defined('FOLDER_FILE_CONTRACT_COMPANY')     OR define('FOLDER_FILE_CONTRACT_COMPANY', 'Company_contract');
 defined('FOLDER_FILE_Transaction_COMPANY')  OR define('FOLDER_FILE_Transaction_COMPANY', 'Company_FILE_Transaction');
-
+defined('FOLDER_Company_Signature')         OR define('FOLDER_Company_Signature', 'Company_Signature');
 
 defined('LOGO_DEFAULT_CLIENT')  OR define('LOGO_DEFAULT_CLIENT', $base.'Assets/media/users/blank.png');
 

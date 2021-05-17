@@ -69,27 +69,26 @@
 										"users_preview_id" => $Row->users_id,
 										"company_id"       => app()->aauth->get_user()->company_id
 									);
+
 									$Get_Assignment_Map_users_preview = Get_Assignment_Map_users_preview($where_Assignment);
 
 									if($Get_Assignment_Map_users_preview->num_rows()>0){
 
 										$Map_users_preview = $Get_Assignment_Map_users_preview->row();
-										$Get_Regions = Get_Regions(194,$Map_users_preview->regions_id)->row();
-										$Get_City    = Get_City(194,$Map_users_preview->regions_id,$Map_users_preview->city_id)->row();
+										$Get_Regions = Get_Regions(194,$Map_users_preview->regions_id)->row()->name_ar;
+										$Get_City    = Get_City(194,$Map_users_preview->regions_id,$Map_users_preview->city_id)->row()->name_ar;
 
 									}else{
-										$msg_result['key'] = 'Danger';
-										$msg_result['value'] = 'لم يتم تحديد النطاق الجغرافي للمستخدم ';
-										$msg_result_view = Create_Status_Alert($msg_result);
-										echo $msg_result_view;
+										$Get_City    = Create_Status_badge(array("key"=>"warning","value"=>"لم يحدد"));
+										$Get_Regions = Create_Status_badge(array("key"=>"warning","value"=>"لم يحدد"));
 									}
 
 									?>
 									<tr>
 										<td class="text-center"><?= ++$i ?></td>
 										<td class="text-center"><?= $Row->full_name ?></td>
-										<td class="text-center"><?= @$Get_Regions->name_ar ?></td>
-										<td class="text-center"><?= @$Get_City->name_ar ?></td>
+										<td class="text-center"><?= $Get_Regions ?></td>
+										<td class="text-center"><?= $Get_City ?></td>
 										<td class="text-center">
 											<?php
 											$options_transaction['Assignment'] = array(
@@ -98,13 +97,15 @@
 													"title"          => ' المنطقة الجغرافية',
 													"data-attribute" => '',
 													"icon"           => '',
-													"href"           => base_url(APP_NAMESPACE_URL.'/Settings_Preview/Update_Set_Users_Preview_Map/'.$Row->users_id)
+													"href"           => base_url(APP_NAMESPACE_URL.'/Settings_Preview/Form_Set_Users_Preview_Map/'.$Row->users_id)
 											);
 											echo Create_Options_Button($options_transaction)
 											?>
 										</td>
 									</tr>
 									<?php
+									$Get_Regions = '';
+									$Get_City    = '';
 								}
 								?>
 								</tbody>

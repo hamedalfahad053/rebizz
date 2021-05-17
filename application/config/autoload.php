@@ -123,7 +123,7 @@ $autoload['helper'] = array(
     'hrm',
     'preview',
     'stages_self_construction',
-    'sms_email_messages'
+    'reports_parse_tag'
 );
 
 /*

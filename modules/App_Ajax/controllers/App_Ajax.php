@@ -709,13 +709,13 @@ class App_Ajax extends Apps
     public function Ajax_text_p_mail_sms_messages()
     {
 
-        $messages_id = trim($this->input->get('messages_id'));
+        $messages_id    = trim($this->input->get('messages_id'));
 
-        $company_id  = $this->aauth->get_user()->company_id;
-        $query = $this->db->where('company_id', $company_id);
-        $query = $this->db->where('messages_id',$messages_id);
-        $query = $this->db->where('isDeleted', 0);
-        $query = $this->db->get('protal_mail_sms_messages');
+        $company_id     = $this->aauth->get_user()->company_id;
+        $query          = $this->db->where('company_id', $company_id);
+        $query          = $this->db->where('messages_uuid',$messages_id);
+        $query          = $this->db->where('isDeleted', 0);
+        $query          = $this->db->get('protal_mail_sms_messages');
 
         if($query->num_rows()>0){
             $text = $query->row()->messages_text;

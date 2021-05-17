@@ -141,7 +141,7 @@
 		},
 		autoSubmit:false,
 	});
-	$("#extrabutton_outside").click(function(){
+	$("#extrabutton_Drug_reviews").click(function(){
 		extraObj_Drug_reviews.startUpload();
 	});
 

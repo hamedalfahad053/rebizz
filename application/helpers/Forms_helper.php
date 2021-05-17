@@ -609,7 +609,7 @@ if(!function_exists('Building_Fields_Components_Views')) {
 ##############################################################################
 if(!function_exists('Building_Field_Forms')) {
 
-    function  Building_Field_Forms($Fields_key='',$label='',$name='', $value = '',$id='',$class = '',$style,$maxlength='', $disabled='', $attribute ='',$js='')
+    function  Building_Field_Forms($Fields_key,$label,$name,$value,$id,$class,$style,$maxlength='', $disabled='', $attribute ='',$js='')
     {
         app()->load->database();
 
@@ -622,7 +622,6 @@ if(!function_exists('Building_Field_Forms')) {
         $query_Fields = app()->db->where('fields.Fields_key',$Fields_key);
         $query_Fields = app()->db->where('fields_translation.translation_lang',$lang);
         $query_Fields = app()->db->get()->row();
-
 
         $data_input = array();
 
@@ -644,24 +643,33 @@ if(!function_exists('Building_Field_Forms')) {
 
             $attribute_output = '';
             if (is_array($attribute)) {
-                foreach ($attribute as $kay => $value) {
-                    $data_input[$kay] = $value;
+                foreach ($attribute as $attribute_kay => $attribute_value)
+                {
+                    $data_input[$attribute_kay] = $attribute_value;
                 }
              }
 
             if ($query_Fields->Fields_Type_Fields == 'date') $class_output .= $class_output . ' datepicker';
             if ($query_Fields->Fields_Type_Fields == 'file') $class_output .= $class_output . ' form-control-file';
 
-            $data_input['name'] = $name;
-            $data_input['id'] = $id;
-            $data_input['value'] = set_value($query_Fields->Fields_key, $value);
+            $data_input['name']  = $name;
+
+            $data_input['id']    = $id;
+
+            if(!empty($value))
+            {
+               $data_input['value'] = $value;
+            }
+
+
+
             $data_input['maxlength'] = $maxlength;
-            $data_input['style'] = $style;
+
+            $data_input['style']     = $style;
 
             if (!empty($disabled)) {
                 $data_input['disabled'] = $disabled;
             }
-
 
             $data_input['class'] = $class_output;
 
@@ -677,6 +685,8 @@ if(!function_exists('Building_Field_Forms')) {
                 $form_input .= $input;
             }
 
+
+
         }elseif ($query_Fields->Fields_Type_Fields ==  'file_multiple'){
 
             $form_input.= app()->load->view('../../modules/System_Fields/views/tamplet_file_multiple',$data_input, true);
@@ -686,7 +696,7 @@ if(!function_exists('Building_Field_Forms')) {
            $form_input .= '<div class="form-group row">';
                 $form_input .= '<div class="col-lg-12 mt-5 md-5">';
                     $form_input .= '<lable>'.$query_Fields->item_translation.'</lable>';
-                    $form_input .= '<input type="file" class="form-control-file" name="'.$query_Fields->Fields_key.'" >';
+                    $form_input .= '<input  type="file" class="form-control-file" name="'.$query_Fields->Fields_key.'" >';
                 $form_input .= '</div>';
            $form_input .= '</div>';
 

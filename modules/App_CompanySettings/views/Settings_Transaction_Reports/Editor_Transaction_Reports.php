@@ -124,23 +124,25 @@
 		height: '1000px',
 		toolbar: ['undo redo | bold italic underline strikethrough |  fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons |  preview  print |  image  link | rtl'],
 		plugins : 'code print preview powerpaste casechange importcss  searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media mediaembed  codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable  formatpainter permanentpen pageembed charmap  quickbars linkchecker  advtable',
-
-		menubar: 'file edit view insert format tools table tc help  menu_company menu_client menu_transaction_data menu_preview_data menu_Evaluation_final',
+		menubar: 'file edit view insert format tools table tc help  menu_company menu_client menu_transaction_data menu_preview_data menu_Evaluation_final menu_Text_Static',
 		toolbar_sticky: true,
+		extended_valid_elements : "data_app",
+		custom_elements: "data_app",
 		language: 'ar',
 		language_url: '<?= base_url('Assets/tinymce_languages/langs/ar.js'); ?>',
 
 		menu: {
-			menu_transaction_data: { title: 'بيانات المعاملات', items: 'menu_transaction_data' },
-			menu_client:           { title: 'بيانات العميل',   items: 'menu_client'  },
-			menu_company:          { title: 'بيانات المنشأة',  items: 'menu_company' },
-			menu_preview_data :    { title: 'بيانات المعاينة',  items: 'menu_preview_data menu_preview_data_com menu_preview_map menu_preview_photo menu_preview_Evaluation menu_preview_Comparisons' },
+			menu_transaction_data:  { title: 'بيانات المعاملات', items: 'menu_transaction_data' },
+			menu_client:            { title: 'بيانات العميل',   items: 'menu_client'  },
+			menu_company:           { title: 'بيانات المنشأة',  items: 'menu_company' },
+			menu_preview_data :     { title: 'بيانات المعاينة',  items: 'menu_preview_data menu_preview_data_com menu_preview_map menu_preview_photo  menu_preview_Comparisons' },
 		    menu_Evaluation_final : { title: 'بيانات التقييم النهائي',  items: 'menu_Evaluation_final' },
+			menu_Text_Static      : { title: 'نصوص و تعريفات',  items: 'menu_Text_Static'}
 		},
 
 
 		setup: function (editor) {
-			var toggleState = true;
+			var toggleState = false;
 
 			editor.ui.registry.addNestedMenuItem('menu_transaction_data', {
 				text: 'البيانات الاساسية ',
@@ -148,23 +150,45 @@
 					return [
 
 						<?php
-						# Done
 						$Get_All_Form = app()->db->where('Forms_id',1);
 						$Get_All_Form = app()->db->get('portal_forms_components_fields');
 						foreach ($Get_All_Form->result() AS $Ro)
 					    {
 							if($Ro->Fields_Type == 'Fields'){
-								$Get_Fields       = Get_Fields(array("Fields_id" => $Ro->Fields_id))->row();
+								$Get_Fields   = Get_Fields(array("Fields_id" => $Ro->Fields_id))->row();
+								?>
+								{
+									type: 'menuitem',
+									text: '<?= $Get_Fields->item_translation ?>',
+									onAction: function () {
+										editor.insertContent('{Value_TD_<?= $Ro->Fields_key ?>}');
+									}
+								},
+					            <?php
 							}elseif($Ro->Fields_Type == 'List'){
-								$Get_Fields   =Get_All_List(array("list_id"=> $Ro->Fields_id))->row();
+								$Get_Fields   = Get_All_List(array("list_id"=> $Ro->Fields_id))->row();
+								?>
+								{
+									type: 'menuitem',
+									text: 'القيمة : <?= $Get_Fields->item_translation ?>',
+									onAction: function () {
+										editor.insertContent('{Value_TD_<?= $Ro->Fields_key ?>}');
+									}
+								},
+								{
+									type: 'menuitem',
+									text: ' الجميع  : <?= $Get_Fields->item_translation ?>',
+									onAction: function () {
+										editor.insertContent('{All_TD_<?= $Ro->Fields_key ?>}');
+									}
+								},
+					            <?php
 							}
-						?>
-							{
-								type: 'menuitem', text: '<?= $Get_Fields->item_translation ?>',onAction: function () { editor.insertContent('%<?= $Ro->Fields_key ?>%'); }
-							},
-						<?php
+
 						}
 						?>
+
+
 
 						<?php
 						# Done
@@ -172,29 +196,93 @@
 						$Get_All_Form_2 = app()->db->get('portal_forms_components_fields');
 						foreach ($Get_All_Form_2->result() AS $Ro_2)
 						{
+
 							if($Ro_2->Fields_Type == 'Fields'){
-								$Get_Fields_2       = Get_Fields(array("Fields_id" => $Ro_2->Fields_id))->row();
+								$Get_Fields   = Get_Fields(array("Fields_id" => $Ro_2->Fields_id))->row();
+							?>
+								{
+									type: 'menuitem',
+									text: '<?= $Get_Fields->item_translation ?>',
+									onAction: function () {
+										editor.insertContent('{Value_TD_<?= $Ro_2->Fields_key ?>}');
+									}
+								},
+							<?php
 							}elseif($Ro_2->Fields_Type == 'List'){
-								$Get_Fields_2   =Get_All_List(array("list_id"=> $Ro_2->Fields_id))->row();
+								$Get_Fields   = Get_All_List(array("list_id"=> $Ro_2->Fields_id))->row();
+							?>
+								{
+									type: 'menuitem',
+									text: 'القيمة : <?= $Get_Fields->item_translation ?>',
+									onAction: function () {
+										editor.insertContent('{Value_TD_<?= $Ro_2->Fields_key ?>}');
+									}
+								},
+								{
+									type: 'menuitem',
+									text: ' الجميع  : <?= $Get_Fields->item_translation ?>',
+									onAction: function () {
+										editor.insertContent('{All_TD_<?= $Ro_2->Fields_key ?>}');
+									}
+								},
+							<?php
 							}
-						?>
-							{
-								type: 'menuitem', text: '<?= $Get_Fields_2->item_translation ?>',onAction: function () { editor.insertContent('%<?= $Ro_2->Fields_key ?>%'); }
-							},
-						<?php
+
 						}
 						?>
 					];
 				}
 			});
 
+
+
 			/* */
 			editor.ui.registry.addNestedMenuItem('menu_preview_data_com', {
 				text: ' بيانات المعاينة - مكونات العقار ',
 				getSubmenuItems: function () {
 					return [
+						<?php
 
+						$Get_All_Form_3 = app()->db->where('Forms_id',14);
+						$Get_All_Form_3 = app()->db->get('portal_forms_components_fields');
+						foreach ($Get_All_Form_3->result() AS $Ro_3)
+						{
 
+						if($Ro_3->Fields_Type == 'Fields'){
+
+						    $Get_Fields   = Get_Fields(array("Fields_id" => $Ro_3->Fields_id))->row();
+						?>
+							{
+								type: 'menuitem',
+								text: '<?= @$Get_Fields->item_translation ?>',
+								onAction: function () {
+									editor.insertContent('{Value_TP_<?= $Ro_3->Fields_key ?>}');
+								}
+							},
+
+						<?php
+						}elseif($Ro_3->Fields_Type == 'List'){
+						    $Get_Fields   = Get_All_List(array("list_id"=> $Ro_3->Fields_id))->row();
+						?>
+							{
+								type: 'menuitem',
+								text: 'القيمة : <?= $Get_Fields->item_translation ?>',
+								onAction: function () {
+									editor.insertContent('{Value_TP_<?= $Ro_3->Fields_key ?>}');
+								}
+							},
+							{
+								type: 'menuitem',
+								text: ' الجميع  : <?= $Get_Fields->item_translation ?>',
+								onAction: function () {
+									editor.insertContent('{All_TP_<?= $Ro_3->Fields_key ?>}');
+								}
+							},
+						<?php
+						}
+
+						} // foreach ($Get_All_Form_3->result() AS $Ro_3)
+						?>
 					];
 				}
 			});
@@ -202,8 +290,55 @@
 				text: ' بيانات المعاينة - الموقع  ',
 				getSubmenuItems: function () {
 					return [
-
-
+						{
+							type: 'menuitem',
+							text: 'خط الطول',
+							onAction: function () {
+								editor.insertContent('{Value_MAP_}');
+							}
+						},
+						{
+							type: 'menuitem',
+							text: 'خط العرض',
+							onAction: function () {
+								editor.insertContent('{Value_MAP_}');
+							}
+						},
+						{
+							type: 'menuitem',
+							text: 'خط الطول - صيغة الوقت',
+							onAction: function () {
+								editor.insertContent('{Value_MAP_}');
+							}
+						},
+						{
+							type: 'menuitem',
+							text: 'خط العرض - صيغة الوقت',
+							onAction: function () {
+								editor.insertContent('{Value_MAP_}');
+							}
+						},
+						{
+							type: 'menuitem',
+							text: ' صورة الأقمار الصناعية',
+							onAction: function () {
+								editor.insertContent('{Value_MAP_}');
+							}
+						},
+						{
+							type: 'menuitem',
+							text: ' صورة الخريطة',
+							onAction: function () {
+								editor.insertContent('{Value_MAP_}');
+							}
+						},
+						{
+							type: 'menuitem',
+							text: ' محيط العقار',
+							onAction: function () {
+								editor.insertContent('{Value_MAP_}');
+							}
+						},
 					];
 				}
 			});
@@ -211,31 +346,47 @@
 				text: ' بيانات المعاينة - الصور  ',
 				getSubmenuItems: function () {
 					return [
-
-
+						{
+							type: 'menuitem',
+							text: ' صور داخل العقار ',
+							onAction: function () {
+								editor.insertContent('{PHOTO_TP_IN}');
+							}
+						},
+						{
+							type: 'menuitem',
+							text: ' صور خارج العقار ',
+							onAction: function () {
+								editor.insertContent('{PHOTO_TP_OUT}');
+							}
+						},
+						{
+							type: 'menuitem',
+							text: ' صور الملاحظات ',
+							onAction: function () {
+								editor.insertContent('{PHOTO_TP_COMMENT}');
+							}
+						},
 					];
 				}
 			});
-			editor.ui.registry.addNestedMenuItem('menu_preview_Evaluation', {
-				text: ' بيانات المعاينة - التقييم   ',
-				getSubmenuItems: function () {
-					return [
 
 
-					];
-				}
-			});
+
 			editor.ui.registry.addNestedMenuItem('menu_preview_Comparisons', {
 				text: ' بيانات المعاينة - مقارنات الاراضي و المباني   ',
 				getSubmenuItems: function () {
 					return [
-
-
+						{
+							type: 'menuitem',
+							text: '  مقارنات الاراضي و المباني   ',
+							onAction: function () {
+								editor.insertContent('{Value_TP_COMPARISONS}');
+							}
+						},
 					];
 				}
 			});
-			/* */
-
 
 			editor.ui.registry.addNestedMenuItem('menu_Evaluation_final', {
 				text: ' بيانات التقييم النهائي ',
@@ -246,25 +397,35 @@
 				}
 			});
 
+			editor.ui.registry.addNestedMenuItem('menu_Text_Static', {
+				text: ' نصوص و تعريفات ',
+				getSubmenuItems: function () {
+					return [
+
+					];
+				}
+			});
+
+
 			/* */
 			editor.ui.registry.addNestedMenuItem('menu_company', {
 				text: 'بيانات المنشأة',
 				getSubmenuItems: function () {
 					return [
 						{
-							type: 'menuitem', text: 'شعار المنشأة',onAction: function () { editor.insertContent('%Company_Logo%'); }
+							type: 'menuitem', text: 'شعار المنشأة',onAction: function () { editor.insertContent('{Company_Logo}'); }
 						},
 						{
-							type: 'menuitem', text: ' اسم المنشأة ',onAction: function () { editor.insertContent('%Company_Name%'); }
+							type: 'menuitem', text: ' اسم المنشأة ',onAction: function () { editor.insertContent('{Company_Name}'); }
 						},
 						{
-							type: 'menuitem', text: 'رقم السجل التجاري ',onAction: function () { editor.insertContent('%Company_CRN%'); }
+							type: 'menuitem', text: 'رقم السجل التجاري ',onAction: function () { editor.insertContent('{Company_CRN}'); }
 						},
 						{
-							type: 'menuitem', text: 'رقم عضوية الهيئة ',onAction: function () { editor.insertContent('%Company_AMN%'); }
+							type: 'menuitem', text: 'رقم عضوية الهيئة ',onAction: function () { editor.insertContent('{Company_AMN}'); }
 						},
 						{
-							type: 'menuitem', text: ' الختم الرسمي ',onAction: function () { editor.insertContent('%Company_Stamp%'); }
+							type: 'menuitem', text: ' الختم الرسمي ',onAction: function () { editor.insertContent('{Company_Stamp}'); }
 						},
 					];
 				}
@@ -274,10 +435,10 @@
 				getSubmenuItems: function () {
 					return [
 						{
-							type: 'menuitem', text: 'شعار العميل',onAction: function () { editor.insertContent('%Client_Logo%'); }
+							type: 'menuitem', text: 'شعار العميل',onAction: function () { editor.insertContent('{Client_Logo}'); }
 						},
 						{
-							type: 'menuitem', text: 'اسم العميل',onAction: function () { editor.insertContent('%Client_Name%'); }
+							type: 'menuitem', text: 'اسم العميل',onAction: function () { editor.insertContent('{Client_Name}'); }
 						},
 					];
 				}

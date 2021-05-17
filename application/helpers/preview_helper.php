@@ -171,6 +171,7 @@ if(!function_exists('Get_Transaction_Preview_data_by_key')) {
         $query = app()->db->where('Components_id',$Components_id);
         $query = app()->db->where('data_key',$key);
         $query = app()->db->get('protal_transaction_preview_data');
+
         if($query->num_rows()>0){
             return $query->row()->data_value;
         }else{
@@ -192,6 +193,7 @@ if(!function_exists('Create_Transaction_Preview_history')) {
             foreach ($data AS $key)
             {
                 if($key['data_value'] !='') {
+
                     $data_insert = array(
                         "Transaction_id"   => $Transaction_id,
                         "preview_id"       => $key['preview_id'],
@@ -204,6 +206,7 @@ if(!function_exists('Create_Transaction_Preview_history')) {
                         "data_Create_id"   => app()->aauth->get_user()->id,
                         "data_Create_time" => time(),
                     );
+
                 }
                 $query = app()->db->insert('protal_transaction_preview_data_history',$data_insert);
             }
@@ -223,7 +226,7 @@ if(!function_exists('Create_Comparisons_Land')) {
 
     function Create_Comparisons_Land($data)
     {
-        $query = app()->db->insert('portal_land_comparisons',$data);
+        $query = app()->db->insert('portal_comparisons_info',$data);
         if($query){
             return app()->db->insert_id();
         }else{
@@ -244,7 +247,7 @@ if(!function_exists('Get_Comparisons_Land')) {
                 $query = app()->db->where($key,$value);
             }
         }
-        $query  = app()->db->get('portal_land_comparisons');
+        $query  = app()->db->get('portal_comparisons_info');
         return  $query;
     }
 }

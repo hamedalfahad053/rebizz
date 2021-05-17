@@ -24,15 +24,11 @@ class App_Company_Settings_Preview extends Apps
     }
     ###################################################################
 
-
-
     ###################################################################
     public function Setting_Fees_Preview()
     {
-
-
-
         $lang  = get_current_lang();
+
         $query = app()->db->select('users.id as users_id ,users.user_uuid as user_uuid, users.full_name as full_name', false);
         $query = app()->db->from('portal_auth_users                 users');
         $query = app()->db->join('portal_auth_user_to_group         user_to_group', 'user_to_group.user_id = users.id');
@@ -249,11 +245,12 @@ class App_Company_Settings_Preview extends Apps
             $Region_id     = $this->input->post('Region_id');
             $City_id       = $this->input->post('City_id');
 
-            if (is_array($this->input->post('District_id'))) {
-                $districts = @implode(',', $this->input->post('District_id'));
-            } else {
-                $districts = $this->input->post('District_id');
-            }
+//            if (is_array($this->input->post('District_id'))) {
+//                $districts = @implode(',', $this->input->post('District_id'));
+//            } else {
+//                $districts = $this->input->post('District_id');
+//            }
+            $districts = '';
 
             $Update_Assignment_Map = Update_Assignment_Map_users_preview($Users_Preview,$Region_id,$City_id,$districts);
 

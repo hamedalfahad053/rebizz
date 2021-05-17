@@ -484,20 +484,143 @@ class App_Company_HRM extends Apps
     ###################################################################
 
     ###################################################################
-    public function Edit_Employees()
+    public function View_Employees()
     {
+        $this->data['Page_Title']  = '  ملف موظف ';
 
-        $this->data['Page_Title']  = ' تعديل ملف موظف ';
+        $Employees_id  =  $this->uri->segment(4);
+        $Company_Users = Get_Company_Users(
+            array(
+                "users.company_id" => $this->aauth->get_user()->company_id,
+                "users.user_uuid"  => $Employees_id
+            )
+        );
 
+        if($Employees_id =='' or $Company_Users->num_rows() == 0)
+        {
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = 'طريقة غير صحيحة ';
+            $msg_result_view     = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL.'/HRM/', 'refresh');
+        }else{
+
+            $this->data['Users'] = $Company_Users->row();
+
+        } // if($Employees_id =='' or $Company_Users->num_rows() == 0)
 
         $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
-
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-        $this->data['PageContent'] = $this->load->view('../../modules/App_Company_HRM/views/Edit_Employees', $this->data, true);
+
+        $this->data['PageParent']  = $this->load->view('../../modules/App_Company_HRM/views/View_Employees', $this->data, true);
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Company_HRM/views/Layout_Employees', $this->data, true);
         Layout_Apps($this->data);
 
     }
     ###################################################################
 
+    ###################################################################
+    public function Edit_Employees()
+    {
+
+        $this->data['Page_Title']  = ' تعديل ملف موظف ';
+
+        $Employees_id  =  $this->uri->segment(4);
+        $Company_Users = Get_Company_Users(
+            array(
+                "users.company_id" => $this->aauth->get_user()->company_id,
+                "users.user_uuid"  => $Employees_id
+            )
+        );
+
+        if($Employees_id =='' or $Company_Users->num_rows() == 0)
+        {
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = 'طريقة غير صحيحة ';
+            $msg_result_view     = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL.'/HRM/', 'refresh');
+        }else{
+
+            $this->data['Users'] = $Company_Users->row();
+
+        } // if($Employees_id =='' or $Company_Users->num_rows() == 0)
+
+        $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
+        $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+
+        $this->data['PageParent']  = $this->load->view('../../modules/App_Company_HRM/views/Edit_Employees', $this->data, true);
+        $this->data['PageContent'] = $this->load->view('../../modules/App_Company_HRM/views/Layout_Employees', $this->data, true);
+        Layout_Apps($this->data);
+
+
+    }
+    ###################################################################
+
+
+    ###################################################################
+    public function Update_Employees()
+    {
+
+        $User_id = $this->uri->segment(4);
+
+        $this->form_validation->set_rules('full_name_ar','اسم الموظف باللغة العربية','required');
+        $this->form_validation->set_rules('full_name','اسم الموظف باللغة الانجليزية','required');
+        $this->form_validation->set_rules('email','البريد الالكتروني','required');
+
+        $Company_Users = Get_Company_Users(array("users.company_id" => $this->aauth->get_user()->company_id, "users.user_uuid"  => $User_id));
+
+        if ($User_id == '' or $Company_Users->num_rows() == 0) {
+            $msg_result['key'] = 'Danger';
+            $msg_result['value'] = 'المستخدم غير صحيح';
+            $msg_result_view = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL . '/Users/', 'refresh');
+        } else {
+
+            $data_Update['full_name_ar']                      = $this->input->post('full_name_ar',true);
+            $data_Update['full_name']                         = $this->input->post('full_name',true);
+            $data_Update['email']                             = $this->input->post('email',true);
+            $data_Update['phone ']                            = $this->input->post('mobile',true);
+            $data_Update['Authority_membership_No']           = $this->input->post('Authority_membership_No',true);
+
+            if($_FILES['Signature']) {
+
+                $Uploader_path = './uploads/companies/' . $this->data['LoginUser_Company_domain'] . '/' . FOLDER_Company_Signature;
+                if (!is_dir($Uploader_path)) {
+                    mkdir($Uploader_path, 0755, TRUE);
+                }
+                $config['upload_path']   = realpath($Uploader_path);
+                $config['allowed_types'] = 'gif|jpg|png|jpg';
+                $config['max_size']      = '1024';
+                $config['max_filename']  = 30;
+                $config['encrypt_name']  = true;
+                $config['remove_spaces'] = true;
+                $this->upload->initialize($config);
+                $uploader    = $this->upload->do_upload('Signature');
+                $upload_data = $this->upload->data();
+                $data_Update['Signature'] = $upload_data['file_name'];
+            }
+
+            $Update_User           = Update_User($User_id,$data_Update);
+
+            if($Update_User){
+                $msg_result['key']   = 'Success';
+                $msg_result['value'] = lang('message_success_insert');
+                $msg_result_view     = 'تم تحديث بيانات الموظف بنجاح';
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL.'/HRM/Employees' , 'refresh');
+            }else{
+                $msg_result['key']   = 'Danger';
+                $msg_result['value'] = 'يوجد خطا حدث اثناء تحديث بيانات الموظف';
+                $msg_result_view     = Create_Status_Alert($msg_result);
+                set_message($msg_result_view);
+                redirect(APP_NAMESPACE_URL.'/HRM/Employees', 'refresh');
+            }
+        }
+
+
+    }
+    ###################################################################
 
 }

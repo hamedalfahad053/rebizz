@@ -72,6 +72,24 @@ if(!function_exists('Add_Permissions_To_Group')) {
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Add_Permissions_To_User')) {
+
+    function Add_Permissions_To_User($data)
+    {
+
+        app()->load->database();
+
+        $query = app()->db->insert('portal_auth_permissions_to_user ',$data);
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
+##############################################################################
+
 
 ##############################################################################
 if(!function_exists('Check_Permissions_By_Group')) {
@@ -89,6 +107,27 @@ if(!function_exists('Check_Permissions_By_Group')) {
 }
 ##############################################################################
 
+##############################################################################
+if(!function_exists('Check_Permissions_By_Users')) {
+
+    function Check_Permissions_By_Users($perm_id,$User_id)
+    {
+        app()->load->database();
+
+        $return     = false;
+        $query      = app()->db->where('perm_id',$perm_id);
+        $query      = app()->db->where('user_id',$User_id);
+        $query      = app()->db->get('portal_auth_permissions_to_user');
+
+        if($query->num_rows()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
+##############################################################################
+
 
 ##############################################################################
 if(!function_exists('Check_Permissions')) {
@@ -98,6 +137,7 @@ if(!function_exists('Check_Permissions')) {
         app()->load->database();
 
         $return     = false;
+
         $user_id    = app()->aauth->get_user()->id;
         $Group_User = Get_Group_User($user_id);
 
@@ -106,7 +146,9 @@ if(!function_exists('Check_Permissions')) {
         $query      = app()->db->get('portal_auth_permissions_to_group');
 
         if($query->num_rows()>0){
+
             $return = true;
+
         }else{
 
             $query_to_user      = app()->db->where('perm_id',$perm_id);
@@ -114,9 +156,13 @@ if(!function_exists('Check_Permissions')) {
             $query_to_user      = app()->db->get('portal_auth_permissions_to_user');
 
             if($query_to_user->num_rows()>0){
+
                 $return = true;
+
             }else{
+
                 $return = false;
+
             }
 
         }
@@ -144,6 +190,24 @@ if(!function_exists('Delete_All_Permissions_To_Group')) {
 }
 ##############################################################################
 
+
+##############################################################################
+if(!function_exists('Delete_All_Permissions_To_Users')) {
+
+    function Delete_All_Permissions_To_Users($user_id)
+    {
+        app()->load->database();
+        $query = app()->db->where('user_id',$user_id);
+        $query = app()->db->delete('portal_auth_permissions_to_user');
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+}
+##############################################################################
 
 
 

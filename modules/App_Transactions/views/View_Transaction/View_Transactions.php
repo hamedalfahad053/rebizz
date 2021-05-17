@@ -1,147 +1,294 @@
-<!--begin::Subheader-->
-<div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-        <!--begin::Info-->
-        <div class="d-flex align-items-center flex-wrap mr-1">
 
-            <!--begin::Page Heading-->
-            <div class="d-flex align-items-baseline flex-wrap mr-5 right"  >
-                <!--begin::Page Title-->
-                <h5 class="text-dark font-weight-bold my-1 mr-5"><?= $Page_Title ?></h5>
-                <!--end::Page Title-->
-                <!--begin::Breadcrumb-->
-                <?= $breadcrumbs ?>
-                <!--end::Breadcrumb-->
+
+
+
+<div class="card card-custom mb-10">
+	<div class="card-body">
+
+
+		<?php
+		if(Check_Permissions(14)) {
+		?>
+		<a href="<?= base_url(APP_NAMESPACE_URL . '/Work_Team/New_Assign_Transaction/'.$Transactions->uuid.'') ?>" class="btn btn-shadow-hover btn-primary">
+			اسناد المعاملة لموظف
+		</a>
+		<?php
+		}
+
+		if(Check_Permissions(48)) {
+		?>
+		<a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Form_Notes_Transaction/'.$Transactions->uuid.'') ?>" class="btn btn-shadow-hover btn-warning">
+			اضافة ملاحظة
+		</a>
+		<?php
+		}
+		?>
+
+
+
+	</div>
+</div>
+
+
+
+<?php
+$Customs_With_CLIENT            = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
+$Customs_With_Type_CUSTOMER     = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CUSTOMER_CATEGORY');
+$Customs_With_Type_Property     = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPE_OF_PROPERTY');
+$Customs_With_TYPES_APPRAISAL   = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+
+$Form_Components_Customs        = Get_View_Components_Customs(1,$Customs_With_CLIENT,$Customs_With_Type_CUSTOMER,$Customs_With_Type_Property,$Customs_With_TYPES_APPRAISAL);
+foreach ($Form_Components_Customs->result() AS $RC_Customs)
+{
+    ?>
+    <div class="card card-custom mb-10">
+        <!--begin::Header-->
+        <div class="card-header">
+            <div class="card-title">
+                <h3 class="card-label">
+                    <?= $RC_Customs->item_translation ?>
+                </h3>
             </div>
-            <!--end::Page Heading-->
-
         </div>
-        <!--end::Info-->
-        <!--begin::Toolbar-->
-        <div class="d-flex align-items-center">
-	        <a href="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Print_Transactions/'.$Transactions->uuid) ?>" class="btn btn-success">
-		        <i class="flaticon2-printer"></i>   طباعة
-	        </a>
-        </div>
-        <!--end::Toolbar-->
-    </div>
-</div>
-<!--end::Subheader-->
+        <!--begin::Header-->
+        <!--begin::Body-->
+        <div class="card-body">
+            <div class="form-group row">
+                <table class="data_table table table-bordered table-hover display nowrap" width="100%">
 
-<!--begin::Entry-->
-<div class="d-flex flex-column-fluid">
-    <!--begin::Container-->
-    <div class="container-fluid">
+                    <?php
+                    $Get_Fields_Components = Building_Fields_Components_Views($RC_Customs->Forms_id, $RC_Customs->components_id,'All','All','All','All');
+                    foreach ($Get_Fields_Components as $GFC)
+                    {
+                        if($GFC['Fields_Type_Components'] == 'Fields'){
 
+                            $Get_Fields = Get_Fields(array("Fields_id"=>$GFC['Fields_id']))->row();
 
+                            if($Get_Fields->Fields_Type_Fields == 'file_multiple' or $Get_Fields->Fields_Type_Fields == 'file') {
 
-	    <?php echo  $this->session->flashdata('message'); ?>
+                                $this->load->view('../../modules/App_Transactions/views/File_Transaction/Components_View_Files_Row', $this->data);
 
-
-							    <div class="card card-custom mb-3 mt-2">
-								    <div class="card-body">
-		                                <ul class="nav nav-tabs nav-bold nav-tabs-line">
-		                                    <li class="nav-item">
-		                                        <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1_4">
-		                                            <span class="nav-icon"><i class="flaticon-cogwheel icon-md"></i></span>
-		                                            <span class="nav-text">البيانات الاساسية</span>
-		                                        </a>
-		                                    </li>
-
-			                                <?php
-			                                if (Check_Permissions(3)) {
-			                                ?>
-			                                <li class="nav-item">
-				                                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2_4">
-					                                <span class="nav-icon"><i class="flaticon-arrows icon-md"></i></span>
-					                                <span class="nav-text"> المنسق </span>
-				                                </a>
-			                                </li>
-			                                <?php
-			                                }
-			                                ?>
-
-
-		                                    <li class="nav-item">
-		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_3_4">
-		                                            <span class="nav-icon"><i class="flaticon-visible icon-md"></i></span>
-		                                            <span class="nav-text"> المعاين</span>
-		                                        </a>
-		                                    </li>
-
-			                                <?php
-			                                if (Check_Permissions(5)) {
-			                                ?>
-		                                    <li class="nav-item">
-		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_4_4">
-		                                            <span class="nav-icon"><i class="flaticon-price-tag icon-md"></i></span>
-		                                            <span class="nav-text"> التقييم  </span>
-		                                        </a>
-		                                    </li>
-			                                <?php
-			                                }
-			                                ?>
-
-		                                    <li class="nav-item">
-		                                        <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_6_4">
-		                                            <span class="nav-icon"><i class="flaticon-layers icon-md"></i></span>
-		                                            <span class="nav-text"> حركة المعاملة </span>
-		                                        </a>
-		                                    </li>
-
-		                                </ul>
-								    </div>
-							    </div>
-
-
-                                <div class="tab-content">
-
-                                    <div class="tab-pane fade show active" id="kt_tab_pane_1_4" role="tabpanel" aria-labelledby="kt_tab_pane_1_4">
-                                        <?php
-                                        echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Data', $this->data);
-                                        ?>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="kt_tab_pane_2_4" role="tabpanel" aria-labelledby="kt_tab_pane_2_4">
-	                                    <?php
-	                                    echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Coordinator', $this->data);
-	                                    ?>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="kt_tab_pane_3_4" role="tabpanel" aria-labelledby="kt_tab_pane_3_4">
-	                                    <?php
-	                                    echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Preview_RealEstate', $this->data);
-	                                    ?>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="kt_tab_pane_4_4" role="tabpanel" aria-labelledby="kt_tab_pane_4_4">
-	                                    <?php
-	                                    echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Evaluation', $this->data);
-	                                    ?>
-                                    </div>
-
-
-	                                <div class="tab-pane fade" id="kt_tab_pane_6_4" role="tabpanel" aria-labelledby="kt_tab_pane_6_4">
-		                                <?php
-		                                echo $this->load->view('../../modules/App_Transactions/views/View_Transactions_Tab_Activety_log', $this->data);
+                            }else{
+                                ?>
+                                <tr>
+                                    <td><?= $GFC['Fields_Title'] ?></td>
+                                    <td><?= @Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']) ?></td>
+	                                <?php
+	                                if(Check_Permissions(40) or Check_Permissions(41)) {
 		                                ?>
-	                                </div>
+		                                <td>
+			                                <?php
+			                                if(Check_Permissions(40)) {
+				                                ?>
+				                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Edit_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-warning mx-2"><i class="la la-edit"></i></a>
+				                                <?php
+			                                }
+			                                if(Check_Permissions(41)) {
+				                                ?>
+				                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/History_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-info mx-2"><i class="flaticon2-information"></i></a>
+				                                <?php
+			                                }
+			                                ?>
+		                                </td>
+		                                <?php
+	                                }
+	                                ?>
+                                </tr>
+                                <?php
+                            }
 
 
-                                </div>
+                        }elseif($GFC['Fields_Type_Components'] == 'List'){
+
+                            $d = Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']);
+                            if($d){
+                                ?>
+                                <tr>
+                                    <td><?= $GFC['Fields_Title'] ?></td>
+                                    <td>
+                                        <?php
+                                        if($d == ''){
+                                            echo 'غير مدخل';
+                                        }else{
+                                            echo @get_data_options_List_view($GFC['Fields_id'],$d);
+                                        }
+                                        ?>
+                                    </td>
+
+	                                <?php
+	                                if(Check_Permissions(40) or Check_Permissions(41)) {
+	                                ?>
+                                    <td>
+		                                <?php
+		                                if(Check_Permissions(40)) {
+			                            ?>
+                                        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Edit_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-warning mx-2"><i class="la la-edit"></i></a>
+                                        <?php
+		                                }
+		                                if(Check_Permissions(41)) {
+		                                ?>
+	                                    <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/History_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-info mx-2"><i class="flaticon2-information"></i></a>
+			                            <?php
+		                                }
+			                            ?>
+                                    </td>
+		                            <?php
+	                                }
+		                            ?>
 
 
-    </div>
-    <!--end::Container-->
-</div>
-<!--end::Entry-->
+                                </tr>
+                                <?php
+                            }
+
+                        }
+                    } // foreach ($Get_Fields_Components as $GFC)
+                    ?>
+                </table>
+
+            </div><!-- <div class="form-group row"> -->
+        </div>
+        <!--begin::Body-->
+    </div><!--<div class="card card-custom mt-10">-->
+    <?php
+} // foreach ($Form_Components_Customs->result() AS $RC_Customs)
+?>
 
 
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('.data_table').DataTable({
-			responsive: true
-		});
-	});
-</script>
+
+<?php
+$Customs_With_CLIENT            = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
+$Customs_With_Type_CUSTOMER     = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CUSTOMER_CATEGORY');
+$Customs_With_Type_Property     = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPE_OF_PROPERTY');
+$Customs_With_TYPES_APPRAISAL   = Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+$Form_Components_Customs        = Get_View_Components_Customs(13,$Customs_With_CLIENT,$Customs_With_Type_CUSTOMER,$Customs_With_Type_Property,$Customs_With_TYPES_APPRAISAL);
+
+foreach ($Form_Components_Customs->result() AS $RC_Customs)
+{
+    ?>
+    <div class="card card-custom mt-5">
+        <!--begin::Header-->
+        <div class="card-header">
+            <div class="card-title">
+                <h3 class="card-label">
+                    <?= $RC_Customs->item_translation ?>
+                </h3>
+            </div>
+        </div>
+        <!--begin::Header-->
+        <!--begin::Body-->
+        <div class="card-body">
+            <div class="form-group row">
+                <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+                    <?php
+                    $Get_Fields_Components = Building_Fields_Components_Views($RC_Customs->Forms_id, $RC_Customs->components_id,'All','All','All','All');
+                    foreach ($Get_Fields_Components as $GFC)
+                    {
+
+                        if($GFC['Fields_Type_Components'] == 'Fields'){
+
+                            $Get_Fields = Get_Fields(array("Fields_id"=>$GFC['Fields_id']))->row();
+
+                            if($Get_Fields->Fields_Type_Fields == 'file_multiple' or $Get_Fields->Fields_Type_Fields == 'file') {
+
+                                $this->load->view('../../modules/App_Transactions/views/File_Transaction/Components_View_Files_Row', $this->data);
+
+                            }else{
+
+                                ?>
+                                <tr>
+                                    <td><?= $GFC['Fields_Title'] ?></td>
+                                    <td>
+                                        <?php
+                                        $Transaction_data_by_key = Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']);
+                                        if($Transaction_data_by_key == false){
+                                            echo 'غير مدخل';
+                                        }else{
+                                            echo $Transaction_data_by_key;
+                                        }
+                                        ?>
+                                    </td>
+	                                <?php
+	                                if(Check_Permissions(40) or Check_Permissions(41)) {
+		                                ?>
+		                                <td>
+			                                <?php
+			                                if(Check_Permissions(40)) {
+				                                ?>
+				                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Edit_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-warning mx-2"><i class="la la-edit"></i></a>
+				                                <?php
+			                                }
+			                                if(Check_Permissions(41)) {
+				                                ?>
+				                                <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/History_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-info mx-2"><i class="flaticon2-information"></i></a>
+				                                <?php
+			                                }
+			                                ?>
+		                                </td>
+		                                <?php
+	                                }
+	                                ?>
+                                </tr>
+                                <?php
+                            }
+
+
+                        }elseif($GFC['Fields_Type_Components'] == 'List'){
+
+                            $d = Transaction_data_by_key($Transactions->transaction_id,$GFC['Forms_id'],$GFC['components_id'],$GFC['Fields_key']);
+                            ?>
+                            <tr>
+                                <td><?= $GFC['Fields_Title'] ?></td>
+                                <td>
+                                    <?php
+                                    $Transaction_data_by_options_List = get_data_options_List_view($GFC['Fields_id'],$d);
+
+                                    if($Transaction_data_by_options_List == ''){
+                                        echo 'غير مدخل';
+                                    }else{
+                                        echo $Transaction_data_by_options_List;
+                                    }
+                                    ?>
+                                </td>
+	                            <?php
+	                            if(Check_Permissions(40) or Check_Permissions(41)) {
+		                            ?>
+		                            <td>
+			                            <?php
+			                            if(Check_Permissions(40)) {
+				                            ?>
+				                            <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Edit_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-warning mx-2"><i class="la la-edit"></i></a>
+				                            <?php
+			                            }
+			                            if(Check_Permissions(41)) {
+				                            ?>
+				                            <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/History_Data_Transaction/'.$Transactions->uuid.'/'.$GFC['Forms_id'].'/'.$GFC['components_id'].'/'.$GFC['Fields_key']) ?>" class="btn btn-icon btn-sm btn-light-info mx-2"><i class="flaticon2-information"></i></a>
+				                            <?php
+			                            }
+			                            ?>
+		                            </td>
+		                            <?php
+	                            }
+	                            ?>
+                            </tr>
+                            <?php
+
+
+                        }
+                    } // foreach ($Get_Fields_Components as $GFC)
+                    ?>
+                </table>
+
+            </div><!-- <div class="form-group row"> -->
+        </div>
+        <!--begin::Body-->
+    </div><!--<div class="card card-custom mt-10">-->
+    <?php
+} // foreach ($Form_Components_Customs->result() AS $RC_Customs)
+?>
+
+
+
+
+

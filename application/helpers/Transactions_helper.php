@@ -3,18 +3,14 @@
 ##############################################################################
 if(!function_exists('Get_Transaction')) {
 
-    function Get_Transaction($where)
+    function Get_Transaction($where_Transactions)
     {
-
-        if (!empty($where)) {
-            foreach ($where as $key => $value) {
+            foreach ($where_Transactions as $key => $value) {
                 $query = app()->db->where($key,$value);
             }
-        }
-        $query = app()->db->order_by('transaction_id', 'DESC');
-        $query = app()->db->get('protal_transaction');
-        return $query;
-
+            $query = app()->db->order_by('transaction_id', 'DESC');
+            $query = app()->db->get('protal_transaction');
+            return $query;
     }
 
 } // if(!function_exists('Create_Transaction'))
@@ -335,6 +331,7 @@ if(!function_exists('Update_Stages_Transaction')) {
         $query = app()->db->set('attribution_method',$attribution_method);
         $query = app()->db->set('stages_lastModifyDate',time());
         $query = app()->db->update('protal_stages_transaction');
+
         if($query){
             return true;
         }else{
@@ -354,26 +351,38 @@ if(!function_exists('Assignment_Transaction_Departments_To')) {
         $Assignment_to = array();
 
         if (!empty($where)) {
-            foreach ($where as $key => $value) {
-                $stages_t = app()->db->where($key,$value);
+
+            foreach ($where as $key__ => $value__) {
+                $stages_t = app()->db->where($key__,$value__);
             }
+
         }
+
         $stages_t      = app()->db->get('protal_stages_transaction')->row();
+
+        //_array_p($stages_t);
 
         if($stages_t->attribution_method == 1){
 
-            $Departments_Where = array("company_id"=> app()->aauth->get_user()->company_id , "departments_id"=>$stages_t->Departments_To);
-            $Departments       = app()->db->get('portal_hrm_departments',$Departments_Where);
+            $Departments       = app()->db->where('company_id',app()->aauth->get_user()->company_id);
+            $Departments       = app()->db->where('departments_id',$stages_t->Departments_To);
+            $Departments       = app()->db->get('portal_hrm_departments');
 
             if($Departments->num_rows()>0){
-                $Departments = $Departments->row();
-                if($Departments->department_supervisor != NULL or $Departments->department_supervisor !=0){
-                    $Assignment_to = array(
-                        "userid"   => app()->aauth->get_user($Departments->department_supervisor)->id,
-                        "full_name" => app()->aauth->get_user($Departments->department_supervisor)->id,
-                    );
-                }else{
+
+                $Departments_R = $Departments->row();
+
+                //_array_p($Departments_R);
+
+                if($Departments_R->department_supervisor == NULL or $Departments_R->department_supervisor == 0) {
+
                     $Assignment_to = false;
+
+                }else{
+                    $Assignment_to = array(
+                        "userid"    => app()->aauth->get_user($Departments_R->department_supervisor)->id,
+                        "full_name" => app()->aauth->get_user($Departments_R->department_supervisor)->id,
+                    );
                 }
             }
 
@@ -382,24 +391,34 @@ if(!function_exists('Assignment_Transaction_Departments_To')) {
             $Departments_Where = array("company_id"=> app()->aauth->get_user()->company_id , "departments_id"=>$stages_t->Departments_To);
             $Departments       = app()->db->get('portal_hrm_departments',$Departments_Where);
 
-            $where_emp_Departments  = array("users.company_id"=> app()->aauth->get_user()->company_id ,"users.departments_id"=>$stages_t->Departments_To,"banned"=>0);
-            $emp_Departments        = Get_Company_Users($where_emp_Departments);
 
-            if($emp_Departments->num_rows()>0)
+            $where_emp_Departments  = app()->db->where("company_id",app()->aauth->get_user()->company_id);
+            $where_emp_Departments  = app()->db->where("departments_id",$stages_t->Departments_To);
+            $where_emp_Departments  = app()->db->where("banned",0);
+            $where_emp_Departments  = app()->db->get('portal_auth_users');
+
+            //_array_p($where_emp_Departments->result());
+
+
+
+            if($where_emp_Departments->num_rows()>0)
             {
-                foreach ($emp_Departments->result() as $user)
+                foreach ($where_emp_Departments->result() as $user)
                 {
                     $where_Get_Assignment_Num = array(
                       "Transaction_Stage"     => $stages_t->stages_key,
                       "Transaction_Status_id" => 1,
                       "Assignment_userid"     => $user->id,
                     );
+
                     $Get_Assignment_Num = Get_Transaction($where_Get_Assignment_Num)->num_rows();
+
                     $Assignment_to[] = array(
                         "userid"          => $user->id,
                         "full_name"       => $user->full_name,
                         "Assignment_Num"  => $Get_Assignment_Num
                     );
+
                 }
 
             }else{
@@ -434,3 +453,36 @@ if(!function_exists('Get_Receipt_Emp_Permissions')) {
 
 } // Get_Stages_Transaction_Company($where)
 ##############################################################################
+
+
+##############################################################################
+if(!function_exists('Get_Status_Stages_Transaction')) {
+
+    function Get_Status_Stages_Transaction($where)
+    {
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $query = app()->db->where($key,$value);
+            }
+        }
+
+        $query= app()->db->get('protal_status_stages_transaction');
+
+        return $query;
+    }
+
+} // Get_Status_Stages_Transaction($where)
+##############################################################################
+
+##############################################################################
+if(!function_exists('Create_Status_Stages_Transaction')) {
+
+    function Create_Status_Stages_Transaction($data)
+    {
+        $query= app()->db->insert('protal_status_stages_transaction',$data);
+        return $query;
+    }
+
+} // Get_Status_Stages_Transaction($where)
+##############################################################################
+

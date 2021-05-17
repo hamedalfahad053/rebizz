@@ -72,7 +72,7 @@
 		</div>
 
 
-		<form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Update_Sort_File_Transaction/'.$this->uri->segment(4)) ?>" enctype="multipart/form-data" method="post">
+		<form class="form" name="" action="<?= base_url(APP_NAMESPACE_URL . '/File_Transaction/Update_Sort_File_Transaction/'.$this->uri->segment(4)) ?>" enctype="multipart/form-data" method="post">
 			<?= CSFT_Form() ?>
 			<input type="hidden" name="Transactions_id"  value="<?= $Transactions->transaction_id ?>">
 			<input type="hidden" name="File_Transaction" id="File_Transaction" >
@@ -92,7 +92,7 @@
 </div>
 <!--end::Entry-->
 
-
+<?php echo import_js(array(BASE_ASSET . 'plugins/jquery-ui', BASE_ASSET . 'plugins/Sortable/src/Sortable'), '') ?>
 <script type="text/javascript">
 	$('#handle').sortable({
 		items : "[data-File-Transaction]",

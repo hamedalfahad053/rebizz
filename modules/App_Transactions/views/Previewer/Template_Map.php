@@ -73,7 +73,7 @@
 				streetViewControl:true,
 				dragend: function(event) {
 					var lat = event.latLng.lat();
-					var lng = event.latLng.fuuuu();
+					var lng = event.latLng.lng();
 
 					$("#LATITUDE").val(lat);
 					$("#LONGITUDE").val(lng);

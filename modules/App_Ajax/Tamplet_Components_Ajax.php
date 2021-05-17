@@ -83,7 +83,7 @@ foreach ($query->result() as $row) {
 
 <script>
     $(".datepicker").hijriDatePicker({
-        hijri:false,
+        hijri:true,
         format: "DD-MM-YYYY",
         hijriFormat:"iYYYY-iMM-iDD",
         dayViewHeaderFormat: "MMMM YYYY",
@@ -100,4 +100,3 @@ foreach ($query->result() as $row) {
     });
 </script>
 
-<script>$(".selectpicker").selectpicker("refresh");</script>

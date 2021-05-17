@@ -11,7 +11,7 @@
         <select name="Assignment_userid" class="form-control selectpicker" data-live-search="true"  data-title="اختر من فضلك ">
             <?php
             $t = 'عدد المعاملات الحالية :';
-            foreach ($Get_Stages_Transaction AS $key_user)
+            foreach ($Stages_Transaction AS $key_user)
             {
                 echo '<option  data-subtext="  '.$t.$key_user['Assignment_Num'].'" value="'.$key_user['userid'].'">'.$key_user['full_name'].'</option>';
             }
@@ -20,3 +20,4 @@
     </div>
     <!--begin::Body-->
 </div>
+

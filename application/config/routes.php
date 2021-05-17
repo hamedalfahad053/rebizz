@@ -5,7 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route_path = APPPATH . 'routes/';
 require_once $route_path . 'routes_landing.php';
 
-$route['404_override'] = 'not_found';
+$route['404_override']         = 'not_found';
+
+
 $route['translate_uri_dashes'] = FALSE;
 
 
@@ -151,12 +153,7 @@ $route[APP_NAMESPACE_URL.'/Dashboard/(:any)']                       = 'App_Dashb
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)']                = 'App_Dashboard/App_Dashboard/$1/$2';
 $route[APP_NAMESPACE_URL.'/Dashboard/(:any)/(:any)/(:any)']         = 'App_Dashboard/App_Dashboard/$1/$2/$3';
 
-# Company Email
-$route[APP_NAMESPACE_URL]                                       = 'App_Company_Email/Company_Email';
-$route[APP_NAMESPACE_URL.'/Email']                              = 'App_Company_Email/Company_Email';
-$route[APP_NAMESPACE_URL.'/Email/(:any)']                       = 'App_Company_Email/Company_Email/$1';
-$route[APP_NAMESPACE_URL.'/Email/(:any)/(:any)']                = 'App_Company_Email/Company_Email/$1/$2';
-$route[APP_NAMESPACE_URL.'/Email/(:any)/(:any)/(:any)']         = 'App_Company_Email/Company_Email/$1/$2/$3';
+
 
 
 # Company Settings
@@ -188,14 +185,38 @@ $route[APP_NAMESPACE_URL.'/Settings_Preview/(:any)/(:any)']                   = 
 $route[APP_NAMESPACE_URL.'/Settings_Preview/(:any)/(:any)/(:any)']            = 'App_CompanySettings/App_Company_Settings_Preview/$1/$2/$3';
 $route[APP_NAMESPACE_URL.'/Settings_Preview/(:any)/(:any)/(:any)/(:any)']     = 'App_CompanySettings/App_Company_Settings_Preview/$1/$2/$3/$4';
 
+#  Settings Transaction
+$route[APP_NAMESPACE_URL.'/Settings_SMS_Email']                                 = 'App_CompanySettings/App_Company_Settings_SMS_Email';
+$route[APP_NAMESPACE_URL.'/Settings_SMS_Email/(:any)']                          = 'App_CompanySettings/App_Company_Settings_SMS_Email/$1';
+$route[APP_NAMESPACE_URL.'/Settings_SMS_Email/(:any)/(:any)']                   = 'App_CompanySettings/App_Company_Settings_SMS_Email/$1/$2';
+$route[APP_NAMESPACE_URL.'/Settings_SMS_Email/(:any)/(:any)/(:any)']            = 'App_CompanySettings/App_Company_Settings_SMS_Email/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Settings_SMS_Email/(:any)/(:any)/(:any)/(:any)']     = 'App_CompanySettings/App_Company_Settings_SMS_Email/$1/$2/$3/$4';
 
-
+#############################################################################################################################################
 #  Company HRM
 $route[APP_NAMESPACE_URL.'/HRM']                                  = 'App_Company_HRM/App_Company_HRM';
 $route[APP_NAMESPACE_URL.'/HRM/(:any)']                           = 'App_Company_HRM/App_Company_HRM/$1';
 $route[APP_NAMESPACE_URL.'/HRM/(:any)/(:any)']                    = 'App_Company_HRM/App_Company_HRM/$1/$2';
 $route[APP_NAMESPACE_URL.'/HRM/(:any)/(:any)/(:any)']             = 'App_Company_HRM/App_Company_HRM/$1/$2/$3';
 $route[APP_NAMESPACE_URL.'/HRM/(:any)/(:any)/(:any)/(:any)']      = 'App_Company_HRM/App_Company_HRM/$1/$2/$3/$4';
+
+#  Company User Profile
+$route[APP_NAMESPACE_URL.'/Profile']                                  = 'App_Company_ProfileUser/Company_ProfileUser';
+$route[APP_NAMESPACE_URL.'/Profile/(:any)']                           = 'App_Company_ProfileUser/Company_ProfileUser/$1';
+$route[APP_NAMESPACE_URL.'/Profile/(:any)/(:any)']                    = 'App_Company_ProfileUser/Company_ProfileUser/$1/$2';
+$route[APP_NAMESPACE_URL.'/Profile/(:any)/(:any)/(:any)']             = 'App_Company_ProfileUser/Company_ProfileUser/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Profile/(:any)/(:any)/(:any)/(:any)']      = 'App_Company_ProfileUser/Company_ProfileUser/$1/$2/$3/$4';
+
+# Company Email
+$route[APP_NAMESPACE_URL]                                       = 'App_Company_Email/Company_Email';
+$route[APP_NAMESPACE_URL.'/Email']                              = 'App_Company_Email/Company_Email';
+$route[APP_NAMESPACE_URL.'/Email/(:any)']                       = 'App_Company_Email/Company_Email/$1';
+$route[APP_NAMESPACE_URL.'/Email/(:any)/(:any)']                = 'App_Company_Email/Company_Email/$1/$2';
+$route[APP_NAMESPACE_URL.'/Email/(:any)/(:any)/(:any)']         = 'App_Company_Email/Company_Email/$1/$2/$3';
+#############################################################################################################################################
+
+
+
 
 #  Company Locations
 $route[APP_NAMESPACE_URL.'/Locations']                            = 'App_Company_Locations/App_Company_Locations';
@@ -233,31 +254,102 @@ $route[APP_NAMESPACE_URL.'/List/(:any)']                          = 'App_Company
 $route[APP_NAMESPACE_URL.'/List/(:any)/(:any)']                   = 'App_Company_List/App_Company_List/$1/$2';
 $route[APP_NAMESPACE_URL.'/List/(:any)/(:any)/(:any)']            = 'App_Company_List/App_Company_List/$1/$2/$3';
 
-#  Company  Transactions
-$route[APP_NAMESPACE_URL.'/Transactions']                          = 'App_Transactions/App_Transactions';
-$route[APP_NAMESPACE_URL.'/Transactions/(:any)']                   = 'App_Transactions/App_Transactions/$1';
-$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)']            = 'App_Transactions/App_Transactions/$1/$2';
-$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2/$3';
-$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2/$3/$4';
-$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2/$3/$4/$5';
-$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2$3/$4/$5/$6';
-$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']     = 'App_Transactions/App_Transactions/$1/$2$3/$4/$5/$6/$7';
-
+#############################################################################################################################################
+#
+# Start Company Transaction
+#
+#############################################################################################################################################
+#  Company Create Transaction
+$route[APP_NAMESPACE_URL.'/Transactions/Create_Transaction']                                    = 'App_Transactions/Create_Transaction';
+$route[APP_NAMESPACE_URL.'/Transactions/Create_Transaction/(:any)']                             = 'App_Transactions/Create_Transaction/$1';
+$route[APP_NAMESPACE_URL.'/Transactions/Create_Transaction/(:any)/(:any)']                      = 'App_Transactions/Create_Transaction/$1/$2';
+#############################################################################################################################################
+$route[APP_NAMESPACE_URL.'/Transactions']                                                       = 'App_Transactions/App_Transactions';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)']                                                = 'App_Transactions/App_Transactions/$1';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)']                                         = 'App_Transactions/App_Transactions/$1/$2';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)']                                  = 'App_Transactions/App_Transactions/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)']                           = 'App_Transactions/App_Transactions/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)']                    = 'App_Transactions/App_Transactions/$1/$2/$3/$4/$5';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']             = 'App_Transactions/App_Transactions/$1/$2$3/$4/$5/$6';
+$route[APP_NAMESPACE_URL.'/Transactions/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)']      = 'App_Transactions/App_Transactions/$1/$2$3/$4/$5/$6/$7';
+#############################################################################################################################################
+# Company  Review & entry Transaction
+$route[APP_NAMESPACE_URL.'/Review_Entry_Transactions']                                          = 'App_Transactions/App_Review_Entry_Transactions';
+$route[APP_NAMESPACE_URL.'/Review_Entry_Transactions/(:any)']                                   = 'App_Transactions/App_Review_Entry_Transactions/$1';
+$route[APP_NAMESPACE_URL.'/Review_Entry_Transactions/(:any)/(:any)']                            = 'App_Transactions/App_Review_Entry_Transactions/$1/$2';
+$route[APP_NAMESPACE_URL.'/Review_Entry_Transactions/(:any)/(:any)/(:any)']                     = 'App_Transactions/App_Review_Entry_Transactions/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Review_Entry_Transactions/(:any)/(:any)/(:any)/(:any)']              = 'App_Transactions/App_Review_Entry_Transactions/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Review_Entry_Transactions/(:any)/(:any)/(:any)/(:any)/(:any)']       = 'App_Transactions/App_Review_Entry_Transactions/$1/$2/$3/$4/$5';
+#############################################################################################################################################
+# Company  Files Transaction
+$route[APP_NAMESPACE_URL.'/File_Transaction']                                                   = 'App_Transactions/App_File_Transaction';
+$route[APP_NAMESPACE_URL.'/File_Transaction/(:any)']                                            = 'App_Transactions/App_File_Transaction/$1';
+$route[APP_NAMESPACE_URL.'/File_Transaction/(:any)/(:any)']                                     = 'App_Transactions/App_File_Transaction/$1/$2';
+$route[APP_NAMESPACE_URL.'/File_Transaction/(:any)/(:any)/(:any)']                              = 'App_Transactions/App_File_Transaction/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/File_Transaction/(:any)/(:any)/(:any)/(:any)']                       = 'App_Transactions/App_File_Transaction/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/File_Transaction/(:any)/(:any)/(:any)/(:any)/(:any)']                = 'App_Transactions/App_File_Transaction/$1/$2/$3/$4/$5';
+#############################################################################################################################################
+# Company Coordinator
+$route[APP_NAMESPACE_URL.'/Coordinator']                                                        = 'App_Transactions/App_Coordinator';
+$route[APP_NAMESPACE_URL.'/Coordinator/(:any)']                                                 = 'App_Transactions/App_Coordinator/$1';
+$route[APP_NAMESPACE_URL.'/Coordinator/(:any)/(:any)']                                          = 'App_Transactions/App_Coordinator/$1/$2';
+$route[APP_NAMESPACE_URL.'/Coordinator/(:any)/(:any)/(:any)']                                   = 'App_Transactions/App_Coordinator/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Coordinator/(:any)/(:any)/(:any)/(:any)']                            = 'App_Transactions/App_Coordinator/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Coordinator/(:any)/(:any)/(:any)/(:any)/(:any)']                     = 'App_Transactions/App_Coordinator/$1/$2/$3/$4/$5';
+#############################################################################################################################################
 # Company  Preview
-$route[APP_NAMESPACE_URL.'/Preview']                                      = 'App_Transactions/App_Preview';
-$route[APP_NAMESPACE_URL.'/Preview/(:any)']                               = 'App_Transactions/App_Preview/$1';
-$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)']                        = 'App_Transactions/App_Preview/$1/$2';
-$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)']                 = 'App_Transactions/App_Preview/$1/$2/$3';
-$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)/(:any)']          = 'App_Transactions/App_Preview/$1/$2/$3/$4';
-$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)/(:any)/(:any)']   = 'App_Transactions/App_Preview/$1/$2/$3/$4/$5';
+$route[APP_NAMESPACE_URL.'/Preview']                                                            = 'App_Transactions/App_Preview';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)']                                                     = 'App_Transactions/App_Preview/$1';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)']                                              = 'App_Transactions/App_Preview/$1/$2';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)']                                       = 'App_Transactions/App_Preview/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)/(:any)']                                = 'App_Transactions/App_Preview/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Preview/(:any)/(:any)/(:any)/(:any)/(:any)']                         = 'App_Transactions/App_Preview/$1/$2/$3/$4/$5';
+#############################################################################################################################################
+# Company Evaluation
+$route[APP_NAMESPACE_URL.'/Evaluation']                                                          = 'App_Transactions/App_Evaluation';
+$route[APP_NAMESPACE_URL.'/Evaluation/(:any)']                                                   = 'App_Transactions/App_Evaluation/$1';
+$route[APP_NAMESPACE_URL.'/Evaluation/(:any)/(:any)']                                            = 'App_Transactions/App_Evaluation/$1/$2';
+$route[APP_NAMESPACE_URL.'/Evaluation/(:any)/(:any)/(:any)']                                     = 'App_Transactions/App_Evaluation/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Evaluation/(:any)/(:any)/(:any)/(:any)']                              = 'App_Transactions/App_Evaluation/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Evaluation/(:any)/(:any)/(:any)/(:any)/(:any)']                       = 'App_Transactions/App_Evaluation/$1/$2/$3/$4/$5';
+#############################################################################################################################################
+# Company Report Transaction
+$route[APP_NAMESPACE_URL.'/Report_Transaction']                                                  = 'App_Transactions/App_Report_Transaction';
+$route[APP_NAMESPACE_URL.'/Report_Transaction/(:any)']                                           = 'App_Transactions/App_Report_Transaction/$1';
+$route[APP_NAMESPACE_URL.'/Report_Transaction/(:any)/(:any)']                                    = 'App_Transactions/App_Report_Transaction/$1/$2';
+$route[APP_NAMESPACE_URL.'/Report_Transaction/(:any)/(:any)/(:any)']                             = 'App_Transactions/App_Report_Transaction/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Report_Transaction/(:any)/(:any)/(:any)/(:any)']                      = 'App_Transactions/App_Report_Transaction/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Report_Transaction/(:any)/(:any)/(:any)/(:any)/(:any)']               = 'App_Transactions/App_Report_Transaction/$1/$2/$3/$4/$5';
+#############################################################################################################################################
+# Company log Transaction
+$route[APP_NAMESPACE_URL.'/Transaction_Log']                                                  = 'App_Transactions/App_Transaction_Log';
+$route[APP_NAMESPACE_URL.'/Transaction_Log/(:any)']                                           = 'App_Transactions/App_Transaction_Log/$1';
+$route[APP_NAMESPACE_URL.'/Transaction_Log/(:any)/(:any)']                                    = 'App_Transactions/App_Transaction_Log/$1/$2';
+$route[APP_NAMESPACE_URL.'/Transaction_Log/(:any)/(:any)/(:any)']                             = 'App_Transactions/App_Transaction_Log/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Transaction_Log/(:any)/(:any)/(:any)/(:any)']                      = 'App_Transactions/App_Transaction_Log/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Transaction_Log/(:any)/(:any)/(:any)/(:any)/(:any)']               = 'App_Transactions/App_Transaction_Log/$1/$2/$3/$4/$5';#############################################################################################################################################
+#############################################################################################################################################
+# Company Assign_Transaction
+$route[APP_NAMESPACE_URL.'/Work_Team']                                                  = 'App_Transactions/Assign_Transaction';
+$route[APP_NAMESPACE_URL.'/Work_Team/(:any)']                                           = 'App_Transactions/Assign_Transaction/$1';
+$route[APP_NAMESPACE_URL.'/Work_Team/(:any)/(:any)']                                    = 'App_Transactions/Assign_Transaction/$1/$2';
+$route[APP_NAMESPACE_URL.'/Work_Team/(:any)/(:any)/(:any)']                             = 'App_Transactions/Assign_Transaction/$1/$2/$3';
+$route[APP_NAMESPACE_URL.'/Work_Team/(:any)/(:any)/(:any)/(:any)']                      = 'App_Transactions/Assign_Transaction/$1/$2/$3/$4';
+$route[APP_NAMESPACE_URL.'/Work_Team/(:any)/(:any)/(:any)/(:any)/(:any)']               = 'App_Transactions/Assign_Transaction/$1/$2/$3/$4/$5';
+#############################################################################################################################################
+#
+# End Company Transaction
+#
+#############################################################################################################################################
 
-# Company Evluation
-$route[APP_NAMESPACE_URL.'/Evluation']                                      = 'App_Transactions/App_Evluation';
-$route[APP_NAMESPACE_URL.'/Evluation/(:any)']                               = 'App_Transactions/App_Evluation/$1';
-$route[APP_NAMESPACE_URL.'/Evluation/(:any)/(:any)']                        = 'App_Transactions/App_Evluation/$1/$2';
-$route[APP_NAMESPACE_URL.'/Evluation/(:any)/(:any)/(:any)']                 = 'App_Transactions/App_Evluation/$1/$2/$3';
-$route[APP_NAMESPACE_URL.'/Evluation/(:any)/(:any)/(:any)/(:any)']          = 'App_Transactions/App_Evluation/$1/$2/$3/$4';
-$route[APP_NAMESPACE_URL.'/Evluation/(:any)/(:any)/(:any)/(:any)/(:any)']   = 'App_Transactions/App_Evluation/$1/$2/$3/$4/$5';
+
+
+
+
+
+
+
+
 
 # Company Clients
 $route[APP_NAMESPACE_URL.'/Clients']                               = 'App_Company_Clients/Company_Clients';
@@ -267,11 +359,7 @@ $route[APP_NAMESPACE_URL.'/Clients/(:any)/(:any)/(:any)']          = 'App_Compan
 $route[APP_NAMESPACE_URL.'/Clients/(:any)/(:any)/(:any)/(:any)']   = 'App_Company_Clients/Company_Clients/$1/$2/$3/$4';
 $route[APP_NAMESPACE_URL.'/Clients/(:any)/(:any)/(:any)/(:any)/(:any)']   = 'App_Company_Clients/Company_Clients/$1/$2/$3/$4/$5';
 
-# Company  Preview RealEstate
-$route[APP_NAMESPACE_URL.'/Preview_RealEstate']                          = 'App_RealEstate_Preview/App_Preview_RealEstate';
-$route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)']                   = 'App_RealEstate_Preview/App_Preview_RealEstate/$1';
-$route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)/(:any)']            = 'App_RealEstate_Preview/App_Preview_RealEstate/$1/$2';
-$route[APP_NAMESPACE_URL.'/Preview_RealEstate/(:any)/(:any)/(:any)']     = 'App_RealEstate_Preview/App_Preview_RealEstate/$1/$2/$3';
+
 
 # Company  Ajax Controller
 $route[APP_NAMESPACE_URL.'/App_Ajax']                          = 'App_Ajax/App_Ajax';

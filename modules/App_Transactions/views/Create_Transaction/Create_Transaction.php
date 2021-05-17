@@ -37,9 +37,11 @@
     <div class="container-fluid">
 
 
-	    <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Transaction_Submit') ?>" enctype="multipart/form-data" method="post">
+	    <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Transaction/Create_Submit') ?>" enctype="multipart/form-data" method="post">
 
 		    <?= CSFT_Form() ?>
+
+		    <input type="hidden" name="Start_Form_Progresses" value="<?= time() ?>" >
 
 		    <?php echo  $this->session->flashdata('message'); ?>
 
@@ -105,7 +107,7 @@
 								    if($Get_Fields->Fields_key == 'INSTRUMENT_NUMBER'){
 							        ?>
 										<div class="col-lg-<?= $col_size ?> mt-5">
-										<?= Building_Field_Forms($Get_Fields->Fields_key, true, $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,$this->uri->segment(4), $Get_Fields->Fields_key, '', '', '', '', '', '');  ?>
+										<?= Building_Field_Forms($Get_Fields->Fields_key, true, $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,$this->uri->segment(5), $Get_Fields->Fields_key, '', '', '', '', '', '');  ?>
 										</div>
 								        <?php
 								    }else{
@@ -152,8 +154,10 @@
 
 
 		    <?php
-
-		    $where_Stages_Assignment = array("stages_key" => 'CREATE_A_TRANSACTION', "company_id" => $this->aauth->get_user()->company_id);
+		    $where_Stages_Assignment = array(
+		    		"stages_key" => 'CREATE_A_TRANSACTION',
+				    "company_id" => $this->aauth->get_user()->company_id
+		    );
 		    $Get_Stages_Transaction  = Assignment_Transaction_Departments_To($where_Stages_Assignment);
 
 		    // Not Set Setting Admin Assignment
@@ -163,8 +167,7 @@
 		    }else{
 
 			    $Assignment_Type_where = array('stages_key' => 'CREATE_A_TRANSACTION','company_id' => $this->aauth->get_user()->company_id);
-
-			    $Assignment_Type = Get_Stages_Transaction_Company($Assignment_Type_where)->row();
+			    $Assignment_Type       = Get_Stages_Transaction_Company($Assignment_Type_where)->row();
 
 		    	if($Assignment_Type->attribution_method == 1){
 
@@ -175,7 +178,7 @@
 		    		$data_Assignment_Stages_Transaction['Stages_Transaction'] = $Get_Stages_Transaction;
 				    $this->load->view('../../modules/App_Transactions/views/Assignment_Transaction/Assignment_Transaction_userid',$data_Assignment_Stages_Transaction);
 
-			    }
+		    	}
 
 				?>
 			    <div class="card card-custom mb-5 mt-5">

@@ -69,8 +69,8 @@ class App_Company_Settings_Transaction_Reports extends Apps
 
         $this->form_validation->set_rules('title_ar','title_ar','required');
         $this->form_validation->set_rules('title_en','title_en','required');
-        $this->form_validation->set_rules('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL','Type_Fields','required');
-        $this->form_validation->set_rules('Type_Reports','Type_Reports','required');
+        //$this->form_validation->set_rules('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL','Type_Fields','required');
+        //$this->form_validation->set_rules('Type_Reports','Type_Reports','required');
 
         if($this->form_validation->run()==FALSE){
 
@@ -87,8 +87,8 @@ class App_Company_Settings_Transaction_Reports extends Apps
             $data_Reports['Reports_key']            = strtoupper(str_replace(" ", "_", $this->input->post('title_en')));
             $data_Reports['Reports_title_ar']       = $this->input->post('title_ar');
             $data_Reports['Reports_title_en']       = $this->input->post('title_en');
-            $data_Reports['Reports_TYPES']          = $this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
-            $data_Reports['Reports_Clint']          = $this->input->post('Type_Reports');
+            $data_Reports['Reports_TYPES']          = 0;//$this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+            $data_Reports['Reports_Clint']          = 0;//$this->input->post('Type_Reports');
             $data_Reports['company_id']             = $this->aauth->get_user()->company_id;
             $data_Reports['Reports_createBy']       = $this->aauth->get_user()->id;
             $data_Reports['Reports_Status']         = 1;
@@ -178,7 +178,7 @@ class App_Company_Settings_Transaction_Reports extends Apps
 
 
             $Update_Transaction_Reports = app()->db->where('build_reports_uuid',$this->input->post('Transaction_Reports_uuid'));
-            $Update_Transaction_Reports = app()->db->set('Reports_content',$this->input->post('Reports_content'));
+            $Update_Transaction_Reports = app()->db->set('Reports_content',$this->input->post('Reports_content',false));
             $Update_Transaction_Reports = app()->db->update('portal_build_reports_transaction');
 
         }
