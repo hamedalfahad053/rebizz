@@ -74,19 +74,15 @@
 
 	                        }elseif($type_preview == 13){
 
-		                        $Get_clients_id =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
-		                        $where_Get_Stages_Self = array(
-				                        "stages_self_id" => $Get_Preview_Visit->preview_stages,
-				                        "clients_id"     => $Get_clients_id,
-				                        "company_id"     => $this->aauth->get_user()->company_id
-		                        );
+		                        $Get_Stages_Self = $this->db->where('company_id',$this->aauth->get_user()->company_id);
+		                        $Get_Stages_Self = $this->db->where('transactions_id',$Transactions->transaction_id);
+		                        $Get_Stages_Self = $this->db->where('stages_self_number',$Get_Preview_Visit->preview_stages);
+		                        $Get_Stages_Self = $this->db->get('portal_transaction_stages_self_construction');
 
-		                        $Get_Stages_Self = Get_Stages_Self_Construction($where_Get_Stages_Self);
 		                        if($Get_Stages_Self->num_rows()>0) {
-
 			                        $type_preview_text = ' المرحلة :'.$Get_Stages_Self->row()->stages_self_number.' -';
-			                        $type_preview_text .= mb_substr($Get_Stages_Self->row()->item_translation,0,50,'UTF-8').'...';
-		                        }
+	                                $type_preview_text .= mb_substr($Get_Stages_Self->row()->stages_self_text,0,50,'UTF-8').'...';
+	                             }
 	                        }
 
 	                        echo '' . $type_preview_text . '<br> - المعاين : '.$this->aauth->get_user($Get_Preview_Visit->preview_userid)->full_name.'- تاريخ المعاينة - <br>  '.date('Y-m-d h:i:s a',$Get_Preview_Visit->preview_Visit_date_completed).'';

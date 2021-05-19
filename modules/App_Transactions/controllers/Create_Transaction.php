@@ -295,10 +295,11 @@ class Create_Transaction extends Apps
                     foreach ($Get_Stages_Self->result() AS $GSS)
                     {
                         $data_Stages_Self_Transaction['transactions_id']     = $Create_Transaction;
-                        $data_Stages_Self_Transaction['stages_self_number']  = $GSS->stages_self_id;
-                        $data_Stages_Self_Transaction['stages_self_text']    = $GSS->stages_self_number;
-                        $data_Stages_Self_Transaction['stages_self_rate']    = $GSS->stages_self_number;
-                        $data_Stages_Self_Transaction['Completion_rate']     = $GSS->stages_self_Percentage;
+                        $data_Stages_Self_Transaction['company_id']          = $this->aauth->get_user()->company_id;
+                        $data_Stages_Self_Transaction['stages_self_number']  = $GSS->stages_self_number;
+                        $data_Stages_Self_Transaction['stages_self_text']    = $GSS->item_translation;
+                        $data_Stages_Self_Transaction['stages_self_rate']    = $GSS->stages_self_Percentage;
+                        $data_Stages_Self_Transaction['Completion_rate']     = 0;
                         $data_Stages_Self_Transaction['Previous_stage']      = 0;
                         app()->db->insert('portal_transaction_stages_self_construction',$data_Stages_Self_Transaction);
                     }

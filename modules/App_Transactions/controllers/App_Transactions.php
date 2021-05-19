@@ -500,6 +500,12 @@ class App_Transactions extends Apps
 
           $this->data['Transactions']  = $Get_Transactions->row();
 
+          $Get_Stages_Self = $this->db->where('company_id',$this->aauth->get_user()->company_id);
+          $Get_Stages_Self = $this->db->where('transactions_id',$this->data['Transactions']->transaction_id);
+          $Get_Stages_Self = $this->db->get('portal_transaction_stages_self_construction');
+
+          $this->data['stages_self_construction']  = $Get_Stages_Self;
+
           $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
           $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
 
@@ -511,4 +517,20 @@ class App_Transactions extends Apps
 
     }
     ###################################################################
+
+    ###################################################################
+    public function Form_Stages_Self()
+    {
+
+
+    }
+    ###################################################################
+
+    ###################################################################
+    public function Create_Stages_Self()
+    {
+
+    }
+    ###################################################################
+
 }

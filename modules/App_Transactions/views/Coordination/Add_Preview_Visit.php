@@ -54,21 +54,13 @@
 
 						        }elseif($type_preview == 13){
 
-							        $Get_clients_id =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
-
-							        $where_Get_Stages_Self = array(
-									        "clients_id" => $Get_clients_id,
-									        "company_id" => $this->aauth->get_user()->company_id
-							        );
-							        $Get_Stages_Self = Get_Stages_Self_Construction($where_Get_Stages_Self);
-
-
-							        ///******///
-
+							        $Get_Stages_Self = $this->db->where('company_id',$this->aauth->get_user()->company_id);
+							        $Get_Stages_Self = $this->db->where('transactions_id',$Transactions->transaction_id);
+							        $Get_Stages_Self = $this->db->get('portal_transaction_stages_self_construction');
 
 							        foreach ($Get_Stages_Self->result() AS $GSS)
 							        {
-								        echo '<option  value="'.$GSS->stages_self_id.'">   (رقم المرحلة :'.$GSS->stages_self_number.')  '.$GSS->item_translation.'</option>';
+								        echo '<option  value="'.$GSS->stages_self_number.'">   (رقم المرحلة :'.$GSS->stages_self_number.')  '.$GSS->stages_self_text.'</option>';
 							        }
 
 						        }

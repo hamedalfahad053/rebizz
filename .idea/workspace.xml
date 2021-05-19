@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8874198f-4244-415a-ad8a-e2b16a602954" name="Default Changelist" comment="update 20210428581544541">
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/stages_self.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Report_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Report_Transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Transactions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/Create_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/Create_Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/View_Transaction_Aside.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/View_Transaction_Aside.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Coordination/Add_Preview_Visit.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Coordination/Add_Preview_Visit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Coordination/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Coordination/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Add_New_Evaluation.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Add_New_Evaluation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Form_Evaluation_Cost_Bank.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Form_Evaluation_Cost_Bank.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/stages_self.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/stages_self.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +120,7 @@
       <workItem from="1621309516561" duration="1997000" />
       <workItem from="1621322768971" duration="6615000" />
       <workItem from="1621355789193" duration="3813000" />
-      <workItem from="1621370638980" duration="9885000" />
+      <workItem from="1621370638980" duration="15995000" />
     </task>
     <task id="LOCAL؜٠٠٠٠١" summary="update 202104284">
       <created>1619675580269</created>
@@ -170,7 +176,13 @@
       <option name="presentableId" value="LOCAL؜٠٠٠٠٩" />
       <updated>1621413137402</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL؜٠٠٠١٠" summary="update 20210428581544541">
+      <created>1621414906124</created>
+      <option name="number" value="LOCAL؜٠٠٠١٠" />
+      <option name="presentableId" value="LOCAL؜٠٠٠١٠" />
+      <updated>1621414906124</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
