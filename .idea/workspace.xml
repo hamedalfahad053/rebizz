@@ -1,40 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8874198f-4244-415a-ad8a-e2b16a602954" name="Default Changelist" comment="update 202104285815445">
-      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Approval_Evaluation_Cost_Bank.php" afterDir="false" />
+    <list default="true" id="8874198f-4244-415a-ad8a-e2b16a602954" name="Default Changelist" comment="update 20210428581544541">
+      <change afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/stages_self.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/Evaluation_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/Evaluation_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/List_Map_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/List_Map_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/helpers/preview_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/helpers/preview_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Ajax/controllers/Ajax_Map_Place.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Ajax/controllers/Ajax_Map_Place.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_CompanySettings.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_CompanySettings.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_Company_Settings_Transaction_Reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/controllers/App_Company_Settings_Transaction_Reports.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/QuickActions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/QuickActions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction/List_Receipt_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction/List_Receipt_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/Editor_Transaction_Reports.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_CompanySettings/views/Settings_Transaction_Reports/Editor_Transaction_Reports.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Company_HRM/controllers/App_Company_HRM.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Company_HRM/controllers/App_Company_HRM.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Dashboard/controllers/App_Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Dashboard/controllers/App_Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Dashboard/views/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Dashboard/views/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Coordinator.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Coordinator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Evaluation.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Evaluation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Preview.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Preview.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/App_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Coordination/Add_Preview_Visit.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Coordination/Add_Preview_Visit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Coordination/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Coordination/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Create_Transaction/Create_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Create_Transaction/Create_Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Add_New_Evaluation.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Add_New_Evaluation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Form_Evaluation_Cost_Bank.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Evaluation/Form_Evaluation_Cost_Bank.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/List_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/List_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Dashboard_Preview_Property.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Dashboard_Preview_Property.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Form_Previewer_Feedback_Transactions.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Form_Previewer_Feedback_Transactions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Tamplate_Ajax_Uploaded_File_Previewer.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Tamplate_Ajax_Uploaded_File_Previewer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Template_Map.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/Template_Map.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/View_Preview_Property.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/View_Preview_Property.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/modal_add_Comparisons.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/Previewer/modal_add_Comparisons.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/App_Transactions/controllers/Create_Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/controllers/Create_Transaction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/View_Transaction_Aside.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/App_Transactions/views/View_Transaction/View_Transaction_Aside.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,7 +114,7 @@
       <workItem from="1621309516561" duration="1997000" />
       <workItem from="1621322768971" duration="6615000" />
       <workItem from="1621355789193" duration="3813000" />
-      <workItem from="1621370638980" duration="7779000" />
+      <workItem from="1621370638980" duration="9885000" />
     </task>
     <task id="LOCAL؜٠٠٠٠١" summary="update 202104284">
       <created>1619675580269</created>
@@ -187,7 +158,19 @@
       <option name="presentableId" value="LOCAL؜٠٠٠٠٧" />
       <updated>1621245495860</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL؜٠٠٠٠٨" summary="update 20210428581544541">
+      <created>1621412658959</created>
+      <option name="number" value="LOCAL؜٠٠٠٠٨" />
+      <option name="presentableId" value="LOCAL؜٠٠٠٠٨" />
+      <updated>1621412658959</updated>
+    </task>
+    <task id="LOCAL؜٠٠٠٠٩" summary="update 20210428581544541">
+      <created>1621413137402</created>
+      <option name="number" value="LOCAL؜٠٠٠٠٩" />
+      <option name="presentableId" value="LOCAL؜٠٠٠٠٩" />
+      <updated>1621413137402</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,7 +197,8 @@
     <MESSAGE value="update 20210428589" />
     <MESSAGE value="update 202104285812" />
     <MESSAGE value="update 202104285815445" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 202104285815445" />
+    <MESSAGE value="update 20210428581544541" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 20210428581544541" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -151,6 +151,19 @@
 
 
 	        <?php
+	        $type_preview =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+	        if($type_preview == 13){
+		        ?>
+		        <div class="separator separator-dashed separator-border-1 mt-1"></div>
+		        <a href="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Stages_Self/'.$Transactions->uuid) ?>"
+		           class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">اعداد المراحل </a>
+		        <?php
+	        }
+	        ?>
+
+
+
+	        <?php
 	        if(Check_Permissions(43)){
 	        ?>
 	        <div class="separator separator-dashed separator-border-1 mt-1"></div>

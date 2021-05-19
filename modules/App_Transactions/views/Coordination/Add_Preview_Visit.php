@@ -62,6 +62,10 @@
 							        );
 							        $Get_Stages_Self = Get_Stages_Self_Construction($where_Get_Stages_Self);
 
+
+							        ///******///
+
+
 							        foreach ($Get_Stages_Self->result() AS $GSS)
 							        {
 								        echo '<option  value="'.$GSS->stages_self_id.'">   (رقم المرحلة :'.$GSS->stages_self_number.')  '.$GSS->item_translation.'</option>';

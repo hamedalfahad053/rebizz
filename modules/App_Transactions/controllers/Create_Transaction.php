@@ -282,6 +282,31 @@ class Create_Transaction extends Apps
             }
 
 
+            if($this->input->post('LIST_TYPES_OF_REAL_ESTATE_APPRAISAL-1-1'))
+            {
+                $Get_clients_id        = $this->input->post('LIST_CLIENT-1-1');
+                $where_Get_Stages_Self = array("clients_id" => $Get_clients_id, "company_id" => $this->aauth->get_user()->company_id);
+                $Get_Stages_Self       = Get_Stages_Self_Construction($where_Get_Stages_Self);
+
+                if($Get_Stages_Self->num_rows()>0){
+
+                    $data_Stages_Self_Transaction = array();
+
+                    foreach ($Get_Stages_Self->result() AS $GSS)
+                    {
+                        $data_Stages_Self_Transaction['transactions_id']     = $Create_Transaction;
+                        $data_Stages_Self_Transaction['stages_self_number']  = $GSS->stages_self_id;
+                        $data_Stages_Self_Transaction['stages_self_text']    = $GSS->stages_self_number;
+                        $data_Stages_Self_Transaction['stages_self_rate']    = $GSS->stages_self_number;
+                        $data_Stages_Self_Transaction['Completion_rate']     = $GSS->stages_self_Percentage;
+                        $data_Stages_Self_Transaction['Previous_stage']      = 0;
+                        app()->db->insert('portal_transaction_stages_self_construction',$data_Stages_Self_Transaction);
+                    }
+                }
+
+            }
+
+
             $Assignment_userid   = $this->input->post('Assignment_userid');
             $Notifications_title = 'اسناد معاملة ';
             $Notifications_text  = 'تم اسناد معاملة اليك من خلال النظام ';

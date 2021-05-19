@@ -483,4 +483,32 @@ class App_Transactions extends Apps
 
     }
     ###################################################################
+
+
+    #Start :: stages_self Transaction
+    ###################################################################
+    public function Stages_Self()
+    {
+
+          $this->data['Page_Title']     = ' ادارة مراحل البناء الذاتي  ';
+
+          $Transaction_id     =  $this->uri->segment(4);
+
+          $where_Transactions = array();
+          $where_Transactions = array("uuid" => $Transaction_id,"company_id"=> $this->aauth->get_user()->company_id);
+          $Get_Transactions   = Get_Transaction($where_Transactions);
+
+          $this->data['Transactions']  = $Get_Transactions->row();
+
+          $this->mybreadcrumb->add(lang('Dashboard'), base_url(APP_NAMESPACE_URL.'/Dashboard'));
+          $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL.'/Dashboard'));
+
+          $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
+          $this->data['PageParent']  = $this->load->view('../../modules/App_Transactions/views/View_Transaction/stages_self', $this->data, true);
+          $this->data['PageContent'] = $this->load->view('../../modules/App_Transactions/views/View_Transaction/Layout_View_Transactions', $this->data, true);
+
+          Layout_Apps($this->data);
+
+    }
+    ###################################################################
 }
