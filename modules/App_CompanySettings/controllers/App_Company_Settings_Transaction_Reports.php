@@ -9,7 +9,6 @@ class App_Company_Settings_Transaction_Reports extends Apps
         parent::__construct();
         $this->data['controller_name'] = ' تقارير التقييم ';
 
-
         //$fileExt = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
     }
     ###################################################################
@@ -45,7 +44,6 @@ class App_Company_Settings_Transaction_Reports extends Apps
     }
     ###################################################################
 
-
     ###################################################################
     public function Form_Add_Transaction_Reports()
     {
@@ -61,7 +59,6 @@ class App_Company_Settings_Transaction_Reports extends Apps
 
     }
     ###################################################################
-
 
     ###################################################################
     public function Create_Transaction_Reports()
@@ -121,7 +118,6 @@ class App_Company_Settings_Transaction_Reports extends Apps
     }
     ###################################################################
 
-
     ###################################################################
     public function Editor_Transaction_Reports()
     {
@@ -155,7 +151,6 @@ class App_Company_Settings_Transaction_Reports extends Apps
 
     }
     ###################################################################
-
 
     ###################################################################
     public function Update_Transaction_Reports()
@@ -199,9 +194,6 @@ class App_Company_Settings_Transaction_Reports extends Apps
 
     }
     ###################################################################
-
-
-
 
     ###################################################################
     public function List_Text_Static_Transaction_Reports()
@@ -265,7 +257,7 @@ class App_Company_Settings_Transaction_Reports extends Apps
 
         } else {
 
-
+            $data_Reports['key_text']               = strtoupper(str_replace(" ", "_", $this->input->post('title_en')));
             $data_Reports['title_ar']               = $this->input->post('title_ar');
             $data_Reports['title_en']               = $this->input->post('title_en');
             $data_Reports['text_ar']                = $this->input->post('text_ar');
@@ -340,8 +332,11 @@ class App_Company_Settings_Transaction_Reports extends Apps
             redirect(APP_NAMESPACE_URL.'/Settings_Transaction_Reports/Edit_Form_Text_Static_Transaction_Reports/'.$this->uri->segment(4), 'refresh');
 
         } else {
+            $key_text               = strtoupper(str_replace(" ", "_", $this->input->post('title_en')));
 
             $Update_Reports = app()->db->where('text_uuid',$this->input->post('text_uuid'));
+
+            $Update_Reports = app()->db->set('key_text',$key_text);
             $Update_Reports = app()->db->set('title_ar',$this->input->post('title_ar'));
             $Update_Reports = app()->db->set('title_en',$this->input->post('title_en'));
             $Update_Reports = app()->db->set('text_ar',$this->input->post('text_ar'));

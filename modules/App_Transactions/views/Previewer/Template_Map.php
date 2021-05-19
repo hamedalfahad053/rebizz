@@ -3,6 +3,8 @@
 
     <div class="col-sm-12  col-lg-12  mt-5">
 
+
+
         <div id="map-container" class="mt-10 mb-10"><div id="map-content"></div></div>
 
         <div class="form-group row">
@@ -18,15 +20,15 @@
                 </select>
             </div>
 
-            <div class="col-sm-6  col-lg-6  mt-5">
-                <label>نوع الخريطة</label>
-                <select id="Type_Map" name="Type_Map" class="form-control selectpicker"  data-title="اختر من فضلك ">
-                    <option value="roadmap">خريطة الطرق</option>
-                    <option value="satellite">الأقمار الصناعية</option>
-                    <option value="hybrid">هجين</option>
-                    <option value="terrain">تضاريس</option>
-                </select>
-            </div>
+<!--            <div class="col-sm-6  col-lg-6  mt-5">-->
+<!--                <label>نوع الخريطة</label>-->
+<!--                <select id="Type_Map" name="Type_Map" class="form-control selectpicker"  data-title="اختر من فضلك ">-->
+<!--                    <option value="roadmap">خريطة الطرق</option>-->
+<!--                    <option value="satellite">الأقمار الصناعية</option>-->
+<!--                    <option value="hybrid">هجين</option>-->
+<!--                    <option value="terrain">تضاريس</option>-->
+<!--                </select>-->
+<!--            </div>-->
         </div>
 
         <div class="form-group row">
@@ -40,14 +42,14 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-sm-12  col-lg-12  mt-5">
-                <button type="button"  id="Get_Place" class="btn btn-primary">
-                    <i class="flaticon2-search"></i>  ابحث عن محيط العقار
-                </button>
-            </div>
-
-        </div>
+<!--        <div class="form-group row">-->
+<!--            <div class="col-sm-12  col-lg-12  mt-5">-->
+<!--                <button type="button"  id="Get_Place" class="btn btn-primary">-->
+<!--                    <i class="flaticon2-search"></i>  ابحث عن محيط العقار-->
+<!--                </button>-->
+<!--            </div>-->
+<!---->
+<!--        </div>-->
 
 
     </div>
@@ -145,29 +147,30 @@
 
 
 	// ------------------------------------------------------------------------------- //
-	$( "#Get_Place" ).click(function(event) {
-
-		event.preventDefault();
-
-		var LATITUDE  = $("#LATITUDE").val();
-		var LONGITUDE = $("#LONGITUDE").val();
-
-		$.ajax({
-			type: 'ajax',
-			method: 'get',
-			url: '<?= base_url(APP_NAMESPACE_URL . '/Tools_Map_Ajax/Get_Place') ?>',
-			data: { LATITUDE:LATITUDE ,LONGITUDE:LONGITUDE},
-			async: false,
-			dataType: 'json',
-			success: function (response) {
-
-			},
-			error: function () {
-				swal.fire(" خطا ", "في ارسال الطلب ", "error");
-			}
-		});
-
-	});
+	//$( "#Get_Place" ).click(function(event) {
+	//
+	//	event.preventDefault();
+	//
+	//	var LATITUDE  = $("#LATITUDE").val();
+	//	var LONGITUDE = $("#LONGITUDE").val();
+	//
+	//	$.ajax({
+	//		type: 'ajax',
+	//		method: 'get',
+	//		url: '<?//= base_url(APP_NAMESPACE_URL . '/Tools_Map_Ajax/Get_Place') ?>//',
+	//		data: { LATITUDE:LATITUDE ,LONGITUDE:LONGITUDE},
+	//		async: false,
+	//		dataType: 'json',
+	//		success: function (response) {
+	//
+	//
+	//		},
+	//		error: function () {
+	//			swal.fire(" خطا ", "في ارسال الطلب ", "error");
+	//		}
+	//	});
+	//
+	//});
 	// ------------------------------------------------------------------------------- //
 
 </script>

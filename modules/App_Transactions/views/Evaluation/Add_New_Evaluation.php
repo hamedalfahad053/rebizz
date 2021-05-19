@@ -77,6 +77,60 @@
 							?>
 							</select>
 						</div>
+
+						<div class="col-lg-6 mt-5">
+							<label> الزيارات المعتمدة </label>
+							<select name="preview_id" class="form-control selectpicker" title="<?= lang("Select_noneSelectedText") ?>" data-live-search="true">
+								<?php
+								$where_Preview_Visit = array(
+										"Transactions_id" => $Transactions->transaction_id,
+										"isDeleted"       => 0,
+										"company_id"      => $this->aauth->get_user()->company_id,
+									    "preview_Visit_acceptance !="  => 0,
+								);
+								$Get_Preview_Visit = Get_Preview_Visit($where_Preview_Visit);
+
+								if($Get_Preview_Visit->num_rows()>0)
+								{
+									foreach ($Get_Preview_Visit->result() as $PV) {
+
+										$type_preview =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+										if($type_preview == 12 or $type_preview ==  14){
+											$type_preview_text =  get_data_options_List_view('4',$type_preview);
+
+
+										}elseif($type_preview == 13){
+
+											$Get_clients_id =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
+											$where_Get_Stages_Self = array(
+													"stages_self_id" => $PV->preview_stages,
+													"clients_id"     => $Get_clients_id,
+													"company_id"     => $this->aauth->get_user()->company_id
+											);
+
+											$Get_Stages_Self = Get_Stages_Self_Construction($where_Get_Stages_Self);
+											if($Get_Stages_Self->num_rows()>0) {
+
+												$type_preview_text = ' المرحلة :'.$Get_Stages_Self->row()->stages_self_number.' -';
+												$type_preview_text .= mb_substr($Get_Stages_Self->row()->item_translation,0,50,'UTF-8').'...';
+											}
+										}
+
+										$q_old_add = $this->db->where('transaction_id', $Transactions->transaction_id);
+										$q_old_add = $this->db->where('evaluation_methodid', $EM->evaluation_methods_id);
+										$q_old_add = $this->db->get('protal_evaluation_transactions')->num_rows();
+
+										if ($q_old_add == 0) {
+											echo '<option value="' . $PV->Coordination_id . '">' . $type_preview_text . ' - المعاين : '.$this->aauth->get_user($PV->preview_userid)->full_name.'- تاريخ المعاينة -   '.date('Y-m-d h:i:s a',$PV->preview_Visit_date_completed).' </option>';
+										}
+
+									}
+								}else{
+									echo '<option>لا يوجد معاينة معتمدة </option>';
+								}
+								?>
+							</select>
+						</div>
 					</div>
 
 

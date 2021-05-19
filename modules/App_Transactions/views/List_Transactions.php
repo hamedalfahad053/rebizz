@@ -50,44 +50,67 @@
 					    </div>
 					    <div class="col-lg-3 mb-lg-0 mb-6">
 						    <label>المنطقة</label>
-						    <select class="form-control selectpicker datatable-input" data-col-index="3">
-							    <option value="">Select</option>
-							    <option value="Brazil">Brazil</option>
+						    <select id="Region_id" class="form-control selectpicker datatable-input"  title="اختر من فضلك " data-col-index="3">
+							    <option></option>
 						    </select>
 					    </div>
 
 				    </div>
 				    <div class="row mb-6">
-					    <div class="col-lg-3 mb-lg-0 mb-6">
-						    <label>المدينة</label>
-						    <select class="form-control selectpicker datatable-input" data-col-index="4">
-							    <option value="">Select</option>
-							    <option value="Brazil">Brazil</option>
-						    </select>
-					    </div>
+
 
 					    <div class="col-lg-3 mb-lg-0 mb-6">
 						    <label>نوع التقييم</label>
-						    <select class="form-control selectpicker datatable-input" data-col-index="5">
-							    <option value="">Select</option>
-							    <option value="Brazil">Brazil</option>
-						    </select>
+						    <select class="form-control selectpicker datatable-input"  title="اختر من فضلك " data-col-index="5">
+							    <option></option>
+							    <?php
+							    $lang = get_current_lang();
+
+							    $query_list_options4 = app()->db->from('portal_list_options_data list_options');
+							    $query_list_options4 = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+							    $query_list_options4 = app()->db->where('list_options.list_id', 4);
+							    $query_list_options4 = app()->db->where('options_translation.translation_lang', $lang);
+							    $query_list_options4 = app()->db->order_by('list_options.options_sort', ' DESC');
+							    $query_list_options4 = app()->db->get();
+							    foreach ($query_list_options4->result() AS $OP4)
+							    {
+							    ?>
+							    <option value="<?= $OP4->item_translation ?>"><?= $OP4->item_translation ?></option>
+							    <?php
+							    }
+							    ?>
+ 						    </select>
 					    </div>
 
 					    <div class="col-lg-3 mb-lg-0 mb-6">
-						    <label> بحيازة </label>
-						    <select class="form-control selectpicker datatable-input" data-col-index="6">
-							    <option value="">Select</option>
-							    <option value="Brazil">Brazil</option>
-						    </select>
+						    <label> حالة المعاملة </label>
+						    <select class="form-control selectpicker datatable-input" title="اختر من فضلك " data-col-index="6">
+							    <option></option>
+							    <?php
+							    $lang = get_current_lang();
+
+							    $query_list_options9 = app()->db->from('portal_list_options_data list_options');
+							    $query_list_options9 = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
+							    $query_list_options9 = app()->db->where('list_options.list_id', 9);
+							    $query_list_options9 = app()->db->where('options_translation.translation_lang', $lang);
+							    $query_list_options9 = app()->db->order_by('list_options.options_sort', ' DESC');
+							    $query_list_options9 = app()->db->get();
+							    foreach ($query_list_options9->result() AS $OP9)
+							    {
+								    ?>
+								    <option value="<?= $OP9->item_translation ?>"><?= $OP9->item_translation ?></option>
+								    <?php
+							    }
+							    ?>
+ 						    </select>
 					    </div>
 
 					    <div class="col-lg-3 mb-lg-0 mb-6">
-						    <label>حالة المعاملة</label>
+						    <label>بحيازة</label>
 						    <select class="form-control selectpicker datatable-input" data-col-index="7">
-							    <option value="">Select</option>
-							    <option value="Brazil">Brazil</option>
-						    </select>
+							    <option value=""></option>
+
+ 						    </select>
 					    </div>
 
 				    </div>
@@ -95,7 +118,6 @@
 				    <div class="row mt-8">
 					    <div class="col-lg-12">
 						    <button class="btn btn-primary btn-primary--icon" id="kt_search"><span><i class="la la-search"></i><span>بحث</span></span></button>&nbsp;&nbsp;
-						    <button class="btn btn-secondary btn-secondary--icon" id="kt_reset"><span><i class="la la-close"></i><span>اعادة ضبط</span></span></button>
 					    </div>
 				    </div>
 			    </form>
@@ -330,6 +352,11 @@
 	jQuery(document).ready(function() {
 		KTDatatablesSearchOptionsAdvancedSearch.init();
 	});
+
+
+
+
+
 
 </script>
 

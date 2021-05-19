@@ -67,6 +67,7 @@
 	    },
         autoSubmit:false,
     });
+
     $("#extrabutton_inside").click(function(){
         extraObj_inside.startUpload();
     });
@@ -107,9 +108,6 @@
     $("#extrabutton_outside").click(function(){
 	    extraObj_outside.startUpload();
     });
-
-
-
 
 	// Drug_reviews
 	var extraObj_Drug_reviews = $("#fileuploader_Drug_reviews").uploadFile({

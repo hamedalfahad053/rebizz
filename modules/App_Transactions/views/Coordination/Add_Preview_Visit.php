@@ -26,7 +26,7 @@
 	                            <?php
 	                            foreach ($users_preview AS $UR)
 	                            {
-		                            echo '<option value="'.$UR->users_preview_id.'">'.$this->aauth->get_user($UR->users_preview_id)->full_name.'</option>';
+		                            echo '<option value="'.$UR->users_preview_id.'">'.$UR->full_name.'</option>';
 	                            }
 	                            ?>
                             </select>

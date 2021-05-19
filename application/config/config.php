@@ -382,7 +382,7 @@ $config['sess_cookie_name'] = '__s48c40gc8kogkcowcsk4wsscsc4g804c8cogco0k';
 $config['sess_expiration'] = 86400;
 $config['sess_save_path'] = 'protal_sessions';
 $config['sess_match_ip'] = FALSE;
-$config['sess_time_to_update'] = 3600*365;
+$config['sess_time_to_update'] = 86400;
 $config['sess_regenerate_destroy'] = FALSE;
 
 /*
@@ -451,7 +451,7 @@ $config['global_xss_filtering'] = true;
 $config['csrf_protection']   = false;
 $config['csrf_token_name']   = '__w8ssswkkoog4c08koscsowko04ogs4wswgc8w8cs';
 $config['csrf_cookie_name']  = '__w088wggw4k0wgckwsk0cgwogko0s0c8gkg0c08kw';
-$config['csrf_expire']       = 720000;
+$config['csrf_expire']       = 8600;
 $config['csrf_regenerate']   = TRUE;
 $config['csrf_exclude_uris'] = array(
     'Site/[a-z]+',

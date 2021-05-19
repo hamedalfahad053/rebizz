@@ -401,6 +401,22 @@
 				text: ' نصوص و تعريفات ',
 				getSubmenuItems: function () {
 					return [
+						<?php
+						$Get_Static_Text = app()->db->where('company_id',$this->aauth->get_user()->company_id);
+						$Get_Static_Text = app()->db->get('protal_text_static_transaction_reports');
+						foreach ($Get_Static_Text->result() AS $Ro_T)
+						{
+						?>
+						{
+							type: 'menuitem',
+							text: '<?= $Ro_T->title_ar ?>',
+							onAction: function () {
+								editor.insertContent('{TEXT_<?= $Ro_T->key_text ?>}');
+							}
+						},
+						<?php
+						}
+						?>
 
 					];
 				}

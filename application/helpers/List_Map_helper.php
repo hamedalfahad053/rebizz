@@ -63,6 +63,8 @@ if(!function_exists('Get_City')) {
 ##############################################################################
 
 
+
+
 ##############################################################################
 if(!function_exists('Get_Districts')) {
 
@@ -109,6 +111,42 @@ if(!function_exists('Get_Districts')) {
 
 }
 ##############################################################################
+
+
+
+##############################################################################
+if(!function_exists('Get_All_Name_Regions_City')) {
+
+    function Get_All_Name_Regions_City()
+    {
+        app()->load->database();
+
+        $query_map_regions = app()->db->query('SELECT name_ar,name_en,region_id From `portal_map_regions`  ');
+
+        foreach ($query_map_regions->result() as $r_row)
+        {
+
+            $query_cities = app()->db->where('countries_id',194);
+            $query_cities = app()->db->where('region_id',$r_row->region_id);
+            $query_cities = app()->db->get('portal_map_cities');
+            foreach ($query_cities->result() as $c_row)
+            {
+                $cities[] = array("name_ar" => $r_row->name_ar);
+            }
+
+            $regions[] = array(
+                "name_ar" => $r_row->name_ar,
+                "city"    => ''
+            );
+
+        }
+
+        return '';
+    }
+
+}
+#############################################################################
+
 
 ##############################################################################
 if(!function_exists('Get_Nearby_Search_Map')) {

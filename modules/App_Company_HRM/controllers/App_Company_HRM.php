@@ -370,7 +370,7 @@ class App_Company_HRM extends Apps
                 "Position_title"    => $R->item_translation,
                 "Position_createBy" => $R->options_createBy,
                 "Position_status"   => $R->options_status,
-                "Position_option"   => $R->options_status
+                "Position_option"   => ''
             );
         }
 
@@ -556,7 +556,6 @@ class App_Company_HRM extends Apps
 
     }
     ###################################################################
-
 
     ###################################################################
     public function Update_Employees()

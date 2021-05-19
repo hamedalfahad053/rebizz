@@ -262,7 +262,7 @@
 		$.ajax({
 			type: 'ajax',
 			method: 'get',
-			url: '<?= base_url(APP_NAMESPACE_URL . '/Transactions/Create_Ajax_Comparisons_Comparisons') ?>',
+			url: '<?= base_url(APP_NAMESPACE_URL . '/Preview/Create_Ajax_Comparisons_Comparisons') ?>',
 			data: {
 				Transactions_id: Transactions_id,
 				Coordination_id:Coordination_id,

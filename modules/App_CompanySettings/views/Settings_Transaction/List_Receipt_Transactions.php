@@ -58,12 +58,21 @@
 		                <?php
 		                $i = 0;
 		                if($Get_Receipt_Emp->num_rows()>0){
+
 			                foreach ($Get_Receipt_Emp->result() as $r)
 			                {
 
-				            $array_METHOD_OF_RECEIPT = @explode(',', $r->LIST_METHOD_OF_RECEIPT);
-				            $array_CUSTOMER_CATEGORY = @explode(',', $r->LIST_CUSTOMER_CATEGORY);
-				            $array_CLIENT            = @explode(',', $r->LIST_CLIENT);
+
+			                $query =  app()->db->where('id',$r->receipt_emp_userid);
+				            $query =  app()->db->where('banned',0);
+				            $query = app()->db->get('portal_auth_users');
+
+                            if($query->num_rows()>0){
+
+
+					            $array_METHOD_OF_RECEIPT = @explode(',', $r->LIST_METHOD_OF_RECEIPT);
+					            $array_CUSTOMER_CATEGORY = @explode(',', $r->LIST_CUSTOMER_CATEGORY);
+					            $array_CLIENT            = @explode(',', $r->LIST_CLIENT);
 			                ?>
 				                <tr>
 					                <td class="text-center"><?= ++$i ?></td>
@@ -109,8 +118,13 @@
 					                </td>
 				                </tr>
 			                <?php
-			                }
-		                }
+                            }
+
+
+
+			                } // foreach ($Get_Receipt_Emp->result() as $r)
+
+		                } // if($Get_Receipt_Emp->num_rows()>0)
 		                ?>
 
 		                </tbody>

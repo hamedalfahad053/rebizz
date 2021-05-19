@@ -30,6 +30,8 @@
     </div>
     <div class="card-body">
         <?php
+
+
         $where_Preview_Visit = array(
             "Transactions_id" => $Transactions->transaction_id,
             "isDeleted"       => 0,
@@ -70,9 +72,8 @@
 	                <?php
 	                }
 	                ?>
-
-
                     <th class="text-center">بواسطة / التاريخ</th>
+                    <th class="text-center">افادة المعاين</th>
                     <th class="text-center">حالة الزيارة</th>
                     <th class="text-center">الخيارات</th>
                 </tr>
@@ -124,20 +125,35 @@
                         <td class="text-center"><?= $this->aauth->get_user($PV->createBy)->full_name ?><br><?= date('Y-m-d h:i:s a',$PV->preview_date_assignment) ?></td>
                         <td class="text-center">
                             <?php
-                            echo Create_Status_badge(array("key"=>"Danger","value"=>get_data_options_List_view('60',$PV->preview_stauts)));
+                            echo get_data_options_List_view('60',$PV->preview_stauts);
                             ?>
                         </td>
+	                    <td class="text-center">
+		                    <?php
+		                    if($PV->preview_Visit_acceptance ==0){
+			                    echo 'لم تعتمد';
+		                    }else{
+			                    echo get_data_options_List_view('90',$PV->preview_Visit_acceptance);
+		                    }
+		                    ?>
+	                    </td>
                         <td class="text-center">
                             <?php
-                            $options_Preview['deleted'] = array(
-                                "class" => "",
-                                "id" => "",
-                                "title" => lang('deleted_button'),
-                                "data-attribute" => '',
-                                "href" => base_url(APP_NAMESPACE_URL.'/Coordinator/Deleted_Preview_Visit/'.$Transactions->uuid.'/'.$PV->Coordination_uuid)
-                            );
-                            $options_Preview['view'] = array("class"=>'',"id"=>'',"title"=> '',"data-attribute"=>'',"icon"=> '',"href"=> base_url(APP_NAMESPACE_URL.'/Coordinator/View_Preview_Visit/'.$Transactions->uuid.'/'.$PV->Coordination_uuid));
-                            echo Create_Options_Button($options_Preview);
+
+                            if(Check_Permissions(19)) {
+	                            $options_Preview['deleted'] = array(
+	                                "class" => "",
+	                                "id" => "",
+	                                "title" => lang('deleted_button'),
+	                                "data-attribute" => '',
+	                                "href" => base_url(APP_NAMESPACE_URL.'/Coordinator/Deleted_Preview_Visit/'.$Transactions->uuid.'/'.$PV->Coordination_uuid)
+	                            );
+                            }
+
+                            if(Check_Permissions(17)) {
+	                            $options_Preview['view'] = array("class" => '', "id" => '', "title" => '', "data-attribute" => '', "icon" => '', "href" => base_url(APP_NAMESPACE_URL . '/Coordinator/View_Preview_Visit/' . $Transactions->uuid . '/' . $PV->Coordination_uuid));
+	                            echo Create_Options_Button($options_Preview);
+                            }
                             ?>
                         </td>
                     </tr>

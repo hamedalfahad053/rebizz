@@ -76,10 +76,15 @@ class App_Coordinator extends Apps
             $city_id                 = Transaction_data_by_key($transaction_id,1,1,'LIST_CITY');
             $districts               = Transaction_data_by_key($transaction_id,1,1,'LIST_DISTRICT');
 
-            $users_preview           = app()->db->where('regions_id',$regions_id);
-            $users_preview           = app()->db->where('city_id',$city_id);
-            $users_preview           = app()->db->where('company_id',$this->aauth->get_user()->company_id);
-            $users_preview           = app()->db->get('protal_users_preview_map');
+
+            $users_preview  = app()->db->from('portal_auth_users         auth_users');
+            $users_preview  = app()->db->join('protal_users_preview_map  users_preview_map','auth_users.id = users_preview_map.users_preview_id');
+            $users_preview  = app()->db->where('users_preview_map.regions_id',$regions_id);
+            $users_preview  = app()->db->where('users_preview_map.city_id',$city_id);
+            $users_preview  = app()->db->where('users_preview_map.company_id',$this->aauth->get_user()->company_id);
+            $users_preview  = app()->db->where('auth_users.banned',0);
+            $users_preview  = app()->db->get();
+
 
             if($users_preview->num_rows()>0){
                 $this->data['users_preview']  = $users_preview->result();

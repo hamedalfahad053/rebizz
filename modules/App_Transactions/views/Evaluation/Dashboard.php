@@ -37,7 +37,9 @@
                     <th class="text-center">#</th>
                     <th class="text-center">طريقة التقييم</th>
                     <th class="text-center">المقيم</th>
-                    <th class="text-center">بواسطة / التاريخ</th>
+                    <th class="text-center">المعاينة</th>
+                    <th class="text-center">حالة التقييم</th>
+                    <th class="text-center"> المقيم </th>
                     <th class="text-center">الخيارات</th>
                 </tr>
                 </thead>
@@ -55,26 +57,90 @@
                         <th class="text-center"><?= $Evaluation_Methods->item_translation ?></th>
                         <th class="text-center"><?= $this->aauth->get_user($QET->evaluation_userid)->full_name ?></th>
                         <th class="text-center">
+	                        <?php
+	                        $where_Preview_Visit = array(
+			                        "Transactions_id" => $Transactions->transaction_id,
+			                        "isDeleted"       => 0,
+			                        "company_id"      => $this->aauth->get_user()->company_id,
+			                        "preview_Visit_acceptance !="  => 0,
+	                        );
+	                        $Get_Preview_Visit = Get_Preview_Visit($where_Preview_Visit)->row();
+
+	                        $type_preview =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+
+	                        if($type_preview == 12 or $type_preview ==  14){
+		                        $type_preview_text =  get_data_options_List_view('4',$type_preview);
+
+
+	                        }elseif($type_preview == 13){
+
+		                        $Get_clients_id =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
+		                        $where_Get_Stages_Self = array(
+				                        "stages_self_id" => $Get_Preview_Visit->preview_stages,
+				                        "clients_id"     => $Get_clients_id,
+				                        "company_id"     => $this->aauth->get_user()->company_id
+		                        );
+
+		                        $Get_Stages_Self = Get_Stages_Self_Construction($where_Get_Stages_Self);
+		                        if($Get_Stages_Self->num_rows()>0) {
+
+			                        $type_preview_text = ' المرحلة :'.$Get_Stages_Self->row()->stages_self_number.' -';
+			                        $type_preview_text .= mb_substr($Get_Stages_Self->row()->item_translation,0,50,'UTF-8').'...';
+		                        }
+	                        }
+
+	                        echo '' . $type_preview_text . '<br> - المعاين : '.$this->aauth->get_user($Get_Preview_Visit->preview_userid)->full_name.'- تاريخ المعاينة - <br>  '.date('Y-m-d h:i:s a',$Get_Preview_Visit->preview_Visit_date_completed).'';
+	                        ?>
+                        </th>
+	                    <th class="text-center">
+
+		                    <?php
+		                    if($QET->evaluation_status == 0){
+		                    	echo 'قيد المعالجة - جديد';
+		                    }elseif($QET->evaluation_status == 1){
+                                echo 'تم الرفض';
+		                    }elseif($QET->evaluation_status == 2){
+		                    	echo 'تم اعتماد التقييم';
+		                    }
+		                    ?>
+	                    </th>
+                        <th class="text-center">
                             <?= $this->aauth->get_user($QET->Create_Byid)->full_name ?>
                             <?= date('Y-m-d ',$QET->Create_Date); ?>
                         </th>
                         <th class="text-center">
                             <?php
-                            $options_Evaluation['view'] = array(
-                                "class"             => '',
-                                "id"                => '',
-                                "title"             => 'عرض',
-                                "data-attribute"    => '',
-                                "href"              => base_url(APP_NAMESPACE_URL.'/Evaluation/Evaluation_Transactions/'.$Transactions->uuid.'/'.$QET->evaluation_uuid));
+                            $evaluation_transaction_final_cost_bank = $this->db->where('transaction_id',$Transactions->transaction_id);
+                            $evaluation_transaction_final_cost_bank = $this->db->where('preview_id',$QET->preview_id);
+                            $evaluation_transaction_final_cost_bank = $this->db->get('protal_evaluation_transaction_final_costbank');
 
-                            $options_Evaluation['edit'] = array(
-                                "class"              => '',
-                                "id"                 => '',
-                                "title"              => 'تحرير ',
-                                "data-attribute"     => '',"icon"  => '',
-                                "href"               => "#");
+                            if($evaluation_transaction_final_cost_bank->num_rows()>0) {
 
+                            }else{
+	                            if(Check_Permissions(37)) {
+		                            $options_Evaluation['view'] = array(
+				                            "class" => '',
+				                            "id" => '',
+				                            "title" => 'عرض',
+				                            "data-attribute" => '',
+				                            "href" => base_url(APP_NAMESPACE_URL . '/Evaluation/Evaluation_Transactions/' . $Transactions->uuid . '/' . $QET->evaluation_uuid));
+
+
+	                            }
+                            }
+
+                            if(Check_Permissions(27)) {
+	                            $options_Evaluation['custom'] = array(
+			                            "class" => '',
+			                            "id" => '',
+			                            "title" => ' اعتماد / مراجعة التقرير ',
+			                            "data-attribute" => '',
+			                            "color" => 'warning',
+			                            "icon" => 'flaticon2-checkmark',
+			                            "href" => base_url(APP_NAMESPACE_URL . '/Evaluation/Approval_Evaluation_Transactions/' . $Transactions->uuid . '/' . $QET->evaluation_uuid));
+                            }
                             echo Create_Options_Button($options_Evaluation);
+
                             ?>
                         </th>
                     </tr>

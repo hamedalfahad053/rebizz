@@ -35,14 +35,93 @@
     <!--begin::Container-->
     <div class="container-fluid">
 
+	    <div class="card card-custom">
+		    <div class="card-body">
+			    <style>th.dt-center,.dt-center { text-align: center; }</style>
+			    <table class="data_table table table-bordered table-hover display" width="100%">
+				    <thead>
+				    <tr>
+					    <th class="text-center">المعاين</th>
+					    <th class="text-center">تاريخ الزيارة</th>
+					    <th class="text-center">نوع تقييم العقار / المرحلة</th>
+					    <th class="text-center">حالة الزيارة</th>
+				    </tr>
+				    </thead>
+				    <tbody>
+					    <tr>
+						    <th class="text-center">
+							    <?php
+							    echo $this->aauth->get_user($preview_data->preview_userid)->full_name
+							    ?>
+						    </th>
+						    <th class="text-center">
+							    <?php
+							    echo date('Y-m-d h:i:s a',$preview_data->preview_Visit_date_completed);
+							    ?>
+						    </th>
+
+						    <th class="text-center">
+							    <?php
+							    $type_preview =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_TYPES_OF_REAL_ESTATE_APPRAISAL');
+							    if($type_preview == 12 or $type_preview ==  14){
+							        $type_preview_text =  get_data_options_List_view('4',$type_preview);
+							    }elseif($type_preview == 13){
+
+								    $Get_clients_id =  Transaction_data_by_key($Transactions->transaction_id,1,1,'LIST_CLIENT');
+
+								    $where_Get_Stages_Self = array(
+								    "stages_self_id" => $preview_data->preview_stages,
+								    "clients_id"     => $Get_clients_id,
+								    "company_id"     => $this->aauth->get_user()->company_id
+								    );
+
+							        $Get_Stages_Self = Get_Stages_Self_Construction($where_Get_Stages_Self);
+
+								    if($Get_Stages_Self->num_rows()>0) {
+
+									    $type_preview_text = ' المرحلة :'.$Get_Stages_Self->row()->stages_self_number.' -';
+									    $type_preview_text .= mb_substr($Get_Stages_Self->row()->item_translation,0,50,'UTF-8').'...';
+								    }
+							    }
+
+							    echo $type_preview_text;
+							    ?>
+						    </th>
+						    <th class="text-center">
+							    <?php
+							    if($preview_data->preview_Visit_acceptance ==0){
+								    echo 'لم تعتمد';
+							    }else{
+								    echo get_data_options_List_view('90',$preview_data->preview_Visit_acceptance);
+							    }
+							    ?>
+						    </th>
+					    </tr>
+				    </tbody>
+			    </table>
+
+		    </div>
+	    </div>
+
+
+	    <?php
+
+	    $get_evaluation = $this->db->where('transaction_id',$Transactions->transaction_id);
+	    $get_evaluation = $this->db->where('preview_id',$preview_Visit->Coordination_id);
+	    $get_evaluation = $this->db->get('protal_evaluation_transactions');
+	    ?>
 
 	    <div class="card card-custom">
 
 
-			    <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Evaluation/Create_Evaluation_Transactions') ?>" enctype="multipart/form-data" method="post">
+			    <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Evaluation/Create_Evaluation_Transactions/'.$this->uri->segment(4).'/'.$preview_data->Coordination_uuid.'/'.$this->uri->segment(5)) ?>" enctype="multipart/form-data" method="post">
 				    <?= CSFT_Form() ?>
 			    <div class="card-body">
+
 	            <?php
+
+
+
 	            $LIST_CLIENT                    = Transaction_data_by_key($Transactions->transaction_id,17,1,'LIST_CLIENT');
 	            $CUSTOMER_CATEGORY              = Transaction_data_by_key($Transactions->transaction_id,17,1,'LIST_CUSTOMER_CATEGORY');
 	            $TYPE_OF_PROPERTY               = Transaction_data_by_key($Transactions->transaction_id,17,1,'LIST_TYPE_OF_PROPERTY');
@@ -69,7 +148,7 @@
 	                                ?>
 	                                <div class="col-sm-4  col-lg-4  mt-5">
 	                                    <?php
-	                                    $data_input = Get_Transaction_Preview_data_by_key($Transactions->transaction_id,$RC->Forms_id,$RC->components_id,$Get_Fields->Fields_key);
+	                                    $data_input = Get_Transaction_Preview_data_by_key($Transactions->transaction_id,$preview_data->Coordination_id,$RC->Forms_id,$RC->components_id,$Get_Fields->Fields_key);
 	                                    echo Building_Field_Forms($Get_Fields->Fields_key,
 	                                        true,
 	                                        $Get_Fields->Fields_key.'-'.$RC->Forms_id.'-'.$RC->components_id,
@@ -99,6 +178,7 @@
 	            }
 
 	            $get_evaluation_table = $this->db->where('transaction_id',$Transactions->transaction_id);
+	            $get_evaluation_table = $this->db->where('preview_id',$preview_data->Coordination_id);
 	            $get_evaluation_table = $this->db->get('protal_transaction_preview_evaluation');
 
 	            if($get_evaluation_table->num_rows()>0){
@@ -175,6 +255,9 @@
 			    </form>
 
 	    </div><!--<div class="card card-custom">-->
+
+
+
 
     </div>
 </div>

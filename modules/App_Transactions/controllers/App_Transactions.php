@@ -374,10 +374,6 @@ class App_Transactions extends Apps
 
         if($Get_Transactions->num_rows() == 0){
 
-            $msg_result['key']   = 'Danger';
-            $msg_result['value'] = ' عملية غير صحيحة ';
-            $msg_result_view     = Create_Status_Alert($msg_result);
-            set_message($msg_result_view);
             redirect(APP_NAMESPACE_URL . '/Transactions/', 'refresh');
 
         }else{
@@ -419,10 +415,6 @@ class App_Transactions extends Apps
 
         if($Get_Transactions->num_rows() == 0){
 
-            $msg_result['key']   = 'Danger';
-            $msg_result['value'] = ' عملية غير صحيحة ';
-            $msg_result_view     = Create_Status_Alert($msg_result);
-            set_message($msg_result_view);
             redirect(APP_NAMESPACE_URL . '/Transactions/', 'refresh');
 
         }else{
@@ -452,10 +444,6 @@ class App_Transactions extends Apps
 
         if($this->form_validation->run()==FALSE){
 
-            $msg_result['key']   = 'Danger';
-            $msg_result['value'] = validation_errors();
-            $msg_result_view     = Create_Status_Alert($msg_result);
-            set_message($msg_result_view);
             redirect(APP_NAMESPACE_URL.'/Transactions/Form_Notes_Transaction/'.$this->uri->segment(4), 'refresh');
 
         }else{

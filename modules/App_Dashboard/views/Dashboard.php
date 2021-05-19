@@ -39,61 +39,65 @@
 
             <!--Start  ::Base  Status Transaction-->
 	        <div class="row">
+
 		        <div class="col-xl-3">
 			        <!--begin::Stats Widget 29-->
-			        <div class="card card-custom bg-success card-stretch gutter-b">
+			        <div class="card card-custom bg-light-success card-stretch gutter-b">
 				        <!--begin::Body-->
 				        <div class="card-body">
 							<span class="svg-icon svg-icon-primary svg-icon-2x">
 								<img src="<?= BASE_ASSET.'media/svg/icons/Devices/Display1.svg'; ?>" height="48" width="48"/>
 							</span>
-					        <span class="card-title font-weight-bolder text-white font-size-h2 mb-0 mt-6 d-block">54</span>
-					        <span class="font-weight-bold text-white font-size-sm">معاملات جارية</span>
+					        <span class="card-title font-weight-bolder text-white font-size-h2 mb-0 mt-6 d-block"></span>
+					        <span class="font-weight-bold text-white font-size-sm">معاملات ()</span>
 				        </div>
 				        <!--end::Body-->
 			        </div>
 			        <!--end::Stats Widget 29-->
 		        </div>
+
 		        <div class="col-xl-3">
 			        <!--begin::Stats Widget 30-->
-			        <div class="card card-custom bg-info card-stretch gutter-b">
+			        <div class="card card-custom bg-light-info card-stretch gutter-b">
 				        <!--begin::Body-->
 				        <div class="card-body">
 							<span class="svg-icon svg-icon-primary text-white svg-icon-2x">
 								<img src="<?= BASE_ASSET.'media/svg/icons/Shopping/Calculator.svg'; ?>" height="48" width="48"/>
 							</span>
-					        <span class="card-title font-weight-bolder text-white font-size-h2 mb-0 mt-6 d-block">54</span>
-					        <span class="font-weight-bold text-white font-size-sm">تحت التقييم </span>
+					        <span class="card-title font-weight-bolder text-white font-size-h2 mb-0 mt-6 d-block"></span>
+					        <span class="font-weight-bold text-white font-size-sm">معاملات ()</span>
 				        </div>
 				        <!--end::Body-->
 			        </div>
 			        <!--end::Stats Widget 30-->
 		        </div>
+
 		        <div class="col-xl-3">
 			        <!--begin::Stats Widget 31-->
-			        <div class="card card-custom bg-danger card-stretch gutter-b">
+			        <div class="card card-custom bg-light-danger card-stretch gutter-b">
 				        <!--begin::Body-->
 				        <div class="card-body">
 					        <span class="svg-icon svg-icon-primary svg-icon-2x">
 								<img src="<?= BASE_ASSET.'media/svg/icons/Media/Repeat.svg'; ?>" height="48" width="48"/>
 							</span>
-					        <span class="card-title font-weight-bolder text-white font-size-h2 mb-0 mt-6 d-block">50</span>
-					        <span class="font-weight-bold text-white font-size-sm">تحت المراجعة</span>
+					        <span class="card-title font-weight-bolder text-white font-size-h2 mb-0 mt-6 d-block"></span>
+					        <span class="font-weight-bold text-white font-size-sm">معاملات ()</span>
 				        </div>
 				        <!--end::Body-->
 			        </div>
 			        <!--end::Stats Widget 31-->
 		        </div>
+
 		        <div class="col-xl-3">
 			        <!--begin::Stats Widget 32-->
-			        <div class="card card-custom bg-dark card-stretch gutter-b">
+			        <div class="card card-custom bg-light-dark card-stretch gutter-b">
 				        <!--begin::Body-->
 				        <div class="card-body">
 					        <span class="svg-icon svg-icon-primary svg-icon-2x">
 								<img src="<?= BASE_ASSET.'media/svg/icons/General/Settings-1.svg'; ?>"  height="48" width="48"/>
 							</span>
-					        <span class="card-title font-weight-bolder text-white font-size-h2 mb-0 mt-6 text-hover-primary d-block">23</span>
-					        <span class="font-weight-bold text-white font-size-sm">للاعتماد</span>
+					        <span class="card-title font-weight-bolder text-white font-size-h2 mb-0 mt-6 text-hover-primary d-block"></span>
+					        <span class="font-weight-bold text-white font-size-sm">معاملات ()</span>
 				        </div>
 				        <!--end::Body-->
 			        </div>
@@ -101,48 +105,6 @@
 		        </div>
 	        </div>
 	        <!--End ::Base  Status Transaction-->
-
-	        <!--Start
-	        <div class="row">
-		        <div class="col-lg-12">
-			        <div class="card card-custom card-stretch gutter-b">
-				        <div class="card-header">
-					        <div class="card-title">
-			                    <span class="card-icon">
-			                        <i class="flaticon-squares text-primary"></i>
-			                    </span>
-						        <h3 class="card-label">احدث المعاملات</h3>
-					        </div>
-					        <div class="card-toolbar"></div>
-				        </div>
-				        <div class="card-body">
-					        <table class="data_table table table-bordered table-hover display nowrap" width="100%">
-						        <thead>
-						        <tr>
-							        <th class="text-center">رقم المعاملة</th>
-							        <th class="text-center">طالب التقييم والمالك</th>
-							        <th class="text-center">حالة المعاملة</th>
-							        <th class="text-center">موقع العقار</th>
-							        <th class="text-center">بواسطة</th>
-							        <th class="text-center">الخيارات</th>
-						        </tr>
-						        </thead>
-						        <tbody>
-							        <tr>
-								        <td class="text-center"></td>
-								        <td class="text-center"></td>
-								        <td class="text-center"></td>
-								        <td class="text-center"></td>
-								        <td class="text-center"></td>
-								        <td class="text-center"></td>
-							        </tr>
-						        </tbody>
-					        </table>
-				        </div>
-			        </div>
-		        </div>
-	        </div>
-	         Base Table Data-->
 
 
         </div>

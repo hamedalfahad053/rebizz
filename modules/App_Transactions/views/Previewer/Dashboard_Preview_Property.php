@@ -124,7 +124,7 @@
 							<div class="row justify-content-center py-8 py-lg-8 py-sm-5 px-lg-12">
 								<div class="col-xl-12 col-xxl-12">
 										<!--begin: Wizard Form-->
-										<form class="form mt-0 mt-lg-12" method="post" action="<?= base_url(APP_NAMESPACE_URL . '/Transactions/Create_Preview_Property/'.$Transactions->uuid) ?>"  id="kt_form"  enctype="multipart/form-data">
+										<form class="form mt-0 mt-lg-12" method="post" action="<?= base_url(APP_NAMESPACE_URL . '/Preview/Create_Preview_Property/'.$Transactions->uuid) ?>"  id="kt_form"  enctype="multipart/form-data">
 
 											<input type="hidden" name="Start_Form_Progresses" value="<?= time() ?>" >
 											<input type="hidden" name="Transaction_id" value="<?= $Transactions->transaction_id ?>">

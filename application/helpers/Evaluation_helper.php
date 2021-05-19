@@ -209,4 +209,77 @@ if(!function_exists('Get_Select_evaluation_methods')) {
 }
 ##############################################################################
 
+
+##############################################################################
+if(!function_exists('Create_evaluation_transaction_final_data')) {
+    function Create_evaluation_transaction_final_data($Transaction_id,$data)
+    {
+        if(is_array($data)){
+            $data_insert = array();
+            foreach ($data AS $key)
+            {
+                if($key['data_value'] !='') {
+                    $data_insert = array(
+                        "Transaction_id"   => $Transaction_id,
+                        "preview_id"       => $key['preview_id'],
+                        "Forms_id"         => $key['Forms_id'],
+                        "Components_id"    => $key['Components_id'],
+                        "data_key"         => $key['data_key'],
+                        "data_value"       => $key['data_value'],
+                        "company_id"       => app()->aauth->get_user()->company_id,
+                        "data_Create_id"   => app()->aauth->get_user()->id,
+                        "data_Create_time" => time(),
+                    );
+                }
+                $query = app()->db->insert('protal_evaluation_transaction_final_data',$data_insert);
+            }
+        }
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    } // function
+} //
+##############################################################################
+
+##############################################################################
+if(!function_exists('Create_evaluation_transaction_final_data_history')) {
+
+    function Create_evaluation_transaction_final_data_history($Transaction_id,$data,$History)
+    {
+        if(is_array($data)){
+            $data_insert = array();
+            foreach ($data AS $key)
+            {
+                if($key['data_value'] !='') {
+
+                    $data_insert = array(
+                        "Transaction_id"   => $Transaction_id,
+                        "preview_id"       => $key['preview_id'],
+                        "Forms_id"         => $key['Forms_id'],
+                        "Components_id"    => $key['Components_id'],
+                        "data_key"         => $key['data_key'],
+                        "data_value"       => $key['data_value'],
+                        "History"          => $History,
+                        "company_id"       => app()->aauth->get_user()->company_id,
+                        "data_Create_id"   => app()->aauth->get_user()->id,
+                        "data_Create_time" => time(),
+                    );
+
+                }
+                $query = app()->db->insert('protal_evaluation_transaction_final_data_history',$data_insert);
+            }
+        }
+        if($query){
+            return true;
+        }else{
+            return false;
+        }
+    } // function
+}
+##############################################################################
+
+
+
 ?>

@@ -224,7 +224,7 @@ class App_CompanySettings extends Apps
         $this->mybreadcrumb->add($this->data['controller_name'], base_url(APP_NAMESPACE_URL . '/Company_Settings'));
 
         $this->data['breadcrumbs'] = $this->mybreadcrumb->render();
-        $this->data['Page_Title'] = '   الشعار ';
+        $this->data['Page_Title'] = '   روابط الوصول السريع ';
         $this->data['Page_Company'] = $this->load->view('../../modules/App_CompanySettings/views/QuickActions', $this->data, true);
         $this->data['PageContent'] = $this->load->view('../../modules/App_CompanySettings/views/CompanySettings', $this->data, true);
         Layout_Apps($this->data);

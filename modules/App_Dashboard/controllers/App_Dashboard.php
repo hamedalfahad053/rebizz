@@ -15,30 +15,48 @@ class App_Dashboard extends Apps
     public function index()
     {
 
-
-        $where_Transactions_in_progress = array(
+        // تحديد معاين
+        $where_Transactions_WAITING_ASSIGN_PREVIEW = array(
           "company_id"        => $this->aauth->get_user()->company_id,
-          "Transaction_Stage" => '',
+          "Transaction_Stage" => 'WAITING_ASSIGN_PREVIEW',
         );
-        $Get_Transactions_in_progress  = Get_Transaction($where_Transactions_in_progress);
+        $Get_Transactions_WAITING_ASSIGN_PREVIEW  = Get_Transaction($where_Transactions_WAITING_ASSIGN_PREVIEW);
 
-        $where_Transactions_Under_evaluation = array(
+        // بانتظار افادة المعاين
+        $where_Transactions_PENDING_FEEDBAKE_PREVIEW = array(
             "company_id"        => $this->aauth->get_user()->company_id,
-            "Transaction_Stage" => '',
+            "Transaction_Stage" => 'PENDING_FEEDBAKE_PREVIEW',
         );
-        $Get_Transactions_Under_evaluation  = Get_Transaction($where_Transactions_Under_evaluation);
+        $Get_Transactions_PENDING_FEEDBAKE_PREVIEW  = Get_Transaction($where_Transactions_PENDING_FEEDBAKE_PREVIEW);
 
-        $where_Transactions_Under_review = array(
+        // التقييم النهائي
+        $where_Transactions_FINAL_EVALUATION = array(
             "company_id"        => $this->aauth->get_user()->company_id,
-            "Transaction_Stage" => '',
+            "Transaction_Stage" => 'FINAL_EVALUATION',
         );
-        $Get_Transactions_Under_review  = Get_Transaction($where_Transactions_Under_review);
+        $Get_Transactions_FINAL_EVALUATION  = Get_Transaction($where_Transactions_FINAL_EVALUATION);
 
-        $where_Transactions_Under_review = array(
+        // تحت الاعتماد
+        $where_Transactions_UNDER_ACCREDITATION = array(
             "company_id"        => $this->aauth->get_user()->company_id,
-            "Transaction_Stage" => '',
+            "Transaction_Stage" => 'UNDER_ACCREDITATION',
         );
-        $Get_Transactions_Under_review  = Get_Transaction($where_Transactions_Under_review);
+        $Get_Transactions_UNDER_ACCREDITATION  = Get_Transaction($where_Transactions_UNDER_ACCREDITATION);
+
+        // تحت المراجعة
+        $where_Transactions_UNDER_REVISION = array(
+            "company_id"        => $this->aauth->get_user()->company_id,
+            "Transaction_Stage" => 'UNDER_REVISION',
+        );
+        $Get_Transactions_UNDER_REVISION  = Get_Transaction($where_Transactions_UNDER_REVISION);
+
+        // تمت معاينة العقار
+        $where_Transactions_PROPERTY_HAS_A_PREVIEW = array(
+            "company_id"        => $this->aauth->get_user()->company_id,
+            "Transaction_Stage" => 'PROPERTY_HAS_A_PREVIEW',
+        );
+        $Get_Transactions_PROPERTY_HAS_A_PREVIEW  = Get_Transaction($where_Transactions_PROPERTY_HAS_A_PREVIEW);
+
 
         $this->data['Page_Title']  = 'لوحة المعلومات';
 

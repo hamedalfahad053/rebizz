@@ -164,9 +164,10 @@ if(!function_exists('Create_Transaction_Preview_data')) {
 ##############################################################################
 if(!function_exists('Get_Transaction_Preview_data_by_key')) {
 
-    function Get_Transaction_Preview_data_by_key($transaction_id,$Forms_id,$Components_id,$key)
+    function Get_Transaction_Preview_data_by_key($transaction_id,$Preview_id,$Forms_id,$Components_id,$key)
     {
         $query = app()->db->where('Transaction_id',$transaction_id);
+        $query = app()->db->where('preview_id',$Preview_id);
         $query = app()->db->where('Forms_id',$Forms_id);
         $query = app()->db->where('Components_id',$Components_id);
         $query = app()->db->where('data_key',$key);

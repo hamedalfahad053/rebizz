@@ -42,7 +42,7 @@ class Ajax_Map_Place extends Apps
 
         $place_array  = @explode(", ",$array_q);
 
-        $url_api      = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='.$LATITUDE.','.$LONGITUDE.'&radius=300&name='.$place_array.'&key=AIzaSyDw_Thx2J7uq9eaqeb-WmZ2fBzUz7hZYGE';
+        $url_api      = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='.$LATITUDE.','.$LONGITUDE.'&radius=1000&name='.$place_array.'&key=AIzaSyDw_Thx2J7uq9eaqeb-WmZ2fBzUz7hZYGE';
         $json_api     = file_get_contents($url_api);
         $data_map_api = json_decode($json_api,true);
 
@@ -50,23 +50,6 @@ class Ajax_Map_Place extends Apps
         foreach ($data_map_api['results']  AS $key => $vale)
         {
 
-
-//            if(!is_string($vale)) {
-//                echo "\n$vale contains:";
-//                var_dump($vale);
-//                die('as you can see, var is not a string');
-//            }
-//            elseif(stripos($vale,',') == FALSE) {
-//                echo "\n$vale contains:";
-//                var_dump($vale);
-//                die('var is a string but has no commas');
-//            }
-//            else {
-//                $vale = explode(',', $vale);
-//                echo "\nnow $vale contains:";
-//                var_dump($vale);
-//                die();
-//            }
 
             if($vale['types']){
                 $types_status = implode(",",$vale['types']);
@@ -95,7 +78,7 @@ class Ajax_Map_Place extends Apps
         <?php
 
         $msg['type']    = true;
-        $msg['data']    = _array_p($data_map);
+        $msg['data']    = $data_map;
         $msg['success'] = true;
 
         echo json_encode($msg);

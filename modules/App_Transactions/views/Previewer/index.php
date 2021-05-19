@@ -7,7 +7,7 @@
     <div class="card-header">
         <div class="card-title">
             <h3 class="card-label">
-                الزيارات المجدولة
+                معاينة العقار
             </h3>
         </div>
         <div class="card-toolbar">
@@ -24,12 +24,15 @@
         $options_Preview = array();
 
 
-        $where_Preview_Visit = array(
-            "Transactions_id" => $Transactions->transaction_id,
-            "preview_userid"  => $this->aauth->get_user()->id,
-            "isDeleted"       => 0,
-            "company_id"      => $this->aauth->get_user()->company_id
-        );
+
+	    $where_Preview_Visit = array(
+			"Transactions_id" => $Transactions->transaction_id,
+			//"preview_userid"  => $this->aauth->get_user()->id,
+			"isDeleted"       => 0,
+			"company_id"      => $this->aauth->get_user()->company_id
+	    );
+
+
 
         $Get_Preview_Visit = Get_Preview_Visit($where_Preview_Visit);
 
@@ -44,14 +47,15 @@
             ?>
 
             <style>th.dt-center,.dt-center { text-align: center; }</style>
-            <table class="data_table table table-bordered table-hover display nowrap" width="100%">
+            <table class="data_table table table-bordered table-hover display" width="100%">
                 <thead>
                 <tr>
                     <th class="text-center">#</th>
                     <th class="text-center">المنسق</th>
                     <th class="text-center">تاريخ الاضافة</th>
                     <th class="text-center">نوع تقييم العقار / المرحلة</th>
-                    <th class="text-center">الحالة</th>
+	                <th class="text-center">افادة المعاين</th>
+                    <th class="text-center">حالة الزيارة</th>
                     <th class="text-center">الخيارات</th>
                 </tr>
                 </thead>
@@ -97,8 +101,18 @@
                         </td>
                         <td class="text-center"><?= $type_preview_text ?></td>
                         <td class="text-center">
-                            <?=  Create_Status_badge(array("key"=>"Danger","value"=>get_data_options_List_view('60',$PVF->preview_stauts))); ?>
+                            <?=  get_data_options_List_view('60',$PVF->preview_stauts); ?>
                         </td>
+	                    <td class="text-center">
+		                    <?php
+		                    if($PVF->preview_Visit_acceptance ==0){
+		                    	echo 'لم تعتمد';
+		                    }else{
+			                    echo get_data_options_List_view('90',$PVF->preview_Visit_acceptance);
+		                    }
+		                    ?>
+	                    </td>
+
                         <td class="text-center">
                             <?php
                             $query_preview_data = app()->db->where('Transaction_id',$Transactions->transaction_id);

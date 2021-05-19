@@ -31,6 +31,8 @@
 							    $query_list_options = app()->db->join('portal_list_options_translation  options_translation', 'list_options.list_options_id = options_translation.item_id');
 							    $query_list_options = app()->db->where('list_options.list_id', $query_list->list_id);
 							    $query_list_options = app()->db->where('list_options.options_key !=','NEW_PENDING_TESTIMONY_PREVIEWER');
+							    $query_list_options = app()->db->where('list_options.options_key !=','CERTIFIED_PREVIEW');
+							    $query_list_options = app()->db->where('list_options.options_key !=','REJECTED_PREVIEW');
 							    $query_list_options = app()->db->where('options_translation.translation_lang', $lang);
 							    $query_list_options = app()->db->order_by('list_options.options_sort', ' DESC');
 							    $query_list_options = app()->db->get();

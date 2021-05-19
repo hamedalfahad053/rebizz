@@ -38,7 +38,6 @@
 
 
 	    <form class="form" id="Form_Create_Transaction" name="" action="<?= base_url(APP_NAMESPACE_URL.'/Transactions/Create_Transaction/Create_Submit') ?>" enctype="multipart/form-data" method="post">
-
 		    <?= CSFT_Form() ?>
 
 		    <input type="hidden" name="Start_Form_Progresses" value="<?= time() ?>" >

@@ -45,15 +45,20 @@
 			   "stages_key"     => 'CREATE_A_TRANSACTION',
 			   "stages_type"    => 'COMPLETE'
 	        );
-	        if(Get_Status_Stages_Transaction($CREATE_A_TRANSACTION_Status_Stages_Transaction)->num_rows() == 0){
-
-	        if(Check_Permissions(13)) {
-	        ?>
-		    <div class="separator separator-dashed separator-border-1 mt-1"></div>
-	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Review_Entry_Transactions/Check_DataEntries/'.$Transactions->uuid) ?>"
-		    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">ادخال البيانات</a>
-	        <?php
-	        } // if(Check_Permissions(13))
+	            if(Get_Status_Stages_Transaction($CREATE_A_TRANSACTION_Status_Stages_Transaction)->num_rows() > 0 and Check_Permissions(13)){
+			    $DATA_ENTRY_Status_Stages_Transaction_Lev_2 = array(
+				"transaction_id" => $Transactions->transaction_id,
+				"stages_key"     => 'DATA_ENTRY',
+				"stages_type"    => 'COMPLETE'
+			    );
+		        if(Get_Status_Stages_Transaction($DATA_ENTRY_Status_Stages_Transaction_Lev_2)->num_rows() > 0) {
+		        }else{
+		        ?>
+			    <div class="separator separator-dashed separator-border-1 mt-1"></div>
+		        <a href="<?= base_url(APP_NAMESPACE_URL.'/Review_Entry_Transactions/Check_DataEntries/'.$Transactions->uuid) ?>"
+			    class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">ادخال البيانات</a>
+		        <?php
+		        }
 
 	        } // Get_Status_Stages_Transaction
 	        ?>
@@ -64,7 +69,7 @@
 			        "stages_key"     => 'DATA_ENTRY',
 			        "stages_type"    => 'COMPLETE'
 	        );
-	        if(Get_Status_Stages_Transaction($DATA_ENTRY_Status_Stages_Transaction)->num_rows()>0){
+	        if(Get_Status_Stages_Transaction($DATA_ENTRY_Status_Stages_Transaction)->num_rows() > 0){
 
 	        if(Check_Permissions(16) OR Check_Permissions(17) OR Check_Permissions(18)
 	        OR Check_Permissions(19) OR Check_Permissions(20) OR Check_Permissions(21)
@@ -86,11 +91,14 @@
 	        );
 	        if(Get_Status_Stages_Transaction($COORDINATION_AND_QUALITY_Status_Stages_Transaction)->num_rows()>0){
 
+	        if(Check_Permissions(11) or Check_Permissions(20) or Check_Permissions(21)) {
 	        ?>
 	        <div class="separator separator-dashed separator-border-1 mt-1"></div>
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Preview/Dashboard/'.$Transactions->uuid) ?>"
 	           class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">المعاينة</a>
 	        <?php
+	        }
+
 	        }
 	        ?>
 
@@ -102,11 +110,15 @@
 			        "stages_type"    => 'COMPLETE'
 	        );
 	        if(Get_Status_Stages_Transaction($PREVIEW_Status_Stages_Transaction)->num_rows()>0){
+
+	        if(Check_Permissions(37)) {
 	        ?>
 	        <div class="separator separator-dashed separator-border-1 mt-1"></div>
 	        <a href="<?= base_url(APP_NAMESPACE_URL.'/Evaluation/Dashboard/'.$Transactions->uuid) ?>"
 	           class="btn btn-hover-light-primary font-weight-bold py-3 px-6 mb-2 btn-block">التقييم</a>
 		    <?php
+	        }
+
 	        }
 	        ?>
 

@@ -165,6 +165,8 @@ class App_Preview extends Apps
                     app()->db->set('preview_stauts',$this->input->post('LIST_VISITING_STATUS'));
                     app()->db->update('protal_transaction_coordination');
 
+
+
                     $create_Preview_Visit_FeedBack = Create_Preview_Visit_FeedBack($data_Preview_Visit);
 
                     ##########################################################################################################################################
@@ -174,7 +176,7 @@ class App_Preview extends Apps
                     $Assignment_userid   = $this->data['Coordination']->Coordination_id;
                     $Notifications_title = 'افادة المعاين  ';
                     $Notifications_text  = 'تم اضافة افادة من المعاين على الزيارة  ';
-                    Create_Notifications_Transaction($Transaction_id,$Assignment_userid,$Notifications_title,$Notifications_text);
+                    Create_Notifications_Transaction($this->data['Transactions']->transaction_id,$Assignment_userid,$Notifications_title,$Notifications_text);
                     ##########################################################################################################################################
 
                     if ($create_Preview_Visit_FeedBack) {
@@ -280,7 +282,7 @@ class App_Preview extends Apps
             $msg_result['value'] = validation_errors();
             $msg_result_view = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
-            redirect(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transaction_uuid.'/'.$Coordination_uuid, 'refresh');
+            redirect(APP_NAMESPACE_URL . '/Preview/Dashboard/'.$Transaction_uuid.'/'.$Coordination_uuid, 'refresh');
         }
 
         foreach($POST_Fields AS $key => $value)
@@ -316,7 +318,7 @@ class App_Preview extends Apps
                             $msg_result['value'] = validation_errors();
                             $msg_result_view = Create_Status_Alert($msg_result);
                             set_message($msg_result_view);
-                            redirect(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transaction_uuid.'/'.$Coordination_uuid, 'refresh');
+                            redirect(APP_NAMESPACE_URL . '/Preview/Dashboard/'.$Transaction_uuid.'/'.$Coordination_uuid, 'refresh');
                         }
 
                         if($this->input->post($key, TRUE) !==''){
@@ -370,23 +372,6 @@ class App_Preview extends Apps
         app()->db->insert('protal_transaction_preview_evaluation',$data_preview_evaluation);
         ################################################################
 
-
-
-
-        $where_Transaction_Stage = array(
-            "stages_key" => 'COORDINATION_AND_QUALITY',
-            "company_id" => $this->aauth->get_user()->company_id
-        );
-        $Get_Stages = Get_Stages_Transaction_Company($where_Transaction_Stage)->row();
-
-        $data_Transaction_Assign = array();
-        $data_Transaction_Assign['transaction_id'] = $Transaction_id;
-        $data_Transaction_Assign['assign_userid']  = '1';
-        $data_Transaction_Assign['assign_time']    = time();
-        $data_Transaction_Assign['assign_type']    = 1;
-        $Create_Transaction_Assign = Create_Transaction_Assign($data_Transaction_Assign);
-
-
         ################################################################
         # Status Stages
         $Data_Status_Stages_Transaction = array(
@@ -397,6 +382,9 @@ class App_Preview extends Apps
             "time_complete"  => time()
         );
         Create_Status_Stages_Transaction($Data_Status_Stages_Transaction);
+
+        Create_Logs_User('Create_Preview_Property',$Transaction_id,'Transaction','Preview');
+
         ################################################################
 
         $query = app()->db->where('transaction_id',$Transaction_id);
@@ -404,20 +392,18 @@ class App_Preview extends Apps
         $query = app()->db->set('Transaction_Stage','PROPERTY_HAS_A_PREVIEW');
         $query = app()->db->update('protal_transaction');
 
-
-
         if($Create_Transaction_data) {
             $msg_result['key']     = 'Success';
             $msg_result['value']   = lang('message_success_insert');
             $msg_result_view       = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
-            redirect(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transaction_uuid.'/'.$Coordination_uuid, 'refresh');
+            redirect(APP_NAMESPACE_URL . '/Preview/Dashboard/'.$Transaction_uuid.'/'.$Coordination_uuid, 'refresh');
         } else {
             $msg_result['key']   = 'Danger';
             $msg_result['value'] = validation_errors();
             $msg_result_view     = Create_Status_Alert($msg_result);
             set_message($msg_result_view);
-            redirect(APP_NAMESPACE_URL . '/Transactions/Dashboard_Preview_Property/'.$Transaction_uuid.'/'.$Coordination_uuid, 'refresh');
+            redirect(APP_NAMESPACE_URL . '/Preview/Dashboard/'.$Transaction_uuid.'/'.$Coordination_uuid, 'refresh');
         }
 
 
@@ -604,6 +590,76 @@ class App_Preview extends Apps
     }
     ###################################################################
 
+    ######################################################################################################
+    public function Create_Approval_Previewer()
+    {
 
+        $this->form_validation->set_rules('LIST_VISITING_STATUS','لم يتم تعيين حالة الزيارة ','required');
+
+        if($this->form_validation->run()==FALSE){
+
+            $msg_result['key']   = 'Danger';
+            $msg_result['value'] = validation_errors();
+            $msg_result_view     = Create_Status_Alert($msg_result);
+            set_message($msg_result_view);
+            redirect(APP_NAMESPACE_URL.'/Preview/View_Preview/'.$this->uri->segment(4).'/'.$this->uri->segment(5), 'refresh');
+
+        }else{
+
+
+            $Transaction_id  =  $this->uri->segment(4);
+            $Coordination_id =  $this->uri->segment(5);
+
+            $where_Transactions = array(
+                "uuid"=>$Transaction_id,"company_id"=>$this->aauth->get_user()->company_id,"location_id"=>$this->aauth->get_user()->locations_id,
+            );
+
+            $Get_Transactions  = Get_Transaction($where_Transactions);
+
+            if($Get_Transactions->num_rows()>0){
+
+                $GetTransactions = $Get_Transactions->row();
+
+                $where_Preview_Visit = array("Transactions_id"=> $GetTransactions->transaction_id,"Coordination_uuid"=>$Coordination_id);
+                $Get_Preview_Visit = Get_Preview_Visit($where_Preview_Visit);
+
+                if($Get_Preview_Visit->num_rows()>0){
+
+                    $this->data['Coordination']  = $Get_Preview_Visit->row();
+                    $this->data['Transactions']  = $Get_Transactions->row();
+
+                    $LIST_VISITING_STATUS = $this->input->post('LIST_VISITING_STATUS');
+                    $update = app()->db->where('Coordination_id',$this->data['Coordination']->Coordination_id);
+                    $update = app()->db->set('preview_Visit_acceptance',$this->input->post('LIST_VISITING_STATUS'));
+                    $update = app()->db->set('preview_Visit_userid_acceptance',$this->aauth->get_user()->id);
+                    $update = app()->db->set('preview_Visit_date_completed',time());
+                    $update = app()->db->update('protal_transaction_coordination');
+
+                    if($update){
+                        $msg_result['key']     = 'Success';
+                        $msg_result['value']   = 'تم اعتماد حالة المعاينة بنجاح';
+                        $msg_result_view       = Create_Status_Alert($msg_result);
+                        set_message($msg_result_view);
+                        redirect(APP_NAMESPACE_URL.'/Preview/View_Preview/'.$this->uri->segment(4).'/'.$this->uri->segment(5), 'refresh');
+                    } else {
+                        $msg_result['key']   = 'Danger';
+                        $msg_result['value'] = 'حدث خطا اثناء تحديث حالة المعاينة ';
+                        $msg_result_view     = Create_Status_Alert($msg_result);
+                        set_message($msg_result_view);
+                        redirect(APP_NAMESPACE_URL.'/Preview/View_Preview/'.$this->uri->segment(4).'/'.$this->uri->segment(5), 'refresh');
+                    }
+
+                }else{
+                    redirect(APP_NAMESPACE_URL . '/Transactions/', 'refresh');
+                }
+
+            }else{
+                redirect(APP_NAMESPACE_URL . '/Transactions/', 'refresh');
+            }
+
+
+        } // if($this->form_validation->run()==FALSE)
+    }
+    ######################################################################################################
 }
 ?>
